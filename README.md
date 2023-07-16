@@ -8,10 +8,14 @@
 
 https://en.wikipedia.org/wiki/Bourne_shell
 
+### Google sheets for testing:
+https://docs.google.com/spreadsheets/u/0/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/htmlview?lsrp=1#gid=0
+https://docs.google.com/spreadsheets/d/1TDwyd-S0WBAXehgkrKQtBJ6zquQ4p6k7JfE5g3jICNA/edit#gid=0
 
 
 
 
+See [[Command line]]
 See [[Command line]]
 
 https://github.com/rlinsdev/42-pipex
