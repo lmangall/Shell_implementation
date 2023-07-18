@@ -1,51 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/07/18 19:56:04 by lmangall         ###   ########.fr       */
+/*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
+/*   Updated: 2023/07/18 20:26:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../lib/libft/src/libft.h"
+#include "minishell.h"
 
 
-int	main(void)
+typedef struct data
 {
+	int		argc;
+	char	**argv;
+	char	**envp;
+	int		fd_in;
+	int		fd_out;
+	int		pipe_fd[2];
+	pid_t	pid1;
+	pid_t	pid2;
+	char	*cmd;
+	char	**cmd_path;
+	char	**cmd_args;
+	char	*path;
+	int		pipe_status;
+}	t_data;
 
-	return (0);
-}
-
-
-
-/*
-
-//FROM pipex.c
-
-static int	file_open(char *file, int mode, t_data data)
-{
-	int	i;
-
-	i = 0;
-	if (mode == IN)
-		i = (open(file, O_RDONLY));
-	else
-		i = (open(file, O_TRUNC | O_CREAT | O_RDWR, 0644));
-	if (i < 0)
-		error(data);
-	return (i);
-}
 
 static char	*get_path(char **envp)
 {
 	while (ft_strncmp("PATH=", *envp, 5))
 		envp++;
 	return (*envp + 5);
-}
 
 static void	fill_list(t_data *data, int argc, char **argv, char **envp)
 {
@@ -89,6 +79,36 @@ int	main(int argc, char **argv, char **envp)
 	return (WEXITSTATUS(status));
 }
 
+
+void	first_child(t_data data)
+{
+	dup2(data.pipe_fd[1], OUT);
+	close(data.pipe_fd[0]);
+	dup2(data.fd_in, IN);
+	data.cmd_args = ft_split(data.argv[2], ' ');
+	execute(data);
+}
+
+
+}
+
+/*
+
+//FROM pipex.c
+
+static int	file_open(char *file, int mode, t_data data)
+{
+	int	i;
+
+	i = 0;
+	if (mode == IN)
+		i = (open(file, O_RDONLY));
+	else
+		i = (open(file, O_TRUNC | O_CREAT | O_RDWR, 0644));
+	if (i < 0)
+		error(data);
+	return (i);
+}
 
 
 

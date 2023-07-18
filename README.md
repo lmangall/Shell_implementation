@@ -1,5 +1,20 @@
 # minishell
 
+### TO DO
+- [ ] barebone working code
+- [ ] Write tests before code ?
+- [ ] have a testcase on the main 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
+
+----
+
 
 ### Ressources, informations and guide:
 - [Let's Build a Linux Shell - Devgenius Part I](https://blog.devgenius.io/lets-build-a-linux-shell-part-i-954c95911501)
@@ -11,6 +26,10 @@
 - [Tutoriels - Mini Système](https://chrtophe.developpez.com/tutoriels/minisysteme/#L1-1)
 - - [Bash reference manual](https://www.gnu.org/software/bash/manual/bash.html)
 - [Bash Cookbook](https://theswissbay.ch/pdf/Gentoomen%20Library/Programming/Bash/O%27Reilly%20bash%20CookBook.pdf)
+https://github.com/maiadegraaf/minishell
+https://github.com/appinha/42cursus-03-minishell
+fr: https://github.com/iciamyplant/Minishell
+fr: https://github.com/LucieLeBriquer/minishell∏
 
 - [chdir function](https://www.geeksforgeeks.org/chdir-in-c-language-with-examples/)
 - 
@@ -47,7 +66,7 @@ https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
 
 *Advice from Guillaume and Jules:*
 - Be careful with forks commands that kills a program after execution (a.i 'ls'). It needs to be executed as a child (not a parent) in order not to kill the whole minishell.
-- 
+- Parent/child: no need to use wait, the exec of one cmd will wait the output of the first "by itself"
 
 
 
