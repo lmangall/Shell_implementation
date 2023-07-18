@@ -148,6 +148,7 @@ Most shells implement a structure known as the *symbol table*, which the shell u
 ```shell
 ls | grep "txt" | sort | head -n5
 ```
+
 |------------------------------------------------------------|
 |   STEP   | COMMAND |  ARGUMENTS | INPUT_FILE | OUTPUT_FILE |
 |------------------------------------------------------------|
@@ -158,16 +159,20 @@ ls | grep "txt" | sort | head -n5
 |------------------------------------------------------------|
 
 
+---
+
 ```shell
 cat input.txt | grep "error" > output.txt | wc -l
 ```
-|------------------------------------------------------------|
+
+/------------------------------------------------------------\
 |   STEP   | COMMAND |  ARGUMENTS | INPUT_FILE | OUTPUT_FILE |
 |------------------------------------------------------------|
 |     00   |   cat   |    NULL    | input.txt  |    NULL     |
 |     01   |  grep   |  "error"   |    NULL    | output.txt  |
 |     02   |   wc    |    -l      |    NULL    |    NULL     |
-|------------------------------------------------------------|
+\------------------------------------------------------------/
+
 
 
 
