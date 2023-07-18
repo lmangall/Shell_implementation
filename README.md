@@ -1,9 +1,7 @@
 # minishell
 
 
-### Overall information / guide
-
-
+### Ressources, informations and guide:
 - [Let's Build a Linux Shell - Devgenius Part I](https://blog.devgenius.io/lets-build-a-linux-shell-part-i-954c95911501)
 - [Minishell](https://minishell.simple.ink/)
 - [42cursus Minishell](https://achrafbelarif.medium.com/42cursus-minishell-29cd25f972e6)
@@ -13,9 +11,6 @@
 - [Tutoriels - Mini Système](https://chrtophe.developpez.com/tutoriels/minisysteme/#L1-1)
 - - [Bash reference manual](https://www.gnu.org/software/bash/manual/bash.html)
 - [Bash Cookbook](https://theswissbay.ch/pdf/Gentoomen%20Library/Programming/Bash/O%27Reilly%20bash%20CookBook.pdf)
-
-
-
 
 - [chdir function](https://www.geeksforgeeks.org/chdir-in-c-language-with-examples/)
 - 
@@ -42,33 +37,35 @@ https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
 https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
 
 
+### Advices :
+*Advice from Martin* 
+- avoid *merge conflict* 
+- switch on a setting on the repo that doesn't allow anybody to push straight to main -> it has to be pushed to a branch before
+- Eventually a second setting : when one person pushes the code HAS TO be reviewed by the other person
+- have multiples folders
+- keep functions small and clear
 
-# Advice from Martin 
-: be very carefull with the *merge conflict*
-switch on a setting on the repo that doesn't allow anybody to push to main -> it has to be pushed to a branch before
-Eventually: when one person pushes the code HAS TO be reviewed by the other person  (blocked in settings)
-
-# Advice from Guillaume and Jean:
+*Advice from Guillaume and Jules:*
 - Be careful with forks commands that kills a program after execution (a.i 'ls'). It needs to be executed as a child (not a parent) in order not to kill the whole minishell.
+- 
 
 
 
-Lexer(Lexical Analyzer)
 
-lexer -> parser ( -> expander ) -> executor 
 
 ### Overal operation
+
+*lexer -> parser ( -> expander ) -> executor *
+
+Lexer = Lexical Analyzer
+
 The parser scans input and breaks it down to tokens. A token consists of one or more characters (letters, digits, symbols), and represents a single unit of input. For example, a token can be a variable name, a keyword, a number, or an arithmetic operator.
 The parser takes these tokens, groups them together, and creates a special structure we call the Abstract Syntax Tree, or AST. The parser takes the AST and passes it to the executor, which reads the AST and executes the parsed command.
 Most shells implement a structure known as the *symbol table*, which the shell uses to store information about variables, along with their values and attributes.
 
-
-
 PS1 and PS2 are environment variables used to customize the prompt string and secondary prompt string.
  - PS1 (Primary Prompt String): is displayed when the shell is ready to accept user input. It typically includes information like the username, hostname, current directory, or any other desired details.
  - PS2 (Secondary Prompt String): is displayed when the shell expects more input to complete a command that spans multiple lines. It is often referred to as the continuation prompt. By default, the secondary prompt is displayed as three dots (...).
-
-
 
 
 
@@ -185,32 +182,6 @@ cat input.txt | grep "error" > output.txt | wc -l
 
 
 
-# PIPEX
- - **Program name pipex** 
- - **Turn in files Makefile**, *.h, *.c Makefile NAME, all, clean, fclean, re 
- - **Arguments** file1 cmd1 cmd2 file2 
- - **External functs.** • open, close, read, write, malloc, free, perror, strerror, access, dup, dup2, execve, exit, fork, pipe, unlink, wait, waitpid • ft_printf and any equivalent YOU coded Libft authorized Yes 
- - **Description** This project is about handling pipes.
-
-
-### Makefile
--  B
-- C
-
-
-
-### ABC
-
-THIS
-```C
-
-```
-
-
-CHANGED FOR THIS
-```C
-
-```
 
 
 
