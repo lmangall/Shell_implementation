@@ -149,12 +149,15 @@ Most shells implement a structure known as the *symbol table*, which the shell u
 ls | grep "txt" | sort | head -n5
 ```
 
+/------------------------------------------------------------\
 |   STEP   | COMMAND |  ARGUMENTS | INPUT_FILE | OUTPUT_FILE |
-|------------------------------------------------------------|
+|----------|---------|------------|------------|-------------|
 |     00   |   ls    |    NULL    |    NULL    |    NULL     |
 |     01   |  grep   |   "txt"    |    NULL    |    NULL     |
 |     02   |  sort   |    NULL    |    NULL    |    NULL     |
 |     03   |  head   |    -n5     |    NULL    |    NULL     |
+\------------------------------------------------------------/
+
 
 
 ---
