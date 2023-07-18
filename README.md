@@ -42,13 +42,6 @@ https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
 https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
 
 
-See [[Command line]]
-See [[Command line]]
-
-https://github.com/rlinsdev/42-pipex
-
-https://github.com/liz753/pipex
-
 
 # PIPEX
  - **Program name pipex** 
@@ -56,18 +49,6 @@ https://github.com/liz753/pipex
  - **Arguments** file1 cmd1 cmd2 file2 
  - **External functs.** • open, close, read, write, malloc, free, perror, strerror, access, dup, dup2, execve, exit, fork, pipe, unlink, wait, waitpid • ft_printf and any equivalent YOU coded Libft authorized Yes 
  - **Description** This project is about handling pipes.
-
-Your program will be executed as follows:     `./pipex file1 cmd1 cmd2 file2`
-
-### Examples :
-`$> ./pipex infile "ls -l" "wc -l" outfile` 
-Should behave like:
-`< infile ls -l | wc -l > outfile`
-
-`./pipex infile "grep a1" "wc -w" outfile`
-Should behave like: 
-`< infile grep a1 | wc -w > outfile`
-
 
 
 ### Makefile
