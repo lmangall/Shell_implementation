@@ -11,6 +11,7 @@
 - [Minishell Documentation](https://harm-smits.github.io/42docs/projects/minishell)
 - [How Bash Works](https://betterprogramming.pub/how-bash-works-8424becc12f3)
 - [Tutoriels - Mini Système](https://chrtophe.developpez.com/tutoriels/minisysteme/#L1-1)
+- - [Bash reference manual](https://www.gnu.org/software/bash/manual/bash.html)
 - [Bash Cookbook](https://theswissbay.ch/pdf/Gentoomen%20Library/Programming/Bash/O%27Reilly%20bash%20CookBook.pdf)
 
 
@@ -19,7 +20,6 @@
 - [chdir function](https://www.geeksforgeeks.org/chdir-in-c-language-with-examples/)
 - 
 - [Bash cookbook](https://theswissbay.ch/pdf/Gentoomen%20Library/Programming/Bash/O%27Reilly%20bash%20CookBook.pdf)
-- []()
 - []()
 - []()
 - []()
