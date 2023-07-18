@@ -7,12 +7,6 @@
 - [ ] Checkbox 
 - [ ] Checkbox 
 - [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-
 ----
 
 
@@ -24,20 +18,22 @@
 - [Minishell Documentation](https://harm-smits.github.io/42docs/projects/minishell)
 - [How Bash Works](https://betterprogramming.pub/how-bash-works-8424becc12f3)
 - [Tutoriels - Mini Système](https://chrtophe.developpez.com/tutoriels/minisysteme/#L1-1)
-- - [Bash reference manual](https://www.gnu.org/software/bash/manual/bash.html)
+- [Bash reference manual](https://www.gnu.org/software/bash/manual/bash.html)
 - [Bash Cookbook](https://theswissbay.ch/pdf/Gentoomen%20Library/Programming/Bash/O%27Reilly%20bash%20CookBook.pdf)
-https://github.com/maiadegraaf/minishell
-https://github.com/appinha/42cursus-03-minishell
-fr: https://github.com/iciamyplant/Minishell
-fr: https://github.com/LucieLeBriquer/minishell∏
 
+### Github readme ressources
+- [maiadegraaf/minishell](https://github.com/maiadegraaf/minishell)
+- [appinha/42cursus-03-minishell](https://github.com/appinha/42cursus-03-minishell)
+- [iciamyplant/Minishell](https://github.com/iciamyplant/Minishell)
+- [LucieLeBriquer/minishell∏](https://github.com/LucieLeBriquer/minishell)
+
+### Bash and functions
 - [chdir function](https://www.geeksforgeeks.org/chdir-in-c-language-with-examples/)
-- 
 - [Bash cookbook](https://theswissbay.ch/pdf/Gentoomen%20Library/Programming/Bash/O%27Reilly%20bash%20CookBook.pdf)
 - []()
 - []()
-- []()
-- 
+
+### Geek for geek ressources:
 - [GFG pipe System call ](https://www.geeksforgeeks.org/pipe-system-call/?ref=rp)
 - [GFG Wait System Call in C](https://www.geeksforgeeks.org/wait-system-call-c/?ref=rp)
 - [GFG fork in C](https://www.geeksforgeeks.org/fork-system-call/?ref=rp)
@@ -48,10 +44,8 @@ fr: https://github.com/LucieLeBriquer/minishell∏
 https://docs.google.com/spreadsheets/u/0/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/htmlview?lsrp=1#gid=0
 https://docs.google.com/spreadsheets/d/1TDwyd-S0WBAXehgkrKQtBJ6zquQ4p6k7JfE5g3jICNA/edit#gid=0
 
-
 ### Carlo docker to have ubuntu (in order to have valgrind etc...)
 https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
-
 ### Carlo graph for doxygen comments:
 https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
 
