@@ -53,7 +53,7 @@ Eventually: when one person pushes the code HAS TO be reviewed by the other pers
 
 
 
-
+Lexer(Lexical Analyzer)
 
 lexer -> parser ( -> expander ) -> executor 
 
@@ -63,6 +63,22 @@ The parser takes these tokens, groups them together, and creates a special struc
 Most shells implement a structure known as the *symbol table*, which the shell uses to store information about variables, along with their values and attributes.
 
 ## Functions allowed to use
+
+| Category               | Functions                                                                                                             |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Input/Output           | readline, printf, write                                                                                              |
+| Memory Management      | malloc, free                                                                                                          |
+| History and Line Editing| rl_clear_history, rl_on_new_line, rl_replace_line, rl_redisplay, add_history                                          |
+| File and Directory Operations | access, open, read, close, stat, lstat, fstat, unlink, opendir, readdir, closedir                                  |
+| Process Control        | fork, wait, waitpid, wait3, wait4, signal, sigaction, sigemptyset, sigaddset, kill, exit                              |
+| File Descriptor Manipulation | dup, dup2                                                                                                         |
+| Pipes                  | pipe                                                                                                                  |
+| Current Working Directory | getcwd, chdir                                                                                                        |
+| Error Handling         | strerror, perror                                                                                                      |
+| Terminal Handling      | isatty, ttyname, ttyslot, ioctl, getenv, tcsetattr, tcgetattr, tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs |
+
+
+
 | Function     | Description                                                                                               |
 |--------------|-----------------------------------------------------------------------------------------------------------|
 | `readline`   | Reads a line of input from the user, providing line editing and history capabilities.                     |
@@ -104,6 +120,54 @@ Most shells implement a structure known as the *symbol table*, which the shell u
 | `tcsetattr`, `tcgetattr` | Functions for manipulating terminal attributes.                                                      |
 | `tgetent`, `tgetflag`, `tgetnum`, `tgetstr`, `tgoto`, `tputs` | Functions for interacting with the terminal database and performing terminal-related operations. |
 
+
+
+
+## Chat gpt blob
+
+1. User Input and Parsing: The shell interacts with the user by accepting input through the command line. You need to design a mechanism to read user input and parse it into individual commands and arguments. Common parsing techniques include splitting the input into tokens or using regular expressions.
+
+2. Command Execution: Once you have parsed the user input, you need to execute the corresponding command. This involves searching for the command in the command table and executing the associated functionality. You can use system calls or library functions to execute commands or external programs.
+
+3. Built-in Commands: Shells often provide built-in commands that are implemented directly within the shell itself. Examples include "cd" for changing directories or "echo" for printing text. These commands are usually handled separately from external commands and may require special treatment.
+
+4. Environmental Variables: Shells allow users to set and manipulate environmental variables, which are used to store information such as system paths, user preferences, or temporary data. You'll need to implement mechanisms for managing environmental variables, including setting, retrieving, and modifying their values.
+
+5. Input/Output Redirection: Shells support input/output redirection to allow users to control the flow of data. This includes redirecting the input of a command from a file or sending the output of a command to a file. You'll need to handle the syntax and perform the necessary file operations.
+
+6. Pipelines: Shells often support pipelines, which enable chaining multiple commands together by connecting the output of one command to the input of another. Implementing pipelines involves coordinating the execution of multiple commands and handling the passing of data between them.
+
+7. Shell Scripting: A powerful feature of shells is the ability to write shell scripts. Shell scripts are files containing sequences of commands that can be executed as a single unit. You may consider adding support for executing shell scripts in your shell implementation.
+
+8. Error Handling and Signal Handling: Robust shells handle errors and signals appropriately. You should handle errors gracefully, provide meaningful error messages to the user, and handle signals like Ctrl+C (interrupt signal) or Ctrl+Z (suspend signal) appropriately.
+
+
+
+## Example
+
+```shell
+ls | grep "txt" | sort | head -n5
+```
+/---------------------------------------------------\
+|   STEP   | COMMAND |  ARGUMENTS | INPUT_FILE | OUTPUT_FILE |
+|---------------------------------------------------|
+|     00   |   ls    |    NULL    |    NULL    |    NULL     |
+|     01   |  grep   |   "txt"    |    NULL    |    NULL     |
+|     02   |  sort   |    NULL    |    NULL    |    NULL     |
+|     03   |  head   |    -n5     |    NULL    |    NULL     |
+\---------------------------------------------------/
+
+
+```shell
+cat input.txt | grep "error" > output.txt | wc -l
+```
+/---------------------------------------------------\
+|   STEP   | COMMAND |  ARGUMENTS | INPUT_FILE | OUTPUT_FILE |
+|---------------------------------------------------|
+|     00   |   cat   |    NULL    | input.txt  |    NULL     |
+|     01   |  grep   |  "error"   |    NULL    | output.txt  |
+|     02   |   wc    |    -l      |    NULL    |    NULL     |
+\---------------------------------------------------/
 
 
 
