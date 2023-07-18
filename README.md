@@ -43,6 +43,25 @@ https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
 
 
 
+# Advice from Martin 
+: be very carefull with the *merge conflict*
+switch on a setting on the repo that doesn't allow anybody to push to main -> it has to be pushed to a branch before
+Eventually: when one person pushes the code HAS TO be reviewed by the other person  (blocked in settings)
+
+# Advice from Guillaume and Jean:
+- Be careful with forks commands that kills a program after execution (a.i 'ls'). It needs to be executed as a child (not a parent) in order not to kill the whole minishell.
+
+
+
+
+
+lexer -> parser ( -> expander ) -> executor 
+
+
+
+
+
+
 # PIPEX
  - **Program name pipex** 
  - **Turn in files Makefile**, *.h, *.c Makefile NAME, all, clean, fclean, re 
