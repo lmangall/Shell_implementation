@@ -62,6 +62,18 @@ The parser scans input and breaks it down to tokens. A token consists of one or 
 The parser takes these tokens, groups them together, and creates a special structure we call the Abstract Syntax Tree, or AST. The parser takes the AST and passes it to the executor, which reads the AST and executes the parsed command.
 Most shells implement a structure known as the *symbol table*, which the shell uses to store information about variables, along with their values and attributes.
 
+
+
+PS1 and PS2 are environment variables used to customize the prompt string and secondary prompt string.
+ - PS1 (Primary Prompt String): is displayed when the shell is ready to accept user input. It typically includes information like the username, hostname, current directory, or any other desired details.
+ - PS2 (Secondary Prompt String): is displayed when the shell expects more input to complete a command that spans multiple lines. It is often referred to as the continuation prompt. By default, the secondary prompt is displayed as three dots (...).
+
+
+
+
+
+
+
 ## Functions allowed to use
 
 | Category               | Functions                                                                                                             |
