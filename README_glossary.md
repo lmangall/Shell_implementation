@@ -70,6 +70,11 @@
 20. Input/output redirection: The process of changing the default sources or destinations of input and output for a command.
 
 
+system call
+
+
+
+
 
 
 ### Logical AND (&&) operator

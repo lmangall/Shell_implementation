@@ -62,6 +62,8 @@ https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
 *Advice from Guillaume and Jules:*
 - Be careful with forks commands that kills a program after execution (a.i 'ls'). It needs to be executed as a child (not a parent) in order not to kill the whole minishell.
 - Parent/child: no need to use wait, the exec of one cmd will wait the output of the first "by itself"
+- 'which' command to know which is the path of a function
+- 'readline' instead of using GNL
 
 
 
@@ -195,6 +197,20 @@ cat input.txt | grep "error" > output.txt | wc -l
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+-----------
+
+# Notes to organize
 
 
 
