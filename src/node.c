@@ -45,7 +45,7 @@ void set_node_val_str(struct node_s *node, char *val)
     {
         char *val2 = malloc(strlen(val)+1);    
     	if(!val2)
-		node->str = NULL;
+		    node->str = NULL;
         else
         {
             strcpy(val2, val);
