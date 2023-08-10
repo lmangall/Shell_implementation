@@ -38,7 +38,7 @@ void add_child_node(struct node_s *parent, struct node_s *child)
 }
 void set_node_val_str(struct node_s *node, char *val)
 {
-    node->val_type = VAL_STR;
+    node->val_type = 1;
     if(!val)
 		node->val.str = NULL;
     else
@@ -68,7 +68,7 @@ void free_node_tree(struct node_s *node)
         child = next;
     }
     
-    if(node->val_type == VAL_STR)
+    if(node->val_type == 1)
     {
         if(node->val.str)
         {
