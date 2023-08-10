@@ -40,16 +40,16 @@ void set_node_val_str(struct node_s *node, char *val)
 {
     node->val_type = 1;
     if(!val)
-		node->val.str = NULL;
+		node->str = NULL;
     else
     {
         char *val2 = malloc(strlen(val)+1);    
     	if(!val2)
-		node->val.str = NULL;
+		node->str = NULL;
         else
         {
             strcpy(val2, val);
-            node->val.str = val2;
+            node->str = val2;
         }
     }
 }
@@ -70,9 +70,9 @@ void free_node_tree(struct node_s *node)
     
     if(node->val_type == 1)
     {
-        if(node->val.str)
+        if(node->str)
         {
-            free(node->val.str);
+            free(node->str);
         }
     }
     free(node);

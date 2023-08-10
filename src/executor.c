@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/10 12:23:29 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/10 14:54:06 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int do_simple_command(struct node_s *node)
     
     while(child)
     {
-        str = child->val.str;
+        str = child->str;
         argv[argc] = malloc(strlen(str)+1);
         
 	if(!argv[argc])

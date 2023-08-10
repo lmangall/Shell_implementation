@@ -1,20 +1,17 @@
 #ifndef NODE_H
 #define NODE_H
+
 enum node_type_e
 {
     NODE_COMMAND,           /* simple command */
     NODE_VAR,               /* variable name (or simply, a word) */
 };
 
-union symval_u
-{
-    char              *str;
-};
 struct node_s
 {
     enum   node_type_e type;    /* type of this node */
     int    val_type; /* type of this node's val field */
-    union  symval_u val;        /* value of this node */
+    char	*str;        /* value of this node */
     int    children;            /* number of child nodes */
     struct node_s *first_child; /* first child node */
     struct node_s *next_sibling, *prev_sibling;
