@@ -6,224 +6,132 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/07/18 19:56:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:23:29 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include "../include/shell.h"
+#include "../include/node.h"
+#include "../include/executor.h"
 
-
-int	main(void)
+char *search_path(char *file)
 {
-
-	return (0);
-}
-
-
-
-/*
-
-//FROM pipex.c
-
-static int	file_open(char *file, int mode, t_data data)
-{
-	int	i;
-
-	i = 0;
-	if (mode == IN)
-		i = (open(file, O_RDONLY));
-	else
-		i = (open(file, O_TRUNC | O_CREAT | O_RDWR, 0644));
-	if (i < 0)
-		error(data);
-	return (i);
-}
-
-static char	*get_path(char **envp)
-{
-	while (ft_strncmp("PATH=", *envp, 5))
-		envp++;
-	return (*envp + 5);
-}
-
-static void	fill_list(t_data *data, int argc, char **argv, char **envp)
-{
-	data->argc = argc;
-	data->argv = argv;
-	data->envp = envp;
-	data->fd_in = -1;
-	data->pid1 = -2;
-	data->pid2 = -2;
-	data->pipe_status = -2;
-	data->fd_out = -1;
-	data->path = get_path(envp);
-	data->cmd_path = ft_split(data->path, ':');
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_data	data;
-	int		status;
-
-	fill_list(&data, argc, argv, envp);
-	if (argc != 5)
-		error_args(data);
-	data.fd_in = file_open(argv[1], IN, data);
-	data.fd_out = file_open(argv[4], OUT, data);
-	error_file(data);
-	data.pipe_status = pipe(data.pipe_fd);
-	error(data);
-	data.pid1 = fork();
-	if (data.pid1 == 0)
-		first_child(data);
-	data.pid2 = fork();
-	if (data.pid2 == 0)
-		second_child(data);
-	error(data);
-	close(data.pipe_fd[0]);
-	close(data.pipe_fd[1]);
-	waitpid(data.pid1, &status, 0);
-	waitpid(data.pid2, &status, 0);
-	free_parent(&data);
-	return (WEXITSTATUS(status));
-}
-
-
-
-
-//FROM execute_cmd.c
-
-static char	*get_cmd(char **paths, char *cmd)
-{
+	char *paths = getenv("PATH");
+	char **paths_arr = ft_split(paths, ':');
 	char	*tmp;
 	char	*command;
 
 	while (*paths)
 	{
-		tmp = ft_strjoin(*paths, "/");
-		command = ft_strjoin(tmp, cmd);
-		free(tmp);
+		tmp = ft_strjoin(*paths_arr, "/");
+		command = ft_strjoin(tmp, file);
+		//free(tmp); => this free was causing a problem :
+		// pointer being freed was not allocated
 		if (access(command, 0) == 0)
 			return (command);
 		free(command);
-		paths++;
+		paths_arr++;
 	}
-	write(STDERR_FILENO, INV_CMD, ft_strlen(INV_CMD));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, cmd, ft_strlen(cmd));
-	write(STDERR_FILENO, "\n", 1);
-	return (NULL);
+	errno = ENOENT;
+	return NULL;
 }
 
-static void	execute(t_data data)
+int do_exec_cmd(int argc, char **argv)
 {
-	data.cmd = get_cmd(data.cmd_path, data.cmd_args[0]);
-	if (!data.cmd)
-	{
-		free_child(&data);
-		free_parent(&data);
-		exit(EXIT_INVCMD);
-	}
-	execve(data.cmd, data.cmd_args, data.envp);
+    if(strchr(argv[0], '/'))
+    {
+        execv(argv[0], argv);
+    }
+    else
+    {
+        char *path = search_path(argv[0]);
+        if(!path)
+        {
+            return 0;
+        }
+        execv(path, argv);
+       free(path);
+    }
+    return 0;
 }
 
-void	first_child(t_data data)
+static inline void free_argv(int argc, char **argv)
 {
-	dup2(data.pipe_fd[1], OUT);
-	close(data.pipe_fd[0]);
-	dup2(data.fd_in, IN);
-	data.cmd_args = ft_split(data.argv[2], ' ');
-	execute(data);
+    if(!argc)
+		return;
+    while(argc--)
+	free(argv[argc]);
 }
 
-void	second_child(t_data data)
+int do_simple_command(struct node_s *node)
 {
-	dup2(data.pipe_fd[0], IN);
-	close(data.pipe_fd[1]);
-	dup2(data.fd_out, OUT);
-	data.cmd_args = ft_split(data.argv[3], ' ');
-	execute(data);
+    if(!node)
+		return 0;
+    struct node_s *child = node->first_child;
+    if(!child)
+	return 0;
+    
+    int argc = 0;
+    long max_args = 255;
+    char *argv[max_args+1];/* keep 1 for the terminating NULL arg */
+    char *str;
+    
+    while(child)
+    {
+        str = child->val.str;
+        argv[argc] = malloc(strlen(str)+1);
+        
+	if(!argv[argc])
+        {
+            free_argv(argc, argv);
+            return 0;
+        }
+        
+	strcpy(argv[argc], str);
+        if(++argc >= max_args)
+        {
+            break;
+        }
+        child = child->next_sibling;
+    }
+    argv[argc] = NULL;
+    pid_t child_pid = 0;
+    if((child_pid = fork()) == 0)
+    {
+        do_exec_cmd(argc, argv);
+        fprintf(stderr, "error: failed to execute command: %s\n", 
+                strerror(errno));
+        if(errno == ENOEXEC)
+        {
+            exit(126);
+        }
+        else if(errno == ENOENT)
+        {
+            exit(127);
+        }
+        else
+        {
+            exit(EXIT_FAILURE);
+        }
+    }
+    else if(child_pid < 0)
+    {
+        fprintf(stderr, "error: failed to fork command: %s\n", 
+                strerror(errno));
+        return 0;
+    }
+    int status = 0;
+    waitpid(child_pid, &status, 0);
+    free_argv(argc, argv);
+    
+    return 1;
 }
-
-
-
-//FROM errors.c
-
-
-void	error(t_data data)
-{
-	if (data.pid1 == -1 || data.pid2 == -1)
-	{
-		perror(FORK);
-		exit(1);
-	}
-	if (data.pipe_status == -1)
-	{
-		free_parent(&data);
-		perror(PIPE);
-		exit(1);
-	}
-}
-
-void	error_file(t_data data)
-{
-	if (data.fd_in == -1)
-	{
-		free_parent(&data);
-		write(STDERR_FILENO, ACCESS_DEN, ft_strlen(ACCESS_DEN));
-		write(STDERR_FILENO, data.argv[1], ft_strlen(data.argv[1]));
-		exit(0);
-		if (access(data.argv[1], F_OK))
-		{
-			write(STDERR_FILENO, NO_FILE, ft_strlen(NO_FILE));
-			write(STDERR_FILENO, data.argv[1], ft_strlen(data.argv[1]));
-			exit(0);
-		}
-	}
-	if (data.fd_out == -1)
-	{
-		free_parent(&data);
-		write(STDERR_FILENO, ACCESS_DEN, ft_strlen(ACCESS_DEN));
-		write(STDERR_FILENO, data.argv[4], ft_strlen(data.argv[4]));
-		exit(127);
-	}
-}
-
-void	error_args(t_data data)
-{
-	free_parent(&data);
-	ft_putstr_fd(ARGS_MSG, STDERR_FILENO);
-	exit(1);
-}
-
-void	free_parent(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	close(data->fd_in);
-	close(data->fd_out);
-	while (data->cmd_path[i])
-	{
-		free(data->cmd_path[i]);
-		i++;
-	}
-	free(data->cmd_path);
-}
-
-void	free_child(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->cmd_args[i])
-	{
-		free(data->cmd_args[i]);
-		i++;
-	}
-	free(data->cmd_args);
-	free(data->cmd);
-}
-
-*/

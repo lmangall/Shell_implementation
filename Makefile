@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/07/10 10:07:55 by lmangall         ###   ########.fr        #
+#    Updated: 2023/08/10 12:00:58 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,20 @@ INCDIR = include
 LIBFTDIR = lib/libft
 OBJDIR = obj
 
-SRCS = executor.c \
+SRCS = lexer.c \
 		parser.c \
-		lexer.c \
+		executor.c \
+		source.c \
+		main.c \
+		node.c \
+		errors.c \
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(INCDIR)
-
+CC = gcc
+CFLAGS = -I$(INCDIR)
+# //add back -Werror -Wall -Wextra 
 NAME = minishell
 
 all: $(NAME)

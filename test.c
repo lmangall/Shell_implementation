@@ -1,0 +1,12 @@
+Chapter5-WritingYourOwnShell.pdf
+Class_Handout_MFG225900_Framing_the_Future_with_Fusion_360_Cycling_Product_Design_and_Manufacturing_Aram_Goganian.pdf
+Makefile
+README.md
+README_glossary.md
+en.subject (1).pdf
+include
+lib
+minishell
+obj
+src
+test.c
