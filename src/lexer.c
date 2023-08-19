@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/19 19:49:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:15:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,10 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-
-char *tok_buf = NULL;
-int   tok_bufsize  = 0;
-int   tok_bufindex = -1;
-
 struct token_s eof_token = 
 {
     .text_len = 0,
 };
-
-/*The add_to_buf() function adds a single character to the token buffer. 
-If the buffer is full, the function takes care of extending it.*/
-void add_to_buf(char c)
-{
-    tok_buf[tok_bufindex++] = c;
-
-    if(tok_bufindex >= tok_bufsize)
-    {
-        char *tmp = realloc(tok_buf, tok_bufsize*2);
-
-        if(!tmp)
-        {
-            errno = ENOMEM;
-            return;
-        }
-
-        tok_buf = tmp;
-        tok_bufsize *= 2;
-    }
-}
 
 /*The create_token() function takes a string and converts it to a struct token_s structure. 
 It takes care of allocating memory for the token's structure and text, 
@@ -100,6 +74,9 @@ which marks the end of input.
 struct token_s *tokenize(struct source_s *src)
 {
 
+	char *tok_buf = NULL;
+	int   tok_bufsize  = 0;
+	int   tok_bufindex = -1;
 	int		endloop = 0;
 	// struct token_s *eof_token = malloc(sizeof(struct token_s));
 	// if(!eof_token)
@@ -126,7 +103,7 @@ struct token_s *tokenize(struct source_s *src)
     tok_bufindex     = 0;
     tok_buf[0]       = '\0';
 
-	char *line = readline("> "); // Prompt the user with "> "
+	char *line = readline(SHELL_PROMPT);
 	if (!line) {
 		// Handle error or EOF condition
 		return &eof_token;
@@ -135,8 +112,7 @@ struct token_s *tokenize(struct source_s *src)
 	//while (!(endloop) || nc != EOF)   => does not work
 	int line_index = 0;
 	// char nc = line[line_index];
-	//print nc
-	// printf("nc: %c\n", nc);
+
 	
 	// while (1) 
 	// {
@@ -158,8 +134,6 @@ struct token_s *tokenize(struct source_s *src)
 	// 	nc = line[line_index];
 	// }
 	
-	//print line
-	//printf("line: %s\n", line);
 
 	// if (tok_bufindex == 0)
 	// 	return &eof_token;
@@ -174,8 +148,5 @@ struct token_s *tokenize(struct source_s *src)
 		return &eof_token;
 	}
 	tok->src = src;
-	
-	//print token
-	//printf("token: %s\n", tok->text);
 	return tok;
 }

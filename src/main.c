@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/19 19:21:56 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:16:03 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char *read_cmd(void)
 
 int parse_and_execute(struct source_s *src)
 {
-    skip_white_spaces(src);
+    // skip_white_spaces(src);
     struct token_s *tok = tokenize(src);
     if(tok->text_len == 0 && tok->text == NULL && tok->src == NULL)
 		return 0;

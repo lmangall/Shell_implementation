@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/08/19 19:14:00 by lmangall         ###   ########.fr        #
+#    Updated: 2023/08/19 20:01:18 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ CC = gcc
 CFLAGS = -I$(INCDIR)
 READLINE = -L./lib/libft -lft -lreadline
 READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
+#READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
 # //add back -Werror -Wall -Wextra 
 NAME = minishell
 
