@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/10 12:05:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 19:21:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
     while(1)
     {
-        print_prompt1();
+        //print_prompt1();
         cmd = read_cmd();
         if(!cmd)
 			exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/19 14:34:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 19:49:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <errno.h>
 #include "../include/lexer.h"
 #include "../include/shell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+
 
 char *tok_buf = NULL;
 int   tok_bufsize  = 0;
@@ -123,43 +126,56 @@ struct token_s *tokenize(struct source_s *src)
     tok_bufindex     = 0;
     tok_buf[0]       = '\0';
 
-    char nc = next_char(src);
-    if(nc == ERRCHAR || nc == EOF)
-        return &eof_token;
-
-	//while (!(endloop) || nc != EOF)   => does not work
-	while (1) 
-	{
-		if ((nc == ' ' || nc == '\t') && tok_bufindex > 0) 
-			endloop = 1;
-		else if (nc == '\n') 
-			{
-			if (tok_bufindex > 0) 
-				unget_char(src);
-			else //means that we have a newline at the beginning of the line
-				add_to_buf(nc);
-			endloop = 1;
-			}
-		else 
-			add_to_buf(nc);
-		if (endloop || nc == EOF)
-			break;
-		nc = next_char(src);
-	}
-
-    if(tok_bufindex == 0)
-        return &eof_token;
-    if(tok_bufindex >= tok_bufsize)
-        tok_bufindex--;
-
-    tok_buf[tok_bufindex] = '\0';
-    struct token_s *tok = create_token(tok_buf);
-    if(!tok)
-    {
-        fprintf(stderr, "error: failed to alloc buffer: %s\n",
-                strerror(errno));
+	char *line = readline("> "); // Prompt the user with "> "
+	if (!line) {
+		// Handle error or EOF condition
 		return &eof_token;
-    } 
-    tok->src = src;
-    return tok;
-} 
+	}
+	add_history(line); // Add the entered line to history
+	//while (!(endloop) || nc != EOF)   => does not work
+	int line_index = 0;
+	// char nc = line[line_index];
+	//print nc
+	// printf("nc: %c\n", nc);
+	
+	// while (1) 
+	// {
+	// 	if ((nc == ' ' || nc == '\t') && tok_bufindex > 0)
+	// 		endloop = 1;
+	// 	else if (nc == '\n') 
+	// 	{
+	// 		if (tok_bufindex > 0)
+	// 			unget_char(src);
+	// 		else
+	// 			add_to_buf(nc);
+	// 		endloop = 1;
+	// 	}
+	// 	else
+	// 		add_to_buf(nc);
+	// 	if (endloop || nc == '\0') // '\0' indicates end of the line
+	// 		break;
+	// 	line_index++;
+	// 	nc = line[line_index];
+	// }
+	
+	//print line
+	//printf("line: %s\n", line);
+
+	// if (tok_bufindex == 0)
+	// 	return &eof_token;
+	// if (tok_bufindex >= tok_bufsize)
+	// 	tok_bufindex--;
+
+	// tok_buf[tok_bufindex] = '\0';
+	struct token_s *tok = create_token(line);
+	if (!tok) {
+		fprintf(stderr, "error: failed to alloc buffer: %s\n",
+				strerror(errno));
+		return &eof_token;
+	}
+	tok->src = src;
+	
+	//print token
+	//printf("token: %s\n", tok->text);
+	return tok;
+}

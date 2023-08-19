@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/08/10 12:00:58 by lmangall         ###   ########.fr        #
+#    Updated: 2023/08/19 19:14:00 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,9 @@ SRCS = lexer.c \
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
 CC = gcc
-CC = gcc
 CFLAGS = -I$(INCDIR)
+READLINE = -L./lib/libft -lft -lreadline
+READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
 # //add back -Werror -Wall -Wextra 
 NAME = minishell
 
@@ -36,7 +37,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBFTDIR)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft
+	@$(CC) $(OBJS) $(READLINE) $(READLINE_INC) $(CFLAGS) -L$(LIBFTDIR) -lft -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR) # Create the object directory if it doesn't exist
