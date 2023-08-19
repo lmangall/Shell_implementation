@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/10 12:04:56 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 14:34:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,33 @@
 #include "../include/lexer.h"
 #include "../include/shell.h"
 
+char *tok_buf = NULL;
+int   tok_bufsize  = 0;
+int   tok_bufindex = -1;
+
+struct token_s eof_token = 
+{
+    .text_len = 0,
+};
+
 /*The add_to_buf() function adds a single character to the token buffer. 
 If the buffer is full, the function takes care of extending it.*/
-void add_to_buf(char c, char *tok_buf, int *tok_bufindex, int *tok_bufsize)
+void add_to_buf(char c)
 {
-    tok_buf[(*tok_bufindex)++] = c;
-    if(*tok_bufindex >= *tok_bufsize)
+    tok_buf[tok_bufindex++] = c;
+
+    if(tok_bufindex >= tok_bufsize)
     {
-        char *tmp = realloc(tok_buf, (*tok_bufsize)*2);
+        char *tmp = realloc(tok_buf, tok_bufsize*2);
+
         if(!tmp)
         {
-			//void	exit_print(char ENOMEM);   =>manage errors without errno
             errno = ENOMEM;
             return;
         }
+
         tok_buf = tmp;
-        *tok_bufsize *= 2;
+        tok_bufsize *= 2;
     }
 }
 
@@ -67,6 +78,7 @@ struct token_s *create_token(char *str)
     
     return tok;
 }
+
 void free_token(struct token_s *tok)
 {
     if(tok->text)
@@ -84,20 +96,18 @@ which marks the end of input.
 */
 struct token_s *tokenize(struct source_s *src)
 {
-	char 	*tok_buf = NULL;
-	int		tok_bufsize  = 0;
-	int		tok_bufindex = -1;
+
 	int		endloop = 0;
-	struct token_s *eof_token = malloc(sizeof(struct token_s));
-	if(!eof_token)
-		return NULL;
-	eof_token->text_len = 0;
+	// struct token_s *eof_token = malloc(sizeof(struct token_s));
+	// if(!eof_token)
+	// 	return NULL;
+	// eof_token->text_len = 0;
 
     if(!src || !src->buffer || !src->bufsize)
     {
         errno = ENODATA;//find if and how to replace errno by our ouw error handling
         //perror(ENODATA); 
-		return eof_token;
+        	return &eof_token;
     }
     
     if(!tok_buf)//why is this if here ?
@@ -107,7 +117,7 @@ struct token_s *tokenize(struct source_s *src)
         if(!tok_buf)
         {
             errno = ENOMEM;
-            return eof_token;
+            return &eof_token;
         }
     }
     tok_bufindex     = 0;
@@ -115,7 +125,7 @@ struct token_s *tokenize(struct source_s *src)
 
     char nc = next_char(src);
     if(nc == ERRCHAR || nc == EOF)
-        return eof_token;
+        return &eof_token;
 
 	//while (!(endloop) || nc != EOF)   => does not work
 	while (1) 
@@ -127,18 +137,18 @@ struct token_s *tokenize(struct source_s *src)
 			if (tok_bufindex > 0) 
 				unget_char(src);
 			else //means that we have a newline at the beginning of the line
-				add_to_buf(nc, tok_buf, &tok_bufindex, &tok_bufsize);
+				add_to_buf(nc);
 			endloop = 1;
 			}
 		else 
-			add_to_buf(nc, tok_buf, &tok_bufindex, &tok_bufsize);
+			add_to_buf(nc);
 		if (endloop || nc == EOF)
 			break;
 		nc = next_char(src);
 	}
 
     if(tok_bufindex == 0)
-        return eof_token;    
+        return &eof_token;
     if(tok_bufindex >= tok_bufsize)
         tok_bufindex--;
 
@@ -148,7 +158,7 @@ struct token_s *tokenize(struct source_s *src)
     {
         fprintf(stderr, "error: failed to alloc buffer: %s\n",
                 strerror(errno));
-        return eof_token;
+		return &eof_token;
     } 
     tok->src = src;
     return tok;
