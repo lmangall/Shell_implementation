@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/19 20:29:03 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:30:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int main(int argc, char **argv)
         src.buffer   = cmd;
         src.bufsize  = strlen(cmd);
         src.curpos   = INIT_SRC_POS;
-        parse_and_execute(&src);        free(cmd);
+        parse_and_execute(&src);        
+		free(cmd);
     exit(EXIT_SUCCESS);
 } 
 

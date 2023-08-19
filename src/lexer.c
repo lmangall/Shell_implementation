@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/19 20:29:03 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:32:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,8 @@ struct token_s *tokenize(struct source_s *src)
     tok_buf[0]       = '\0';
 
 	char *line = readline(SHELL_PROMPT);
-	if (!line) {
-		// Handle error or EOF condition
+	if (!line) 
 		return &eof_token;
-	}
 	add_history(line); // Add the entered line to history
 	//while (!(endloop) || nc != EOF)   => does not work
 	int line_index = 0;
@@ -140,7 +138,7 @@ struct token_s *tokenize(struct source_s *src)
 	// if (tok_bufindex >= tok_bufsize)
 	// 	tok_bufindex--;
 
-	// tok_buf[tok_bufindex] = '\0';
+	// tok_buf[tok_bufindex] = '\0';	
 	struct token_s *tok = create_token(line);
 	if (!tok) {
 		fprintf(stderr, "error: failed to alloc buffer: %s\n",
