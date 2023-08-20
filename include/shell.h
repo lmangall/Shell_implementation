@@ -8,18 +8,12 @@
 #define EOF             (-1)
 #define ERRCHAR         ( 0)
 #define INIT_SRC_POS    (-2)
-struct source_s
-{   
-    char *buffer;       /* the input text */
-    long bufsize;       /* size of the input text */
-    long  curpos;       /* absolute char position in source */
-};
 
 //parser:
-struct node_s *parse_simple_command(struct token_s *tok);
+struct node_s *parse_simple_command(char *line);
 
 //shell:
-int  parse_and_execute(struct source_s *src);
+int  parse_and_execute(char *line);
 void print_prompt1(void);
 void print_prompt2(void);
 char *read_cmd(void);

@@ -11,5 +11,5 @@ struct token_s
 
 
 void free_token(struct token_s *tok);
-struct token_s *tokenize(struct source_s *src);
+struct token_s *tokenize(char *line);
 #endif 

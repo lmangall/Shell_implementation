@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/19 20:32:30 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/20 12:38:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-struct token_s eof_token = 
-{
-    .text_len = 0,
-};
+
 
 /*The create_token() function takes a string and converts it to a struct token_s structure. 
 It takes care of allocating memory for the token's structure and text, 
@@ -71,7 +68,7 @@ It then calls next_char() to retrieve the next input character.
 When we reach the end of input, tokenize() returns the special eof_token, 
 which marks the end of input.
 */
-struct token_s *tokenize(struct source_s *src)
+struct token_s *tokenize(char *line)
 {
 
 	char *tok_buf = NULL;
@@ -83,68 +80,12 @@ struct token_s *tokenize(struct source_s *src)
 	// 	return NULL;
 	// eof_token->text_len = 0;
 
-    if(!src || !src->buffer || !src->bufsize)
-    {
-        errno = ENODATA;//find if and how to replace errno by our ouw error handling
-        //perror(ENODATA); 
-        	return &eof_token;
-    }
-    
-    if(!tok_buf)//why is this if here ?
-    {
-        tok_bufsize = 1024;
-        tok_buf = malloc(tok_bufsize);
-        if(!tok_buf)
-        {
-            errno = ENOMEM;
-            return &eof_token;
-        }
-    }
-    tok_bufindex     = 0;
-    tok_buf[0]       = '\0';
 
-	char *line = readline(SHELL_PROMPT);
-	if (!line) 
-		return &eof_token;
-	add_history(line); // Add the entered line to history
-	//while (!(endloop) || nc != EOF)   => does not work
-	int line_index = 0;
-	// char nc = line[line_index];
-
-	
-	// while (1) 
-	// {
-	// 	if ((nc == ' ' || nc == '\t') && tok_bufindex > 0)
-	// 		endloop = 1;
-	// 	else if (nc == '\n') 
-	// 	{
-	// 		if (tok_bufindex > 0)
-	// 			unget_char(src);
-	// 		else
-	// 			add_to_buf(nc);
-	// 		endloop = 1;
-	// 	}
-	// 	else
-	// 		add_to_buf(nc);
-	// 	if (endloop || nc == '\0') // '\0' indicates end of the line
-	// 		break;
-	// 	line_index++;
-	// 	nc = line[line_index];
-	// }
-	
-
-	// if (tok_bufindex == 0)
-	// 	return &eof_token;
-	// if (tok_bufindex >= tok_bufsize)
-	// 	tok_bufindex--;
-
-	// tok_buf[tok_bufindex] = '\0';	
 	struct token_s *tok = create_token(line);
-	if (!tok) {
-		fprintf(stderr, "error: failed to alloc buffer: %s\n",
-				strerror(errno));
-		return &eof_token;
-	}
-	tok->src = src;
+	// if (!tok) {
+	// 	fprintf(stderr, "error: failed to alloc buffer: %s\n",
+	// 			strerror(errno));
+	// 	return &eof_token;
+	// }
 	return tok;
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/10 12:05:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/20 12:36:27 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,35 @@
 #include "../include/node.h"
 #include "../include/shell.h"
 
-struct node_s *parse_simple_command(struct token_s *tok)
+struct node_s *parse_simple_command(char *line)
 {
-	if(!tok)
+	if(!line)
 		return NULL;
 	
 	struct node_s *cmd = new_node(NODE_COMMAND);
 	if(!cmd)
 	{
-		free_token(tok);
+		free(line);
 		return NULL;
 	}
-	
-		while (tok && (tok->text_len != 0 && tok->text != NULL && tok->src != NULL))
+		while (line && (ft_strlen(line) != 0 && line != NULL))
 	{
-		if (tok->text[0] == '\n')
+		if (line[0] == '\n')
 		{
-			free_token(tok);
+			free(line);
 			break;
 		}
 		struct node_s *word = new_node(NODE_VAR);
 		if (!word)
 		{
 			free_node_tree(cmd);
-			free_token(tok);
+			free(line);
 			break;
 		}
-		set_node_val_str(word, tok->text);
+		set_node_val_str(word, line);
 		add_child_node(cmd, word);
-		free_token(tok);
-		tok = tokenize(tok->src);
+		free(line);
+		struct token_s *tok = tokenize(line);
 	}
 		return cmd;
 }
