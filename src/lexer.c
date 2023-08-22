@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 15:21:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:12:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,14 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+char **lexer(char *line)
+{
+	char **tokens;
+	
+	if(!line)
+		return NULL;
+
+	tokens = ft_split(line, ' ');
+	return(tokens);
+}
 

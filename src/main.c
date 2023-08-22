@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 15:22:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:09:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ int main(int argc, char **argv)
 
 int parse_and_execute(char *line)
 {
-	struct node_s *cmd = parse_simple_command(line);
+	char **tokens;
+	
+	tokens = lexer(line);
+	free(line);
+	struct node_s *cmd = parse_simple_command(tokens);
 	int i = 0;
     while(i == 0)
     {
