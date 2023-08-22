@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 20:32:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 20:41:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,17 @@
 #include "../include/parser.h"
 
 
-// void	init_data(t_data *data)
-// {
-// 	data->args = NULL;
-// 	data->paths = NULL;
-// 	data->envp = NULL;
-// 	data->pwd = NULL;
-// }
+void	init_data(t_data *data)
+{
+	// data->args = NULL;
+	// data->paths = NULL;
+	// data->envp = NULL;
+	// data->pwd = NULL;
+
+	data->paths = getenv("PATHS");
+	// data->envp = getenv("ENV");
+
+}
 
 void	syntax_check(char **tokens)
 {

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 20:32:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 20:38:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int main(int argc, char **argv)
 {
     char *line;
     int status;
-	// t_data *data;
+	t_data *data;
+	init_data(data);
+
 	
 	status = 1;
-	// init_data(data);
     while(status)
     {
         line = readline(SHELL_PROMPT);
