@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 16:09:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:23:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int parse_and_execute(char *line)
 			break;
         do_simple_command(cmd);
         free_node_tree(cmd);
+		free(tokens);
 		i++;
     }
     return 1;

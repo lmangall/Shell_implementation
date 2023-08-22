@@ -55,8 +55,8 @@ void set_node_str(struct node_s *node, char *val)
             node->str = val2;
         }
     }
-}
-void free_node_tree(struct node_s *node)
+
+}void free_node_tree(struct node_s *node)
 {
     if(!node)
     {
@@ -71,4 +71,4 @@ void free_node_tree(struct node_s *node)
         child = next;
     }
     free(node);
-} 
+}
