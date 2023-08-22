@@ -8,7 +8,7 @@ typedef struct s_data
 {
 	// char					*args;
 	char					*paths;
-	// char					**envp;
+	char					*envp;
 	// char					*pwd;
 	// char					*old_pwd;
 	// struct s_simple_cmds	*simple_cmds;

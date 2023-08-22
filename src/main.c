@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 20:38:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 22:20:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,28 @@ int main(int argc, char **argv)
 	t_data *data;
 	init_data(data);
 
-	
+	data = malloc(sizeof(t_data)); // Allocate memory for data
+    if (!data) 
+	{
+		fprintf(stderr, "lsh: allocation error\n");
+		exit(EXIT_FAILURE);
+	}
+		
 	status = 1;
     while(status)
     {
         line = readline(SHELL_PROMPT);
+		
+		printf("[main]data->paths = %s\n", data->paths);
+		printf("[main]PATHS from getenv = %s\n", getenv("PATHS"));
+		
+		init_data(data);
+				printf("\n\nafter init_data\n");
+
+		printf("[main]data->paths = %s\n", data->paths);
+		printf("[main]PATHS from getenv = %s\n", getenv("PATHS"));
+		
+
         if(!line)
             break;
         add_history(line);

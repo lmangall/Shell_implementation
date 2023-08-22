@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 20:41:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 22:19:12 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ void	init_data(t_data *data)
 	// data->envp = NULL;
 	// data->pwd = NULL;
 
-	data->paths = getenv("PATHS");
-	// data->envp = getenv("ENV");
+	data->paths = getenv("PATH");
+	data->envp = getenv("ENV");
+
+
+	//CODE PROPOSED BY COPILOT X
+	// if there is no path, set a default one:
+	// char *default_paths = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+	// data->paths = getenv("PATH");
+	// if(!data->paths)
+	// 	data->paths = default_paths;
 
 }
 
