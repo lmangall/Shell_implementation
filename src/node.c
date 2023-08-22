@@ -21,32 +21,25 @@ struct node_s *new_node(enum node_type_e type)
 }
 void add_child_node(struct node_s *parent, struct node_s *child)
 {
-	printf("add_child_node\n");
-    if(!parent || !child)
-		return;
-    if(!parent->first_child)
-		parent->first_child = child;
+    if (!parent || !child)
+        return;
+
+    if (!parent->first_child)
+        parent->first_child = child;
     else
     {
-        // struct node_s *sibling = parent->first_child;
-    
-    	// while(sibling->next_sibling)
-		// 	sibling = sibling->next_sibling;
-    
-    	// sibling->next_sibling = child;
-        // child->prev_sibling = sibling;
+        // Find the last child
+        struct node_s *last_child = parent->first_child;
+        while (last_child->next_sibling)
+        {
+            last_child = last_child->next_sibling;
+        }
 
-
-		parent->first_child->next_sibling = child;
-
-
-
-		printf("\x1B[34mprev_sibling content: %s\x1B[0m\n", parent->first_child->str);
-		printf("\x1B[34mchild content starting at parent: %s\x1B[0m\n", parent->first_child->next_sibling->str);
-		printf("\x1B[34mchild content: %s\x1B[0m\n", child->str);
+        // Add the new child after the last child
+        last_child->next_sibling = child;
     }
-    // parent->children++;
 }
+
 void set_node_str(struct node_s *node, char *val)
 {
     if(!val)

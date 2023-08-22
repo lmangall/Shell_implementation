@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 14:48:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:05:27 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int do_exec_cmd(int argc, char **argv)
         {
             return 0;
         }
-		execv(path, argv)
+		execv(path, argv);
 		printf("\033[1;33mNOT GETTIN PRINTED\033[0m\n");
        free(path);
     }
@@ -85,9 +85,6 @@ int do_simple_command(struct node_s *node)
     long max_args = 255;
     char *argv[max_args+1];/* keep 1 for the terminating NULL arg */
     char *str;
-    
-	printf("\n\nchild->str: %s\n", child->str);
-	printf("\n\nchild->next_sibling->str: %s\n", child->next_sibling->str);
 
     while(child)
     {
@@ -107,26 +104,20 @@ int do_simple_command(struct node_s *node)
         }
         child = child->next_sibling;
 		argc++;
-		printf("\n\nargc: %d\n", argc);
     }
     argv[argc] = NULL;
 	
 	//loop to print argv
 	int i = 0;
 	while (i < argc)
-	{
-		printf("\033[1;32margv[%d]: %s\033[0m\n", i, argv[i]);
 		i++;
-	}
-		printf("\033[1;32margv0[%d]: %s\033[0m\n", i, argv[0]);
-		printf("\033[1;32margv1[%d]: %s\033[0m\n", i, argv[1]);
+
 
 
     pid_t child_pid = 0;
     if((child_pid = fork()) == 0)
     {
-		printf("\n\ndo_simple_command\n");
-		printf("argv[0]: %s\n", argv[0]);
+
         do_exec_cmd(argc, argv);
         fprintf(stderr, "error: failed to execute command: %s\n", 
                 strerror(errno));
