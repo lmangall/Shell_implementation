@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/20 12:36:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:04:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ struct node_s *parse_simple_command(char *line)
 			free(line);
 			break;
 		}
-		set_node_val_str(word, line);
+		set_node_str(word, line);
 		add_child_node(cmd, word);
+		printf("line: %s\n", line);
 		free(line);
 		struct token_s *tok = tokenize(line);
 	}

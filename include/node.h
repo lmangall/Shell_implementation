@@ -10,7 +10,6 @@ enum node_type_e
 struct node_s
 {
     enum   node_type_e type;    /* type of this node */
-    int    val_type; /* type of this node's val field */
     char	*str;        /* value of this node */
     int    children;            /* number of child nodes */
     struct node_s *first_child; /* first child node */
@@ -44,5 +43,5 @@ void    free_node_tree(struct node_s *node);
  * It copies the string to a newly allocated memory space, 
  * then sets the val_type and val.str fields accordingly. 
  */
-void    set_node_val_str(struct node_s *node, char *val);
+void    set_node_str(struct node_s *node, char *val);
 #endif

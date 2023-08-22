@@ -9,6 +9,8 @@
 
 struct node_s *new_node(enum node_type_e type)
 {
+	printf("new_node\n");
+
     struct node_s *node = malloc(sizeof(struct node_s));
     if(!node)
 		return NULL;
@@ -20,6 +22,7 @@ struct node_s *new_node(enum node_type_e type)
 }
 void add_child_node(struct node_s *parent, struct node_s *child)
 {
+	printf("add_child_node\n");
     if(!parent || !child)
 		return;
     if(!parent->first_child)
@@ -36,9 +39,8 @@ void add_child_node(struct node_s *parent, struct node_s *child)
     }
     parent->children++;
 }
-void set_node_val_str(struct node_s *node, char *val)
+void set_node_str(struct node_s *node, char *val)
 {
-    node->val_type = 1;
     if(!val)
 		node->str = NULL;
     else
@@ -66,14 +68,6 @@ void free_node_tree(struct node_s *node)
         struct node_s *next = child->next_sibling;
         free_node_tree(child);
         child = next;
-    }
-    
-    if(node->val_type == 1)
-    {
-        if(node->str)
-        {
-            free(node->str);
-        }
     }
     free(node);
 } 

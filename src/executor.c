@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/20 12:28:53 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:58:55 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int do_exec_cmd(int argc, char **argv)
         {
             return 0;
         }
+		printf("\n\nargv[0]: %s\n", argv[0]);
         execv(path, argv);
        free(path);
     }
@@ -97,16 +98,19 @@ int do_simple_command(struct node_s *node)
         }
         
 	strcpy(argv[argc], str);
-        if(++argc >= max_args)
+        if(argc >= max_args)
         {
             break;
         }
         child = child->next_sibling;
+		argc++;
     }
     argv[argc] = NULL;
     pid_t child_pid = 0;
     if((child_pid = fork()) == 0)
     {
+		printf("\n\ndo_simple_command\n");
+		printf("argv[0]: %s\n", argv[0]);
         do_exec_cmd(argc, argv);
         fprintf(stderr, "error: failed to execute command: %s\n", 
                 strerror(errno));
