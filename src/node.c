@@ -29,6 +29,7 @@ void add_child_node(struct node_s *parent, struct node_s *child)
 		parent->first_child = child;
     else
     {
+		printf("\x1B[34madd second child\x1B[0m\n");
         struct node_s *sibling = parent->first_child;
     
     	while(sibling->next_sibling)
@@ -36,6 +37,8 @@ void add_child_node(struct node_s *parent, struct node_s *child)
     
     	sibling->next_sibling = child;
         child->prev_sibling = sibling;
+		printf("\x1B[34mchild content: %s\x1B[0m\n", child->str);
+		printf("\x1B[34mprev_sibling content: %s\x1B[0m\n", sibling->str);
     }
     parent->children++;
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 12:04:44 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:37:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@
 #include "../include/lexer.h"
 #include "../include/node.h"
 #include "../include/shell.h"
+
+static int	ft_count_words(char const *s, char c)
+{
+	int		i;
+	int		words_nbr;
+
+	i = 0;
+	words_nbr = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			words_nbr++;
+			while (s[i] != c && s[i])
+				i++;
+		}
+		else
+			i++;
+	}
+	return (words_nbr);
+}
 
 struct node_s *parse_simple_command(char *line)
 {
@@ -29,13 +50,22 @@ struct node_s *parse_simple_command(char *line)
 		free(line);
 		return NULL;
 	}
-		while (line && (ft_strlen(line) != 0 && line != NULL))
+
+	char **tokens =	ft_split(line, ' ');
+	int i = 0;
+	int words_nbr = 0;
+	words_nbr = ft_count_words(line, ' ');//maybe use tokens instead of line?
+	printf("words_nbr: %d\n", words_nbr);
+	
+		// while (line && (ft_strlen(line) != 0 && line != NULL))
+		// while(cmd->first_child)
+		while(i < words_nbr)
 	{
-		if (line[0] == '\n')
-		{
-			free(line);
-			break;
-		}
+		// if (line[0] == '\n')
+		// {
+		// 	free(line);
+		// 	break;
+		// }
 		struct node_s *word = new_node(NODE_VAR);
 		if (!word)
 		{
@@ -43,11 +73,12 @@ struct node_s *parse_simple_command(char *line)
 			free(line);
 			break;
 		}
-		set_node_str(word, line);
+		set_node_str(word, tokens[i]);
 		add_child_node(cmd, word);
-		printf("line: %s\n", line);
+		printf("word: %s\n", word->str);
 		free(line);
-		struct token_s *tok = tokenize(line);
+		// struct token_s *tok = tokenize(line);
+		i++;
 	}
 		return cmd;
 }

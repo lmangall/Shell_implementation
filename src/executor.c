@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 11:58:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:34:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int do_exec_cmd(int argc, char **argv)
             return 0;
         }
 		printf("\n\nargv[0]: %s\n", argv[0]);
+		printf("\n\nargv[1]: %s\n", argv[1]);
         execv(path, argv);
        free(path);
     }
