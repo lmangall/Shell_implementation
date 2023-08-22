@@ -13,7 +13,8 @@ struct node_s
     char	*str;        /* value of this node */
     int    children;            /* number of child nodes */
     struct node_s *first_child; /* first child node */
-    struct node_s *next_sibling, *prev_sibling;
+    struct node_s *next_sibling;
+    struct node_s *prev_sibling;
                                 /*
                                  * if this is a child node, keep
                                  * pointers to prev/next siblings

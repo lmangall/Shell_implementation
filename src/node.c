@@ -9,7 +9,6 @@
 
 struct node_s *new_node(enum node_type_e type)
 {
-	printf("new_node\n");
 
     struct node_s *node = malloc(sizeof(struct node_s));
     if(!node)
@@ -29,18 +28,24 @@ void add_child_node(struct node_s *parent, struct node_s *child)
 		parent->first_child = child;
     else
     {
-		printf("\x1B[34madd second child\x1B[0m\n");
-        struct node_s *sibling = parent->first_child;
+        // struct node_s *sibling = parent->first_child;
     
-    	while(sibling->next_sibling)
-			sibling = sibling->next_sibling;
+    	// while(sibling->next_sibling)
+		// 	sibling = sibling->next_sibling;
     
-    	sibling->next_sibling = child;
-        child->prev_sibling = sibling;
+    	// sibling->next_sibling = child;
+        // child->prev_sibling = sibling;
+
+
+		parent->first_child->next_sibling = child;
+
+
+
+		printf("\x1B[34mprev_sibling content: %s\x1B[0m\n", parent->first_child->str);
+		printf("\x1B[34mchild content starting at parent: %s\x1B[0m\n", parent->first_child->next_sibling->str);
 		printf("\x1B[34mchild content: %s\x1B[0m\n", child->str);
-		printf("\x1B[34mprev_sibling content: %s\x1B[0m\n", sibling->str);
     }
-    parent->children++;
+    // parent->children++;
 }
 void set_node_str(struct node_s *node, char *val)
 {

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/20 12:44:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:44:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,19 @@ int parse_and_execute(char *line)
 			printf("parse_and_execute----0\n");
 			return 0;
 		}
-    while(tok && (tok->text_len != 0 && tok->text != NULL))
+	struct node_s *cmd = parse_simple_command(line);
+	int i = 0;
+    while(i == 0)
     {
-        struct node_s *cmd = parse_simple_command(line);
         if(!cmd)
 			break;
         do_simple_command(cmd);
+		printf("\033[1;33mafter do_simple_command\033[0m\n");
         free_node_tree(cmd);
+		printf("\033[1;33mafter free_node_tree\033[0m\n");
         tok = tokenize(line);
+		printf("\033[1;33mafter tokenize\033[0m\n");
+		i++;
     }
     return 1;
 }

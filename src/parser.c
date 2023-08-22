@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 12:37:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:47:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ struct node_s *parse_simple_command(char *line)
 	int i = 0;
 	int words_nbr = 0;
 	words_nbr = ft_count_words(line, ' ');//maybe use tokens instead of line?
-	printf("words_nbr: %d\n", words_nbr);
+		free(line);
 	
 		// while (line && (ft_strlen(line) != 0 && line != NULL))
 		// while(cmd->first_child)
@@ -67,18 +67,17 @@ struct node_s *parse_simple_command(char *line)
 		// 	break;
 		// }
 		struct node_s *word = new_node(NODE_VAR);
-		if (!word)
-		{
-			free_node_tree(cmd);
-			free(line);
-			break;
-		}
+		// if (!word)
+		// {
+		// 	free_node_tree(cmd);
+		// 	free(line);
+		// 	break;
+		// }
 		set_node_str(word, tokens[i]);
 		add_child_node(cmd, word);
-		printf("word: %s\n", word->str);
-		free(line);
 		// struct token_s *tok = tokenize(line);
 		i++;
 	}
+	//print the str field of all the children of cmd
 		return cmd;
 }
