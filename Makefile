@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/08/19 20:01:18 by lmangall         ###   ########.fr        #
+#    Updated: 2023/08/22 17:25:48 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS = lexer.c \
 		main.c \
 		node.c \
 		errors.c \
+		expander.c 
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 

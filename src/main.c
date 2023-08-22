@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 16:23:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 20:32:18 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <string.h>
 #include "../include/shell.h"
 #include "../include/lexer.h"
+#include "../include/parser.h"
 #include "../include/executor.h"
 #include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
@@ -25,8 +26,11 @@
 int main(int argc, char **argv)
 {
     char *line;
-    int status = 1;
-
+    int status;
+	// t_data *data;
+	
+	status = 1;
+	// init_data(data);
     while(status)
     {
         line = readline(SHELL_PROMPT);
@@ -46,6 +50,7 @@ int parse_and_execute(char *line)
 	
 	tokens = lexer(line);
 	free(line);
+	syntax_check(tokens);
 	struct node_s *cmd = parse_simple_command(tokens);
 	int i = 0;
     while(i == 0)

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 16:11:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/22 20:32:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,58 @@
 #include "../include/lexer.h"
 #include "../include/node.h"
 #include "../include/shell.h"
+#include "../include/parser.h"
+
+
+// void	init_data(t_data *data)
+// {
+// 	data->args = NULL;
+// 	data->paths = NULL;
+// 	data->envp = NULL;
+// 	data->pwd = NULL;
+// }
+
+void	syntax_check(char **tokens)
+{
+	int i;
+	char *var;
+
+	i = 0;
+    while (tokens[i] != NULL)
+	{
+		if (tokens[i][0] == '$')
+		{
+            printf("$ sign identified in token nbr %i\n", i);
+			var = tokens[i];
+			// add_to_env(var);
+		}
+	i++;
+	}
+}
+
+// void	add_to_env(char *var)
+// {
+// 	char *var_name;
+// 	char *var_value;
+// 	int i;
+// 	int j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (var[i] != '=')
+// 	{
+// 		var_name[i] = var[i];
+// 		i++;
+// 	}
+// 	i++;
+// 	while (var[i] != '\0')
+// 	{
+// 		var_value[j] = var[i];
+// 		i++;
+// 		j++;
+// 	}
+// 	setenv(var_name, var_value, 0);
+// }
 
 
 struct node_s *parse_simple_command(char **tokens)

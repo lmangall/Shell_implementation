@@ -12,8 +12,7 @@
 //parser:
 struct node_s *parse_simple_command(char **tokens);
 
-//shell:
-int  parse_and_execute(char *line);
+
 void print_prompt1(void);
 void print_prompt2(void);
 char *read_cmd(void);
