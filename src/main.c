@@ -28,7 +28,11 @@ int main(int argc, char **argv)
     char *line;
     int status;
 	t_data *data;
-	init_data(data);
+//	init_data(data); I think we don't need this here
+	init_vars();
+	set_vars("SUPERVARIABLE", "Leonardo da Vinci");
+	print_vars();
+	unset_vars("SUPERVARIABLE");
 
 	data = malloc(sizeof(t_data)); // Allocate memory for data
     if (!data) 

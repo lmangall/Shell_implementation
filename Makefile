@@ -23,7 +23,8 @@ SRCS = lexer.c \
 		main.c \
 		node.c \
 		errors.c \
-		expander.c 
+		expander.c \
+		vars.c \
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
