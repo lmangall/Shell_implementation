@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 17:52:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:58:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@
 
 struct node_s *contains_dollar(struct node_s *node)
 {
-	if (node->type == NODE_COMMAND)
-	{
 		if (node->str[0] == '$')
 			return (node);
-	}
 	return (NULL);
 }
 
@@ -70,10 +67,13 @@ void expansion(struct node_s *node, t_data *data)
         printf("dollar_node->str: %s\n", dollar_node->str);
         for (int i = 0; i < data->num_vars; i++)
         {
-            if (strcmp(dollar_node->str, data->vars_container[i].name) == 0)
+			//prints in green all	
+   			printf("\033[0;32mdata->vars_container[%d].name: %s\033[0m\n", i, data->vars_container[i].name);
+		    if (strcmp(dollar_node->str + 1, data->vars_container[i].name) == 0)
             {
                 // replace_var(node);
-                printf("dollar_node->str: %s\n", dollar_node->str);
+                //prints the variable
+				printf("%s\n", data->vars_container[i].value);
             }
         }
     }

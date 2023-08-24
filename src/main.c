@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 17:49:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:51:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,12 @@ int main(int argc, char **argv)
 	
 
 	init_vars(&data);
-    print_vars(&data);
-
-    set_var(&data, "MY_VARIABLE", "Hello, World!");
-    print_vars(&data);
-
-    unset_var(&data, "MY_VARIABLE");
-    print_vars(&data);
+    // print_vars(&data);
+    set_var(&data, "SUPERVARIABLE", "Leonardo da Vinci");
+    // print_vars(&data);
+    // unset_var(&data, "MY_VARIABLE");
+    // print_vars(&data);
 	
-	// init_vars();
-	// set_vars("$SUPERVARIABLE", "Leonardo da Vinci");
-	// //print_vars();
-	// unset_vars("SUPERVARIABLE");
-
 	// data = malloc(sizeof(t_data)); // Allocate memory for data
     // if (!data) 
 	// {
@@ -75,19 +68,19 @@ int parse_and_execute(char *line, t_data *data)
 	tokens = lexer(line);
 	free(line);
 	struct node_s *cmd = parse_simple_command(tokens);
-	// expansion(cmd);
-	//a loop that traverses cmd and calls expansion
-	while(cmd->next_sibling)
-	{
-		expansion(cmd, data);
-		cmd = cmd->next_sibling;
-		printf("01cmd->next_sibling: %s\n", cmd->str);
-	}
+	struct node_s *cpy = malloc(sizeof(struct node_s));
+    // if(!node)
+	// 	return NULL;
+	cpy = cmd->first_child;
+    while (cpy)
+    {
+        // printf("mark 2\n");
+        // printf("cpy->str: %s\n", cpy->str);
+        expansion(cpy, data);
+        cpy = cpy->next_sibling;
+    }
 
 
-
-
-	
 	int i = 0;
     while(i == 0)
     {
