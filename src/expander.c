@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 15:53:54 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:00:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,20 @@
 // 		printf("dollar_node->str: %s\n", dollar_node->str);
 // 		while(node)
 // 		{
-// 			if (node->type == NODE_COMMAND)
-// 			{
 // 				if(dollar_node->str == vars_container->name)
 // 				{
 // 					replace_var(node);
 // 				}
-// 			}
 // 			node = node->next;
 // 		}
 
 		
 // 	}
 // }
+
+// //traverses AST and calls expansion
+// 		while(node)
+// 		{
+// 			expansion(node, vars_container);
+// 			node = node->next;
+// 		}
