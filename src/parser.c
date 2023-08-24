@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 22:19:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:28:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,29 @@ void	init_data(t_data *data)
 
 }
 
-void	syntax_check(char **tokens)
+int	check_dollar(char *str)
 {
-	int i;
-	char *var;
+	if (str[0] == '$')
+		return(1);
+	return (0);
+}
 
-	i = 0;
-    while (tokens[i] != NULL)
+//a function that transverses  the AST and use the check_dollar function to identify a dollar and print a statement
+//the function is called expansion 
+int expansion(struct node_s *node)
+{
+	if (node->type == NODE_VAR)
 	{
-		if (tokens[i][0] == '$')
+		if (check_dollar(node->str) == 1)
 		{
-            printf("$ sign identified in token nbr %i\n", i);
-			var = tokens[i];
-			// add_to_env(var);
+			printf("Dollar found in %s\n", node->str);
 		}
-	i++;
 	}
+	if (node->first_child)
+		expansion(node->first_child);
+	if (node->next_sibling)
+		expansion(node->next_sibling);
+	return (0);
 }
 
 // void	add_to_env(char *var)

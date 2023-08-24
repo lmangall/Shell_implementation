@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 08:43:36 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:28:05 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 	t_data *data;
 	init_vars();
 	set_vars("SUPERVARIABLE", "Leonardo da Vinci");
-	print_vars();
+	//print_vars();
 	unset_vars("SUPERVARIABLE");
 
 	data = malloc(sizeof(t_data)); // Allocate memory for data
@@ -60,8 +60,8 @@ int parse_and_execute(char *line)
 	
 	tokens = lexer(line);
 	free(line);
-	syntax_check(tokens);
 	struct node_s *cmd = parse_simple_command(tokens);
+	expansion(cmd);
 	int i = 0;
     while(i == 0)
     {
