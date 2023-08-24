@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 08:40:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 08:43:36 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int main(int argc, char **argv)
     char *line;
     int status;
 	t_data *data;
-//	init_data(data); I think we don't need this here
 	init_vars();
 	set_vars("SUPERVARIABLE", "Leonardo da Vinci");
 	print_vars();
@@ -45,21 +44,9 @@ int main(int argc, char **argv)
 	status = 1;
     while(status)
     {
-        line = readline(SHELL_PROMPT);
-		
-		printf("[main]data->paths = %s\n", data->paths);
-		printf("[main]PATHS from getenv = %s\n", getenv("PATHS"));
-		
-		init_data(data);
-				printf("\n\nafter init_data\n");
-
-		printf("[main]data->paths = %s\n", data->paths);
-		printf("[main]PATHS from getenv = %s\n", getenv("PATHS"));
-		
-
-        if(!line)
-            break;
+        line = readline(SHELL_PROMPT);		
         add_history(line);
+		init_data(data);
         status = parse_and_execute(line);
         free(line);
     }
