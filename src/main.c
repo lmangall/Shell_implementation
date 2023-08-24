@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 10:28:05 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 11:57:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     int status;
 	t_data *data;
 	init_vars();
-	set_vars("SUPERVARIABLE", "Leonardo da Vinci");
+	set_vars("$SUPERVARIABLE", "Leonardo da Vinci");
 	//print_vars();
 	unset_vars("SUPERVARIABLE");
 
