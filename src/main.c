@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 11:57:25 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:54:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,38 @@ int main(int argc, char **argv)
 {
     char *line;
     int status;
-	t_data *data;
-	init_vars();
-	set_vars("$SUPERVARIABLE", "Leonardo da Vinci");
-	//print_vars();
-	unset_vars("SUPERVARIABLE");
+    t_data data;
+    data.paths = NULL;
+    data.envp = NULL;
+	
 
-	data = malloc(sizeof(t_data)); // Allocate memory for data
-    if (!data) 
-	{
-		fprintf(stderr, "lsh: allocation error\n");
-		exit(EXIT_FAILURE);
-	}
+	init_vars(&data);
+    print_vars(&data);
+
+    set_var(&data, "MY_VARIABLE", "Hello, World!");
+    print_vars(&data);
+
+    unset_var(&data, "MY_VARIABLE");
+    print_vars(&data);
+	
+	// init_vars();
+	// set_vars("$SUPERVARIABLE", "Leonardo da Vinci");
+	// //print_vars();
+	// unset_vars("SUPERVARIABLE");
+
+	// data = malloc(sizeof(t_data)); // Allocate memory for data
+    // if (!data) 
+	// {
+	// 	fprintf(stderr, "lsh: allocation error\n");
+	// 	exit(EXIT_FAILURE);
+	// }
 		
 	status = 1;
     while(status)
     {
         line = readline(SHELL_PROMPT);		
         add_history(line);
-		init_data(data);
+		// init_data(data);
         status = parse_and_execute(line);
         free(line);
     }
@@ -61,7 +74,7 @@ int parse_and_execute(char *line)
 	tokens = lexer(line);
 	free(line);
 	struct node_s *cmd = parse_simple_command(tokens);
-	expansion(cmd);
+	// expansion(cmd);
 	int i = 0;
     while(i == 0)
     {
