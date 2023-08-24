@@ -43,6 +43,9 @@ void init_vars(void)
 		if (equal_sign == -1)
 			return ;
 		j = 0;
+			// //I want to add a dollar as the first char of the name
+			// vars_container[i].name[0] = '$';
+	
 		while (j < equal_sign)
 		{
 			vars_container[i].name[j] = environ[i][j];

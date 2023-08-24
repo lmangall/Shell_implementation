@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 10:28:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:57:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../include/shell.h"
 #include "../include/lexer.h"
 #include "../include/node.h"
+#include "../include/vars.h"
 #include "../include/shell.h"
 #include "../include/parser.h"
 
@@ -47,6 +48,17 @@ int	check_dollar(char *str)
 	return (0);
 }
 
+static int replace_var(struct node_s *node)
+{
+// 	char 
+// 	node->str = get_vars_value(node->str);
+
+// }	
+	//ft_memchr
+	ft_memcpy(node->str, get_vars_value(node->str), ft_strlen(get_vars_value(node->str)));
+	return (0);
+}
+
 //a function that transverses  the AST and use the check_dollar function to identify a dollar and print a statement
 //the function is called expansion 
 int expansion(struct node_s *node)
@@ -56,6 +68,9 @@ int expansion(struct node_s *node)
 		if (check_dollar(node->str) == 1)
 		{
 			printf("Dollar found in %s\n", node->str);
+			//print_vars(); //    THIS SEGAULTS
+			replace_var(node);
+			printf("str after replace_var: %s\n", node->str);
 		}
 	}
 	if (node->first_child)
@@ -64,30 +79,6 @@ int expansion(struct node_s *node)
 		expansion(node->next_sibling);
 	return (0);
 }
-
-// void	add_to_env(char *var)
-// {
-// 	char *var_name;
-// 	char *var_value;
-// 	int i;
-// 	int j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (var[i] != '=')
-// 	{
-// 		var_name[i] = var[i];
-// 		i++;
-// 	}
-// 	i++;
-// 	while (var[i] != '\0')
-// 	{
-// 		var_value[j] = var[i];
-// 		i++;
-// 		j++;
-// 	}
-// 	setenv(var_name, var_value, 0);
-// }
 
 
 struct node_s *parse_simple_command(char **tokens)
