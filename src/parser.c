@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 16:53:26 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:15:38 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,51 +124,6 @@ int unset_var(t_data *data, const char *name) {
     fprintf(stderr, "Variable '%s' not found\n", name);
     return -1;
 }
-
-
-
-
-
-
-int	check_dollar(char *str)
-{
-	if (str[0] == '$')
-		return(1);
-	return (0);
-}
-
-// static int replace_var(struct node_s *node)
-// {
-// // 	char 
-// // 	node->str = get_vars_value(node->str);
-
-// // }	
-// 	//ft_memchr
-// 	ft_memcpy(node->str, get_vars_value(node->str), ft_strlen(get_vars_value(node->str)));
-// 	return (0);
-// }
-
-//a function that transverses  the AST and use the check_dollar function to identify a dollar and print a statement
-//the function is called expansion 
-// int expansion(struct node_s *node)
-// {
-// 	if (node->type == NODE_VAR)
-// 	{
-// 		if (check_dollar(node->str) == 1)
-// 		{
-// 			printf("Dollar found in %s\n", node->str);
-// 			//print_vars(); //    THIS SEGAULTS
-// 			// replace_var(node);
-// 			printf("str after replace_var: %s\n", node->str);
-// 		}
-// 	}
-// 	if (node->first_child)
-// 		expansion(node->first_child);
-// 	if (node->next_sibling)
-// 		expansion(node->next_sibling);
-// 	return (0);
-// }
-
 
 struct node_s *parse_simple_command(char **tokens)
 {

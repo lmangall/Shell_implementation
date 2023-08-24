@@ -7,14 +7,14 @@
 #include "parser.h"
 
 
-
-/**
- * @brief Replaces the variable in the given node's string with its value.
- * 
- * @param node The node to replace the variable in.
- * @return int Returns 0 on success.
- */
-static int replace_var(struct node_s *node);
+// //UPDATE DOXY COMMENT
+// /**
+//  * @brief Replaces the variable in the given node's string with its value.
+//  * 
+//  * @param node The node to replace the variable in.
+//  * @return int Returns 0 on success.
+//  */
+// int replace_var(struct node_s *node, char *new_value);
 
 /**
  * @brief Checks if the given node's string contains a dollar sign.
@@ -25,17 +25,19 @@ static int replace_var(struct node_s *node);
 struct node_s *contains_dollar(struct node_s *node);
 
 /**
- * @brief Expands variables in the given node's string using the given variables container.
- * 
- * @param node The node to expand variables in.
- * @param vars_container The container of variables to use for expansion.
+ * @brief Expands variables in a command node.
+ *
+ * This function replaces any variable references in the command node with their
+ * corresponding values from the variables container in the t_data structure.
+ *
+ * @param node The command node to expand.
+ * @param data Pointer to the t_data structure containing the variables container.
  */
 void expansion(struct node_s *node, t_data *data);
 
 
 
 int 	parse_and_execute(char *line, t_data *data);
-int		check_dollar(char *str);
 
 
 

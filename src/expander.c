@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 19:58:13 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:13:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 #include "../include/shell.h"
 #include "../include/minishell.h"
 #include "../include/parser.h"
+#include "../include/expander.h"
 #include "../lib/libft/src/libft.h"
 
 
-// static int replace_var(struct node_s *node)
-// {
-// 	ft_memcpy(node->str, get_vars_value(node->str), ft_strlen(get_vars_value(node->str)));
-// 	return (0);
-// }
-
+static int replace_var(struct node_s *node, char *new_value)
+{
+	ft_memcpy(node->str, new_value, ft_strlen(new_value));
+	return (0);
+}
 
 struct node_s *contains_dollar(struct node_s *node)
 {
@@ -36,45 +36,23 @@ struct node_s *contains_dollar(struct node_s *node)
 	return (NULL);
 }
 
-
-// void expansion(struct node_s *node, t_data *data)
-// {
-// 	int i = 0;
-// 	struct node_s *dollar_node;
-// 	dollar_node = contains_dollar(node);
-// 	if (dollar_node)
-// 	{
-// 		printf("dollar_node->str: %s\n", dollar_node->str);
-// 		while (i < 10) //HARDCODED
-// 		{
-// 				if(dollar_node->str == &data->vars_container.name)
-// 				{
-// 					// replace_var(node);
-// 					printf("dollar_node->str: %s\n", dollar_node->str);
-// 				}
-// 			i++;
-// 		}
-
-		
-// 	}
-// }
-
 void expansion(struct node_s *node, t_data *data)
 {
+	int	i;
+
+	i = 0;
     struct node_s *dollar_node = contains_dollar(node);
     if (dollar_node)
     {
-        printf("dollar_node->str: %s\n", dollar_node->str);
-        for (int i = 0; i < data->num_vars; i++)
+        // printf("dollar_node->str: %s\n", dollar_node->str);
+		// printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
+	    while(i <= data->num_vars)
         {
-			//prints in green all	
-   			printf("\033[0;32mdata->vars_container[%d].name: %s\033[0m\n", i, data->vars_container[i].name);
-		    if (strcmp(dollar_node->str + 1, data->vars_container[i].name) == 0)
-            {
-                // replace_var(node);
-                //prints the variable
-				printf("%s\n", data->vars_container[i].value);
-            }
-        }
+			//prints in green each var name	
+   			// printf("\033[0;32mdata->vars_container[%d].name: %s\033[0m\n", i, data->vars_container[i].name);
+		    if (ft_strcmp(dollar_node->str + 1, data->vars_container[i].name) == 0)
+                replace_var(node, data->vars_container[i].value);
+        i++;
+		}
     }
 }
