@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 16:54:44 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:49:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../include/vars.h"
 #include "../include/parser.h"
 #include "../include/executor.h"
+#include "../include/expander.h"
 #include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
@@ -60,14 +61,14 @@ int main(int argc, char **argv)
         line = readline(SHELL_PROMPT);		
         add_history(line);
 		// init_data(data);
-        status = parse_and_execute(line);
+        status = parse_and_execute(line, &data);
         free(line);
     }
 
     return EXIT_SUCCESS;
 }
 
-int parse_and_execute(char *line)
+int parse_and_execute(char *line, t_data *data)
 {
 	char **tokens;
 	
@@ -75,6 +76,18 @@ int parse_and_execute(char *line)
 	free(line);
 	struct node_s *cmd = parse_simple_command(tokens);
 	// expansion(cmd);
+	//a loop that traverses cmd and calls expansion
+	while(cmd->next_sibling)
+	{
+		expansion(cmd, data);
+		cmd = cmd->next_sibling;
+		printf("01cmd->next_sibling: %s\n", cmd->str);
+	}
+
+
+
+
+	
 	int i = 0;
     while(i == 0)
     {

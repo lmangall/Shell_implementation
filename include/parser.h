@@ -33,9 +33,6 @@ typedef struct s_data {
 
 
 
-int 	parse_and_execute(char *line);
-int		check_dollar(char *str);
-// int		expansion(struct node_s *node);
 // void	add_to_env(char *var);
 
 

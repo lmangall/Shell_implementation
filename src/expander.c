@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 17:00:31 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:52:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../include/node.h"
 #include "../include/shell.h"
 #include "../include/minishell.h"
+#include "../include/parser.h"
 #include "../lib/libft/src/libft.h"
 
 
@@ -28,40 +29,52 @@
 // }
 
 
-// struct node_s *contains_dollar(struct node_s *node)
-// {
-// 	if (node->type == NODE_COMMAND)
-// 	{
-// 		if (node->str[0] == '$')
-// 			return (node);
-// 	}
-// 	return (NULL);
-// }
+struct node_s *contains_dollar(struct node_s *node)
+{
+	if (node->type == NODE_COMMAND)
+	{
+		if (node->str[0] == '$')
+			return (node);
+	}
+	return (NULL);
+}
 
 
-// void expansion(struct node_s *node, struct Vars *vars_container)
+// void expansion(struct node_s *node, t_data *data)
 // {
+// 	int i = 0;
 // 	struct node_s *dollar_node;
 // 	dollar_node = contains_dollar(node);
 // 	if (dollar_node)
 // 	{
 // 		printf("dollar_node->str: %s\n", dollar_node->str);
-// 		while(node)
+// 		while (i < 10) //HARDCODED
 // 		{
-// 				if(dollar_node->str == vars_container->name)
+// 				if(dollar_node->str == &data->vars_container.name)
 // 				{
-// 					replace_var(node);
+// 					// replace_var(node);
+// 					printf("dollar_node->str: %s\n", dollar_node->str);
 // 				}
-// 			node = node->next;
+// 			i++;
 // 		}
 
 		
 // 	}
 // }
 
-// //traverses AST and calls expansion
-// 		while(node)
-// 		{
-// 			expansion(node, vars_container);
-// 			node = node->next;
-// 		}
+void expansion(struct node_s *node, t_data *data)
+{
+    struct node_s *dollar_node = contains_dollar(node);
+    if (dollar_node)
+    {
+        printf("dollar_node->str: %s\n", dollar_node->str);
+        for (int i = 0; i < data->num_vars; i++)
+        {
+            if (strcmp(dollar_node->str, data->vars_container[i].name) == 0)
+            {
+                // replace_var(node);
+                printf("dollar_node->str: %s\n", dollar_node->str);
+            }
+        }
+    }
+}
