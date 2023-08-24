@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 20:15:38 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:45:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ void init_vars(t_data *data) {
 }
 
 
-void print_vars(const t_data *data) {
-    for (int i = 0; i < data->num_vars; i++) {
-        printf("name: %s\n", data->vars_container[i].name);
+void print_vars(const t_data *data) 
+{
+    printf("\n");
+    for (int i = 0; i < data->num_vars; i++) 
+	{
+	    printf("%-18s", data->vars_container[i].name);
         printf("value: %s\n", data->vars_container[i].value);
     }
 }

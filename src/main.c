@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 19:51:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:48:36 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ int parse_and_execute(char *line, t_data *data)
         // printf("mark 2\n");
         // printf("cpy->str: %s\n", cpy->str);
         expansion(cpy, data);
+		// print_vars(data);
+		printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
+		expansion_set_var(cpy, data);
+		print_vars(data);
+		// print nbr of VARS printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
         cpy = cpy->next_sibling;
     }
 

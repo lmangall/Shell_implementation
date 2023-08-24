@@ -35,6 +35,7 @@ struct node_s *contains_dollar(struct node_s *node);
  */
 void expansion(struct node_s *node, t_data *data);
 
+void expansion_set_var(struct node_s *node, t_data *data);
 
 
 int 	parse_and_execute(char *line, t_data *data);
