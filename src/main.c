@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 20:48:36 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:17:17 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,34 @@ int parse_and_execute(char *line, t_data *data)
 	struct node_s *cpy = malloc(sizeof(struct node_s));
     // if(!node)
 	// 	return NULL;
+	
 	cpy = cmd->first_child;
+    // while (cpy)
+    // {
+    //     // printf("mark 2\n");
+    //     // printf("cpy->str: %s\n", cpy->str);
+    //     expansion(cpy, data);
+	// 	// print_vars(data);
+	// 	printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
+	// 	expansion_set_var(cpy, data);
+	// 	print_vars(data);
+	// 	// print nbr of VARS printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
+    //     cpy = cpy->next_sibling;
+    // }
+    //     free_node_tree(cpy);
+
+    // First, expand all variables in the nodes
     while (cpy)
     {
-        // printf("mark 2\n");
-        // printf("cpy->str: %s\n", cpy->str);
         expansion(cpy, data);
-		// print_vars(data);
-		printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
-		expansion_set_var(cpy, data);
-		print_vars(data);
-		// print nbr of VARS printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
+        cpy = cpy->next_sibling;
+    }
+
+    // Then, go through the expanded nodes to set variables
+    cpy = cmd->first_child;
+    while (cpy)
+    {
+        expansion_set_var(cpy, data);
         cpy = cpy->next_sibling;
     }
 

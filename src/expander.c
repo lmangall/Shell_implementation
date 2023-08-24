@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 20:51:58 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:17:18 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ struct node_s *contains_dollar(struct node_s *node)
 	return (NULL);
 }
 
-static struct node_s *contains_equal(struct node_s *node)
+static int contains_equal(struct node_s *node)
 {
     int i;
 	
@@ -44,10 +44,10 @@ static struct node_s *contains_equal(struct node_s *node)
     while (node->str[i] != '\n')
     {
         if (node->str[i] == '=')
-            return node;
+            return(1);
         i++;
     }
-    return NULL;
+    return(0);
 }
 void expansion(struct node_s *node, t_data *data)
 {
@@ -91,11 +91,10 @@ char *get_var_name(char *str)
 
 void expansion_set_var(struct node_s *node, t_data *data)
 {
-    struct node_s *equal_node = contains_equal(node);
-    if (equal_node)
+    if (contains_equal(node))
     {
-        char *var_name = get_var_name(equal_node->str);
-        set_var(data, var_name, equal_node->str + strlen(var_name) + 1);
+        char *var_name = get_var_name(node->str);
+        set_var(data, var_name, node->str + strlen(var_name) + 1);
         free(var_name);
     }
 }
