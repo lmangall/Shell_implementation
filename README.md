@@ -1,5 +1,12 @@
 # minishell
 
+
+docker build -t ubuntu .
+docker run -it --rm -v $(pwd):/home/root ubuntu
+
+apt-get install libreadline-dev
+
+
 ### TO DO
 - [ ] barebone working code
 - [ ] Write tests before code ?

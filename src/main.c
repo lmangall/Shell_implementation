@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 22:20:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/24 08:40:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <string.h>
 #include "../include/shell.h"
 #include "../include/lexer.h"
+#include "../include/vars.h"
 #include "../include/parser.h"
 #include "../include/executor.h"
 #include "../include/minishell.h"
