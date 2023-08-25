@@ -37,7 +37,9 @@ int main(int argc, char **argv)
 	init_vars(&data);
     // print_vars(&data);
     set_var(&data, "SUPERVARIABLE", "Leonardo da Vinci");
-    // print_vars(&data);
+    print_vars(&data);
+    export_var(&data, "SUPERVARIABLE");
+    print_exported_vars(&data);
     // unset_var(&data, "MY_VARIABLE");
     // print_vars(&data);
 	

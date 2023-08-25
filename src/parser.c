@@ -41,6 +41,7 @@ void init_vars(t_data *data) {
     int equal_sign;
 
     data->num_vars = 0;
+    data->num_exported_vars = 0;
 
     while (environ[i] != NULL && i < MAX_VARS) {
         equal_sign = find_equal_sign(environ[i]);
@@ -127,6 +128,49 @@ int unset_var(t_data *data, const char *name) {
     fprintf(stderr, "Variable '%s' not found\n", name);
     return -1;
 }
+
+int export_var(t_data *data, const char *name)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < data->num_vars)
+    {
+        if (ft_strcmp(data->vars_container[i].name, name) == 0)
+        {
+            j = 0;
+            while (j < data->num_exported_vars)
+            {
+                if (ft_strcmp(data->exported_vars_container[j].name, name) == 0)
+                    return (0); // Bereits exportiert
+                j++;
+            }
+
+            if (data->num_exported_vars >= MAX_VARS)
+                return (0); // Kein Platz für weitere exportierte Variablen
+
+            data->exported_vars_container[data->num_exported_vars] = data->vars_container[i];
+            data->num_exported_vars++;
+            return (1); // Erfolgreich exportiert
+        }
+        i++;
+    }
+    return (0); // Variable nicht gefunden
+}
+
+void print_exported_vars(const t_data *data)
+{
+    printf("\nExported Variables:\n");
+    int i = 0;
+    while (i < data->num_exported_vars)
+    {
+        printf("%-18s", data->exported_vars_container[i].name);
+        printf("value: %s\n", data->exported_vars_container[i].value);
+        i++;
+    }
+}
+
 
 struct node_s *parse_simple_command(char **tokens)
 {
