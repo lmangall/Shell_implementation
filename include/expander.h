@@ -1,6 +1,19 @@
 #ifndef EXPANDER_H
 #define EXPANDER_H
 
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include "../include/shell.h"
+#include "../include/lexer.h"
+#include "../include/vars.h"
+#include "../include/parser.h"
+#include "../include/executor.h"
+#include "../include/expander.h"
+#include "../include/minishell.h"
+#include "../lib/libft/src/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 // /**
 //  * @brief Replaces the variable in the given node's string with its value.
@@ -26,5 +39,7 @@
 //  */
 // void expansion(struct node_s *node, struct Vars *vars_container);
 
+void expansion(struct node_s *node, t_data *data);
+void expansion_set_var(struct node_s *node, t_data *data);
 
 #endif 

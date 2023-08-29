@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/24 21:17:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:53:28 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 #include "../lib/libft/src/libft.h"
 
 
-static int replace_var(struct node_s *node, char *new_value)
-{
-	ft_memcpy(node->str, new_value, ft_strlen(new_value));
-	return (0);
-}
+// static int replace_var(struct node_s *node, char *new_value)
+// {
+// 	ft_memcpy(node->str, new_value, ft_strlen(new_value));
+// 	return (0);
+// }
 
 struct node_s *contains_dollar(struct node_s *node)
 {
@@ -64,7 +64,7 @@ void expansion(struct node_s *node, t_data *data)
 			//prints in green each var name	
    			// printf("\033[0;32mdata->vars_container[%d].name: %s\033[0m\n", i, data->vars_container[i].name);
 		    if (ft_strcmp(dollar_node->str + 1, data->vars_container[i].name) == 0)
-                replace_var(node, data->vars_container[i].value);
+                set_node_str(node, data->vars_container[i].value);
         i++;
 		}
     }

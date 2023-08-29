@@ -51,6 +51,8 @@ void set_node_str(struct node_s *node, char *val)
 		    node->str = NULL;
         else
         {
+			if(node->str)
+				free(node->str);
             strcpy(val2, val);
             node->str = val2;
         }

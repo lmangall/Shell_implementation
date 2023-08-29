@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/29 18:59:54 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:37:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int main(int argc, char **argv)
 		// 	display_history();
 		if (ft_strcmp(line, "exit") == 0)
 			status = 0;
+		if (ft_strcmp(line, "myenv") == 0)
+			print_vars(&data);
 	}
 
     return EXIT_SUCCESS;
@@ -103,25 +105,24 @@ int parse_and_execute(char *line, t_data *data)
 	// 	expansion_set_var(cpy, data);
 	// 	print_vars(data);
 	// 	// print nbr of VARS printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
-        cpy = cpy->next_sibling;
+    cpy = cpy->next_sibling;
     // }
     //     free_node_tree(cpy);
 
     // First, expand all variables in the nodes
-    // while (cpy)
-    // {
-    //     expansion(cpy, data);
-    //     cpy = cpy->next_sibling;
-    // }
+    while (cpy)
+    {
+        expansion(cpy, data);
+        cpy = cpy->next_sibling;
+    }
 
     // Then, go through the expanded nodes to set variables
     // cpy = cmd->first_child;
     // while (cpy)
     // {
-        // expansion_set_var(cpy, data);
+    //     expansion_set_var(cpy, data);
     //     cpy = cpy->next_sibling;
     // }
-
 
 	int i = 0;
     while(i == 0)
@@ -135,3 +136,4 @@ int parse_and_execute(char *line, t_data *data)
     }
     return 1;
 }
+
