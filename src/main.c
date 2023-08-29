@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/29 19:37:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:51:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,21 @@ int main(int argc, char **argv)
     return EXIT_SUCCESS;
 }
 
+
+static int contains_equal(struct node_s *node)
+{
+    int i;
+	
+	i = 0;
+    while (node->str[i] != '\0')
+    {
+        if (node->str[i] == '=')
+            return(1);
+        i++;
+    }
+    return(0);
+}
+
 int parse_and_execute(char *line, t_data *data)
 {
 
@@ -93,36 +108,18 @@ int parse_and_execute(char *line, t_data *data)
 	struct node_s *cmd = parse_simple_command(tokens);
 	struct node_s *cpy = malloc(sizeof(struct node_s));
 
-
-	cpy = cmd->first_child;
-    // while (cpy)
-    // {
-    //     // printf("mark 2\n");
-    //     // printf("cpy->str: %s\n", cpy->str);
-    //     expansion(cpy, data);
-	// 	// print_vars(data);
-	// 	printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
-	// 	expansion_set_var(cpy, data);
-	// 	print_vars(data);
-	// 	// print nbr of VARS printf("\033[0;32mdata->num_vars = %d\033[0m\n", data->num_vars);
-    cpy = cpy->next_sibling;
-    // }
-    //     free_node_tree(cpy);
-
-    // First, expand all variables in the nodes
+    // variable substitution
+	cpy = cmd->first_child->next_sibling;
     while (cpy)
     {
-        expansion(cpy, data);
+        expansion_substitution(cpy, data);
         cpy = cpy->next_sibling;
     }
+	
+    // variable setting
+	if (contains_equal(cmd->first_child))
+		expansion_set_var(cmd->first_child, data);
 
-    // Then, go through the expanded nodes to set variables
-    // cpy = cmd->first_child;
-    // while (cpy)
-    // {
-    //     expansion_set_var(cpy, data);
-    //     cpy = cpy->next_sibling;
-    // }
 
 	int i = 0;
     while(i == 0)
