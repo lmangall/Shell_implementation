@@ -99,6 +99,40 @@ static int contains_equal(struct node_s *node)
     return(0);
 }
 
+int contains_cd(struct node_s *node)
+{
+    int i;
+    
+    i = 0;
+    while (node->str[i] != '\0')
+    {
+        if (node->str[i] == 'c' && node->str[i + 1] == 'd')
+            return(1);
+        i++;
+    }
+    return(0);
+}
+int do_cd_builtin(struct node_s *path, t_data *data) {
+   
+    //printf("cd builtin\n");
+    //printf("cmd->str: %s\n", path->str);
+    if (path->next_sibling)
+    {
+        chdir(path->next_sibling->str);
+        printf("cmd->next_sibling->str: %s\n", path->next_sibling->str);
+    }
+    else
+    {
+        // gonna fix this later
+        // because could be different for our purposes
+         
+        // chdir(get_var_value(data, "HOME"));
+        // printf("data->home: %s\n", get_var_value(data, "HOME"));
+    }
+
+    return 1;
+}
+
 int parse_and_execute(char *line, t_data *data)
 {
 
@@ -120,7 +154,10 @@ int parse_and_execute(char *line, t_data *data)
 	if (contains_equal(cmd->first_child))
 		expansion_set_var(cmd->first_child, data);
 
-
+    // cd to change directory
+    if (contains_cd(cmd->first_child))
+        do_cd_builtin(cmd->first_child, data);
+        
 	int i = 0;
     while(i == 0)
     {
