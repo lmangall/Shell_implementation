@@ -5,7 +5,6 @@
 #include "../include/node.h"
 #include "../include/shell.h"
 #include "../include/vars.h"
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 #include "../include/vars.h"
 

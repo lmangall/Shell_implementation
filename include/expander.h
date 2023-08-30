@@ -10,7 +10,6 @@
 #include "../include/parser.h"
 #include "../include/executor.h"
 #include "../include/expander.h"
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>

@@ -6,11 +6,10 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 16:12:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:59:45 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 #include <stdlib.h>
 #include <stdio.h>

@@ -37,7 +37,7 @@ char* search_path(char* file);
  *         process image is replaced with the new command image. If there is an error in locating or executing the
  *         command, the function may return -1, and errno will be set appropriately.
  */
-int do_exec_cmd(int argc, char** argv);
+int do_exec_cmd(char** argv);
 
 /**
  * @brief Executes a simple command from the Abstract Syntax Tree (AST).

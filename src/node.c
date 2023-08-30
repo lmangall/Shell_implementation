@@ -4,7 +4,6 @@
 #include <errno.h>
 #include "../include/node.h"
 #include "../include/shell.h"
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 
 struct node_s *new_node(enum node_type_e type)

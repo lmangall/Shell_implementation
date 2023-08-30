@@ -6,11 +6,10 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/22 22:19:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:59:16 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,67 +44,67 @@ char *search_path(char *file)
 	return NULL;
 }
 
-int do_exec_cmd(int argc, char **argv)
+int do_exec_cmd(char **argv)
 {
-    if(strchr(argv[0], '/'))
-    {
-        execv(argv[0], argv);
-    }
-    else
-    {
-        char *path = search_path(argv[0]);
-        if(!path)
-        {
-            return 0;
-        }
+	if(strchr(argv[0], '/'))
+	{
+		execv(argv[0], argv);
+	}
+	else
+	{
+		char *path = search_path(argv[0]);
+		if(!path)
+		{
+			return 0;
+		}
 		execv(path, argv);
 		printf("\033[1;33mNOT GETTIN PRINTED\033[0m\n");
-       free(path);
-    }
-    return 0;
+	free(path);
+	}
+	return 0;
 }
 
 static inline void free_argv(int argc, char **argv)
 {
-    if(!argc)
+	if(!argc)
 		return;
-    while(argc--)
+	while(argc--)
 	free(argv[argc]);
 }
 
 int do_simple_command(struct node_s *node)
 {
-    if(!node)
+	if(!node)
 		return 0;
-    struct node_s *child = node->first_child;
-    if(!child)
+	struct node_s *child = node->first_child;
+	if(!child)
 	return 0;
-    
-    int argc = 0;
-    long max_args = 255;
-    char *argv[max_args+1];/* keep 1 for the terminating NULL arg */
-    char *str;
+	
+	int argc = 0;
+	long max_args = 255;
+	char *argv[max_args+1];/* keep 1 for the terminating NULL arg */
+	char *str;
 
-    while(child)
-    {
-        str = child->str;
-        argv[argc] = malloc(strlen(str)+1);
-        
+	while(child)
+	{
+		str = child->str;
+		argv[argc] = malloc(strlen(str)+1);
+		
 	if(!argv[argc])
-        {
-            free_argv(argc, argv);
-            return 0;
-        }
-        
+		{
+			free_argv(argc, argv);
+			return 0;
+		}
+		
 	strcpy(argv[argc], str);
-        if(argc >= max_args)
-        {
-            break;
-        }
-        child = child->next_sibling;
+		if(argc >= max_args)
+		{
+			break;
+		}
+		child = child->next_sibling;
 		argc++;
-    }
-    argv[argc] = NULL;
+	}
+	argv[argc] = NULL;
 	
 	//loop to print argv
 	int i = 0;
@@ -114,35 +113,35 @@ int do_simple_command(struct node_s *node)
 
 
 
-    pid_t child_pid = 0;
-    if((child_pid = fork()) == 0)
-    {
+	pid_t child_pid = 0;
+	if((child_pid = fork()) == 0)
+	{
 
-        do_exec_cmd(argc, argv);
-        fprintf(stderr, "error: failed to execute command: %s\n", 
-                strerror(errno));
-        if(errno == ENOEXEC)
-        {
-            exit(126);
-        }
-        else if(errno == ENOENT)
-        {
-            exit(127);
-        }
-        else
-        {
-            exit(EXIT_FAILURE);
-        }
-    }
-    else if(child_pid < 0)
-    {
-        fprintf(stderr, "error: failed to fork command: %s\n", 
-                strerror(errno));
-        return 0;
-    }
-    int status = 0;
-    waitpid(child_pid, &status, 0);
-    free_argv(argc, argv);
-    
-    return 1;
+		do_exec_cmd(argv);
+		fprintf(stderr, "error: failed to execute command: %s\n", 
+				strerror(errno));
+		if(errno == ENOEXEC)
+		{
+			exit(126);
+		}
+		else if(errno == ENOENT)
+		{
+			exit(127);
+		}
+		else
+		{
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if(child_pid < 0)
+	{
+		fprintf(stderr, "error: failed to fork command: %s\n", 
+				strerror(errno));
+		return 0;
+	}
+	int status = 0;
+	waitpid(child_pid, &status, 0);
+	free_argv(argc, argv);
+	
+	return 1;
 }

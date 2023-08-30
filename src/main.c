@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/29 20:51:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:59:04 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include "../include/parser.h"
 #include "../include/executor.h"
 #include "../include/expander.h"
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -39,39 +38,31 @@
 // }
 
 
-int main(int argc, char **argv)
+int main(void)
 {
-    char *line;
-    int status;
-    t_data data;
-    data.paths = NULL;
-    data.envp = NULL;
-	
-
-	init_vars(&data);
-    // print_vars(&data);
-    set_var(&data, "SUPERVARIABLE", "Leonardo da Vinci");
-    // print_vars(&data);
-    export_var(&data, "SUPERVARIABLE");
-    // print_exported_vars(&data);
-    // unset_var(&data, "SUPERVARIABLE");
-    // print_vars(&data);
+	char *line;
+	int status;
+	t_data data;
+	data.paths = NULL;
+	data.envp = NULL;
 	
 	// data = malloc(sizeof(t_data)); // Allocate memory for data
-    // if (!data) 
+	// if (!data) 
 	// {
 	// 	fprintf(stderr, "lsh: allocation error\n");
 	// 	exit(EXIT_FAILURE);
 	// }
+
+	init_vars(&data);
 		
 	status = 1;
-    while(status)
-    {
-        line = readline(SHELL_PROMPT);		
+	while(status)
+	{
+		line = readline(SHELL_PROMPT);		
 	if(line[0] !=  '\0')
 		{
 		add_history(line);
-        status = parse_and_execute(line, &data);
+		status = parse_and_execute(line, &data);
 		}
 		// if (ft_strcmp(line, "history") == 0)
 		// 	display_history();
@@ -81,96 +72,96 @@ int main(int argc, char **argv)
 			print_vars(&data);
 	}
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
 
 static int contains_equal(struct node_s *node)
 {
-    int i;
+	int i;
 	
 	i = 0;
-    while (node->str[i] != '\0')
-    {
-        if (node->str[i] == '=')
-            return(1);
-        i++;
-    }
-    return(0);
+	while (node->str[i] != '\0')
+	{
+		if (node->str[i] == '=')
+			return(1);
+		i++;
+	}
+	return(0);
 }
 
 int contains_cd(struct node_s *node)
 {
-    int i;
-    
-    i = 0;
-    while (node->str[i] != '\0')
-    {
-        if (node->str[i] == 'c' && node->str[i + 1] == 'd')
-            return(1);
-        i++;
-    }
-    return(0);
+	int i;
+	
+	i = 0;
+	while (node->str[i] != '\0')
+	{
+		if (node->str[i] == 'c' && node->str[i + 1] == 'd')
+			return(1);
+		i++;
+	}
+	return(0);
 }
 int do_cd_builtin(struct node_s *path, t_data *data) {
-   
-    //printf("cd builtin\n");
-    //printf("cmd->str: %s\n", path->str);
-    if (path->next_sibling)
-    {
-        chdir(path->next_sibling->str);
-        printf("cmd->next_sibling->str: %s\n", path->next_sibling->str);
-        //update pwd in the vars_container
-        // this might be wrong because it is maybe too short
-        set_var(data, "PWD", path->next_sibling->str);
-    }
-    else
-    {
-        // gonna fix this later
-        // because could be different for our purposes
-         
-        // chdir(get_var_value(data, "HOME"));
-        // printf("data->home: %s\n", get_var_value(data, "HOME"));
-    }
 
-    return 1;
+	//printf("cd builtin\n");
+	//printf("cmd->str: %s\n", path->str);
+	if (path->next_sibling)
+	{
+		chdir(path->next_sibling->str);
+		printf("cmd->next_sibling->str: %s\n", path->next_sibling->str);
+		//update pwd in the vars_container
+		// this might be wrong because it is maybe too short
+		set_var(data, "PWD", path->next_sibling->str);
+	}
+	else
+	{
+		// gonna fix this later
+		// because could be different for our purposes
+		
+		// chdir(get_var_value(data, "HOME"));
+		// printf("data->home: %s\n", get_var_value(data, "HOME"));
+	}
+
+	return 1;
 }
 
 int parse_and_execute(char *line, t_data *data)
 {
-
+	int i;
 	char **tokens;
 	tokens = lexer(line);
 	free(line);
 	struct node_s *cmd = parse_simple_command(tokens);
 	struct node_s *cpy = malloc(sizeof(struct node_s));
 
-    // variable substitution
+	i = 0;
+	// variable substitution
 	cpy = cmd->first_child->next_sibling;
-    while (cpy)
-    {
-        expansion_substitution(cpy, data);
-        cpy = cpy->next_sibling;
-    }
+	while (cpy)
+	{
+		expansion_substitution(cpy, data);
+		cpy = cpy->next_sibling;
+	}
 	
-    // variable setting
+	// variable setting
 	if (contains_equal(cmd->first_child))
 		expansion_set_var(cmd->first_child, data);
 
-    // cd to change directory
-    if (contains_cd(cmd->first_child))
-        do_cd_builtin(cmd->first_child, data);
+	// cd to change directory
+	if (contains_cd(cmd->first_child))
+		do_cd_builtin(cmd->first_child, data);
 
-	int i = 0;
-    while(i == 0)
-    {
-        if(!cmd)
+	while(i == 0)
+	{
+		if(!cmd)
 			break;
-        do_simple_command(cmd);
-        free_node_tree(cmd);
+		do_simple_command(cmd);
+		free_node_tree(cmd);
 		free(tokens);
 		i++;
-    }
-    return 1;
+	}
+	return 1;
 }
 

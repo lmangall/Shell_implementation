@@ -3,7 +3,6 @@
 #include <string.h>
 #include <errno.h>
 #include "../include/shell.h"
-#include "../include/minishell.h"
 #include "../lib/libft/src/libft.h"
 
 //we can use a preprocessor # define to define the error messages
