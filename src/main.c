@@ -120,6 +120,9 @@ int do_cd_builtin(struct node_s *path, t_data *data) {
     {
         chdir(path->next_sibling->str);
         printf("cmd->next_sibling->str: %s\n", path->next_sibling->str);
+        //update pwd in the vars_container
+        // this might be wrong because it is maybe too short
+        set_var(data, "PWD", path->next_sibling->str);
     }
     else
     {
@@ -157,7 +160,7 @@ int parse_and_execute(char *line, t_data *data)
     // cd to change directory
     if (contains_cd(cmd->first_child))
         do_cd_builtin(cmd->first_child, data);
-        
+
 	int i = 0;
     while(i == 0)
     {
