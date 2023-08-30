@@ -20,28 +20,6 @@ typedef struct s_data {
     t_vars exported_vars_container[MAX_VARS];
 } t_data;
 
-// int find_equal_sign(char *str) {
-//     int i = 0;
-//     while (str[i] != '\0') {
-//         if (str[i] == '=')
-//             return i;
-//         i++;
-//     }
-//     return -1;
-// }
-
-
-
-
-
-
-// void	add_to_env(char *var);
-
-
-
-
-
-////////////////////
 
 
 int find_equal_sign(char *str);

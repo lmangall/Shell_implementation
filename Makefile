@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/08/30 15:06:28 by lmangall         ###   ########.fr        #
+#    Updated: 2023/08/30 16:04:36 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = lexer.c \
 		errors.c \
 		expander.c \
 		vars.c \
+		builtins/cd.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
@@ -43,7 +44,7 @@ $(NAME): $(OBJS)
 	@echo "\033[32mCompilation succeeded!\033[0m"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR) # Create the object directory if it doesn't exist
+	@mkdir -p $(dir $@) # Create the subdirectories
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
