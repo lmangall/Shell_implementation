@@ -33,6 +33,7 @@ int do_cd_builtin(struct node_s *path, t_data *data)
 		//update pwd in the vars_container
 		// this might be wrong because it is maybe too short
 		set_var(data, "PWD", path->next_sibling->str);
+		return(1);
 	}
 	else
 	{
@@ -43,5 +44,5 @@ int do_cd_builtin(struct node_s *path, t_data *data)
 		// printf("data->home: %s\n", get_var_value(data, "HOME"));
 	}
 
-	return 1;
+	return (0);
 }

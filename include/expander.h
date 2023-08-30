@@ -38,7 +38,7 @@
 //  */
 // void expansion(struct node_s *node, struct Vars *vars_container);
 
-void expansion_substitution(struct node_s *node, t_data *data);
-void expansion_set_var(struct node_s *node, t_data *data);
+int expansion_substitution(struct node_s *node, t_data *data);
+int expansion_set_var(struct node_s *node, t_data *data);
 
 #endif 

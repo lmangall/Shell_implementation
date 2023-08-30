@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/30 15:43:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:09:28 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,7 @@ int main(void)
 	return EXIT_SUCCESS;
 }
 
-
-static int contains_equal(struct node_s *node)
-{
-	int i;
-	
-	i = 0;
-	while (node->str[i] != '\0')
-	{
-		if (node->str[i] == '=')
-			return(1);
-		i++;
-	}
-	return(0);
-}
-
+//a function called simple_cmd that ch
 
 int parse_and_execute(char *line, t_data *data)
 {
@@ -101,7 +87,6 @@ int parse_and_execute(char *line, t_data *data)
 	struct node_s *cmd = parse_simple_command(tokens);
 	struct node_s *cpy = malloc(sizeof(struct node_s));
 
-	i = 0;
 	// variable substitution
 	cpy = cmd->first_child->next_sibling;
 	while (cpy)
@@ -110,14 +95,14 @@ int parse_and_execute(char *line, t_data *data)
 		cpy = cpy->next_sibling;
 	}
 	
-	// variable setting
-	if (contains_equal(cmd->first_child))
-		expansion_set_var(cmd->first_child, data);
 
-	// cd to change directory
-	if (contains_cd(cmd->first_child))
-		do_cd_builtin(cmd->first_child, data);
+	if (expansion_set_var(cmd->first_child, data) || do_cd_builtin(cmd->first_child, data))
+	{
+		printf("   done   \n");
+	}
+		
 
+	i = 0;
 	while(i == 0)
 	{
 		if(!cmd)
