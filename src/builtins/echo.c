@@ -18,6 +18,7 @@ int contains_echo(struct node_s *node) {
     return 0;
 }
 
+#if 0
 int do_echo_builtin(struct node_s *node) {
     int print_newline = 0;
     struct node_s *arg_node = node;
@@ -48,12 +49,35 @@ int do_echo_builtin(struct node_s *node) {
 
     return EXIT_SUCCESS;
 }
-#if 0
-// this is only for testing purposes
-int do_echo_builtin(struct node_s *node) {
-    
-    printf("   contains echo   \n");
-    (void) node;
-    return 0;
-}
 #endif
+
+int do_echo_builtin(struct node_s *node) {
+    int print_newline = 1; // 1 entspricht true, 0 entspricht false
+    struct node_s *arg_node = node;
+
+    if (arg_node && strcmp(arg_node->str, "echo") != 0) {
+        return EXIT_FAILURE;
+    }
+
+    arg_node = arg_node->next_sibling;
+    if (arg_node && strcmp(arg_node->str, "-n") == 0) {
+        print_newline = 0;
+        arg_node = arg_node->next_sibling;
+    }
+
+    while (arg_node) {
+        printf("%s", arg_node->str);
+
+        if (arg_node->next_sibling) {
+            printf(" ");
+        }
+
+        arg_node = arg_node->next_sibling;
+    }
+
+    if (print_newline) {
+        printf("\n");
+    }
+
+    return EXIT_SUCCESS;
+}
