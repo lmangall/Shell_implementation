@@ -8,4 +8,7 @@
 int do_cd_builtin(struct node_s *path, t_data *data);
 int contains_cd(struct node_s *node);
 
+int do_echo_builtin(struct node_s *node);
+int contains_echo(struct node_s *node);
+
 #endif

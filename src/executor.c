@@ -21,6 +21,7 @@
 #include "../include/shell.h"
 #include "../include/node.h"
 #include "../include/executor.h"
+#include "../include/builtins.h"
 
 char *search_path(char *file)
 {
@@ -79,6 +80,14 @@ int do_simple_command(struct node_s *node)
 	struct node_s *child = node->first_child;
 	if(!child)
 	return 0;
+
+	//if (contains_cd(child)) {
+    //    return do_cd_builtin(child);
+    //} else 
+	if (contains_echo(child)) {
+        return do_echo_builtin(child);
+    }
+    
 	
 	int argc = 0;
 	long max_args = 255;

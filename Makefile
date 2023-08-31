@@ -24,7 +24,8 @@ SRCS = lexer.c \
 		errors.c \
 		expander.c \
 		vars.c \
-		builtins/cd.c
+		builtins/cd.c \
+		builtins/echo.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 

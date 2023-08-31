@@ -55,7 +55,7 @@ int main(void)
 	// }
 
 	init_vars(&data);
-	
+
 	status = 1;
 	while(status)
 	{
@@ -100,7 +100,7 @@ int parse_and_execute(char *line, t_data *data)
 	{
 		printf("   done   \n");
 	}
-		
+
 
 	i = 0;
 	while(i == 0)
