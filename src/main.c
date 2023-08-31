@@ -55,7 +55,7 @@ int main(void)
 	// }
 
 	init_vars(&data);
-		
+	
 	status = 1;
 	while(status)
 	{

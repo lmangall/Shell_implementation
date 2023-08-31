@@ -34,52 +34,48 @@ int find_equal_sign(char *str)
 }
 
 
-void init_vars(t_data *data) //should this take it from environ? can we just do our own ?
-{
-	extern char **environ;
-	int i = 0;
-	int j;
-	int equal_sign;
 
-	data->num_vars = 0;
-	data->num_exported_vars = 0;
 
-	while (environ[i] != NULL && i < MAX_VARS) 
-	{
-		equal_sign = find_equal_sign(environ[i]);
-		if (equal_sign == -1) 
-		{
-			i++;
-			continue;
-		}
+void init_vars(t_data *data) {
+	extern char **environ; // Assumption: extern declaration for the environment variables
+    int i = 0;
+    int j;
+    int equal_sign;
 
-		j = 0;
-		while (j < equal_sign && (size_t)j < sizeof(data->vars_container[i].name) - 1) 
-		{
-			data->vars_container[i].name[j] = environ[i][j];
-			j++;
-		}
-		data->vars_container[i].name[j] = '\0';
+    data->num_vars = 0;
+    data->num_exported_vars = 0;
 
-		j = 0;
-		while (environ[i][equal_sign + 1] != '\0' && (size_t)j < sizeof(data->vars_container[i].value) - 1) 
-		{
-			data->vars_container[i].value[j] = environ[i][equal_sign + 1];
-			j++;
-			equal_sign++;
-		}
-		data->vars_container[i].value[j] = '\0';
+    while (environ[i] != NULL && i < MAX_VARS) {
+        equal_sign = find_equal_sign(environ[i]);
 
-		data->num_vars++;
-		i++;
+        if (equal_sign != -1) {
+            j = 0;
 
-		if (i >= MAX_VARS) {
-			break;
-		}
-	}
+            while (j < equal_sign && (size_t)j < sizeof(data->vars_container[i].name) - 1) {
+                data->vars_container[i].name[j] = environ[i][j];
+                j++;
+            }
+            data->vars_container[i].name[j] = '\0';
 
-	data->vars_container[data->num_vars].name[0] = '\0';
-	data->vars_container[data->num_vars].value[0] = '\0';
+            j = 0;
+            while (environ[i][equal_sign + 1] != '\0' && (size_t)j < sizeof(data->vars_container[i].value) - 1) {
+                data->vars_container[i].value[j] = environ[i][equal_sign + 1];
+                j++;
+                equal_sign++;
+            }
+            data->vars_container[i].value[j] = '\0';
+
+            data->num_vars++;
+        }
+
+        i++;
+        if (i >= MAX_VARS) {
+            environ[i] = NULL; // Ensure we don't go out of bounds
+        }
+    }
+
+    data->vars_container[data->num_vars].name[0] = '\0';
+    data->vars_container[data->num_vars].value[0] = '\0';
 }
 
 
