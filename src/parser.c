@@ -93,51 +93,72 @@ void print_vars(const t_data *data)
 	}
 }
 
-int set_var(t_data *data, const char *name, const char *value) {
-		if (data->num_vars >= MAX_VARS) 
-		{
-			fprintf(stderr, "Maximum number of variables reached\n");
-			return -1;
-		}
-
-	for (int i = 0; i < data->num_vars; i++) {
-		if (strcmp(data->vars_container[i].name, name) == 0) {
-			strncpy(data->vars_container[i].value, value, sizeof(data->vars_container[i].value));
-			data->vars_container[i].value[sizeof(data->vars_container[i].value) - 1] = '\0';
-			return 0;
-		}
-	}
-
-	// Variable nicht gefunden, füge sie hinzu
-	strncpy(data->vars_container[data->num_vars].name, name, sizeof(data->vars_container[data->num_vars].name));
-	data->vars_container[data->num_vars].name[sizeof(data->vars_container[data->num_vars].name) - 1] = '\0';
-	strncpy(data->vars_container[data->num_vars].value, value, sizeof(data->vars_container[data->num_vars].value));
-	data->vars_container[data->num_vars].value[sizeof(data->vars_container[data->num_vars].value) - 1] = '\0';
-	data->num_vars++;
-
-	return 0;
-}
-
-int unset_var(t_data *data, const char *name) 
+int set_var(t_data *data, const char *name, const char *value)
 {
-	for (int i = 0; i < data->num_vars; i++) 
-	{
-		if (strcmp(data->vars_container[i].name, name) == 0) 
-		{
-			for (int j = i; j < data->num_vars - 1; j++) 
-			{
-				strcpy(data->vars_container[j].name, data->vars_container[j + 1].name);
-				strcpy(data->vars_container[j].value, data->vars_container[j + 1].value);
-			}
-			data->num_vars--;
-			data->vars_container[data->num_vars].name[0] = '\0';
-			data->vars_container[data->num_vars].value[0] = '\0';
-			return 0;
-		}
-	}
-	fprintf(stderr, "Variable '%s' not found\n", name);
-	return -1;
+    if (data->num_vars >= MAX_VARS)
+    {
+        fprintf(stderr, "Maximum number of variables reached\n");
+        return -1;
+    }
+
+    int i = 0;
+    while (i < data->num_vars)
+    {
+        if (ft_strcmp(data->vars_container[i].name, name) == 0)
+        {
+            strncpy(data->vars_container[i].value, value, sizeof(data->vars_container[i].value) - 1);
+            data->vars_container[i].value[sizeof(data->vars_container[i].value) - 1] = '\0';
+            return 0;
+        }
+        i++;
+    }
+
+    // Variable not found, add it
+    if (data->num_vars < MAX_VARS)
+    {
+        strncpy(data->vars_container[data->num_vars].name, name, sizeof(data->vars_container[data->num_vars].name) - 1);
+        data->vars_container[data->num_vars].name[sizeof(data->vars_container[data->num_vars].name) - 1] = '\0';
+        strncpy(data->vars_container[data->num_vars].value, value, sizeof(data->vars_container[data->num_vars].value) - 1);
+        data->vars_container[data->num_vars].value[sizeof(data->vars_container[data->num_vars].value) - 1] = '\0';
+        data->num_vars++;
+        return 0;
+    }
+    else
+    {
+        fprintf(stderr, "Maximum number of variables reached\n");
+        return -1;
+    }
 }
+
+
+int unset_var(t_data *data, const char *name)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < data->num_vars)
+    {
+        if (ft_strcmp(data->vars_container[i].name, name) == 0)
+        {
+            j = i;
+            while (j < data->num_vars - 1)
+            {
+                strcpy(data->vars_container[j].name, data->vars_container[j + 1].name);
+                strcpy(data->vars_container[j].value, data->vars_container[j + 1].value);
+                j++;
+            }
+            data->num_vars--;
+            data->vars_container[data->num_vars].name[0] = '\0';
+            data->vars_container[data->num_vars].value[0] = '\0';
+            return 0;
+        }
+        i++;
+    }
+    fprintf(stderr, "Variable '%s' not found\n", name);
+    return -1;
+}
+
 
 int export_var(t_data *data, const char *name)
 {
