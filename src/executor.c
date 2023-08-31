@@ -73,7 +73,7 @@ static inline void free_argv(int argc, char **argv)
 	free(argv[argc]);
 }
 
-int do_simple_command(struct node_s *node)
+int do_simple_command(struct node_s *node, t_data *data)
 {
 	if(!node)
 		return 0;
@@ -81,12 +81,14 @@ int do_simple_command(struct node_s *node)
 	if(!child)
 	return 0;
 
-	//if (contains_cd(child)) {
-    //    return do_cd_builtin(child);
-    //} else 
 	if (contains_echo(child)) {
         return do_echo_builtin(child);
     }
+
+	if (contains_cd(child)){
+		printf("executing cd\n");
+		return do_cd_builtin(child, data);
+	}
     
 	
 	int argc = 0;

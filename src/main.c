@@ -107,7 +107,7 @@ int parse_and_execute(char *line, t_data *data)
 	{
 		if(!cmd)
 			break;
-		do_simple_command(cmd);
+		do_simple_command(cmd, data);
 		free_node_tree(cmd);
 		free(tokens);
 		i++;

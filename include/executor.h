@@ -53,5 +53,5 @@ int do_exec_cmd(char** argv);
  *         or any specific success value. If there is an error in executing the command, the function may return an
  *         appropriate error code, and errno will be set accordingly.
  */
-int do_simple_command(struct node_s* node);
+int do_simple_command(struct node_s* node, t_data* data);
 #endif
