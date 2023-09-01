@@ -36,7 +36,7 @@ void print_exported_vars(const t_data *data);
 
 
 int search_special(struct node_s *cmd);
-
+void print_master(struct node_type_master *master_node);
 
 /////////////////////
 

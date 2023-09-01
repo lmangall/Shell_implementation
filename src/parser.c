@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/01 17:17:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:08:50 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,28 +220,6 @@ struct node_s *parse_simple_command(char **tokens)
 		return cmd;
 }
 
-// int *create_master_node(struct node_s *cmd)
-// {
-// 	//create NODE_COMMAND x 2
-// 	struct node_s *pipe = cmd->first_child->next_sibling;
-// 	struct node_s *cmd2 = cmd->first_child->next_sibling->next_sibling;
-
-// 	pipe->str = "pipe_content";//use set_node_str
-// 	cmd2->str = "cmd2_content";
-// 	struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
-// 	if(!master_node)
-// 		return NULL;
-//     master_node->type = NODE_MASTER;
-	
-// 	master_node->nbr_root_nodes = 2;
-	
-// 	master_node->root_nodes = malloc(sizeof(struct node_s *) * 3);
-// 	master_node->root_nodes[0] = pipe;	
-// 	master_node->root_nodes[1] = cmd2;	
-// 	master_node->root_nodes[2] = NULL;	
-
-// 	printf("master_node->root_nodes[0]->str: %s\n", master_node->root_nodes[0]->str);
-
 
 int search_special(struct node_s *cmd)
 {
@@ -252,11 +230,75 @@ int search_special(struct node_s *cmd)
 		if (ft_strcmp(current->str, "|") == 0)
 		{
 			printf("found pipe\n");
+
+
+/////////
+		struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
+		if(!master_node)
+			printf("malloc failed\n");
+		master_node->type = NODE_MASTER;
+		
+		master_node->nbr_root_nodes = 2;//hardcoded for now
+		
+		master_node->root_nodes = malloc(sizeof(struct node_s *) * 3);
+
+////////
+			//creating the root for the pipe
+			struct node_s *root_pipe = new_node(NODE_COMMAND);
+			if(!root_pipe)
+				printf("malloc failed\n");
+
+			root_pipe->first_child = current;
+			current->type = NODE_SPECIAL;
+			
+			//creating the root for "wc"
+			struct node_s *root_cmd = new_node(NODE_COMMAND);
+			if(!root_cmd)
+				printf("malloc failed\n");
+
+			root_cmd->first_child = current->next_sibling;
+			root_cmd->type = NODE_VAR;
+
+//////// assigning the pipe and "wc" to the master node
+			master_node->root_nodes[0] = cmd;	
+			master_node->root_nodes[1] = current;	
+			master_node->root_nodes[2] = root_cmd;	
+			master_node->root_nodes[3] = NULL;	
+			master_node->nbr_root_nodes	= 3;
+///////
+
+			
+			current->next_sibling = NULL;
+			
+			//current->str = "pipe_content";
+			current->prev_sibling->next_sibling = NULL;
+			current->prev_sibling->first_child = NULL;
+
+			current = current->next_sibling;
+
+
 			printf("need to create a master\n");
 			return 1;
 		}
 		current = current->next_sibling;
 	}
+
+	print_master(master_node);
 	return (0);
 
+}
+
+
+//a function that print the whole ast from node_type_master
+void print_master(struct node_type_master *master_node)
+{
+	printf("inside print_master\n");
+	int i = 0;
+	while(i < master_node->nbr_root_nodes)
+	{
+		printf("master_node->root_nodes[%d]->str: %s\n", i, master_node->root_nodes[i]->str);
+		printf("master_node->root_nodes[%d]->first_child->str: %s\n", i, master_node->root_nodes[i]->first_child->str);
+
+		i++;
+	}
 }
