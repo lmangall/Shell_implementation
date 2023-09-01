@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/01 18:08:50 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:32:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,12 +233,12 @@ int search_special(struct node_s *cmd)
 
 
 /////////
+
 		struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
 		if(!master_node)
 			printf("malloc failed\n");
-		master_node->type = NODE_MASTER;
-		
-		master_node->nbr_root_nodes = 2;//hardcoded for now
+	    // memset(master_node, 0, sizeof(struct node_type_master));
+		// struct node_type_master *master_node = new_node(NODE_MASTER);
 		
 		master_node->root_nodes = malloc(sizeof(struct node_s *) * 3);
 
@@ -277,13 +277,13 @@ int search_special(struct node_s *cmd)
 			current = current->next_sibling;
 
 
-			printf("need to create a master\n");
+			print_master(master_node);
 			return 1;
 		}
 		current = current->next_sibling;
+
 	}
 
-	print_master(master_node);
 	return (0);
 
 }
@@ -301,4 +301,19 @@ void print_master(struct node_type_master *master_node)
 
 		i++;
 	}
+}
+
+
+
+struct node_s *new_node(enum node_type_e type)
+{
+
+    struct node_s *node = malloc(sizeof(struct node_s));
+    if(!node)
+		return NULL;
+    
+    memset(node, 0, sizeof(struct node_s));
+    node->type = type;
+    
+    return node;
 }
