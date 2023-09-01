@@ -24,6 +24,7 @@ SRCS = lexer.c \
 		errors.c \
 		expander.c \
 		vars.c \
+		signals.c \
 		builtins/cd.c \
 		builtins/echo.c
 

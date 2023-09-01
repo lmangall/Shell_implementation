@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <signal.h>
 #include "../include/shell.h"
 #include "../include/lexer.h"
 #include "../include/vars.h"
@@ -20,6 +21,7 @@
 #include "../include/executor.h"
 #include "../include/expander.h"
 #include "../include/builtins.h"
+#include "../include/signals.h"
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -56,10 +58,18 @@ int main(void)
 
 	init_vars(&data);
 
+	signal(SIGINT, handle_ctrl_c);
+    signal(SIGQUIT, handle_ctrl_backslash);
+
+
 	status = 1;
 	while(status)
 	{
-		line = readline(SHELL_PROMPT);		
+		line = readline(SHELL_PROMPT);
+		if (line == NULL)
+		{
+            handle_ctrl_d(SIGQUIT);
+        }		
 	if(line[0] !=  '\0')
 		{
 		add_history(line);
@@ -72,6 +82,7 @@ int main(void)
 		if (ft_strcmp(line, "myenv") == 0)
 			print_vars(&data);
 	}
+	
 
 	return EXIT_SUCCESS;
 }
