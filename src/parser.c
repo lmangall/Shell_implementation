@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/01 18:32:25 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:40:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,10 +249,9 @@ int search_special(struct node_s *cmd)
 				printf("malloc failed\n");
 
 			root_pipe->first_child = current;
-			current->type = NODE_SPECIAL;
-			
+
 			//creating the root for "wc"
-			struct node_s *root_cmd = new_node(NODE_COMMAND);
+			struct node_s *root_cmd = new_node(9);
 			if(!root_cmd)
 				printf("malloc failed\n");
 
@@ -261,21 +260,19 @@ int search_special(struct node_s *cmd)
 
 //////// assigning the pipe and "wc" to the master node
 			master_node->root_nodes[0] = cmd;	
-			master_node->root_nodes[1] = current;	
+			master_node->root_nodes[1] = root_pipe;	
 			master_node->root_nodes[2] = root_cmd;	
 			master_node->root_nodes[3] = NULL;	
 			master_node->nbr_root_nodes	= 3;
 ///////
 
-			
-			current->next_sibling = NULL;
-			
-			//current->str = "pipe_content";
-			current->prev_sibling->next_sibling = NULL;
-			current->prev_sibling->first_child = NULL;
+			/// CAREFULL SEGFAULTING BELOW
+			// current->next_sibling = NULL;
 
-			current = current->next_sibling;
+			// set_node_str(current, "pipe_content");
 
+			// current->prev_sibling->next_sibling = NULL;
+			// current->prev_sibling->first_child = NULL;
 
 			print_master(master_node);
 			return 1;
@@ -289,31 +286,48 @@ int search_special(struct node_s *cmd)
 }
 
 
-//a function that print the whole ast from node_type_master
 void print_master(struct node_type_master *master_node)
 {
-	printf("inside print_master\n");
-	int i = 0;
-	while(i < master_node->nbr_root_nodes)
-	{
-		printf("master_node->root_nodes[%d]->str: %s\n", i, master_node->root_nodes[i]->str);
-		printf("master_node->root_nodes[%d]->first_child->str: %s\n", i, master_node->root_nodes[i]->first_child->str);
+    if (master_node == NULL)
+    {
+        printf("Master node is NULL\n");
+        return;
+    }
 
-		i++;
-	}
+    printf("Master Node Type: NODE_MASTER\n");
+    printf("Number of Root Nodes: %d\n", master_node->nbr_root_nodes);
+
+    for (int i = 0; i < master_node->nbr_root_nodes; i++)
+    {
+        printf("Node %d:\n", i);
+        if (master_node->root_nodes[i] == NULL)
+        {
+            printf("  Root Node is NULL\n");
+        }
+        else
+        {
+            printf("  Root Node Type: %d\n-(should be (0))", master_node->root_nodes[i]->type);
+            printf("  Root Node String: %s\n", master_node->root_nodes[i]->str);
+            printf("  master_node->root_nodes[%d]->first_child->str = %s\n", i, master_node->root_nodes[i]->first_child->str);
+
+            // You can print other details of the root node as needed
+        }
+    }
 }
 
 
 
-struct node_s *new_node(enum node_type_e type)
-{
+//a function that print the whole ast from node_type_master
+// void print_master(struct node_type_master *master_node)
+// {
+// 	printf("inside print_master\n");
+// 	int i = 0;
+// 	while(i < master_node->nbr_root_nodes)
+// 	{
+// 		printf("master_node->root_nodes[%d]->str: %s\n", i, master_node->root_nodes[i]->str);
+// 		printf("master_node->root_nodes[%d]->first_child->str: %s\n", i, master_node->root_nodes[i]->first_child->str);
 
-    struct node_s *node = malloc(sizeof(struct node_s));
-    if(!node)
-		return NULL;
-    
-    memset(node, 0, sizeof(struct node_s));
-    node->type = type;
-    
-    return node;
-}
+// 		i++;
+// 	}
+// }
+
