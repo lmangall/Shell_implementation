@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/30 17:09:28 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:45:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,42 +87,54 @@ int main(void)
 	return EXIT_SUCCESS;
 }
 
-//a function called simple_cmd that ch
 
 int parse_and_execute(char *line, t_data *data)
 {
-	int i;
+
+	(void)data;
+	
+	// int i;
 	char **tokens;
 	tokens = lexer(line);
 	free(line);
-	struct node_s *cmd = parse_simple_command(tokens);
-	struct node_s *cpy = malloc(sizeof(struct node_s));
 
-	// variable substitution
-	cpy = cmd->first_child->next_sibling;
-	while (cpy)
-	{
-		expansion_substitution(cpy, data);
-		cpy = cpy->next_sibling;
-	}
+//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
+//	struct node_s *cmd = parse_simple_command(tokens);
+
+
+//  ->  ADDED FOR COMPLEX AST (pipe) TESTING
+	struct node_type_master *master_node = parse_simple_command(tokens);
+	execute_pipe_command(master_node);
+	// free_master_node(master_node);
+	free(tokens);
+
 	
+	
+	
+//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
+	// // variable substitution
+	// struct node_s *cpy = malloc(sizeof(struct node_s));
+	// cpy = cmd->first_child->next_sibling;
+	// while (cpy)
+	// {
+	// 	expansion_substitution(cpy, data);
+	// 	cpy = cpy->next_sibling;
+	// }
+	
+	// if (expansion_set_var(cmd->first_child, data) || do_cd_builtin(cmd->first_child, data))
+	// 	printf("   done   \n");
 
-	if (expansion_set_var(cmd->first_child, data) || do_cd_builtin(cmd->first_child, data))
-	{
-		printf("   done   \n");
-	}
-
-
-	i = 0;
-	while(i == 0)
-	{
-		if(!cmd)
-			break;
-		do_simple_command(cmd, data);
-		free_node_tree(cmd);
-		free(tokens);
-		i++;
-	}
+//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
+	// i = 0;
+	// while(i == 0)
+	// {
+	// 	if(!cmd)
+	// 		break;
+	// 	do_simple_command(cmd, data);
+	// 	free_node_tree(cmd);
+	// 	free(tokens);
+	// 	i++;
+	// }
 	return 1;
 }
 

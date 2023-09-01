@@ -39,19 +39,28 @@ char* search_path(char* file);
  */
 int do_exec_cmd(char** argv);
 
-/**
- * @brief Executes a simple command from the Abstract Syntax Tree (AST).
- *
- * The do_simple_command() function is the main function in our executor. It takes the command's Abstract Syntax Tree
- * (AST) represented by the `node` parameter and converts it into an argument list (`argv`) suitable for executing
- * the command. The zeroth argument, argv[0], contains the name of the command we want to execute. The function then
- * executes the command by calling the appropriate execution function based on the command type and arguments.
- *
- * @param node A pointer to the root node of the Abstract Syntax Tree (AST) representing the simple command.
- *
- * @return If the function successfully executes the command, it may return the return value of the executed command
- *         or any specific success value. If there is an error in executing the command, the function may return an
- *         appropriate error code, and errno will be set accordingly.
- */
-int do_simple_command(struct node_s* node, t_data* data);
+
+//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
+
+// /**
+//  * @brief Executes a simple command from the Abstract Syntax Tree (AST).
+//  *
+//  * The do_simple_command() function is the main function in our executor. It takes the command's Abstract Syntax Tree
+//  * (AST) represented by the `node` parameter and converts it into an argument list (`argv`) suitable for executing
+//  * the command. The zeroth argument, argv[0], contains the name of the command we want to execute. The function then
+//  * executes the command by calling the appropriate execution function based on the command type and arguments.
+//  *
+//  * @param node A pointer to the root node of the Abstract Syntax Tree (AST) representing the simple command.
+//  *
+//  * @return If the function successfully executes the command, it may return the return value of the executed command
+//  *         or any specific success value. If there is an error in executing the command, the function may return an
+//  *         appropriate error code, and errno will be set accordingly.
+//  */
+// int do_simple_command(struct node_s* node, t_data* data);
+
+
+//  ->  ADDED FOR COMPLEX AST (pipe) TESTING
+int execute_pipe_command(struct node_type_master *master_node);
+int do_simple_command(struct node_s *node);
+
 #endif

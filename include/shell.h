@@ -20,7 +20,6 @@
 #define INIT_SRC_POS    (-2)
 
 //parser:
-struct node_s *parse_simple_command(char **tokens);
 
 int parse_and_execute(char *line, t_data *data);
 
