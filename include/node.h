@@ -5,21 +5,38 @@ enum node_type_e
 {
     NODE_COMMAND,           /* simple command */
     NODE_VAR,               /* variable name (or simply, a word) */
+	NODE_SPECIAL,
+	NODE_MASTER
 };
 
 struct node_s
 {
-    enum   node_type_e type;    /* type of this node */
-    char	*str;        /* value of this node */
-    int    children;            /* number of child nodes */
-    struct node_s *first_child; /* first child node */
+    enum   node_type_e type;
+    char	*str;
+    int    children; 
+    struct node_s *first_child;
     struct node_s *next_sibling;
     struct node_s *prev_sibling;
-                                /*
-                                 * if this is a child node, keep
-                                 * pointers to prev/next siblings
-                                 */
 };
+
+struct node_type_master
+{
+    enum   node_type_e type;   
+    char	*str;   
+    int    nbr_root_nodes;
+    struct node_s **root_nodes;
+    //FILE DESCRIPTOR STUFF
+
+};
+
+struct node_special
+{
+    enum   node_type_e type;    /* type of this node */
+    char	*str;        /* value of this node */
+    //FILE DESCRIPTOR STUFF
+};
+
+
 /**
  * @brief  creates a new node and sets it's type field.
  */

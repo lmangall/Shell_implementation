@@ -29,7 +29,7 @@ int do_cd_builtin(struct node_s *path, t_data *data)
 	if (path->next_sibling)
 	{
 		chdir(path->next_sibling->str);
-		printf("cmd->next_sibling->str: %s\n", path->next_sibling->str);
+		// printf("cmd->next_sibling->str: %s\n", path->next_sibling->str);
 		//update pwd in the vars_container
 		// this might be wrong because it is maybe too short
 		set_var(data, "PWD", path->next_sibling->str);

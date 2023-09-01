@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/08/30 14:45:56 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:17:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,5 +215,48 @@ struct node_s *parse_simple_command(char **tokens)
 		add_child_node(cmd, word);
 		i++;
 	}
+
+	search_special(cmd);
 		return cmd;
+}
+
+// int *create_master_node(struct node_s *cmd)
+// {
+// 	//create NODE_COMMAND x 2
+// 	struct node_s *pipe = cmd->first_child->next_sibling;
+// 	struct node_s *cmd2 = cmd->first_child->next_sibling->next_sibling;
+
+// 	pipe->str = "pipe_content";//use set_node_str
+// 	cmd2->str = "cmd2_content";
+// 	struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
+// 	if(!master_node)
+// 		return NULL;
+//     master_node->type = NODE_MASTER;
+	
+// 	master_node->nbr_root_nodes = 2;
+	
+// 	master_node->root_nodes = malloc(sizeof(struct node_s *) * 3);
+// 	master_node->root_nodes[0] = pipe;	
+// 	master_node->root_nodes[1] = cmd2;	
+// 	master_node->root_nodes[2] = NULL;	
+
+// 	printf("master_node->root_nodes[0]->str: %s\n", master_node->root_nodes[0]->str);
+
+
+int search_special(struct node_s *cmd)
+{
+	printf("inside search_special\n");
+	struct node_s *current = cmd->first_child;
+	while(current->next_sibling)
+	{
+		if (ft_strcmp(current->str, "|") == 0)
+		{
+			printf("found pipe\n");
+			printf("need to create a master\n");
+			return 1;
+		}
+		current = current->next_sibling;
+	}
+	return (0);
+
 }

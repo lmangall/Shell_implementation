@@ -3,6 +3,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "node.h"
 
 #define MAX_VARS 100
 
@@ -34,6 +35,7 @@ void print_exported_vars(const t_data *data);
 
 
 
+int search_special(struct node_s *cmd);
 
 
 /////////////////////
