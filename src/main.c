@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 23:41:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 01:09:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int parse_and_execute(char *line, t_data *data)
 
 	(void) data;
 
-    // Check if there is a pipe in the command
+    // Check if there is a pipe in the command    ->  new cmd
     int has_pipe = 0;
     int i = 0;
     while (tokens[i] != NULL)
@@ -137,46 +137,24 @@ int parse_and_execute(char *line, t_data *data)
     {
         struct node_s *cmd = parse_simple_command(tokens);
 
-
-
-
-
-
-	
-	// struct node_s *cpy = malloc(sizeof(struct node_s));
-	// cpy = cmd->first_child->next_sibling;
-	// while (cpy)
-	// {
-	// 	expansion_substitution(cpy, data);
-	// 	cpy = cpy->next_sibling;
-	// }
-	
-	// if (expansion_set_var(cmd->first_child, data) || do_cd_builtin(cmd->first_child, data))
-	// 	printf("   done   \n");
-
-	i = 0;
-	while(i == 0)
-	{
-		if(!cmd)
-			break;
-		do_simple_command_former(cmd);
-		free_node_tree(cmd);
-		free(tokens);
-		i++;
-	}
-
-
-
-
-
-
+		i = 0;
+		while(i == 0)
+		{
+			if(!cmd)
+				break;
+			do_simple_command_former(cmd);
+			free_node_tree(cmd);
+			free(tokens);
+			i++;
+		}
         // free_node(cmd);
     }
 
     // Execute the command
     if (master_node)
     {
-        execute_pipe_command(master_node);
+		printf("mark\n");
+        // execute_pipe_command(master_node);
         // free_master(master_node);
     }
 
