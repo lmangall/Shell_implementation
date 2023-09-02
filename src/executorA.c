@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 22:29:07 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 23:41:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,32 +114,6 @@ static inline void free_argv(int argc, char **argv)
 	while(argc--)
 	free(argv[argc]);
 }
-
-// static void print_pipe_write_end(int pipe_fd)
-// {
-//     char buffer[1024];
-//     ssize_t bytes_read;
-
-//     while ((bytes_read = read(pipe_fd, buffer, sizeof(buffer))) > 0)
-//     {
-//         printf("\033[1;35m"); // Set the color to purple
-//         fwrite(buffer, 1, bytes_read, stdout);
-//         printf("\033[0m"); // Reset the color
-//     }
-
-//     if (bytes_read == -1)
-//     {
-//         perror("read");
-//         exit(EXIT_FAILURE);
-//     }
-//     else if (bytes_read == 0)
-//     {
-//         fprintf(stderr, "Error: pipe_fd is not open or has been closed prematurely\n");
-//         printf("void_pipe_write_end 0 bytes read\n");
-// 		exit(EXIT_FAILURE);
-//     }
-// }
-
 void	first_child(struct node_s *node, int pipe_fd[2])
 {
     dup2(pipe_fd[1], STDOUT_FILENO);
@@ -251,4 +225,80 @@ for (int i = 0; argv[i] != NULL; i++)
 		free_argv(argc, argv);
 		return 0;
 
+}
+
+
+
+int do_simple_command_former(struct node_s *node)
+{
+	if(!node)
+		return 0;
+	struct node_s *child = node->first_child;
+	if(!child)
+	return 0;
+	
+	int argc = 0;
+	long max_args = 255;
+	char *argv[max_args+1];/* keep 1 for the terminating NULL arg */
+	char *str;
+
+	while(child)
+	{
+		str = child->str;
+		argv[argc] = malloc(strlen(str)+1);
+		
+	if(!argv[argc])
+		{
+			free_argv(argc, argv);
+			return 0;
+		}
+		
+	strcpy(argv[argc], str);
+		if(argc >= max_args)
+		{
+			break;
+		}
+		child = child->next_sibling;
+		argc++;
+	}
+	argv[argc] = NULL;
+	
+	//loop to print argv
+	int i = 0;
+	while (i < argc)
+		i++;
+
+
+
+	pid_t child_pid = 0;
+	if((child_pid = fork()) == 0)
+	{
+
+		do_exec_cmd(argv);
+		fprintf(stderr, "error: failed to execute command: %s\n", 
+				strerror(errno));
+		if(errno == ENOEXEC)
+		{
+			exit(126);
+		}
+		else if(errno == ENOENT)
+		{
+			exit(127);
+		}
+		else
+		{
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if(child_pid < 0)
+	{
+		fprintf(stderr, "error: failed to fork command: %s\n", 
+				strerror(errno));
+		return 0;
+	}
+	int status = 0;
+	waitpid(child_pid, &status, 0);
+	free_argv(argc, argv);
+	
+	return 1;
 }

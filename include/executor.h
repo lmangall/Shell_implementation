@@ -65,4 +65,7 @@ int do_exec_cmd(char** argv);
 int execute_pipe_command(struct node_type_master *master_node);
 int do_simple_command(struct node_s *node);
 
+int do_simple_command_former(struct node_s *node);
+
+
 #endif
