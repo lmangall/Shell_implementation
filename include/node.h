@@ -48,7 +48,8 @@ struct  node_s *new_node(enum node_type_e type);
  * the new child is assigned to the first_child field of the root node. 
  * Otherwise, the child is appended to the end of the children's list.
  */
-void    add_child_node(struct node_s *parent, struct node_s *child);
+int add_child_node(struct node_s *parent, struct node_s *child);
+
 /**
  * @brief 
  * 

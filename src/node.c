@@ -18,24 +18,22 @@ struct node_s *new_node(enum node_type_e type)
     
     return node;
 }
-void add_child_node(struct node_s *parent, struct node_s *child)
+int add_child_node(struct node_s *parent, struct node_s *child)
 {
-    if (!parent || !child)
-        return;
-
-    if (!parent->first_child)
+    if (parent == NULL || child == NULL)
+        return 0;
+    if (parent->first_child == NULL)
+    {
         parent->first_child = child;
+        return 1;
+    }
     else
     {
-        // Find the last child
-        struct node_s *last_child = parent->first_child;
-        while (last_child->next_sibling)
-        {
-            last_child = last_child->next_sibling;
-        }
-
-        // Add the new child after the last child
-        last_child->next_sibling = child;
+        struct node_s *current_child = parent->first_child;
+        while (current_child->next_sibling != NULL)
+            current_child = current_child->next_sibling;
+        current_child->next_sibling = child;
+        return 1;
     }
 }
 

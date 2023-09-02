@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 21:00:28 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 23:09:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,76 +43,106 @@
 //  ->  ADDED FOR COMPLEX AST (pipe) TESTING
 struct node_type_master *parse_simple_command(char **tokens)
 {
-	int i = 0;
-	
-	struct node_s *cmd = new_node(NODE_COMMAND);
-	if(!cmd)
+    int i = 0;
+    struct node_s *cmd = NULL;
+    struct node_s *current_cmd = NULL;
+    
+    while (tokens[i] != NULL)
+    {
+        if (strcmp(tokens[i], "|") == 0)
+        {
+            struct node_s *pipe_cmd = create_pipe_command_node();
+            if (!pipe_cmd)
+                return NULL;
+            if (!add_command_node_to_list(&cmd, &current_cmd, pipe_cmd))
+                return NULL;
+        }
+        else
+        {
+            struct node_s *new_cmd = create_new_command_node(tokens[i]);
+            if (!new_cmd)
+                return NULL;
+            if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
+                return NULL;
+        }
+        i++;
+    }
+
+    struct node_type_master *master_node = create_master_node(cmd);
+    if(master_node == NULL){
 		return NULL;
-	while(tokens[i] != NULL)
-	{
-		struct node_s *word = new_node(NODE_VAR);
-		if (!word)
-			return NULL;
-		set_node_str(word, tokens[i]);
-		add_child_node(cmd, word);
-		i++;
 	}
-	
-	struct node_type_master *master_node = search_special(cmd);
-	return master_node;
-	
+	print_master(master_node);
+    return master_node;
 }
 
 
-struct node_type_master *search_special(struct node_s *cmd)
+struct node_s *create_pipe_command_node(void)
 {
-	struct node_s *current = cmd->first_child;
-	
-	while(current->next_sibling)
-	{
-		if (ft_strcmp(current->str, "|") == 0)
-		{
-//////////creating the master node
-		struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
-		if(!master_node)
-			printf("malloc failed\n");		
-		master_node->root_nodes = malloc(sizeof(struct node_s *) * 3);
-
-//////////creating the root for the pipe
-			struct node_s *root_pipe = new_node(NODE_COMMAND);
-			if(!root_pipe)
-				printf("malloc failed\n");
-
-			root_pipe->first_child = current;
-			current->type = NODE_SPECIAL;
-
-//////////creating the root for "wc"
-			struct node_s *root_cmd = new_node(NODE_COMMAND);
-			if(!root_cmd)
-				printf("malloc failed\n");
-			root_cmd->first_child = current->next_sibling;
-
-//////// assigning the pipe and "wc" to the master node
-			master_node->root_nodes[0] = cmd;	
-			master_node->root_nodes[1] = root_pipe;	
-			master_node->root_nodes[2] = root_cmd;	
-			master_node->root_nodes[3] = NULL;	
-			master_node->nbr_root_nodes	= 3;
-
-			/// CAREFULL SEGFAULTING BELOW
-			//  master_node->root_nodes[0]->first_child->next_sibling = NULL;
-			//  master_node->root_nodes[1]->first_child->next_sibling = NULL;
-
-// print_master(master_node);                   => to print the complex AST
-			return (master_node);
-		}
-		current = current->next_sibling;
-
-	}
-
-	return (0);
-
+    struct node_s *pipe_cmd = new_node(NODE_COMMAND);
+    if (!pipe_cmd)
+        return NULL;
+    struct node_s *pipe_node = new_node(NODE_SPECIAL);
+    if (!pipe_node)
+        return NULL;
+    set_node_str(pipe_node, "|");
+    if (!add_child_node(pipe_cmd, pipe_node))
+        return NULL;
+    return pipe_cmd;
 }
+
+
+struct node_s *create_new_command_node(char *token)
+{
+    struct node_s *new_cmd = new_node(NODE_COMMAND);
+    if (!new_cmd)
+        return NULL;
+    struct node_s *cmd_node = new_node(NODE_VAR);
+    if (!cmd_node)
+        return NULL;
+    set_node_str(cmd_node, token);
+    if (!add_child_node(new_cmd, cmd_node))
+        return NULL;
+    return new_cmd;
+}
+
+
+int add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd, struct node_s *new_cmd)
+{
+    if (*cmd == NULL)
+    {
+        *cmd = new_cmd;
+        *current_cmd = *cmd;
+    }
+    else
+    {
+        (*current_cmd)->next_sibling = new_cmd;
+        *current_cmd = (*current_cmd)->next_sibling;
+    }
+    return 1;
+}
+
+
+struct node_type_master *create_master_node(struct node_s *cmd)
+{
+    struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
+    if (!master_node)
+        return NULL;
+    master_node->type = NODE_MASTER;
+    master_node->str = NULL;
+    master_node->nbr_root_nodes = 0;
+    master_node->root_nodes = NULL;
+    struct node_s *current_cmd = cmd;
+    while (current_cmd != NULL)
+    {
+        master_node->nbr_root_nodes++;
+        master_node->root_nodes = realloc(master_node->root_nodes, sizeof(struct node_s *) * master_node->nbr_root_nodes);
+        master_node->root_nodes[master_node->nbr_root_nodes - 1] = current_cmd;
+        current_cmd = current_cmd->next_sibling;
+    }
+    return master_node;
+}
+
 
 
 void print_master(struct node_type_master *master_node)
