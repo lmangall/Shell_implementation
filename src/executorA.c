@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 15:24:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:00:28 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ int do_exec_cmd(char **argv)
         {
             return 0;
         }
-printf("\033[1;31mExecuting command: %s\033[0m\n", path);
+// printf("\033[1;31mExecuting command: %s\033[0m\n", path);
         execv(path, argv);
-printf("\033[1;33mNOT GETTIN PRINTED\033[0m\n");
+// printf("\033[1;33mNOT GETTIN PRINTED\033[0m\n");
         free(path);
     }
     return 0;
@@ -225,7 +225,7 @@ int do_simple_command(struct node_s *node)
 			free_argv(argc, argv);
 			return 0;
 		}
-printf("str: %s\n", str);
+// printf("str: %s\n", str);
 	strcpy(argv[argc], str);
 		// if(argc >= max_args)
 		// {
@@ -243,7 +243,7 @@ printf("str: %s\n", str);
 		
 for (int i = 0; argv[i] != NULL; i++)
 {
-    printf("argv[%d]: %s\n", i, argv[i]);
+// printf("argv[%d]: %s\n", i, argv[i]);
 }
 
 
