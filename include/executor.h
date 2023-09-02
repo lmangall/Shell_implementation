@@ -13,13 +13,13 @@ char	*ft_strjoin(char const *str1, char const *str2);
  * (for simplicity, the function doesn't check whether the file is actually executable or whether the user has
  * enough permissions to execute it).
  *
- * @param file The name of the command to search for.
+ * @param cmd The name of the command to search for.
  *
  * @return The full pathname of the command's executable file if found; otherwise, returns NULL. If the command is
  *         not found in any of the directories in the $PATH, the function returns NULL, indicating that the user
  *         might have typed an invalid command name.
  */
-char* search_path(char* file);
+char* search_path(char* cmd);
 /**
  * @brief Executes a command by calling execv().
  *

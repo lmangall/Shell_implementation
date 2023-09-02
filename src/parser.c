@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/01 21:32:21 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 14:25:05 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,8 +250,6 @@ struct node_type_master *search_special(struct node_s *cmd)
 	{
 		if (ft_strcmp(current->str, "|") == 0)
 		{
-			printf("found pipe\n");
-
 //////////creating the master node
 		struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
 		if(!master_node)
@@ -280,12 +278,10 @@ struct node_type_master *search_special(struct node_s *cmd)
 			master_node->nbr_root_nodes	= 3;
 
 			/// CAREFULL SEGFAULTING BELOW
-			// current->next_sibling = NULL;
-			// set_node_str(current, "pipe_content");
-			// current->prev_sibling->next_sibling = NULL;
-			// current->prev_sibling->first_child = NULL;
+			//  master_node->root_nodes[0]->first_child->next_sibling = NULL;
+			//  master_node->root_nodes[1]->first_child->next_sibling = NULL;
 
-			print_master(master_node);
+// print_master(master_node);                   => to print the complex AST
 			return (master_node);
 		}
 		current = current->next_sibling;
@@ -305,12 +301,16 @@ void print_master(struct node_type_master *master_node)
         return;
     }
 
+    printf("\033[1;33m"); // Set the color to orange
     printf("Master Node Type: NODE_MASTER\n");
     printf("Number of Root Nodes: %d\n", master_node->nbr_root_nodes);
+    printf("\033[0m"); // Reset the color
 
     for (int i = 0; i < master_node->nbr_root_nodes; i++)
     {
+        printf("\033[1;33m"); // Set the color to orange
         printf("Node %d:\n", i);
+        printf("\033[0m"); // Reset the color
         if (master_node->root_nodes[i] == NULL)
         {
             printf("  Root Node is NULL\n");
@@ -319,8 +319,10 @@ void print_master(struct node_type_master *master_node)
         {
             printf("  Root Node Type: %d\n", master_node->root_nodes[i]->type);
             printf("  Root Node String: %s\n", master_node->root_nodes[i]->str);
-			printf("  Root Node FC Type: %d\n", master_node->root_nodes[i]->first_child->type);
+            printf("\033[1;33m"); // Set the color to orange
+            printf("  Root Node FC Type: %d\n", master_node->root_nodes[i]->first_child->type);
             printf("  root_nodes[%d] first_child->str = %s\n", i, master_node->root_nodes[i]->first_child->str);
+            printf("\033[0m"); // Reset the color
         }
     }
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/01 21:45:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 12:53:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ int main(void)
 		if (ft_strcmp(line, "myenv") == 0)
 			print_vars(&data);
 	}
-	
-
 	return EXIT_SUCCESS;
 }
 
@@ -92,7 +90,6 @@ int parse_and_execute(char *line, t_data *data)
 {
 
 	(void)data;
-	
 	// int i;
 	char **tokens;
 	tokens = lexer(line);
@@ -100,7 +97,6 @@ int parse_and_execute(char *line, t_data *data)
 
 //  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
 //	struct node_s *cmd = parse_simple_command(tokens);
-
 
 //  ->  ADDED FOR COMPLEX AST (pipe) TESTING
 	struct node_type_master *master_node = parse_simple_command(tokens);
