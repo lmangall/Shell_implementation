@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 14:48:25 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:24:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,38 @@
 #include "../include/executor.h"
 #include "../include/builtins.h"
 
-static void free_command_str(struct node_s *node)
-{
-    if (node == NULL)
-    {
-        return;
-    }
+// static void free_command_str(struct node_s *node)
+// {
+//     if (node == NULL)
+//     {
+//         return;
+//     }
 
-    if (node->type == NODE_COMMAND)
-    {
-        free(node->str);
-    }
+//     if (node->type == NODE_COMMAND)
+//     {
+//         free(node->str);
+//     }
 
-    struct node_s *child = node->first_child;
-    while (child != NULL)
-    {
-        free_command_str(child);
-        child = child->next_sibling;
-    }
-}
+//     struct node_s *child = node->first_child;
+//     while (child != NULL)
+//     {
+//         free_command_str(child);
+//         child = child->next_sibling;
+//     }
+// }
 
-static void free_master_command_str(struct node_type_master *master_node)
-{
-    if (master_node == NULL)
-    {
-        return;
-    }
+// static void free_master_command_str(struct node_type_master *master_node)
+// {
+//     if (master_node == NULL)
+//     {
+//         return;
+//     }
 
-    for (int i = 0; i < master_node->nbr_root_nodes; i++)
-    {
-        free_command_str(master_node->root_nodes[i]);
-    }
-}
+//     for (int i = 0; i < master_node->nbr_root_nodes; i++)
+//     {
+//         free_command_str(master_node->root_nodes[i]);
+//     }
+// }
 
 
 
@@ -140,91 +140,66 @@ static inline void free_argv(int argc, char **argv)
 //     }
 // }
 
-// Function to execute a pipe command
+void	first_child(struct node_s *node, int pipe_fd[2])
+{
+    dup2(pipe_fd[1], STDOUT_FILENO);
+    close(pipe_fd[0]);
+    do_simple_command(node);
+}
+
+void	second_child(struct node_s *node, int pipe_fd[2])
+{
+    dup2(pipe_fd[0], STDIN_FILENO);
+    close(pipe_fd[1]);
+    do_simple_command(node);
+}
+
 int execute_pipe_command(struct node_type_master *master_node)
 {
-
-free_master_command_str(master_node);//seems not to work perfcectly
-	
-    struct node_s *left = master_node->root_nodes[0];
-    struct node_s *right = master_node->root_nodes[2];
-	// printf("master_node->root_nodes[0]->first_child->str: %s\n", master_node->root_nodes[0]->first_child->str);
-	// printf("master_node->root_nodes[2]->first_child->str: %s\n", master_node->root_nodes[2]->first_child->str);
-
-	// printf("\n\n");
-
-	//might be more important for firstC not to point to nextS if there is none
-	free(master_node->root_nodes[0]->first_child->next_sibling->str);
-	
     int pipe_fd[2];
+    pid_t pid1, pid2;
+    int status;
+
     if (pipe(pipe_fd) == -1)
     {
         perror("pipe");
-        return -1;
+        return EXIT_FAILURE;
     }
 
-    pid_t left_pid;
-	pid_t right_pid;
-		
-    // Fork the left side of the pipe
-    left_pid = fork();
-    if (left_pid == -1)
+    pid1 = fork();
+    if (pid1 == -1)
     {
         perror("fork");
-        return -1;
+        return EXIT_FAILURE;
     }
-	
-    else if (left_pid == 0) // Child process for left command
+    else if (pid1 == 0)
     {
-// printf("\033[1;35m"); // Start writing in purple
-// printf("in the else if (left_pid == 0) // Child process for left command\n");
-        close(pipe_fd[0]); // Close the read end of the pipe
-        dup2(pipe_fd[1], STDOUT_FILENO); // Redirect stdout to the write end of the pipe
-// print_pipe_write_end(pipe_fd[1]);
-		close(pipe_fd[1]); // Close the write end of the pipe
-// printf("in the else if (left_pid == 0) // Child process for left command -2\n");
-
-set_node_str(left->first_child, "ls");////////////    HARDCODED FOR DEBBUGING
-        int status = do_simple_command(left);
-// printf("status: %d\n", status);
-// printf("\033[0m"); // End writing in purple
-        exit(status);
+		set_node_str(master_node->root_nodes[0]->first_child, "ls"); // !!!
+        first_child(master_node->root_nodes[0], pipe_fd);
+        // exit(EXIT_SUCCESS);
     }
 
-    // Fork the right side of the pipe
-    right_pid = fork();
-    if (right_pid == -1)
+    pid2 = fork();
+    if (pid2 == -1)
     {
         perror("fork");
-        return -1;
+        return EXIT_FAILURE;
     }
-    else if (right_pid == 0) // Child process for right command
+    else if (pid2 == 0)
     {
-// printf("\033[1;35m"); // Start writing in purple
-// printf(" in the else if (right_pid == 0) // Child process for right command\n");
-        close(pipe_fd[1]); // Close the write end of the pipe
-        dup2(pipe_fd[0], STDIN_FILENO); // Redirect stdin to the read end of the pipe
-        close(pipe_fd[0]); // Close the read end of the pipe
-// printf("in the else if (left_pid == 0) // Child process for left command  -2\n");
-        int status = do_simple_command(right);
-// printf("status: %d\n", status);
-// printf("\033[0m"); // End writing in purple
-        exit(status);
+		set_node_str(master_node->root_nodes[2]->first_child, "wc");// !!!
+        second_child(master_node->root_nodes[2], pipe_fd);
+        // exit(EXIT_SUCCESS);
     }
 
-    // Close both ends of the pipe in the parent process
     close(pipe_fd[0]);
-// print_pipe_write_end(pipe_fd[1]);
     close(pipe_fd[1]);
 
-    // Wait for both child processes to finish
-    int left_status, right_status;
-    waitpid(left_pid, &left_status, 0);
-    waitpid(right_pid, &right_status, 0);
+    waitpid(pid1, &status, 0);
+    waitpid(pid2, &status, 0);
 
-    return WEXITSTATUS(right_status);
+    return WEXITSTATUS(status);
 }
-
 
 
 // a function that uses do_exec_cmd to execute a simple command

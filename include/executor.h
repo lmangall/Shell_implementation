@@ -1,8 +1,10 @@
 #ifndef BACKEND_H
 #define BACKEND_H
 #include "node.h"
-char	*ft_strjoin(char const *str1, char const *str2);
 
+
+void	first_child(struct node_s *node, int pipe_fd[2]);
+void	second_child(struct node_s *node, int pipe_fd[2]);
 /**
  * @brief Searches for the executable file of a given command in the directories listed in the $PATH variable.
  *
