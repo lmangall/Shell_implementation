@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 23:09:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 23:12:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,27 @@
 
 
 //  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
-// struct node_s *parse_simple_command(char **tokens)
-// {
-// 	int i = 0;
+struct node_s *parse_simple_command(char **tokens)
+{
+	int i = 0;
 	
-// 	struct node_s *cmd = new_node(NODE_COMMAND);
-// 	if(!cmd)
-// 		return NULL;
-// 	while(tokens[i] != NULL)
-// 	{
-// 		struct node_s *word = new_node(NODE_VAR);
-// 		if (!word)
-// 			return NULL;
-// 		set_node_str(word, tokens[i]);
-// 		add_child_node(cmd, word);
-// 		i++;
-// 	}
-// 	return cmd;
-// }
+	struct node_s *cmd = new_node(NODE_COMMAND);
+	if(!cmd)
+		return NULL;
+	while(tokens[i] != NULL)
+	{
+		struct node_s *word = new_node(NODE_VAR);
+		if (!word)
+			return NULL;
+		set_node_str(word, tokens[i]);
+		add_child_node(cmd, word);
+		i++;
+	}
+	return cmd;
+}
 
 //  ->  ADDED FOR COMPLEX AST (pipe) TESTING
-struct node_type_master *parse_simple_command(char **tokens)
+struct node_type_master *parse_advanced_command(char **tokens)
 {
     int i = 0;
     struct node_s *cmd = NULL;

@@ -17,7 +17,9 @@ void print_master(struct node_type_master *master_node);
 
 
 
-struct node_type_master *parse_simple_command(char **tokens);
+struct node_s *parse_simple_command(char **tokens);
+struct node_type_master *parse_advanced_command(char **tokens);
+
 struct node_s *create_pipe_command_node(void);
 struct node_s *create_new_command_node(char *token);
 int add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd, struct node_s *new_cmd);

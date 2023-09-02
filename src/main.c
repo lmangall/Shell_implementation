@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 21:20:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/02 23:26:17 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,29 @@
 // 			printf("%d: %s\n", i, entry->line);
 // 	}
 // 		i++;
+// }
+// static void free_node(struct node_s *node)
+// {
+//     if (!node)
+//         return;
+
+//     free_node(node->first_child);
+//     free_node(node->next_sibling);
+//     free(node->str);
+//     free(node);
+// }
+
+// static void free_master(struct node_type_master *master)
+// {
+//     if (!master)
+//         return;
+
+//     for (int i = 0; i < master->nbr_root_nodes; i++)
+//         free_node(master->root_nodes[i]);
+
+//     free(master->root_nodes);
+//     free(master->str);
+//     free(master);
 // }
 
 
@@ -88,49 +111,42 @@ int main(void)
 
 int parse_and_execute(char *line, t_data *data)
 {
+    char **tokens = lexer(line);
+    free(line);
 
-	(void)data;
-	// int i;
-	char **tokens;
-	tokens = lexer(line);
-	free(line);
+	(void) data;
 
-//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
-//	struct node_s *cmd = parse_simple_command(tokens);
+    // Check if there is a pipe in the command
+    int has_pipe = 0;
+    int i = 0;
+    while (tokens[i] != NULL)
+    {
+        if (strcmp(tokens[i], "|") == 0)
+        {
+            has_pipe = 1;
+            break;
+        }
+        i++;
+    }
 
-//  ->  ADDED FOR COMPLEX AST (pipe) TESTING
-	struct node_type_master *master_node = parse_simple_command(tokens);
-	execute_pipe_command(master_node);
-	// free_master_node(master_node);
-	free(tokens);
+    // Parse the command
+    struct node_type_master *master_node;
+    if (has_pipe)
+        master_node = parse_advanced_command(tokens);
+    else
+    {
+        struct node_s *cmd = parse_simple_command(tokens);
+        master_node = create_master_node(cmd);
+        // free_node(cmd);
+    }
 
-	
-	
-	
-//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
-	// // variable substitution
-	// struct node_s *cpy = malloc(sizeof(struct node_s));
-	// cpy = cmd->first_child->next_sibling;
-	// while (cpy)
-	// {
-	// 	expansion_substitution(cpy, data);
-	// 	cpy = cpy->next_sibling;
-	// }
-	
-	// if (expansion_set_var(cmd->first_child, data) || do_cd_builtin(cmd->first_child, data))
-	// 	printf("   done   \n");
+    // Execute the command
+    if (master_node)
+    {
+        execute_pipe_command(master_node);
+        // free_master(master_node);
+    }
 
-//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
-	// i = 0;
-	// while(i == 0)
-	// {
-	// 	if(!cmd)
-	// 		break;
-	// 	do_simple_command(cmd, data);
-	// 	free_node_tree(cmd);
-	// 	free(tokens);
-	// 	i++;
-	// }
-	return 1;
+    // free(tokens);
+    return 1;
 }
-
