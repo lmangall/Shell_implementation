@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 14:22:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:39:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,20 @@ struct node_type_master *create_master_node(struct node_s *cmd)
 }
 
 
+//write a function that goes through the root nodes (node_command) and prints the first child of each
+//the function should use the next_sibling pointer to go through the list of root nodes
+static void print_root_nodes(struct node_type_master *master_node)
+{
+	printf("\n\n\n\n");
+	struct node_s *current = master_node->root_nodes[0];
+	int i = 0;
+	while (current != NULL)
+	{
+		printf("root_nodes[%d] first_child->str = %s\n", i, current->first_child->str);
+		current = current->next_sibling;
+		i++;
+	}
+}
 
 void print_master(struct node_type_master *master_node)
 {
@@ -197,9 +211,11 @@ void print_master(struct node_type_master *master_node)
 			printf("\n\n\n");
         }
     }
+	print_root_nodes(master_node);
 }
 
-void    link_root_nodes(struct node_type_master *master_node)
+
+void link_root_nodes(struct node_type_master *master_node)
 {
     int i = 0;
     while (i < master_node->nbr_root_nodes)
@@ -208,4 +224,5 @@ void    link_root_nodes(struct node_type_master *master_node)
             add_sibling_node(master_node->root_nodes[i], master_node->root_nodes[i + 1]);
         i++;
     }
+    master_node->root_nodes[master_node->nbr_root_nodes - 1]->next_sibling = NULL;
 }
