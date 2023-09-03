@@ -134,7 +134,10 @@ int parse_and_execute(char *line, t_data *data)
     // Parse the command
     struct node_type_master *master_node;
     if (has_pipe)
-        master_node = parse_advanced_command(tokens);
+        {
+		master_node = parse_advanced_command(tokens);
+		print_master(master_node);
+		}
 		//have parse_advanced_command return smthing for execution, instead of executing straight away
     else
     {

@@ -85,7 +85,8 @@ struct node_type_master *parse_advanced_command(char **tokens)
     {
         return NULL;
     }
-    print_master(master_node);
+   // print_master(master_node);
+   link_root_nodes(master_node);
     return master_node;
 }
 
@@ -195,5 +196,16 @@ void print_master(struct node_type_master *master_node)
 			printf("\033[0m"); // Reset the color
 			printf("\n\n\n");
         }
+    }
+}
+
+void    link_root_nodes(struct node_type_master *master_node)
+{
+    int i = 0;
+    while (i < master_node->nbr_root_nodes)
+    {
+        if ((master_node->root_nodes[i]->next_sibling == NULL) && (master_node->root_nodes[i + 1]))
+            add_sibling_node(master_node->root_nodes[i], master_node->root_nodes[i + 1]);
+        i++;
     }
 }

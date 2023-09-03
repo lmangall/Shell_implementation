@@ -25,5 +25,7 @@ struct node_s *create_new_command_node(char *token);
 int add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd, struct node_s *new_cmd);
 struct node_type_master *create_master_node(struct node_s *cmd);
 
+void    link_root_nodes(struct node_type_master *master_node);
+
 
 #endif

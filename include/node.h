@@ -63,4 +63,8 @@ void    free_node_tree(struct node_s *node);
  * then sets the val_type and val.str fields accordingly. 
  */
 void    set_node_str(struct node_s *node, char *val);
+
+int add_sibling_node(struct node_s *parent, struct node_s *child);
+
+
 #endif

@@ -73,3 +73,15 @@ void set_node_str(struct node_s *node, char *val)
     }
     free(node);
 }
+
+int add_sibling_node(struct node_s *parent, struct node_s *child)
+{
+    if (parent == NULL || child == NULL)
+        return 0;
+    if (parent->next_sibling == NULL)
+    {
+        parent->next_sibling = child;
+        return 1;
+    }
+    return 0;
+}
