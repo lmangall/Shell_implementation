@@ -5,6 +5,8 @@
 #include "../include/node.h"
 #include "../include/shell.h"
 #include "../lib/libft/src/libft.h"
+#include "../include/free.h"
+
 
 struct node_s *new_node(enum node_type_e type)
 {

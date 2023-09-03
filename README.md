@@ -17,6 +17,49 @@ apt-get install libreadline-dev
 ----
 
 
+
+### Last stuff to organize
+
+https://www.codequoi.com/en/sending-and-intercepting-a-signal-in-c/
+https://putaindecode.io/articles/maitriser-les-redirections-shell/
+
+
+
+usefull trick:
+(void) variable
+
+Oh and also when debugging things with pipes etc... use write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
+
+if I not forking befor execv and kill all the PIDs at the end they are running as zombies, there is the command:
+ps aux 
+that can be greped
+ps aux | grep ls
+
+
+
+"command block" is a conventionnal name for cmd+eventual words...
+
+„recursive descent parsing“  is not necessary, only for the bonus, he sayd that other than bonus they had something similar to what we have now, and that they were evaluating for a redirection (in which case it is not just left to right)
+
+The normal shell, in case of pipes, waits for all programs (commands) to be executed and only then kills them all
+example: command "yes" print infinite "Y" but if you execute "yes | head -10 " it will only print 10 because it waits for head to be executed
+
+for this reason(more or less) we should fork (that's what Guillaume said) and then execute, and only at the end kill the PIDs Tsveto told me right now that I am fighting with a zombie program
+
+we are allowed 1 global var (and should use it for the return status)
+
+not from Tsveto but it seems everybody calls > < | (and such) "tokens"
+
+Job control and scheduling: all commands have to be executed before we kill their PID
+
+
+
+In C, the inline keyword is used as a hint to the compiler, suggesting that a particular function should be considered for inlining. Inlining is an optimization technique where the compiler replaces a function call with the actual code of the function at the call site.
+
+
+
+
+
 ### Ressources, informations and guide:
 *various*
 - [Let's Build a Linux Shell - Devgenius Part I](https://blog.devgenius.io/lets-build-a-linux-shell-part-i-954c95911501)

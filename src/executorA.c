@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 23:41:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:35:18 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,43 +22,7 @@
 #include "../include/node.h"
 #include "../include/executor.h"
 #include "../include/builtins.h"
-
-// static void free_command_str(struct node_s *node)
-// {
-//     if (node == NULL)
-//     {
-//         return;
-//     }
-
-//     if (node->type == NODE_COMMAND)
-//     {
-//         free(node->str);
-//     }
-
-//     struct node_s *child = node->first_child;
-//     while (child != NULL)
-//     {
-//         free_command_str(child);
-//         child = child->next_sibling;
-//     }
-// }
-
-// static void free_master_command_str(struct node_type_master *master_node)
-// {
-//     if (master_node == NULL)
-//     {
-//         return;
-//     }
-
-//     for (int i = 0; i < master_node->nbr_root_nodes; i++)
-//     {
-//         free_command_str(master_node->root_nodes[i]);
-//     }
-// }
-
-
-
-
+#include "../include/free.h"
 
 
 //retrieve and returns the correct path of a command (given as a str)
@@ -105,15 +69,6 @@ int do_exec_cmd(char **argv)
     return 0;
 }
 
-
-
-static inline void free_argv(int argc, char **argv)
-{
-	if(!argc)
-		return;
-	while(argc--)
-	free(argv[argc]);
-}
 void	first_child(struct node_s *node, int pipe_fd[2])
 {
     dup2(pipe_fd[1], STDOUT_FILENO);

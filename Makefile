@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/09/01 21:26:57 by lmangall         ###   ########.fr        #
+#    Updated: 2023/09/03 10:08:03 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = lexer.c \
 		expander.c \
 		vars.c \
 		signals.c \
+		free.c \
 		builtins/cd.c \
 		builtins/echo.c
 

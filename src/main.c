@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 01:09:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:35:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "../include/free.h"
+
 
 
 // void display_history() 
@@ -133,6 +135,7 @@ int parse_and_execute(char *line, t_data *data)
     struct node_type_master *master_node;
     if (has_pipe)
         master_node = parse_advanced_command(tokens);
+		//have parse_advanced_command return smthing for execution, instead of executing straight away
     else
     {
         struct node_s *cmd = parse_simple_command(tokens);

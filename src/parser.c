@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/02 23:12:31 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:35:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "../include/vars.h"
 #include "../include/shell.h"
 #include "../include/parser.h"
+#include "../include/free.h"
+
 
 
 //  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
