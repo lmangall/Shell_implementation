@@ -5,6 +5,8 @@
 
 struct node_type_master *search_special(struct node_s *cmd);
 void print_master(struct node_type_master *master_node);
+void set_previous_sibling(struct node_type_master *master_node);
+
 
 
 //  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
@@ -15,7 +17,7 @@ void print_master(struct node_type_master *master_node);
 /////////////////////
 
 
-
+void	link_root_nodes(struct node_type_master *master_node);
 
 struct node_s *parse_simple_command(char **tokens);
 struct node_type_master *parse_advanced_command(char **tokens);

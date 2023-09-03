@@ -72,7 +72,7 @@ Several pipes test:
 ls | head -1 | wc -l
 ls | grep .md | sort -r | wc -l
 ls | grep .md | sort | grep "ss"
-
+ls | sort -r | wc
 
 
 

@@ -11,12 +11,16 @@ enum node_type_e
 
 struct node_s
 {
-    enum   node_type_e type;
+    enum	node_type_e type;
     char	*str;
-    int    children; 
-    struct node_s *first_child;
-    struct node_s *next_sibling;
-    struct node_s *prev_sibling;
+    int		children; 
+	int		fd1;
+	int		fd2;
+	int		*pid;
+	int		pipes;
+    struct	node_s *first_child;
+    struct	node_s *next_sibling;
+    struct	node_s *prev_sibling;
 };
 
 struct node_type_master
@@ -63,4 +67,8 @@ void    free_node_tree(struct node_s *node);
  * then sets the val_type and val.str fields accordingly. 
  */
 void    set_node_str(struct node_s *node, char *val);
+
+
+int add_sibling_node(struct node_s *parent, struct node_s *child);
+
 #endif

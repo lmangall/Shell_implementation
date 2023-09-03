@@ -3,6 +3,17 @@
 #include "node.h"
 
 
+
+void create_pipes(int num_pipes, int pipe_fds[][2]);
+void fork_child_processes(int num_pipes, pid_t pids[], int pipe_fds[][2], struct node_type_master *master_node);
+void close_pipe_fds(int num_pipes, int pipe_fds[][2]);
+void wait_for_child_processes(int num_pipes, pid_t pids[], int *status);
+
+
+int pipe_wait(int *pid, int pipes, int *end);
+int ft_fork(struct node_type_master *master_node, int *end, int fd_in, struct node_s *current_node, int *fd);
+int	executor(struct node_type_master *master_node);
+
 void	first_child(struct node_s *node, int pipe_fd[2]);
 void	second_child(struct node_s *node, int pipe_fd[2]);
 /**

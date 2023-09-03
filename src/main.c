@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 13:23:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:18:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,11 @@ int main(void)
 	t_data data;
 	data.paths = NULL;
 	data.envp = NULL;
-	
-	// data = malloc(sizeof(t_data)); // Allocate memory for data
-	// if (!data) 
-	// {
-	// 	fprintf(stderr, "lsh: allocation error\n");
-	// 	exit(EXIT_FAILURE);
-	// }
 
 	init_vars(&data);
 
 	signal(SIGINT, handle_ctrl_c);
-    signal(SIGQUIT, handle_ctrl_backslash);
+	signal(SIGQUIT, handle_ctrl_backslash);
 
 
 	status = 1;
@@ -93,8 +86,8 @@ int main(void)
 		line = readline(SHELL_PROMPT);
 		if (line == NULL)
 		{
-            handle_ctrl_d(SIGQUIT);
-        }		
+			handle_ctrl_d(SIGQUIT);
+		}		
 	if(line[0] !=  '\0')
 		{
 		add_history(line);
@@ -113,32 +106,39 @@ int main(void)
 
 int parse_and_execute(char *line, t_data *data)
 {
-    char **tokens = lexer(line);
-    free(line);
+	char **tokens = lexer(line);
+	free(line);
 
 	(void) data;
 
-    // Check if there is a pipe in the command    ->  new cmd
-    int has_pipe = 0;
-    int i = 0;
-    while (tokens[i] != NULL)
-    {
-        if (strcmp(tokens[i], "|") == 0)
-        {
-            has_pipe = 1;
-            break;
-        }
-        i++;
-    }
+	// Check if there is a pipe in the command    ->  new cmd
+	int has_pipe = 0;
+	int i = 0;
+	while (tokens[i] != NULL)
+	{
+		if (strcmp(tokens[i], "|") == 0)
+		{
+			has_pipe = 1;
+			break;
+		}
+		i++;
+	}
 
-    // Parse the command
-    struct node_type_master *master_node;
-    if (has_pipe)
-        master_node = parse_advanced_command(tokens);
+	// Parse the command
+	struct node_type_master *master_node;
+	if (has_pipe)
+	{	
+		master_node = parse_advanced_command(tokens);
+		// printf("master node->root_nodes[0]->first_child->next_sibilng->prev_sibling->str: %s\n", master_node->root_nodes[0]->first_child->next_sibling->prev_sibling->str);
+		print_master(master_node);
+		
+		executor(master_node);
+
 		//have parse_advanced_command return smthing for execution, instead of executing straight away
-    else
-    {
-        struct node_s *cmd = parse_simple_command(tokens);
+	}
+	else
+	{
+		struct node_s *cmd = parse_simple_command(tokens);
 
 		i = 0;
 		while(i == 0)
@@ -150,16 +150,9 @@ int parse_and_execute(char *line, t_data *data)
 			free(tokens);
 			i++;
 		}
-        // free_node(cmd);
-    }
+		// free_node(cmd);
+	}
 
-    // Execute the command
-    if (master_node)
-    {
-        execute_pipe_command(master_node);
-        // free_master(master_node);
-    }
-
-    // free(tokens);
-    return 1;
+	// free(tokens);
+	return 1;
 }

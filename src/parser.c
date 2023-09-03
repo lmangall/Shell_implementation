@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 14:22:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:17:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 
 
-//  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
 struct node_s *parse_simple_command(char **tokens)
 {
 	int i = 0;
@@ -42,7 +41,6 @@ struct node_s *parse_simple_command(char **tokens)
 	return cmd;
 }
 
-//  ->  ADDED FOR COMPLEX AST (pipe) TESTING
 struct node_type_master *parse_advanced_command(char **tokens)
 {
     int i = 0;
@@ -85,7 +83,8 @@ struct node_type_master *parse_advanced_command(char **tokens)
     {
         return NULL;
     }
-    print_master(master_node);
+	link_root_nodes(master_node);
+	set_previous_sibling(master_node);
     return master_node;
 }
 
@@ -146,16 +145,84 @@ struct node_type_master *create_master_node(struct node_s *cmd)
     master_node->nbr_root_nodes = 0;
     master_node->root_nodes = NULL;
     struct node_s *current_cmd = cmd;
+// struct node_s *previous = NULL;
     while (current_cmd != NULL)
     {
         master_node->nbr_root_nodes++;
         master_node->root_nodes = realloc(master_node->root_nodes, sizeof(struct node_s *) * master_node->nbr_root_nodes);
         master_node->root_nodes[master_node->nbr_root_nodes - 1] = current_cmd;
         current_cmd = current_cmd->next_sibling;
+// if(previous)
+// 	add_child_node(previous, current_cmd);
+// struct node_s *previous = cmd;
     }
     return master_node;
 }
 
+void link_root_nodes(struct node_type_master *master_node)
+{
+    int i = 0;
+    while (i < master_node->nbr_root_nodes)
+    {
+        if ((master_node->root_nodes[i]->next_sibling == NULL) && (master_node->root_nodes[i + 1]))
+            add_sibling_node(master_node->root_nodes[i], master_node->root_nodes[i + 1]);
+        i++;
+    }
+    master_node->root_nodes[master_node->nbr_root_nodes - 1]->next_sibling = NULL;
+}
+
+
+
+
+//write a function that iterates through the root nodes and sets the previous_sibling of each root node to the previous root node
+//this will allow us to iterate through the root nodes backwards
+// void set_previous_sibling(struct node_type_master *master_node)
+// {
+// 	int i = 0;
+// 	while (i < (master_node->nbr_root_nodes -1))
+// 	{
+// 		if (i == 0)
+// 			master_node->root_nodes[i]->prev_sibling = NULL;
+// 		else
+// 			master_node->root_nodes[i]->prev_sibling = master_node->root_nodes[i - 1];
+// 		i++;
+// 		printf("setting previous sibling\n");
+// 	}
+// }
+
+void set_previous_sibling(struct node_type_master *master_node)
+{
+    struct node_s *prev_node = NULL;
+    struct node_s *current_node = NULL;
+
+    int i = 0;
+    while (i < master_node->nbr_root_nodes)
+    {
+        current_node = master_node->root_nodes[i];
+
+        // Set the previous sibling of the current node
+        current_node->prev_sibling = prev_node;
+
+        // Update the previous node
+        prev_node = current_node;
+	printf("setting previous sibling\n");
+
+        i++;
+    }
+}
+
+static void print_root_nodes(struct node_type_master *master_node)
+{
+	printf("\n\n\n");
+	struct node_s *current = master_node->root_nodes[0];
+	int i = 0;	
+	while (current != NULL)
+	{
+		printf("root_nodes[%d] first_child->str = %s\n", i, current->first_child->str);
+		current = current->next_sibling;
+		i++;
+	}
+}
 
 
 void print_master(struct node_type_master *master_node)
@@ -196,4 +263,6 @@ void print_master(struct node_type_master *master_node)
 			printf("\n\n\n");
         }
     }
+			print_root_nodes(master_node);
+
 }
