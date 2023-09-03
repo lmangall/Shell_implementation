@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 12:43:43 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:22:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,9 @@ void print_master(struct node_type_master *master_node)
 	            printf("  root_nodes[%d] first_child->next_sibling->str = %s\n", i, master_node->root_nodes[i]->first_child->next_sibling->str);
 			else
 				printf("the first child has found no sibling (ie there is 1 word, no flags)\n");
-            printf("\033[0m"); // Reset the color
+            
+			printf("\033[0m"); // Reset the color
+			printf("\n\n\n");
         }
     }
 }

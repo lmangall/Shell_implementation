@@ -68,6 +68,12 @@ Job control and scheduling: all commands have to be executed before we kill thei
 In C, the inline keyword is used as a hint to the compiler, suggesting that a particular function should be considered for inlining. Inlining is an optimization technique where the compiler replaces a function call with the actual code of the function at the call site.
 
 
+Several pipes test:
+ls | head -1 | wc -l
+ls | grep .md | sort -r | wc -l
+ls | grep .md | sort | grep "ss"
+
+
 
 
 

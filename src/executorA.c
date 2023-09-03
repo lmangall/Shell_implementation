@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 11:20:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 14:21:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int execute_pipe_command(struct node_type_master *master_node)
     int pipe_fd[2];
     pid_t pid1, pid2;
     int status;
-
+// ft_putstr_fd("in execute_pipe_command\n", 2);
     if (pipe(pipe_fd) == -1)
     {
         perror("pipe");
@@ -105,6 +105,7 @@ int execute_pipe_command(struct node_type_master *master_node)
     {
 		// set_node_str(master_node->root_nodes[0]->first_child, "ls"); // !!!
         first_child(master_node->root_nodes[0], pipe_fd);
+// ft_putstr_fd("in and after first_child\n", 2);
         // exit(EXIT_SUCCESS);
     }
 
@@ -118,6 +119,7 @@ int execute_pipe_command(struct node_type_master *master_node)
     {
 		// set_node_str(master_node->root_nodes[2]->first_child, "wc");// !!!
         second_child(master_node->root_nodes[2], pipe_fd);
+// ft_putstr_fd("in and after second_child\n", 2);
         // exit(EXIT_SUCCESS);
     }
 
@@ -144,7 +146,7 @@ int do_simple_command(struct node_s *node)
 	char *str;
 
 	if(child)
-	// while(child)
+	while(child && argc < max_args)
 	{
 		str = child->str;
 		argv[argc] = malloc(strlen(str)+1);
@@ -154,17 +156,9 @@ int do_simple_command(struct node_s *node)
 			free_argv(argc, argv);
 			return 0;
 		}
-// printf("str: %s\n", str);
-	strcpy(argv[argc], str);
-		// if(argc >= max_args)
-		// {
-		// 	break;     //that doesn't work in an if statement
-		// }
-
-//commentend so we do one command without args
-//if you uncomment be carefull checking that 
-//there is no pointer to next_sibling pointing at wrong place or such...
-		// child = child->next_sibling;///////causes problems
+		ft_strlcpy(argv[argc], str, strlen(str)+1);
+		// maybe there should be a guard if next_sibling is inexistant
+			child = child->next_sibling;
 		argc++;
 	}
 		argv[argc] = NULL;
