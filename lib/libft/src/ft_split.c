@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:38 by lmangall          #+#    #+#             */
-/*   Updated: 2023/07/09 22:50:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 11:42:38 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,34 @@ static void	ft_get_next_word(char **next_word, size_t *next_word_len, char c)
 		i++;
 	}
 }
+
+// static void	ft_get_next_word(char **next_word, size_t *next_word_len, char c)
+// {
+//     size_t	i;
+//     int     in_quote;
+
+//     *next_word += *next_word_len;
+//     *next_word_len = 0;
+//     i = 0;
+//     in_quote = 0;
+//     while (**next_word && **next_word == c)
+//         (*next_word)++;
+//     while ((*next_word)[i])
+//     {
+//         if ((*next_word)[i] == c && !in_quote)
+//             return ;
+//         if ((*next_word)[i] == '"' && (i == 0 || (*next_word)[i - 1] != '\\'))
+//         {
+//             in_quote = !in_quote;
+//             i++;
+//             continue;
+//         }
+//         (*next_word_len)++;
+//         i++;
+//     }
+//     if ((*next_word)[i - 1] != c)
+//         (*next_word_len)++;
+// }
 
 char	**ft_split(char const *s, char c)
 {

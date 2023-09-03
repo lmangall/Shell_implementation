@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:23:59 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 10:35:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 11:20:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int execute_pipe_command(struct node_type_master *master_node)
     }
     else if (pid1 == 0)
     {
-		set_node_str(master_node->root_nodes[0]->first_child, "ls"); // !!!
+		// set_node_str(master_node->root_nodes[0]->first_child, "ls"); // !!!
         first_child(master_node->root_nodes[0], pipe_fd);
         // exit(EXIT_SUCCESS);
     }
@@ -116,7 +116,7 @@ int execute_pipe_command(struct node_type_master *master_node)
     }
     else if (pid2 == 0)
     {
-		set_node_str(master_node->root_nodes[2]->first_child, "wc");// !!!
+		// set_node_str(master_node->root_nodes[2]->first_child, "wc");// !!!
         second_child(master_node->root_nodes[2], pipe_fd);
         // exit(EXIT_SUCCESS);
     }

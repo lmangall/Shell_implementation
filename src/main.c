@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 10:35:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 11:18:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int parse_and_execute(char *line, t_data *data)
     if (master_node)
     {
 		printf("mark\n");
-        // execute_pipe_command(master_node);
+        execute_pipe_command(master_node);
         // free_master(master_node);
     }
 

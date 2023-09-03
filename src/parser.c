@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 10:35:44 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/03 12:43:43 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,18 @@ struct node_type_master *parse_advanced_command(char **tokens)
     int i = 0;
     struct node_s *cmd = NULL;
     struct node_s *current_cmd = NULL;
-    
+
     while (tokens[i] != NULL)
     {
-        if (strcmp(tokens[i], "|") == 0)
+        if ((i == 0) || ((strcmp(tokens[i - 1], "|") == 0) && (i > 0)))
+        {
+            struct node_s *new_cmd = create_new_command_node(tokens[i]);
+            if (!new_cmd)
+                return NULL;
+            if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
+                return NULL;
+        }
+        else if (strcmp(tokens[i], "|") == 0)
         {
             struct node_s *pipe_cmd = create_pipe_command_node();
             if (!pipe_cmd)
@@ -61,20 +69,23 @@ struct node_type_master *parse_advanced_command(char **tokens)
         }
         else
         {
-            struct node_s *new_cmd = create_new_command_node(tokens[i]);
-            if (!new_cmd)
+            // Handle regular words (non-options)
+            struct node_s *word = new_node(NODE_VAR);
+            if (!word)
                 return NULL;
-            if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
+            set_node_str(word, tokens[i]);
+            if (!add_child_node(current_cmd, word))
                 return NULL;
         }
         i++;
     }
 
     struct node_type_master *master_node = create_master_node(cmd);
-    if(master_node == NULL){
-		return NULL;
-	}
-	print_master(master_node);
+    if (master_node == NULL)
+    {
+        return NULL;
+    }
+    print_master(master_node);
     return master_node;
 }
 
@@ -176,6 +187,10 @@ void print_master(struct node_type_master *master_node)
             printf("\033[1;33m"); // Set the color to orange
             printf("  Root Node FC Type: %d\n", master_node->root_nodes[i]->first_child->type);
             printf("  root_nodes[%d] first_child->str = %s\n", i, master_node->root_nodes[i]->first_child->str);
+			if (master_node->root_nodes[i]->first_child->next_sibling != NULL)
+	            printf("  root_nodes[%d] first_child->next_sibling->str = %s\n", i, master_node->root_nodes[i]->first_child->next_sibling->str);
+			else
+				printf("the first child has found no sibling (ie there is 1 word, no flags)\n");
             printf("\033[0m"); // Reset the color
         }
     }

@@ -36,6 +36,17 @@ that can be greped
 ps aux | grep ls
 
 
+git stash
+
+git branch -a
+git checkout branch_name
+
+git checkout -b branch_name
+
+
+julius tip:
+use fflush in c     to force printf to print even if wrong pipe
+
 
 "command block" is a conventionnal name for cmd+eventual words...
 
