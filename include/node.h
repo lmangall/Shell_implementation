@@ -6,12 +6,22 @@ enum node_type_e
     NODE_COMMAND,           /* simple command */
     NODE_VAR,               /* variable name (or simply, a word) */
 	NODE_SPECIAL,
-	NODE_MASTER
+	NODE_MASTER,
 };
+
+typedef enum e_operator {
+	NONE,
+	RDR_OUT_REPLACE,
+	RDR_OUT_APPEND,
+	RDR_INPUT,
+	RDR_INPUT_UNTIL,
+	PIPE,
+}				t_operator;
 
 struct node_s
 {
     enum   node_type_e type;
+    enum   e_operator operator;
     char	*str;
     int    children; 
     struct node_s *first_child;

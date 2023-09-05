@@ -69,74 +69,71 @@ int do_exec_cmd(char **argv)
     return 0;
 }
 
+void exec_pipe_redir(struct node_s *node)
+{
+	if(node->operator == PIPE)
+		execute_pipe_command(node);
+	else
+		do_simple_command(node);
+}
+
+
 void	first_child(struct node_s *node, int pipe_fd[2])
 {
-    dup2(pipe_fd[1], STDOUT_FILENO);
+ft_putstr_fd("in first_child\n", 2);
+	close(STDOUT_FILENO);
+    dup(pipe_fd[1]);
     close(pipe_fd[0]);
-    do_simple_command(node);
+    close(pipe_fd[1]);
+    exec_pipe_redir(node);
 }
 
 void	second_child(struct node_s *node, int pipe_fd[2])
 {
-    dup2(pipe_fd[0], STDIN_FILENO);
-    close(pipe_fd[1]);
-    do_simple_command(node);
-}
-
-int execute_pipe_command(struct node_type_master *master_node)
-{
-    int pipe_fd[2];
-    pid_t pid1, pid2;
-    int status;
-// ft_putstr_fd("in execute_pipe_command\n", 2);
-    if (pipe(pipe_fd) == -1)
-    {
-        perror("pipe");
-        return EXIT_FAILURE;
-    }
-
-    pid1 = fork();
-    if (pid1 == -1)
-    {
-        perror("fork");
-        return EXIT_FAILURE;
-    }
-    else if (pid1 == 0)
-    {
-		// set_node_str(master_node->root_nodes[0]->first_child, "ls"); // !!!
-        first_child(master_node->root_nodes[0], pipe_fd);
-// ft_putstr_fd("in and after first_child\n", 2);
-        // exit(EXIT_SUCCESS);
-    }
-
-    pid2 = fork();
-    if (pid2 == -1)
-    {
-        perror("fork");
-        return EXIT_FAILURE;
-    }
-    else if (pid2 == 0)
-    {
-		// set_node_str(master_node->root_nodes[2]->first_child, "wc");// !!!
-        second_child(master_node->root_nodes[2], pipe_fd);
-// ft_putstr_fd("in and after second_child\n", 2);
-        // exit(EXIT_SUCCESS);
-    }
-
+ft_putstr_fd("in second_child\n", 2);
+	close(STDIN_FILENO);
+    dup(pipe_fd[0]);
     close(pipe_fd[0]);
     close(pipe_fd[1]);
+    exec_pipe_redir(node);
+}
 
-    waitpid(pid1, &status, 0);
-    waitpid(pid2, &status, 0);
+//for multiple pipes, second child will get back here after execution
+void execute_pipe_command(struct node_s *node)
+{
+    pid_t child_pid;
+    int pipe_fd[2];
+    int status;
+ ft_putstr_fd("in execute_pipe_command\n", 2);
 
-    return WEXITSTATUS(status);
+	node->operator = NONE;
+
+	if (pipe(pipe_fd) == -1)
+		{
+		//panic(data, PIPE_ERR, EXIT_FAILURE);
+		ft_putstr_fd("pipe error\n", 2);
+		}
+	child_pid = fork();
+	if (child_pid == -1)
+		{
+		//panic(data, FORK_ERR, EXIT_FAILURE);
+		ft_putstr_fd("pipe error\n", 2);
+		}
+	if (child_pid == 0)
+		first_child(node, pipe_fd);
+
+	second_child(node->next_sibling->next_sibling, pipe_fd);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	waitpid(child_pid, &status, 0);
+	//g_exit_status = temp_status >> 8;      have a global var for exit status
 }
 
 
 // a function that uses do_exec_cmd to execute a simple command
-int do_simple_command(struct node_s *node)
+int do_simple_command(struct node_s *root_node)
 {
-	struct node_s *child = node->first_child;
+	struct node_s *child = root_node->first_child;
 	if(!child)
 		return 0;
 
@@ -151,11 +148,11 @@ int do_simple_command(struct node_s *node)
 		str = child->str;
 		argv[argc] = malloc(strlen(str)+1);
 		
-	if(!argv[argc])
-		{
-			free_argv(argc, argv);
-			return 0;
-		}
+		if(!argv[argc])
+			{
+				free_argv(argc, argv);
+				return 0;
+			}
 		ft_strlcpy(argv[argc], str, strlen(str)+1);
 		// maybe there should be a guard if next_sibling is inexistant
 			child = child->next_sibling;
@@ -164,17 +161,14 @@ int do_simple_command(struct node_s *node)
 		argv[argc] = NULL;
 
 		
-for (int i = 0; argv[i] != NULL; i++)
-{
-// printf("argv[%d]: %s\n", i, argv[i]);
-}
-
-
-		do_exec_cmd(argv);
-		free_argv(argc, argv);
-		return 0;
-
-}
+	for (int i = 0; argv[i] != NULL; i++)
+	{
+	// printf("argv[%d]: %s\n", i, argv[i]);
+	}
+			do_exec_cmd(argv);
+			free_argv(argc, argv);
+			return 0;
+	}
 
 
 

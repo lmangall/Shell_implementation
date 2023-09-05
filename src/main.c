@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 13:23:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:35:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,11 @@ int parse_and_execute(char *line, t_data *data)
     if (has_pipe)
         {
 		master_node = parse_advanced_command(tokens);
-		print_master(master_node);
+		execute_pipe_command(master_node->root_nodes[0]);
+		//print_master(master_node);
+		// free_node_tree(master_node->root_nodes[0]);
+		// free(tokens);
+		printf("end of if   has pipe");
 		}
 		//have parse_advanced_command return smthing for execution, instead of executing straight away
     else
@@ -155,14 +159,6 @@ int parse_and_execute(char *line, t_data *data)
 		}
         // free_node(cmd);
     }
-
-    // Execute the command
-    if (master_node)
-    {
-        execute_pipe_command(master_node);
-        // free_master(master_node);
-    }
-
     // free(tokens);
     return 1;
 }

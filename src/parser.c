@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 19:39:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:40:59 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,8 @@ void link_root_nodes(struct node_type_master *master_node)
     int i = 0;
     while (i < master_node->nbr_root_nodes)
     {
+			master_node->root_nodes[i]->operator = NONE;
+			printf("master_node->root_nodes[%d]->operator = %d\n", master_node->root_nodes[i]->operator, master_node->root_nodes[i]->operator);
         if ((master_node->root_nodes[i]->next_sibling == NULL) && (master_node->root_nodes[i + 1]))
             add_sibling_node(master_node->root_nodes[i], master_node->root_nodes[i + 1]);
         i++;
