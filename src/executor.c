@@ -24,6 +24,7 @@
 #include "../include/builtins.h"
 #include "../include/free.h"
 
+extern long long g_exit_status;
 
 //retrieve and returns the correct path of a command (given as a str)
 char *search_path(char *cmd)
@@ -61,9 +62,7 @@ int do_exec_cmd(char **argv)
         {
             return 0;
         }
-// printf("\033[1;31mExecuting command: %s\033[0m\n", path);
         execv(path, argv);
-// printf("\033[1;33mNOT GETTIN PRINTED\033[0m\n");
         free(path);
     }
     return 0;
@@ -75,12 +74,12 @@ void exec_pipe_redir(struct node_s *node)
 		execute_pipe_command(node);
 	else
 		do_simple_command(node);
+	// exit(g_exit_status);
 }
 
 
 void	first_child(struct node_s *node, int pipe_fd[2])
 {
-ft_putstr_fd("in first_child\n", 2);
 	close(STDOUT_FILENO);
     dup(pipe_fd[1]);
     close(pipe_fd[0]);
@@ -90,7 +89,6 @@ ft_putstr_fd("in first_child\n", 2);
 
 void	second_child(struct node_s *node, int pipe_fd[2])
 {
-ft_putstr_fd("in second_child\n", 2);
 	close(STDIN_FILENO);
     dup(pipe_fd[0]);
     close(pipe_fd[0]);
@@ -104,7 +102,6 @@ void execute_pipe_command(struct node_s *node)
     pid_t child_pid;
     int pipe_fd[2];
     int status;
- ft_putstr_fd("in execute_pipe_command\n", 2);
 
 	node->operator = NONE;
 
@@ -122,11 +119,18 @@ void execute_pipe_command(struct node_s *node)
 	if (child_pid == 0)
 		first_child(node, pipe_fd);
 
+	// ft_putstr_fd("at end of execute_pipe_command\n", 2);	
+	// 	ft_putstr_fd("\n", 2);	
+
+	if (node->next_sibling->operator == PIPE)
+		second_child(node->next_sibling->next_sibling, pipe_fd);
 	second_child(node->next_sibling->next_sibling, pipe_fd);
+
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	waitpid(child_pid, &status, 0);
-	//g_exit_status = temp_status >> 8;      have a global var for exit status
+	// g_exit_status = status;
+
 }
 
 
@@ -161,10 +165,10 @@ int do_simple_command(struct node_s *root_node)
 		argv[argc] = NULL;
 
 		
-	for (int i = 0; argv[i] != NULL; i++)
-	{
-	// printf("argv[%d]: %s\n", i, argv[i]);
-	}
+	// for (int i = 0; argv[i] != NULL; i++)
+	// {
+	// // printf("argv[%d]: %s\n", i, argv[i]);
+	// }
 			do_exec_cmd(argv);
 			free_argv(argc, argv);
 			return 0;
@@ -212,11 +216,9 @@ int do_simple_command_former(struct node_s *node)
 		i++;
 
 
-
 	pid_t child_pid = 0;
 	if((child_pid = fork()) == 0)
 	{
-
 		do_exec_cmd(argv);
 		fprintf(stderr, "error: failed to execute command: %s\n", 
 				strerror(errno));

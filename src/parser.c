@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/05 12:40:59 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:00:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ struct node_s *create_pipe_command_node(void)
     if (!pipe_node)
         return NULL;
     set_node_str(pipe_node, "|");
-    if (!add_child_node(pipe_cmd, pipe_node))
-        return NULL;
+    if (!add_child_node(pipe_cmd, pipe_node)){
+        return NULL;}
+	pipe_cmd->operator = PIPE;
     return pipe_cmd;
 }
 

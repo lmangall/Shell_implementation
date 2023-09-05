@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/05 12:35:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:50:04 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../include/free.h"
+#include <sys/wait.h>
+
 
 
 
@@ -110,11 +112,24 @@ int main(void)
 	return EXIT_SUCCESS;
 }
 
+//write a command that frees the AST from the master node
+static void	free_ast(struct node_type_master *master_node)
+{
+	int i = 0;
+	while (i < master_node->nbr_root_nodes)
+	{
+		free_node_tree(master_node->root_nodes[i]);
+		i++;
+	}
+	free(master_node->root_nodes);
+	free(master_node);
+}
 
 int parse_and_execute(char *line, t_data *data)
 {
     char **tokens = lexer(line);
     free(line);
+	int status = 0;
 
 	(void) data;
 
@@ -136,11 +151,11 @@ int parse_and_execute(char *line, t_data *data)
     if (has_pipe)
         {
 		master_node = parse_advanced_command(tokens);
-		execute_pipe_command(master_node->root_nodes[0]);
-		//print_master(master_node);
-		// free_node_tree(master_node->root_nodes[0]);
-		// free(tokens);
-		printf("end of if   has pipe");
+		if(fork() == 0)
+			execute_pipe_command(master_node->root_nodes[0]);
+		waitpid(-1, &status, 0);
+		return(1);
+		free_ast(master_node);
 		}
 		//have parse_advanced_command return smthing for execution, instead of executing straight away
     else

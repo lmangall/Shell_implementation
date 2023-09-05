@@ -1,0 +1,31 @@
+Binary file ./obj/parser.o matches
+Binary file ./minishell matches
+./src/main.c:119:	while (i < master_node->nbr_root_nodes)
+./src/main.c:121:		free_node_tree(master_node->root_nodes[i]);
+./src/main.c:124:	free(master_node->root_nodes);
+./src/main.c:155:			execute_pipe_command(master_node->root_nodes[0]);
+./src/free.c:45://     for (int i = 0; i < master_node->nbr_root_nodes; i++)
+./src/free.c:47://         free_command_str(master_node->root_nodes[i]);
+./src/parser.c:146:    master_node->type = NODE_MASTER;
+./src/parser.c:147:    master_node->str = NULL;
+./src/parser.c:148:    master_node->nbr_root_nodes = 0;
+./src/parser.c:149:    master_node->root_nodes = NULL;
+./src/parser.c:153:        master_node->nbr_root_nodes++;
+./src/parser.c:154:        master_node->root_nodes = realloc(master_node->root_nodes, sizeof(struct node_s *) * master_node->nbr_root_nodes);
+./src/parser.c:155:        master_node->root_nodes[master_node->nbr_root_nodes - 1] = current_cmd;
+./src/parser.c:167:	struct node_s *current = master_node->root_nodes[0];
+./src/parser.c:187:    printf("Number of Root Nodes: %d\n", master_node->nbr_root_nodes);
+./src/parser.c:190:    for (int i = 0; i < master_node->nbr_root_nodes; i++)
+./src/parser.c:195:        if (master_node->root_nodes[i] == NULL)
+./src/parser.c:201:            printf("  Root Node Type: %d\n", master_node->root_nodes[i]->type);
+./src/parser.c:202:            printf("  Root Node String: %s\n", master_node->root_nodes[i]->str);
+./src/parser.c:204:            printf("  Root Node FC Type: %d\n", master_node->root_nodes[i]->first_child->type);
+./src/parser.c:205:            printf("  root_nodes[%d] first_child->str = %s\n", i, master_node->root_nodes[i]->first_child->str);
+./src/parser.c:206:			if (master_node->root_nodes[i]->first_child->next_sibling != NULL)
+./src/parser.c:207:	            printf("  root_nodes[%d] first_child->next_sibling->str = %s\n", i, master_node->root_nodes[i]->first_child->next_sibling->str);
+./src/parser.c:222:    while (i < master_node->nbr_root_nodes)
+./src/parser.c:224:			master_node->root_nodes[i]->operator = NONE;
+./src/parser.c:225:			printf("master_node->root_nodes[%d]->operator = %d\n", master_node->root_nodes[i]->operator, master_node->root_nodes[i]->operator);
+./src/parser.c:226:        if ((master_node->root_nodes[i]->next_sibling == NULL) && (master_node->root_nodes[i + 1]))
+./src/parser.c:227:            add_sibling_node(master_node->root_nodes[i], master_node->root_nodes[i + 1]);
+./src/parser.c:230:    master_node->root_nodes[master_node->nbr_root_nodes - 1]->next_sibling = NULL;
