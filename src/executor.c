@@ -24,7 +24,7 @@
 #include "../include/builtins.h"
 #include "../include/free.h"
 
-extern long long g_exit_status;
+extern long long g_exit_status;       //   => get rid of this global var
 
 //retrieve and returns the correct path of a command (given as a str)
 char *search_path(char *cmd)
@@ -70,8 +70,11 @@ int do_exec_cmd(char **argv)
 
 void exec_pipe_redir(struct node_s *node)
 {
-	if(node->operator == PIPE)
+	 ft_putnbr_fd(node->operator, 2);
+
+	if(node->first_child->type == NODE_SPECIAL)
 		execute_pipe_command(node);
+//	if(node->first_child->type == NODE_COMMAND)
 	else
 		do_simple_command(node);
 	// exit(g_exit_status);
@@ -80,6 +83,7 @@ void exec_pipe_redir(struct node_s *node)
 
 void	first_child(struct node_s *node, int pipe_fd[2])
 {
+
 	close(STDOUT_FILENO);
     dup(pipe_fd[1]);
     close(pipe_fd[0]);
@@ -104,6 +108,8 @@ void execute_pipe_command(struct node_s *node)
     int status;
 
 	node->operator = NONE;
+	node->first_child->type = NODE_COMMAND;
+	// ft_putnbr_fd(node->operator, 2);
 
 	if (pipe(pipe_fd) == -1)
 		{
@@ -120,11 +126,11 @@ void execute_pipe_command(struct node_s *node)
 		first_child(node, pipe_fd);
 
 	// ft_putstr_fd("at end of execute_pipe_command\n", 2);	
-	// 	ft_putstr_fd("\n", 2);	
+	//ft_putstr_fd("\n", 2);	
 
-	if (node->next_sibling->operator == PIPE)
-		second_child(node->next_sibling->next_sibling, pipe_fd);
-	second_child(node->next_sibling->next_sibling, pipe_fd);
+	// if (node->next_sibling->operator == PIPE)
+		second_child(node->next_sibling, pipe_fd);
+	// second_child(node->next_sibling->next_sibling, pipe_fd);
 
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);

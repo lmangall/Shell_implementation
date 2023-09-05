@@ -14,6 +14,7 @@ void print_master(struct node_type_master *master_node);
 
 /////////////////////
 
+void set_pipe_operator(struct node_type_master *master);
 
 
 
