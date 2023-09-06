@@ -70,16 +70,13 @@ int do_exec_cmd(char **argv)
 
 void exec_pipe_redir(struct node_s *node)
 {
-	 ft_putnbr_fd(node->operator, 2);
 
-	if(node->first_child->type == NODE_SPECIAL)
-		execute_pipe_command(node);
-//	if(node->first_child->type == NODE_COMMAND)
-	else
+	if(node->operator == PIPE)
+			execute_pipe_command(node);
+	else if (node->operator == NONE)
 		do_simple_command(node);
 	// exit(g_exit_status);
 }
-
 
 void	first_child(struct node_s *node, int pipe_fd[2])
 {
@@ -108,8 +105,6 @@ void execute_pipe_command(struct node_s *node)
     int status;
 
 	node->operator = NONE;
-	node->first_child->type = NODE_COMMAND;
-	// ft_putnbr_fd(node->operator, 2);
 
 	if (pipe(pipe_fd) == -1)
 		{
@@ -125,12 +120,7 @@ void execute_pipe_command(struct node_s *node)
 	if (child_pid == 0)
 		first_child(node, pipe_fd);
 
-	// ft_putstr_fd("at end of execute_pipe_command\n", 2);	
-	//ft_putstr_fd("\n", 2);	
-
-	// if (node->next_sibling->operator == PIPE)
-		second_child(node->next_sibling, pipe_fd);
-	// second_child(node->next_sibling->next_sibling, pipe_fd);
+	second_child(node->next_sibling, pipe_fd);
 
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);

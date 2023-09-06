@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/06 13:35:40 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:43:52 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,14 @@ struct node_s *parse_simple_command(char **tokens)
 void set_pipe_operator(struct node_type_master *master)
 {
     struct node_s *current_cmd = master->root_nodes[0];
-    while (current_cmd != NULL)
+    while (current_cmd->next_sibling != NULL)
     {
-        if (current_cmd->next_sibling != NULL && current_cmd->next_sibling->first_child->type == NODE_SPECIAL)
-        {
-            current_cmd->operator = PIPE;
-			ft_putstr_fd("PIPE\n", 1);
-        }
+        current_cmd->operator = PIPE;
         current_cmd = current_cmd->next_sibling;
     }
+	current_cmd->operator = NONE;
 }
 
-//  ->  ADDED FOR COMPLEX AST (pipe) TESTING
 struct node_type_master *parse_advanced_command(char **tokens)
 {
     int i = 0;
@@ -68,11 +64,10 @@ struct node_type_master *parse_advanced_command(char **tokens)
         if ((i == 0) || ((strcmp(tokens[i - 1], "|") == 0) && (i > 0)))
         {
             struct node_s *new_cmd = create_new_command_node(tokens[i]);
-			if (tokens[i + 1] != NULL)
-	// 			if (strcmp(tokens[i + 1], "|") == 0)
-	// {				current_cmd->operator = PIPE;
-	// 				//new_cmd->first_child->operator = PIPE;
-	// 				ft_putstr_fd("PIPE\n", 2);	}
+			// if (i % 2 == 0)
+			// 	new_cmd->operator = PIPE;
+			// if (i == 4)
+			// 	new_cmd->operator = NONE;
             if (!new_cmd)
                 return NULL;
             if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
@@ -80,16 +75,13 @@ struct node_type_master *parse_advanced_command(char **tokens)
         }
         else if (strcmp(tokens[i], "|") == 0)
         {
-            // struct node_s *pipe_cmd = create_pipe_command_node();
-            // if (!pipe_cmd)
-            //     return NULL;
-            // if (!add_command_node_to_list(&cmd, &current_cmd, pipe_cmd))
-            //     return NULL;
-			
-			// i++;
-			// i--;
-			// if (i > 0)
-			// 	current_cmd->prev_sibling->operator = PIPE;
+        //     // struct node_s *pipe_cmd = create_pipe_command_node();
+        //     // if (!pipe_cmd)
+        //     //     return NULL;
+        //     // if (!add_command_node_to_list(&cmd, &current_cmd, pipe_cmd))
+        //     //     return NULL;
+			i++;
+			i--;
 
         }
         else
@@ -102,7 +94,7 @@ struct node_type_master *parse_advanced_command(char **tokens)
             if (!add_child_node(current_cmd, word))
                 return NULL;
         }
-			
+
         i++;
     }
 
@@ -116,21 +108,21 @@ struct node_type_master *parse_advanced_command(char **tokens)
 }
 
 
-struct node_s *create_pipe_command_node(void)
-{
-    struct node_s *pipe_cmd = new_node(NODE_COMMAND);
-    if (!pipe_cmd)
-        return NULL;
-    struct node_s *pipe_node = new_node(NODE_SPECIAL);
-    if (!pipe_node)
-        return NULL;
-    set_node_str(pipe_node, "|");
-    if (!add_child_node(pipe_cmd, pipe_node)){
-        return NULL;}
-	pipe_cmd->operator = PIPE;
-	pipe_node->operator = PIPE;
-    return pipe_cmd;
-}
+// struct node_s *create_pipe_command_node(void)
+// {
+//     struct node_s *pipe_cmd = new_node(NODE_COMMAND);
+//     if (!pipe_cmd)
+//         return NULL;
+//     struct node_s *pipe_node = new_node(NODE_SPECIAL);
+//     if (!pipe_node)
+//         return NULL;
+//     set_node_str(pipe_node, "|");
+//     if (!add_child_node(pipe_cmd, pipe_node)){
+//         return NULL;}
+// 	pipe_cmd->operator = PIPE;
+// 	pipe_node->operator = PIPE;
+//     return pipe_cmd;
+// }
 
 
 struct node_s *create_new_command_node(char *token)
