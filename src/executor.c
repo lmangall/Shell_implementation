@@ -18,13 +18,14 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include "../include/pipe.h"
 #include "../include/shell.h"
 #include "../include/node.h"
 #include "../include/executor.h"
 #include "../include/builtins.h"
 #include "../include/free.h"
 
-extern long long g_exit_status;       //   => get rid of this global var
+// extern long long g_exit_status;       //   => get rid of this global var
 
 //retrieve and returns the correct path of a command (given as a str)
 char *search_path(char *cmd)
@@ -67,68 +68,6 @@ int do_exec_cmd(char **argv)
     }
     return 0;
 }
-
-void exec_pipe_redir(struct node_s *node)
-{
-
-	if(node->operator == PIPE)
-			execute_pipe_command(node);
-	else if (node->operator == NONE)
-		do_simple_command(node);
-	// exit(g_exit_status);
-}
-
-void	first_child(struct node_s *node, int pipe_fd[2])
-{
-
-	close(STDOUT_FILENO);
-    dup(pipe_fd[1]);
-    close(pipe_fd[0]);
-    close(pipe_fd[1]);
-    exec_pipe_redir(node);
-}
-
-void	second_child(struct node_s *node, int pipe_fd[2])
-{
-	close(STDIN_FILENO);
-    dup(pipe_fd[0]);
-    close(pipe_fd[0]);
-    close(pipe_fd[1]);
-    exec_pipe_redir(node);
-}
-
-//for multiple pipes, second child will get back here after execution
-void execute_pipe_command(struct node_s *node)
-{
-    pid_t child_pid;
-    int pipe_fd[2];
-    int status;
-
-	node->operator = NONE;
-
-	if (pipe(pipe_fd) == -1)
-		{
-		//panic(data, PIPE_ERR, EXIT_FAILURE);
-		ft_putstr_fd("pipe error\n", 2);
-		}
-	child_pid = fork();
-	if (child_pid == -1)
-		{
-		//panic(data, FORK_ERR, EXIT_FAILURE);
-		ft_putstr_fd("pipe error\n", 2);
-		}
-	if (child_pid == 0)
-		first_child(node, pipe_fd);
-
-	second_child(node->next_sibling, pipe_fd);
-
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-	waitpid(child_pid, &status, 0);
-	// g_exit_status = status;
-
-}
-
 
 // a function that uses do_exec_cmd to execute a simple command
 int do_simple_command(struct node_s *root_node)

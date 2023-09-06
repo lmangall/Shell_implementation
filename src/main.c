@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/06 16:41:45 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:57:05 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <string.h>
 #include <signal.h>
 #include "../include/shell.h"
+#include "../include/pipe.h"
 #include "../include/lexer.h"
 #include "../include/vars.h"
 #include "../include/parser.h"
