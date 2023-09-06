@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/05 22:19:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:35:40 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void set_pipe_operator(struct node_type_master *master)
     struct node_s *current_cmd = master->root_nodes[0];
     while (current_cmd != NULL)
     {
-        if (current_cmd->next_sibling != NULL && current_cmd->next_sibling->type == NODE_SPECIAL)
+        if (current_cmd->next_sibling != NULL && current_cmd->next_sibling->first_child->type == NODE_SPECIAL)
         {
             current_cmd->operator = PIPE;
 			ft_putstr_fd("PIPE\n", 1);
@@ -86,8 +86,8 @@ struct node_type_master *parse_advanced_command(char **tokens)
             // if (!add_command_node_to_list(&cmd, &current_cmd, pipe_cmd))
             //     return NULL;
 			
-			i++;
-			i--;
+			// i++;
+			// i--;
 			// if (i > 0)
 			// 	current_cmd->prev_sibling->operator = PIPE;
 
@@ -111,7 +111,6 @@ struct node_type_master *parse_advanced_command(char **tokens)
     {
         return NULL;
     }
-   // print_master(master_node);
    link_root_nodes(master_node);
     return master_node;
 }
@@ -143,7 +142,7 @@ struct node_s *create_new_command_node(char *token)
     if (!cmd_var)
         return NULL;
     set_node_str(cmd_var, token);
-2    if (!add_child_node(new_cmd, cmd_var))
+    if (!add_child_node(new_cmd, cmd_var))
         return NULL;
     return new_cmd;
 }
