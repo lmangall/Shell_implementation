@@ -5,79 +5,33 @@
 #include "../../include/node.h"
 #include "../../include/parser.h"
 
-int contains_echo(struct node_s *node) {
-    int i = 0;
+void do_echo_builtin(char **argv)
+{
+    int print_newline = 1; // 1 entspricht true, 0 entspricht false
+    int i = 1;
 
-    while (node->str[i] != '\0') {
-        if (ft_strncmp(node->str + i, "echo", 4) == 0) {
-            return 1;
-        }
+    // it checks for -n and if it finds it, it sets print_newline to 0
+    // if it finds after that -nn or -nnnnn it leaves print_newline to 0 and it will not print -nn or -nnnnn
+    // so basically, it will print everything after the first -n except following -nn -nnnn and so on.
+    while (argv[i] && ft_strncmp(argv[i], "-n", 2) == 0) {
+        print_newline = 0;
         i++;
     }
+
+    while (argv[i]) {
+        ft_putstr_fd(argv[i], 1);
+
+        if (argv[i + 1]) {
+            ft_putstr_fd(" ", 1);
+        }
+
+        i++;    
+    }
+
+    if (print_newline) {
+        ft_putstr_fd("\n", 1);
+    }
+
+    // return EXIT_SUCCESS;
     
-    return 0;
-}
-
-#if 0
-int do_echo_builtin(struct node_s *node) {
-    int print_newline = 0;
-    struct node_s *arg_node = node;
-
-    if (arg_node && strcmp(arg_node->str, "echo") != 0) {
-        return EXIT_FAILURE;
-    }
-
-    arg_node = arg_node->next_sibling;
-    if (arg_node && strcmp(arg_node->str, "-n") == 0) {
-        print_newline = 1;
-        arg_node = arg_node->next_sibling;
-    }
-
-    while (arg_node) {
-        printf("%s", arg_node->str);
-
-        if (arg_node->next_sibling) {
-            printf(" ");
-        }
-
-        arg_node = arg_node->next_sibling;
-    }
-
-    if (print_newline) {
-        printf("\n");
-    }
-
-    return EXIT_SUCCESS;
-}
-#endif
-
-int do_echo_builtin(struct node_s *node) {
-    int print_newline = 1; // 1 entspricht true, 0 entspricht false
-    struct node_s *arg_node = node;
-
-    if (arg_node && strcmp(arg_node->str, "echo") != 0) {
-        return EXIT_FAILURE;
-    }
-
-    arg_node = arg_node->next_sibling;
-    if (arg_node && strcmp(arg_node->str, "-n") == 0) {
-        print_newline = 0;
-        arg_node = arg_node->next_sibling;
-    }
-
-    while (arg_node) {
-        printf("%s", arg_node->str);
-
-        if (arg_node->next_sibling) {
-            printf(" ");
-        }
-
-        arg_node = arg_node->next_sibling;
-    }
-
-    if (print_newline) {
-        printf("\n");
-    }
-
-    return EXIT_SUCCESS;
 }
