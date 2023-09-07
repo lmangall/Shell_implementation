@@ -101,6 +101,10 @@ int main(void)
 	if(line[0] !=  '\0')
 		{
 		add_history(line);
+		// if cd is typed with an absolute or relative path, it will do_cd_builtin
+		// if cd is typed without an absolute or relative path, it will do_cd_builtin
+		if (ft_strncmp(line, "cd ", 3) == 0)
+			do_cd_builtin(lexer(line), &data);
 		status = parse_and_execute(line, &data);
 		}
 		// if (ft_strcmp(line, "history") == 0)
