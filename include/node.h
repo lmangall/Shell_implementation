@@ -46,6 +46,7 @@ struct node_special
     //FILE DESCRIPTOR STUFF
 };
 
+t_operator get_operator(char *operator);
 
 /**
  * @brief  creates a new node and sets it's type field.

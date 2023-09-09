@@ -8,6 +8,29 @@
 #include "../include/free.h"
 
 
+t_operator get_operator(char *operator)
+{
+    t_operator op;
+
+    if (!operator)
+        op = NONE;
+    else if (ft_strcmp(operator, "|") == 0)
+        op = PIPE;
+    else if (ft_strcmp(operator, ">>") == 0)
+        op = RDR_OUT_APPEND;
+    else if (ft_strcmp(operator, ">") == 0)
+        op = RDR_OUT_REPLACE;
+    else if (ft_strcmp(operator, "<<") == 0)
+        op = RDR_INPUT_UNTIL;
+    else if (ft_strcmp(operator, "<") == 0)
+        op = RDR_INPUT;
+    else
+        op = NONE;
+    free(operator);
+    return op;
+}
+
+
 struct node_s *new_node(enum node_type_e type)
 {
 
