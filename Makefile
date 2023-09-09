@@ -27,6 +27,7 @@ SRCS = lexer.c \
 		signals.c \
 		free.c \
 		pipe.c \
+		redirect.c \
 		builtins/cd.c \
 		builtins/echo.c
 
