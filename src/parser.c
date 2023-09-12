@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/12 13:17:03 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/12 14:16:21 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,6 @@ struct node_s *parse_simple_command(char **tokens)
 	return cmd;
 }
 
-void set_pipe_operator(struct node_type_master *master)
-{
-    struct node_s *current_cmd = master->root_nodes[0];
-    while (current_cmd->next_sibling != NULL)
-    {
-        current_cmd->operator = PIPE;
-        current_cmd = current_cmd->next_sibling;
-    }
-	current_cmd->operator = NONE;
-}
-
-void set_redir_operator(struct node_type_master *master)
-{
-    struct node_s *current_cmd = master->root_nodes[0];
-    while (current_cmd->next_sibling != NULL)
-    {
-        current_cmd->operator = RDR_OUT_REPLACE;
-        current_cmd = current_cmd->next_sibling;
-    }
-	current_cmd->operator = NONE;
-}
-
 int is_operator(char *str)
 {
     if (ft_strcmp(str, "|") == 0)
@@ -80,6 +58,28 @@ int is_operator(char *str)
 }
 
 
+t_operator	get_operator(char **token)
+{
+	int i;
+
+	i = 0;
+	while (token[i] != NULL)
+	{
+		if (ft_strnstr(token[i], "|", 1))
+			return PIPE;
+		if (ft_strnstr(token[i], ">", 1))
+			return RDR_OUT_REPLACE;
+		if (ft_strnstr(token[i], ">>", 2))
+			return RDR_OUT_APPEND;
+		if (ft_strnstr(token[i], "<", 1))
+			return RDR_INPUT;
+		if (ft_strnstr(token[i], "<<", 2))
+			return RDR_INPUT_UNTIL;
+		i++;
+	}
+	return NONE;
+}
+
 struct node_type_master *parse_advanced_command(char **tokens)
 {
     int i = 0;
@@ -95,6 +95,7 @@ struct node_type_master *parse_advanced_command(char **tokens)
                 return NULL;
             if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
                 return NULL;
+			new_cmd->operator = get_operator(tokens + i);
         }
         else if (is_operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
         {

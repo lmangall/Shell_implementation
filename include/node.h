@@ -46,7 +46,6 @@ struct node_special
     //FILE DESCRIPTOR STUFF
 };
 
-t_operator get_operator(char *operator);
 
 /**
  * @brief  creates a new node and sets it's type field.
@@ -80,7 +79,7 @@ int add_sibling_node(struct node_s *parent, struct node_s *child);
 
 
 
-t_operator get_operator(char *operator);
-void set_operators(struct node_type_master *master);
+// t_operator get_operator(char *operator);
+// void set_operators(struct node_type_master *master);
 
 #endif

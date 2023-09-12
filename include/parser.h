@@ -7,6 +7,8 @@ struct node_type_master *search_special(struct node_s *cmd);
 void print_master(struct node_type_master *master_node);
 
 int is_operator(char *str);
+t_operator	get_operator(char **token);
+
 
 
 //  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
@@ -15,10 +17,6 @@ int is_operator(char *str);
 // struct node_type_master *parse_simple_command(char **tokens);
 
 /////////////////////
-
-void set_pipe_operator(struct node_type_master *master);
-void set_redir_operator(struct node_type_master *master);
-
 
 struct node_s *parse_simple_command(char **tokens);
 struct node_type_master *parse_advanced_command(char **tokens);

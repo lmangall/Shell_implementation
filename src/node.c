@@ -8,47 +8,6 @@
 #include "../include/free.h"
 
 
-t_operator get_operator(char *operator)
-{
-    t_operator op;
-
-    if (!operator)
-        op = NONE;
-    else if (ft_strcmp(operator, "|") == 0)
-        op = PIPE;
-    else if (ft_strcmp(operator, ">>") == 0)
-        op = RDR_OUT_APPEND;
-    else if (ft_strcmp(operator, ">") == 0)
-        op = RDR_OUT_REPLACE;
-    else if (ft_strcmp(operator, "<<") == 0)
-        op = RDR_INPUT_UNTIL;
-    else if (ft_strcmp(operator, "<") == 0)
-        op = RDR_INPUT;
-    else
-        op = NONE;
-    free(operator);
-    return op;
-}
-
-// set_operators is called in the mainfunction
-// it takes a masternode and iterates through the root nodes first children
-// if it finds a node special it sets the operator of that node to the enum 
-// value of the operator it found
-// e.g. if it finds a node special with the value of | it sets the operator of that node to PIPE
-
-void set_operators(struct node_type_master *master)
-{
-    for (int i = 0; i < master->nbr_root_nodes; i++)
-    {
-        struct node_s *node = master->root_nodes[i]->first_child;
-        while (node)
-        {
-            if (node->type == SPECIAL)
-                node->operator = get_operator(node->str);
-            node = node->next_sibling;
-        }
-    }
-}
 
 void print_the_first_child_of_root_nodes(struct node_type_master *master)
 {
