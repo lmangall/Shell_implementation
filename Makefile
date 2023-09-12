@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/09/06 16:56:21 by lmangall         ###   ########.fr        #
+#    Updated: 2023/09/12 10:14:28 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS = lexer.c \
 		pipe.c \
 		redirect.c \
 		builtins/cd.c \
-		builtins/echo.c
+		builtins/echo.c  \
+		extra.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 

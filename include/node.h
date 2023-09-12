@@ -3,10 +3,10 @@
 
 enum node_type_e
 {
-    NODE_COMMAND,           /* simple command */
-    NODE_VAR,               /* variable name (or simply, a word) */
-	NODE_SPECIAL,
-	NODE_MASTER,
+    ROOT,           /* simple command */
+    VAR,               /* variable name (or simply, a word) */
+	SPECIAL,
+	MASTER,
 };
 
 typedef enum e_operator {

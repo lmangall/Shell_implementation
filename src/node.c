@@ -43,7 +43,7 @@ void set_operators(struct node_type_master *master)
         struct node_s *node = master->root_nodes[i]->first_child;
         while (node)
         {
-            if (node->type == NODE_SPECIAL)
+            if (node->type == SPECIAL)
                 node->operator = get_operator(node->str);
             node = node->next_sibling;
         }

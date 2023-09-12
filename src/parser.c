@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/06 16:43:52 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:17:03 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ struct node_s *parse_simple_command(char **tokens)
 {
 	int i = 0;
 	
-	struct node_s *cmd = new_node(NODE_COMMAND);
+	struct node_s *cmd = new_node(ROOT);
 	if(!cmd)
 		return NULL;
 	while(tokens[i] != NULL)
 	{
-		struct node_s *word = new_node(NODE_VAR);
+		struct node_s *word = new_node(VAR);
 		if (!word)
 			return NULL;
 		set_node_str(word, tokens[i]);
@@ -64,8 +64,7 @@ void set_redir_operator(struct node_type_master *master)
 	current_cmd->operator = NONE;
 }
 
-//a function that checks a *str for |, >, >>, <, << and returns 1 if it finds one
-static int operator(char *str)
+int is_operator(char *str)
 {
     if (ft_strcmp(str, "|") == 0)
         return 1;
@@ -89,19 +88,15 @@ struct node_type_master *parse_advanced_command(char **tokens)
 
     while (tokens[i] != NULL)
     {
-        if ((i == 0) || ((operator(tokens[i - 1])) && (i > 0)))
+        if ((i == 0) || ((is_operator(tokens[i - 1])) && (i > 0)))
         {
-            struct node_s *new_cmd = create_new_command_node(tokens[i]);
-			// if (i % 2 == 0)
-			// 	new_cmd->operator = PIPE;
-			// if (i == 4)
-			// 	new_cmd->operator = NONE;
+            struct node_s *new_cmd = create_root_node(tokens[i]);
             if (!new_cmd)
                 return NULL;
             if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
                 return NULL;
         }
-        else if (operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
+        else if (is_operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
         {
         //     // struct node_s *pipe_cmd = create_pipe_command_node();
         //     // if (!pipe_cmd)
@@ -110,12 +105,11 @@ struct node_type_master *parse_advanced_command(char **tokens)
         //     //     return NULL;
 			i++;
 			i--;
-
         }
-        else
+		else 
         {
             // Handle regular words (non-options)
-            struct node_s *word = new_node(NODE_VAR);
+            struct node_s *word = new_node(VAR);
             if (!word)
                 return NULL;
             set_node_str(word, tokens[i]);
@@ -153,12 +147,12 @@ struct node_type_master *parse_advanced_command(char **tokens)
 // }
 
 
-struct node_s *create_new_command_node(char *token)
+struct node_s *create_root_node(char *token)
 {
-    struct node_s *new_cmd = new_node(NODE_COMMAND);
+    struct node_s *new_cmd = new_node(ROOT);
     if (!new_cmd)
         return NULL;
-    struct node_s *cmd_var = new_node(NODE_VAR);
+    struct node_s *cmd_var = new_node(VAR);
     if (!cmd_var)
         return NULL;
     set_node_str(cmd_var, token);
@@ -201,7 +195,7 @@ struct node_type_master *create_master_node(struct node_s *cmd)
     struct node_type_master *master_node = malloc(sizeof(struct node_type_master));
     if (!master_node)
         return NULL;
-    master_node->type = NODE_MASTER;
+    master_node->type = MASTER;
     master_node->str = NULL;
     master_node->nbr_root_nodes = 0;
     master_node->root_nodes = NULL;
@@ -215,69 +209,6 @@ struct node_type_master *create_master_node(struct node_s *cmd)
     }
     return master_node;
 }
-
-
-//write a function that goes through the root nodes (node_command) and prints the first child of each
-//the function should use the next_sibling pointer to go through the list of root nodes
-static void print_root_nodes(struct node_type_master *master_node)
-{
-	printf("\n\n\n\n");
-	struct node_s *current = master_node->root_nodes[0];
-	int i = 0;
-	while (current != NULL)
-	{
-		printf("root_nodes[%d] first_child->str = %s\n", i, current->first_child->str);
-		current = current->next_sibling;
-		i++;
-	}
-}
-void print_master(struct node_type_master *master_node)
-{
-    if (master_node == NULL)
-    {
-        printf("\033[1;33m"); // Set the color to yellow
-        printf("Master node is NULL\n");
-        printf("\033[0m"); // Reset the color
-        return;
-    }
-
-    printf("\033[1;33m"); // Set the color to yellow
-    printf("Master Node Type: NODE_MASTER\n");
-    printf("Number of Root Nodes: %d\n", master_node->nbr_root_nodes);
-    printf("\033[0m"); // Reset the color
-
-    for (int i = 0; i < master_node->nbr_root_nodes; i++)
-    {
-        printf("\033[1;33m"); // Set the color to yellow
-        printf("Node %d:\n", i);
-        printf("\033[0m"); // Reset the color
-        if (master_node->root_nodes[i] == NULL)
-        {
-            printf("\033[1;33m"); // Set the color to yellow
-            printf("  Root Node is NULL\n");
-            printf("\033[0m"); // Reset the color
-        }
-        else
-        {
-            printf("\033[1;33m"); // Set the color to yellow
-            printf("  Root Node Type: %d\n", master_node->root_nodes[i]->type);
-            printf("  Root Node String: %s\n", master_node->root_nodes[i]->str);
-            printf("  Root Node Operator: %d\n", master_node->root_nodes[i]->operator);
-            printf("  Root Node FC Type: %d\n", master_node->root_nodes[i]->first_child->type);
-            printf("  root_nodes[%d] first_child->str = %s\n", i, master_node->root_nodes[i]->first_child->str);
-            if (master_node->root_nodes[i]->first_child->next_sibling != NULL)
-                printf("  root_nodes[%d] first_child->next_sibling->str = %s\n", i, master_node->root_nodes[i]->first_child->next_sibling->str);
-            else
-                printf("  the first child has no sibling (only 1 word, no flags)\n");
-            
-            printf("\033[0m"); // Reset the color
-            printf("\n\n");
-        }
-    }
-    print_root_nodes(master_node);
-	printf("\n");
-}
-
 
 void link_root_nodes(struct node_type_master *master_node)
 {

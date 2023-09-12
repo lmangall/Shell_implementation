@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/06 16:57:05 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:09:59 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,19 +157,19 @@ int parse_and_execute(char *line, t_data *data)
     if (complex)
         {
 		master_node = parse_advanced_command(tokens);
-		// set_pipe_operator(master_node);
-		set_redir_operator(master_node);
+		set_pipe_operator(master_node);
+		// set_redir_operator(master_node);
 
 		//set_operators(master_node);
-		print_master(master_node);
+		// print_master(master_node);
 
-		if(fork() == 0)
-			exec_redirects(master_node->root_nodes[0]);
-		waitpid(-1, &status, 0);
-	
 		// if(fork() == 0)
-		// execute_pipe_command(master_node->root_nodes[0]);
+		// 	exec_redirects(master_node->root_nodes[0]);
 		// waitpid(-1, &status, 0);
+	
+		if(fork() == 0)
+		execute_pipe_command(master_node->root_nodes[0]);
+		waitpid(-1, &status, 0);
 
 
 		free_ast(master_node);

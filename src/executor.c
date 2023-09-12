@@ -54,7 +54,6 @@ char *search_path(char *cmd)
 //The zeroth argument, argv[0], contains the name of the command
 int do_exec_cmd(char **argv)
 {
-	ft_putstr_fd("do_exec_cmd\n", 2);
     if(strchr(argv[0], '/'))
         execv(argv[0], argv);
     else
@@ -73,7 +72,6 @@ int do_exec_cmd(char **argv)
 // a function that uses do_exec_cmd to execute a simple command
 int do_simple_command(struct node_s *root_node)
 {
-	ft_putstr_fd("do_simple_command\n", 2);
 	struct node_s *child = root_node->first_child;
 	if(!child)
 		return 0;
