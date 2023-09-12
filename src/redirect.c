@@ -43,7 +43,7 @@ void redirect_input_until(struct node_s *node)
     while (1)
     {
         buff = readline("> ");
-        if (streq(buff, node->next_sibling->str))
+        if (streq(buff, node->next_sibling->first_child->str))
             break;
         ft_putendl_fd(buff, fd[1]);
     }
@@ -58,20 +58,22 @@ void redirect_input(struct node_s *node)
     int in_file;
     char *error_msg_prefix;
 
-    if (node->next_sibling->str)
+    if (node->next_sibling->first_child->str)
     {
+
         while (node->next_sibling->operator == RDR_INPUT)
             node = node->next_sibling;
         while (node->next_sibling->operator == RDR_INPUT)
             node = node->next_sibling;
-        if (access(node->next_sibling->str, F_OK) == 0)
+        if (access(node->next_sibling->first_child->str, F_OK) == 0)
         {
-            in_file = open(node->next_sibling->str, O_RDONLY, 0666);
+            in_file = open(node->next_sibling->first_child->str, O_RDONLY, 0666);
             dup2(in_file, STDIN_FILENO);
+			ft_putstr_fd("F_OK  for the file", 2);
         }
         else
         {
-            error_msg_prefix = ft_strjoin("minishell: ", node->next_sibling->str);
+            error_msg_prefix = ft_strjoin("minishell: ", node->next_sibling->first_child->str);
             perror(error_msg_prefix);
             free(error_msg_prefix);
             // g_exit_status = 2;
@@ -86,9 +88,9 @@ void redirect_output(struct node_s *node)
     while (node->next_sibling->operator == RDR_OUT_REPLACE || node->next_sibling->operator == RDR_OUT_APPEND)
     {
         if (node->operator == RDR_OUT_REPLACE)
-            open(node->next_sibling->str, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+            open(node->next_sibling->first_child->str, O_WRONLY | O_TRUNC | O_CREAT, 0666);
         else if (node->operator == RDR_OUT_APPEND)
-            open(node->next_sibling->str, O_WRONLY | O_APPEND | O_CREAT, 0666);
+            open(node->next_sibling->first_child->str, O_WRONLY | O_APPEND | O_CREAT, 0666);
         node = node->next_sibling;
         close(1);
     }
@@ -116,7 +118,6 @@ void exec_redirects(struct node_s *node)
     if (node->operator == NONE)
         do_simple_command(temp); // Annahme, dass Sie eine Funktion exec_cmd haben
     else
-      //  exec_pipe(node); // Annahme, dass Sie eine Funktion exec_pipe haben
-        write(2, "IN THE ELSE\n", 12);
+        execute_pipe_command(node);
 }
 #endif

@@ -31,6 +31,10 @@ ls | head -1 | wc -l
 ls | grep .md | sort -r | wc -l
 ls | grep .md | sort | grep "ss"
 
+Test for < and <<
+wc < output.txt
+cat output.txt | wc
+
 
 
 
