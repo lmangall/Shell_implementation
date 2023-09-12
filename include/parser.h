@@ -15,7 +15,7 @@ void print_master(struct node_type_master *master_node);
 /////////////////////
 
 void set_pipe_operator(struct node_type_master *master);
-
+void set_redir_operator(struct node_type_master *master);
 
 
 struct node_s *parse_simple_command(char **tokens);

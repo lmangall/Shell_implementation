@@ -53,6 +53,34 @@ void set_pipe_operator(struct node_type_master *master)
 	current_cmd->operator = NONE;
 }
 
+void set_redir_operator(struct node_type_master *master)
+{
+    struct node_s *current_cmd = master->root_nodes[0];
+    while (current_cmd->next_sibling != NULL)
+    {
+        current_cmd->operator = RDR_OUT_REPLACE;
+        current_cmd = current_cmd->next_sibling;
+    }
+	current_cmd->operator = NONE;
+}
+
+//a function that checks a *str for |, >, >>, <, << and returns 1 if it finds one
+static int operator(char *str)
+{
+    if (ft_strcmp(str, "|") == 0)
+        return 1;
+    if (ft_strcmp(str, ">") == 0)
+        return 1;
+    if (ft_strcmp(str, ">>") == 0)
+        return 1;
+    if (ft_strcmp(str, "<") == 0)
+        return 1;
+    if (ft_strcmp(str, "<<") == 0)
+        return 1;
+    return 0;
+}
+
+
 struct node_type_master *parse_advanced_command(char **tokens)
 {
     int i = 0;
@@ -61,7 +89,7 @@ struct node_type_master *parse_advanced_command(char **tokens)
 
     while (tokens[i] != NULL)
     {
-        if ((i == 0) || ((strcmp(tokens[i - 1], "|") == 0) && (i > 0)))
+        if ((i == 0) || ((operator(tokens[i - 1])) && (i > 0)))
         {
             struct node_s *new_cmd = create_new_command_node(tokens[i]);
 			// if (i % 2 == 0)
@@ -73,7 +101,7 @@ struct node_type_master *parse_advanced_command(char **tokens)
             if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
                 return NULL;
         }
-        else if (strcmp(tokens[i], "|") == 0)
+        else if (operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
         {
         //     // struct node_s *pipe_cmd = create_pipe_command_node();
         //     // if (!pipe_cmd)

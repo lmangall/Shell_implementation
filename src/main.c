@@ -23,6 +23,7 @@
 #include "../include/expander.h"
 #include "../include/builtins.h"
 #include "../include/signals.h"
+#include "../include/redirect.h"
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -139,13 +140,13 @@ int parse_and_execute(char *line, t_data *data)
 	(void) data;
 
     // Check if there is a pipe in the command    ->  new cmd
-    int has_pipe = 0;
+    int complex = 0;
     int i = 0;
     while (tokens[i] != NULL)
     {
-        if (strcmp(tokens[i], "|") == 0)
+        if ((strcmp(tokens[i], "|") == 0) || (strcmp(tokens[i], ">") == 0))
         {
-            has_pipe = 1;
+            complex = 1;
             break;
         }
         i++;
@@ -153,16 +154,24 @@ int parse_and_execute(char *line, t_data *data)
 
     // Parse the command
     struct node_type_master *master_node;
-    if (has_pipe)
+    if (complex)
         {
 		master_node = parse_advanced_command(tokens);
-		set_pipe_operator(master_node);
+		// set_pipe_operator(master_node);
+		set_redir_operator(master_node);
 
-		// print_master(master_node);
+		//set_operators(master_node);
+		print_master(master_node);
+
 		if(fork() == 0)
-			execute_pipe_command(master_node->root_nodes[0]);
+			exec_redirects(master_node->root_nodes[0]);
 		waitpid(-1, &status, 0);
-		//print_master(master_node);
+	
+		// if(fork() == 0)
+		// execute_pipe_command(master_node->root_nodes[0]);
+		// waitpid(-1, &status, 0);
+
+
 		free_ast(master_node);
 		}
 		//have parse_advanced_command return smthing for execution, instead of executing straight away

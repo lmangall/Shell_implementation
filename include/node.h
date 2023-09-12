@@ -78,4 +78,9 @@ void    set_node_str(struct node_s *node, char *val);
 int add_sibling_node(struct node_s *parent, struct node_s *child);
 
 
+
+
+t_operator get_operator(char *operator);
+void set_operators(struct node_type_master *master);
+
 #endif
