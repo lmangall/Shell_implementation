@@ -1,1 +1,15 @@
-file content
+Chapter5-WritingYourOwnShell.pdf
+Makefile
+README.md
+README_Issue_Management.md
+README_glossary.md
+en.subject (1).pdf
+include
+input.txt
+lib
+minishell
+obj
+output.txt
+root_nodes
+src
+test_test_test

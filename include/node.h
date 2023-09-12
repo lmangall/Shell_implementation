@@ -10,12 +10,12 @@ enum node_type_e
 };
 
 typedef enum e_operator {
-	NONE,
-	RDR_OUT_REPLACE,
-	RDR_OUT_APPEND,
-	RDR_INPUT,
-	RDR_INPUT_UNTIL,
-	PIPE,
+	NONE,                 //
+	RDR_OUT_REPLACE,      //    >
+	RDR_OUT_APPEND,       //    >>
+	RDR_INPUT,  	      //    <
+	RDR_INPUT_UNTIL,      //    <<
+	PIPE,  		          //    |
 }				t_operator;
 
 struct node_s

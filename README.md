@@ -36,9 +36,15 @@ wc < output.txt
 cat output.txt | wc
 
 
-
+Test for input and output redir in one command
 wc > output.txt < input.txt   
 
+
+crazy test:
+cat < input1.txt | sort -r | cat < input2.txt > output.txt
+
+sort -r is not working in bash and zsh
+sort -r | head -4  < input.txt
 
 
 

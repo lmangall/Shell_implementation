@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/12 16:41:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:46:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../include/shell.h"
 #include "../include/parser.h"
 #include "../include/free.h"
-
+#include "../include/fcntl.h"
 
 
 //  ->  COMMENTED OUT FOR COMPLEX AST (pipe) TESTING
@@ -57,7 +57,21 @@ int is_operator(char *str)
 	return 0;
 }
 
-
+/**
+ * @brief Looks for the first operator 
+ * in the array of tokens and returns the operator type.
+ *
+ * This function iterates over the array of tokens and determines the operator type
+ * based on the token values. The following operators are supported:
+ * - PIPE: "|"
+ * - RDR_OUT_REPLACE: ">"
+ * - RDR_OUT_APPEND: ">>"
+ * - RDR_INPUT: "<"
+ * - RDR_INPUT_UNTIL: "<<"
+ *
+ * @param token An array of tokens to search for operators.
+ * @return The operator type, or NONE if no operator is found.
+ */
 t_operator	get_operator(char **token)
 {
 	int i;
@@ -83,6 +97,8 @@ t_operator	get_operator(char **token)
 struct node_type_master *parse_advanced_command(char **tokens)
 {
 	int i = 0;
+	int rdr_input = 0;
+	int rdr_output = 0;
 	struct node_s *cmd = NULL;
 	struct node_s *current_cmd = NULL;
 
@@ -95,7 +111,31 @@ struct node_type_master *parse_advanced_command(char **tokens)
 				return NULL;
 			if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
 				return NULL;
+
+			// if (rdr_input == 1 && (get_operator(tokens + i) == RDR_INPUT))
+				
+			// if(get_operator(tokens + i + 1) == RDR_INPUT))
+			// 	rdr_input = 1;
+
+			
+			if(rdr_output == 1 && rdr_input == 1)
+			{
+				new_cmd->prev_sibling = cmd;
+				new_cmd->operator = RDR_INPUT;//this is getting overwritten
+			}
+
+			
+
+			if(get_operator(tokens) == RDR_OUT_REPLACE)
+				rdr_output++;
+			if(get_operator(tokens) == RDR_INPUT)
+				rdr_input++;
 			new_cmd->operator = get_operator(tokens + i);
+			
+			if(rdr_output == 1 && rdr_input == 1) //setting the output.txt before the "<" to NONE
+				new_cmd->operator = NONE;
+
+				
 		}
 		else if (is_operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
 		{
@@ -115,13 +155,14 @@ struct node_type_master *parse_advanced_command(char **tokens)
 
 		i++;
 	}
+		
 
 	struct node_type_master *master_node = create_master_node(cmd);
 	if (master_node == NULL)
 	{
 		return NULL;
 	}
-link_root_nodes(master_node);
+	link_root_nodes(master_node);
 	return master_node;
 }
 

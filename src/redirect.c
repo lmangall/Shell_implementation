@@ -15,7 +15,7 @@
 #include "../include/builtins.h"
 #include "../include/free.h"
 
-#if 1
+// #if 1
 //extern long long g_exit_status;
 
 bool	streq(char *str1, char *str2)
@@ -69,7 +69,6 @@ void redirect_input(struct node_s *node)
         {
             in_file = open(node->next_sibling->first_child->str, O_RDONLY, 0666);
             dup2(in_file, STDIN_FILENO);
-			ft_putstr_fd("F_OK  for the file", 2);
         }
         else
         {
@@ -106,6 +105,32 @@ void exec_redirection(struct node_s *node)
     struct node_s *temp;
 
     temp = node;
+
+	struct node_s *temp2;
+    temp2 = node;
+	int in_file = 0;
+
+	//if there is a node that has a prev_sibling, 
+	//then there is an input redirection priority
+	//iterate through the AST and look for input redirection
+	while(temp2->prev_sibling != NULL)
+	{
+		if(temp2->operator == RDR_INPUT && temp2->prev_sibling != NULL)
+		{
+			// redirect_input(temp2);
+			// temp2->operator = NONE;
+
+        if (access(temp2->first_child->str, F_OK) == 0)
+        {
+            in_file = open(temp2->first_child->str, O_RDONLY, 0666);
+            dup2(in_file, STDIN_FILENO);
+        }
+		}
+		temp2 = temp2->next_sibling;
+	}
+
+
+
     if (node->operator == RDR_INPUT)
         redirect_input(node);
     else if (node->operator == RDR_INPUT_UNTIL)
@@ -119,5 +144,21 @@ void exec_redirection(struct node_s *node)
         exec_pipe_redir(temp);
     else
         execute_pipe_command(node);
+
 }
-#endif
+
+
+
+// struct node_s *identify_redirection(struct node_s *node)
+// {
+// 	while (node->operator != NONE)
+// 	{
+// 		if (node->operator == RDR_INPUT)
+// 			return (node);
+// 		node = node->next_sibling;
+// 	}
+// 	return (NULL);
+// }
+
+
+// #endif
