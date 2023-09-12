@@ -13,6 +13,7 @@
 #include "../include/executor.h"
 #include "../include/builtins.h"
 #include "../include/free.h"
+#include "../include/redirect.h"
 
 void exec_pipe_redir(struct node_s *node)
 {
@@ -22,6 +23,8 @@ void exec_pipe_redir(struct node_s *node)
 	else if (node->operator == NONE)
 		do_simple_command(node);
 	// exit(g_exit_status);
+	else
+		exec_redirection(node);
 }
 
 void	first_child(struct node_s *node, int pipe_fd[2])

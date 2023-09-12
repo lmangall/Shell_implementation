@@ -101,7 +101,7 @@ void redirect_output(struct node_s *node)
         open(node->next_sibling->first_child->str, O_WRONLY | O_APPEND | O_CREAT, 0666);
 }
 
-void exec_redirects(struct node_s *node)
+void exec_redirection(struct node_s *node)
 {
     struct node_s *temp;
 
@@ -116,7 +116,7 @@ void exec_redirects(struct node_s *node)
     while (node->operator != NONE && node->operator != PIPE)
         node = node->next_sibling;//next will be output.txt
     if (node->operator == NONE)
-        do_simple_command(temp); // Annahme, dass Sie eine Funktion exec_cmd haben
+        exec_pipe_redir(temp);
     else
         execute_pipe_command(node);
 }

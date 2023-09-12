@@ -37,6 +37,10 @@ cat output.txt | wc
 
 
 
+wc > output.txt < input.txt   
+
+
+
 
 usefull trick:
 (void) variable

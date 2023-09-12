@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/12 16:25:46 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:00:21 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int parse_and_execute(char *line, t_data *data)
 		print_master(master_node);
 
 		if(fork() == 0)
-			exec_redirects(master_node->root_nodes[0]);
+			exec_pipe_redir(master_node->root_nodes[0]);
 		waitpid(-1, &status, 0);
 	
 		// if(fork() == 0)
