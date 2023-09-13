@@ -130,7 +130,39 @@ void exec_redirection(struct node_s *node)
 	// }
 
 
-	while(i != 6)
+	// // while(operator != RDR_INPUT)
+	// while(temp2->prev_sibling == NULL || temp2->operator != RDR_INPUT)
+	// {
+	// 	if (temp2->next_sibling != NULL)
+	// 		temp2 = temp2->next_sibling;
+	// 	if (temp2->prev_sibling != NULL)
+	// 	{		
+
+	// 		if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
+	// 		{
+	// 			if (access(temp2->first_child->str, F_OK) == 0)
+	// 				{
+	// 					in_file = open(temp2->first_child->str, O_RDONLY, 0666);
+	// 					dup2(in_file, STDIN_FILENO);
+	// 				}
+	// 		break;
+	// 		}
+	// 	}
+	// 	i++;
+	// 	if (temp2->next_sibling != NULL)
+	// 		temp2 = temp2->next_sibling;
+	// 	// operator = temp2->next_sibling->operator;
+	// }
+
+
+
+
+
+
+
+
+
+	while(i != 3)
 	{
 		if (temp2->prev_sibling != NULL)
 		{		
@@ -146,9 +178,10 @@ void exec_redirection(struct node_s *node)
 			}
 		}
 		i++;
-		temp2 = temp2->next_sibling;
+		if (temp2->next_sibling != NULL)
+			temp2 = temp2->next_sibling;
+		// operator = temp2->next_sibling->operator;
 	}
-
 
 	
 
