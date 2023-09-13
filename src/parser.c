@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/13 19:30:10 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:37:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ struct node_type_master *parse_advanced_command(char **tokens)
 	int i = 0;
 	int rdr_input = 0;
 	int rdr_output = 0;
-	struct node_s *cmd = NULL;
+	struct node_s *head = NULL;
 	struct node_s *current_cmd = NULL;
 
 	while (tokens[i] != NULL)
@@ -109,38 +109,19 @@ struct node_type_master *parse_advanced_command(char **tokens)
 			struct node_s *new_cmd = create_root_node(tokens[i]);
 			if (!new_cmd)
 				return NULL;
-			if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
+			if (!add_command_node_to_list(&head, &current_cmd, new_cmd))
 				return NULL;
-
-
-
-
-
 			new_cmd->operator = get_operator(tokens + i);
-
+			//end of this "if" is used for the ->    wc > output.txt < input.txt   
 			if(rdr_output == 1 && rdr_input == 1)
 			{
-				new_cmd->prev_sibling = cmd;
-				new_cmd->operator = RDR_INPUT;//this is getting overwritten
-				printf("new_cmd->prev_sibling->str: %s\n", new_cmd->prev_sibling->str);
+				new_cmd->prev_sibling = head;
+				new_cmd->operator = RDR_INPUT;//this is getting overwritten	
 			}
-
 			if(get_operator(tokens + i) == RDR_OUT_REPLACE)
 				rdr_output++;
 			if(get_operator(tokens + i) == RDR_INPUT)
 				rdr_input++;
-
-			
-
-
-
-			
-	
-
-			printf("rdr_input : %d\n", rdr_input);
-			printf("rdr_output : %d\n", rdr_output);
-			printf("i : %d\n", i);
-				
 		}
 		else if (is_operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
 		{
@@ -161,8 +142,9 @@ struct node_type_master *parse_advanced_command(char **tokens)
 		i++;
 	}
 		
+		
 
-	struct node_type_master *master_node = create_master_node(cmd);
+	struct node_type_master *master_node = create_master_node(head);
 	if (master_node == NULL)
 	{
 		return NULL;

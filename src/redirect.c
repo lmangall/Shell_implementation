@@ -118,23 +118,27 @@ void exec_redirection(struct node_s *node)
 	int in_file = 0;
 	int i = 0;
 
-	while(i == 10)
-	{
-		printf("counter: %d\n", i);
+	// while(temp2->prev_sibling != NULL)
+	// {
 
+
+
+	// 	printf("i = %d\n", i);
+
+	// 	temp2 = temp2->next_sibling;
+	// 	i++;
+	// }
+
+
+	while(i != 6)
+	{
 		if (temp2->prev_sibling != NULL)
 		{		
-			printf("found\n");
-	
+
 			if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
 			{
-				// redirect_input(temp2);
-				// temp2->operator = NONE;
-				ft_putstr_fd("INPUT redirection\n", 2);
-
 				if (access(temp2->first_child->str, F_OK) == 0)
 					{
-						ft_putstr_fd("input redirection\n", 2);
 						in_file = open(temp2->first_child->str, O_RDONLY, 0666);
 						dup2(in_file, STDIN_FILENO);
 					}
@@ -144,6 +148,7 @@ void exec_redirection(struct node_s *node)
 		i++;
 		temp2 = temp2->next_sibling;
 	}
+
 
 	
 
