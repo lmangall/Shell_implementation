@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/12 21:46:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:30:10 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,29 +112,34 @@ struct node_type_master *parse_advanced_command(char **tokens)
 			if (!add_command_node_to_list(&cmd, &current_cmd, new_cmd))
 				return NULL;
 
-			// if (rdr_input == 1 && (get_operator(tokens + i) == RDR_INPUT))
-				
-			// if(get_operator(tokens + i + 1) == RDR_INPUT))
-			// 	rdr_input = 1;
 
-			
+
+
+
+			new_cmd->operator = get_operator(tokens + i);
+
 			if(rdr_output == 1 && rdr_input == 1)
 			{
 				new_cmd->prev_sibling = cmd;
 				new_cmd->operator = RDR_INPUT;//this is getting overwritten
+				printf("new_cmd->prev_sibling->str: %s\n", new_cmd->prev_sibling->str);
 			}
 
-			
-
-			if(get_operator(tokens) == RDR_OUT_REPLACE)
+			if(get_operator(tokens + i) == RDR_OUT_REPLACE)
 				rdr_output++;
-			if(get_operator(tokens) == RDR_INPUT)
+			if(get_operator(tokens + i) == RDR_INPUT)
 				rdr_input++;
-			new_cmd->operator = get_operator(tokens + i);
-			
-			if(rdr_output == 1 && rdr_input == 1) //setting the output.txt before the "<" to NONE
-				new_cmd->operator = NONE;
 
+			
+
+
+
+			
+	
+
+			printf("rdr_input : %d\n", rdr_input);
+			printf("rdr_output : %d\n", rdr_output);
+			printf("i : %d\n", i);
 				
 		}
 		else if (is_operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)

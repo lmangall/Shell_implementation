@@ -106,28 +106,46 @@ void exec_redirection(struct node_s *node)
 
     temp = node;
 
-	struct node_s *temp2;
-    temp2 = node;
-	int in_file = 0;
+
+
+
 
 	//if there is a node that has a prev_sibling, 
 	//then there is an input redirection priority
 	//iterate through the AST and look for input redirection
-	while(temp2->prev_sibling != NULL)
-	{
-		if(temp2->operator == RDR_INPUT && temp2->prev_sibling != NULL)
-		{
-			// redirect_input(temp2);
-			// temp2->operator = NONE;
+	struct node_s *temp2;
+    temp2 = node;
+	int in_file = 0;
+	int i = 0;
 
-        if (access(temp2->first_child->str, F_OK) == 0)
-        {
-            in_file = open(temp2->first_child->str, O_RDONLY, 0666);
-            dup2(in_file, STDIN_FILENO);
-        }
+	while(i == 10)
+	{
+		printf("counter: %d\n", i);
+
+		if (temp2->prev_sibling != NULL)
+		{		
+			printf("found\n");
+	
+			if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
+			{
+				// redirect_input(temp2);
+				// temp2->operator = NONE;
+				ft_putstr_fd("INPUT redirection\n", 2);
+
+				if (access(temp2->first_child->str, F_OK) == 0)
+					{
+						ft_putstr_fd("input redirection\n", 2);
+						in_file = open(temp2->first_child->str, O_RDONLY, 0666);
+						dup2(in_file, STDIN_FILENO);
+					}
+			break;
+			}
 		}
+		i++;
 		temp2 = temp2->next_sibling;
 	}
+
+	
 
 
 
