@@ -30,6 +30,8 @@ SRCS = lexer.c \
 		redirect.c \
 		builtins/cd.c \
 		builtins/echo.c  \
+		builtins/pwd.c \
+		builtins/env.c \
 		extra.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))

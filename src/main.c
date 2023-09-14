@@ -115,7 +115,10 @@ int main(int argc, char **argv, char **envp)
 		if (ft_strcmp(line, "exit") == 0)
 			status = 0;
 		if (ft_strcmp(line, "myenv") == 0)
-			print_vars(&data);
+			//print_vars(&data);
+			do_env_builtin(&data);
+		if (ft_strcmp(line, "pwd") == 0)
+			do_pwd_builtin(&data);	
 	}
 	return EXIT_SUCCESS;
 }
