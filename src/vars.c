@@ -40,8 +40,9 @@ int find_equal_sign(char *str)
 	return(-1);
 }
 
-void init_vars(t_data *data) {
-	extern char **environ; // Assumption: extern declaration for the environment variables
+void init_vars(t_data *data, char **envp) {
+	//extern char **envp; 
+    // Assumption: extern declaration for the envpment variables
     int i = 0;
     int j;
     int equal_sign;
@@ -49,21 +50,21 @@ void init_vars(t_data *data) {
     data->num_vars = 0;
     data->num_exported_vars = 0;
 
-    while (environ[i] != NULL && i < MAX_VARS) {
-        equal_sign = find_equal_sign(environ[i]);
+    while (envp[i] != NULL && i < MAX_VARS) {
+        equal_sign = find_equal_sign(envp[i]);
 
         if (equal_sign != -1) {
             j = 0;
 
             while (j < equal_sign && (size_t)j < sizeof(data->vars_container[i].name) - 1) {
-                data->vars_container[i].name[j] = environ[i][j];
+                data->vars_container[i].name[j] = envp[i][j];
                 j++;
             }
             data->vars_container[i].name[j] = '\0';
 
             j = 0;
-            while (environ[i][equal_sign + 1] != '\0' && (size_t)j < sizeof(data->vars_container[i].value) - 1) {
-                data->vars_container[i].value[j] = environ[i][equal_sign + 1];
+            while (envp[i][equal_sign + 1] != '\0' && (size_t)j < sizeof(data->vars_container[i].value) - 1) {
+                data->vars_container[i].value[j] = envp[i][equal_sign + 1];
                 j++;
                 equal_sign++;
             }
@@ -74,7 +75,7 @@ void init_vars(t_data *data) {
 
         i++;
         if (i >= MAX_VARS) {
-            environ[i] = NULL; // Ensure we don't go out of bounds
+            envp[i] = NULL; // Ensure we don't go out of bounds
         }
     }
 

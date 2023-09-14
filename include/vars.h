@@ -23,7 +23,7 @@ typedef struct s_data {
 } t_data;
 
 int find_equal_sign(char *str);
-void init_vars(t_data *data);
+void init_vars(t_data *data, char **envp);
 void print_vars(const t_data *data);
 
 int set_var(t_data *data, const char *name, const char *value);

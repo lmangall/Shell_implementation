@@ -70,8 +70,10 @@
 // }
 
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
+	(void) argc;
+	(void) argv;
 	char *line;
 	int status;
 	t_data data;
@@ -85,7 +87,7 @@ int main(void)
 	// 	exit(EXIT_FAILURE);
 	// }
 
-	init_vars(&data);
+	init_vars(&data, envp);
 
 	signal(SIGINT, handle_ctrl_c);
     signal(SIGQUIT, handle_ctrl_backslash);
