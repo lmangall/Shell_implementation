@@ -100,6 +100,43 @@ void redirect_output(struct node_s *node)
         open(node->next_sibling->first_child->str, O_WRONLY | O_APPEND | O_CREAT, 0666);
 }
 
+
+// void i_and_o_redir(struct node_type_master *master_node)
+// {
+// 	int in_file = 0;
+// 	// int out_file = 0;
+// 	int i = 0;
+	
+// 	struct node_s *node;
+// 	node = master_node->root_nodes[0];
+
+// 	while (i < master_node->nbr_root_nodes)
+// 	{
+// 		while (node->prev_sibling == NULL)
+// 			node = node->next_sibling;
+
+// 		if (node->operator == RDR_INPUT)
+// 		{
+// 			if (access(node->first_child->str, F_OK) == 0)
+// 			{
+// 				in_file = open(node->first_child->str, O_RDONLY, 0666);
+// 				dup2(in_file, STDIN_FILENO);
+// 			}
+// 			break;
+// 		}
+// 		// else if (node->operator == RDR_OUTPUT)
+// 		// {
+// 		// 	if (access(node->first_child->str, F_OK) == 0)
+// 		// 	{
+// 		// 		out_file = open(node->first_child->str, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+// 		// 		dup2(out_file, STDOUT_FILENO);
+// 		// 	}
+// 		// 	break;
+// 		// }
+// 		i++;
+// 	}
+// }
+
 void exec_redirection(struct node_s *node)
 {
     struct node_s *temp;
@@ -113,10 +150,10 @@ void exec_redirection(struct node_s *node)
 	//if there is a node that has a prev_sibling, 
 	//then there is an input redirection priority
 	//iterate through the AST and look for input redirection
-	struct node_s *temp2;
-    temp2 = node;
-	int in_file = 0;
-	int i = 0;
+	// struct node_s *temp2;
+    // temp2 = node;
+	// int in_file = 0;
+	// int i = 0;
 
 	// while(temp2->prev_sibling != NULL)
 	// {
@@ -162,29 +199,25 @@ void exec_redirection(struct node_s *node)
 
 
 
-	while(i != 3)
-	{
-		if (temp2->prev_sibling != NULL)
-		{		
-
-			if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
-			{
-				if (access(temp2->first_child->str, F_OK) == 0)
-					{
-						in_file = open(temp2->first_child->str, O_RDONLY, 0666);
-						dup2(in_file, STDIN_FILENO);
-					}
-			break;
-			}
-		}
-		i++;
-		if (temp2->next_sibling != NULL)
-			temp2 = temp2->next_sibling;
-		// operator = temp2->next_sibling->operator;
-	}
-
-	
-
+	// while(i != 3)
+	// {
+	// 	if (temp2->prev_sibling != NULL)
+	// 	{		
+	// 		if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
+	// 		{
+	// 			if (access(temp2->first_child->str, F_OK) == 0)
+	// 				{
+	// 					in_file = open(temp2->first_child->str, O_RDONLY, 0666);
+	// 					dup2(in_file, STDIN_FILENO);
+	// 				}
+	// 		break;
+	// 		}
+	// 	}
+	// 	i++;
+	// 	if (temp2->next_sibling != NULL)
+	// 		temp2 = temp2->next_sibling;
+	// 	// operator = temp2->next_sibling->operator;
+	// }
 
 
     if (node->operator == RDR_INPUT)

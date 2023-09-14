@@ -18,6 +18,10 @@ t_operator	get_operator(char **token);
 
 /////////////////////
 
+
+void i_and_o_redir(struct node_type_master *master_node);
+
+
 struct node_s *parse_simple_command(char **tokens);
 struct node_type_master *parse_advanced_command(char **tokens);
 

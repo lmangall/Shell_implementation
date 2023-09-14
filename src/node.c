@@ -31,6 +31,11 @@ struct node_s *new_node(enum node_type_e type)
     
     memset(node, 0, sizeof(struct node_s));
     node->type = type;
+	node->str = NULL;
+	node->first_child = NULL;
+	node->prev_sibling = NULL;
+	node->next_sibling = NULL;
+	node->operator = NONE;
     
     return node;
 }

@@ -47,6 +47,9 @@ sort -r is not working in bash and zsh
 sort -r | head -4  < input.txt
 
 
+Shouldn't do anything or should erase content
+ cat output.txt | sort -r > output.txt 
+
 
 usefull trick:
 (void) variable

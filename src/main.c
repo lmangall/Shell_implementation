@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/12 18:20:36 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:16:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,30 +141,18 @@ int parse_and_execute(char *line, t_data *data)
 	int i = 0;
 
 	(void) data;
-
-    // // Check if there is a pipe in the command    ->  new cmd
-    // int complex = 0;
-    // int i = 0;
-    // while (tokens[i] != NULL)
-    // {
-    //     if ((strcmp(tokens[i], "|") == 0) || (strcmp(tokens[i], ">") == 0))
-    //     {
-    //         complex = 1;
-    //         break;
-    //     }
-    //     i++;
-    // }
-
-    // Parse the command
+	
     struct node_type_master *master_node;
     if (get_operator(tokens) != NONE)
         {
 		master_node = parse_advanced_command(tokens);
-
 		print_master(master_node);
 
 		if(fork() == 0)
+		{
+			// i_and_o_redir(master_node);
 			exec_pipe_redir(master_node->root_nodes[0]);
+		}
 		waitpid(-1, &status, 0);
 	
 		// if(fork() == 0)
@@ -175,8 +163,9 @@ int parse_and_execute(char *line, t_data *data)
 		free_ast(master_node);
 		}
 		//have parse_advanced_command return smthing for execution, instead of executing straight away
-    else
+    else //////////// maybe this shouldn't be used anymore
     {
+		printf("This should not get printed\n");
         struct node_s *cmd = parse_simple_command(tokens);
 
 		i = 0;
