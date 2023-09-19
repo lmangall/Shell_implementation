@@ -27,7 +27,6 @@
 
 // extern long long g_exit_status;       //   => get rid of this global var
 
-//retrieve and returns the correct path of a command (given as a str)
 char *search_path(char *cmd)
 {
 	char *paths = getenv("PATH");
@@ -35,7 +34,7 @@ char *search_path(char *cmd)
 	char	*tmp;
 	char	*command;
 
-	while (*paths)
+	while (*paths_arr)
 	{
 		tmp = ft_strjoin(*paths_arr, "/");
 		command = ft_strjoin(tmp, cmd);
@@ -46,7 +45,8 @@ char *search_path(char *cmd)
 		free(command);
 		paths_arr++;
 	}
-	errno = ENOENT;
+	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
+	// errno = ENOENT;
 	return NULL;
 }
 

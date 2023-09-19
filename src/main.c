@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/19 12:13:54 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:37:35 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int main(int argc, char **argv, char **envp)
 	t_data data;
 	data.paths = NULL;
 	data.envp = NULL;
+
+	
 	
 	// data = malloc(sizeof(t_data)); // Allocate memory for data
 	// if (!data) 
