@@ -9,8 +9,10 @@
 
 int	check_and_builtins(char *line, t_data *data)
 {
-	if (ft_strncmp(line, "exit", 3) == 0)
-		return(-1);
+	if (ft_strcmp(line, "exit") == 0)
+	{
+		exit(0);
+	}
 	if (ft_strncmp(line, "cd ", 3) == 0)
 		do_cd_builtin(lexer(line), data);
 	if (ft_strcmp(line, "env") == 0)///     => check if working properly

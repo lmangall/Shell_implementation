@@ -6,6 +6,9 @@
 		"string_view": "c",
 		"vector": "c",
 		"iterator": "c",
-		"__node_handle": "c"
+		"__node_handle": "c",
+		"libft.h": "c",
+		"node.h": "c",
+		"builtins.h": "c"
 	}
 }
