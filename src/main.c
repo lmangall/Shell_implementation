@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/14 13:16:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:05:16 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ int main(int argc, char **argv, char **envp)
 	if(line[0] !=  '\0')
 		{
 		add_history(line);
-		// if cd is typed with an absolute or relative path, it will do_cd_builtin
-		// if cd is typed without an absolute or relative path, it will do_cd_builtin
 		if (ft_strncmp(line, "cd ", 3) == 0)
 			do_cd_builtin(lexer(line), &data);
 		status = parse_and_execute(line, &data);
@@ -115,7 +113,6 @@ int main(int argc, char **argv, char **envp)
 		if (ft_strcmp(line, "exit") == 0)
 			status = 0;
 		if (ft_strcmp(line, "myenv") == 0)
-			//print_vars(&data);
 			do_env_builtin(&data);
 		if (ft_strcmp(line, "pwd") == 0)
 			do_pwd_builtin(&data);	
@@ -141,46 +138,33 @@ int parse_and_execute(char *line, t_data *data)
     char **tokens = lexer(line);
     free(line);
 	int status = 0;
-	int i = 0;
+	// int i = 0;
 
 	(void) data;
 	
     struct node_type_master *master_node;
     if (get_operator(tokens) != NONE)
         {
-		master_node = parse_advanced_command(tokens);
-		print_master(master_node);
+			//have parse_advanced_command return smthing for execution, instead of executing straight away
+			master_node = parse_advanced_command(tokens);
+			print_master(master_node);
 
-		if(fork() == 0)
-		{
-			// i_and_o_redir(master_node);
-			exec_pipe_redir(master_node->root_nodes[0]);
+			if(fork() == 0)
+			{
+				exec_pipe_redir(master_node->root_nodes[0]);
+			}
+			waitpid(-1, &status, 0);
+
+
+			free_ast(master_node);
 		}
-		waitpid(-1, &status, 0);
-	
-		// if(fork() == 0)
-		// 	execute_pipe_command(master_node->root_nodes[0]);
-		// waitpid(-1, &status, 0);
-
-
-		free_ast(master_node);
-		}
-		//have parse_advanced_command return smthing for execution, instead of executing straight away
-    else //////////// maybe this shouldn't be used anymore
+    else
     {
-		printf("This should not get printed\n");
-        struct node_s *cmd = parse_simple_command(tokens);
+		struct node_s *cmd = parse_simple_command(tokens);
+		if(fork() == 0)
+			exec_pipe_redir(cmd);
+		waitpid(-1, &status, 0);
 
-		i = 0;
-		while(i == 0)
-		{
-			if(!cmd)
-				break;
-			do_simple_command_former(cmd);
-			free_node_tree(cmd);
-			free(tokens);
-			i++;
-		}
         // free_node(cmd);
     }
     // free(tokens);

@@ -50,8 +50,6 @@ char *search_path(char *cmd)
 	return NULL;
 }
 
-// takes an argument list (`**argv`) suitable for executing
-//The zeroth argument, argv[0], contains the name of the command
 int do_exec_cmd(char **argv)
 {
     if(strchr(argv[0], '/'))
@@ -69,7 +67,6 @@ int do_exec_cmd(char **argv)
     return 0;
 }
 
-// a function that uses do_exec_cmd to execute a simple command
 int do_simple_command(struct node_s *root_node)
 {
 	struct node_s *child = root_node->first_child;
@@ -97,88 +94,9 @@ int do_simple_command(struct node_s *root_node)
 			child = child->next_sibling;
 		argc++;
 	}
-		argv[argc] = NULL;
-
-		
-	// for (int i = 0; argv[i] != NULL; i++)
-	// {
-	// // printf("argv[%d]: %s\n", i, argv[i]);
-	// }
-			do_exec_cmd(argv);
-			free_argv(argc, argv);
-			return 0;
-	}
-
-
-
-int do_simple_command_former(struct node_s *node)
-{
-	if(!node)
-		return 0;
-	struct node_s *child = node->first_child;
-	if(!child)
-	return 0;
-	
-	int argc = 0;
-	long max_args = 255;
-	char *argv[max_args+1];/* keep 1 for the terminating NULL arg */
-	char *str;
-
-	while(child)
-	{
-		str = child->str;
-		argv[argc] = malloc(strlen(str)+1);
-		
-	if(!argv[argc])
-		{
-			free_argv(argc, argv);
-			return 0;
-		}
-		
-	strcpy(argv[argc], str);
-		if(argc >= max_args)
-		{
-			break;
-		}
-		child = child->next_sibling;
-		argc++;
-	}
 	argv[argc] = NULL;
-	
-	//loop to print argv
-	int i = 0;
-	while (i < argc)
-		i++;
 
-
-	pid_t child_pid = 0;
-	if((child_pid = fork()) == 0)
-	{
-		do_exec_cmd(argv);
-		fprintf(stderr, "error: failed to execute command: %s\n", 
-				strerror(errno));
-		if(errno == ENOEXEC)
-		{
-			exit(126);
-		}
-		else if(errno == ENOENT)
-		{
-			exit(127);
-		}
-		else
-		{
-			exit(EXIT_FAILURE);
-		}
-	}
-	else if(child_pid < 0)
-	{
-		fprintf(stderr, "error: failed to fork command: %s\n", 
-				strerror(errno));
-		return 0;
-	}
-	int status = 0;
-	waitpid(child_pid, &status, 0);
+	do_exec_cmd(argv);
 	free_argv(argc, argv);
-	
-	return 1;
-}
+	return 0;
+	}

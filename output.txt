@@ -1,1 +1,5 @@
-inijnjnlnlknlkl
+Makefile:43:#READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
+Makefile:42:READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
+Makefile:41:READLINE = -L./lib/libft -lft -lreadline
+Binary file .git/objects/pack/pack-4dab9e50323c54796f12f3f804e3d182b7ab3aab.pack matches
+Binary file .git/index matches
