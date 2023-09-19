@@ -4,7 +4,8 @@
 #include "node.h"
 #include "../include/shell.h"
 
-//builtins
+int	check_and_builtins(char *line, t_data *data);
+
 void do_cd_builtin(char **argv, t_data *data);
 
 void do_echo_builtin(char **argv);

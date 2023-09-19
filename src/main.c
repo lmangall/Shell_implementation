@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/19 11:05:16 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:56:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@
 #include <readline/history.h>
 #include "../include/free.h"
 #include <sys/wait.h>
-
-
-
 
 // void display_history() 
 // {
@@ -92,7 +89,6 @@ int main(int argc, char **argv, char **envp)
 	signal(SIGINT, handle_ctrl_c);
     signal(SIGQUIT, handle_ctrl_backslash);
 
-
 	status = 1;
 	while(status)
 	{
@@ -101,21 +97,15 @@ int main(int argc, char **argv, char **envp)
 		{
             handle_ctrl_d(SIGQUIT);
         }		
-	if(line[0] !=  '\0')
+		if(line[0] !=  '\0')
 		{
 		add_history(line);
-		if (ft_strncmp(line, "cd ", 3) == 0)
-			do_cd_builtin(lexer(line), &data);
-		status = parse_and_execute(line, &data);
+
+		status = check_and_builtins(line, &data);
+		if (status)
+			status = parse_and_execute(line, &data);
 		}
-		// if (ft_strcmp(line, "history") == 0)
-		// 	display_history();
-		if (ft_strcmp(line, "exit") == 0)
-			status = 0;
-		if (ft_strcmp(line, "myenv") == 0)
-			do_env_builtin(&data);
-		if (ft_strcmp(line, "pwd") == 0)
-			do_pwd_builtin(&data);	
+
 	}
 	return EXIT_SUCCESS;
 }
@@ -138,7 +128,6 @@ int parse_and_execute(char *line, t_data *data)
     char **tokens = lexer(line);
     free(line);
 	int status = 0;
-	// int i = 0;
 
 	(void) data;
 	
@@ -147,14 +136,11 @@ int parse_and_execute(char *line, t_data *data)
         {
 			//have parse_advanced_command return smthing for execution, instead of executing straight away
 			master_node = parse_advanced_command(tokens);
-			print_master(master_node);
+			//print_master(master_node);
 
 			if(fork() == 0)
-			{
 				exec_pipe_redir(master_node->root_nodes[0]);
-			}
 			waitpid(-1, &status, 0);
-
 
 			free_ast(master_node);
 		}

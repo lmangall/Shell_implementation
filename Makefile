@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/09/12 10:14:28 by lmangall         ###   ########.fr        #
+#    Updated: 2023/09/19 11:22:15 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = lexer.c \
 		free.c \
 		pipe.c \
 		redirect.c \
+		builtins/utils.c \
 		builtins/cd.c \
 		builtins/echo.c  \
 		builtins/pwd.c \
