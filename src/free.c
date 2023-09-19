@@ -49,6 +49,31 @@
 // }
 
 
+// static void free_node(struct node_s *node)
+// {
+//     if (!node)
+//         return;
+
+//     free_node(node->first_child);
+//     free_node(node->next_sibling);
+//     free(node->str);
+//     free(node);
+// }
+
+// static void free_master(struct node_type_master *master)
+// {
+//     if (!master)
+//         return;
+
+//     for (int i = 0; i < master->nbr_root_nodes; i++)
+//         free_node(master->root_nodes[i]);
+
+//     free(master->root_nodes);
+//     free(master->str);
+//     free(master);
+// }
+
+
 
 void free_argv(int argc, char **argv)
 {

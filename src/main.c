@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/19 11:56:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:13:54 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,43 +29,6 @@
 #include <readline/history.h>
 #include "../include/free.h"
 #include <sys/wait.h>
-
-// void display_history() 
-// {
-// 	int i = history_base;
-	
-// 	while (i < history_length) 
-// 	{
-// 		HIST_ENTRY *entry = history_get(i);
-// 		if (entry != NULL)
-// 			printf("%d: %s\n", i, entry->line);
-// 	}
-// 		i++;
-// }
-// static void free_node(struct node_s *node)
-// {
-//     if (!node)
-//         return;
-
-//     free_node(node->first_child);
-//     free_node(node->next_sibling);
-//     free(node->str);
-//     free(node);
-// }
-
-// static void free_master(struct node_type_master *master)
-// {
-//     if (!master)
-//         return;
-
-//     for (int i = 0; i < master->nbr_root_nodes; i++)
-//         free_node(master->root_nodes[i]);
-
-//     free(master->root_nodes);
-//     free(master->str);
-//     free(master);
-// }
-
 
 int main(int argc, char **argv, char **envp)
 {
@@ -94,15 +57,13 @@ int main(int argc, char **argv, char **envp)
 	{
 		line = readline(SHELL_PROMPT);
 		if (line == NULL)
-		{
             handle_ctrl_d(SIGQUIT);
-        }		
 		if(line[0] !=  '\0')
 		{
 		add_history(line);
 
 		status = check_and_builtins(line, &data);
-		if (status)
+		if (status == 1)
 			status = parse_and_execute(line, &data);
 		}
 

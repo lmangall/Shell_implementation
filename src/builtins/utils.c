@@ -14,7 +14,10 @@ int	check_and_builtins(char *line, t_data *data)
 	if (ft_strncmp(line, "cd ", 3) == 0)
 		do_cd_builtin(lexer(line), data);
 	if (ft_strcmp(line, "env") == 0)///     => check if working properly
+		{
 		do_env_builtin(data);
+		return(-1);
+		}
 	if (ft_strcmp(line, "pwd") == 0)
 		do_pwd_builtin(data);
 	// if (ft_strcmp(line, "export") == 0)
@@ -25,3 +28,16 @@ int	check_and_builtins(char *line, t_data *data)
 	// 	display_history();
 	return(1);
 }
+
+// void display_history() 
+// {
+// 	int i = history_base;
+	
+// 	while (i < history_length) 
+// 	{
+// 		HIST_ENTRY *entry = history_get(i);
+// 		if (entry != NULL)
+// 			printf("%d: %s\n", i, entry->line);
+// 	}
+// 		i++;
+// }
