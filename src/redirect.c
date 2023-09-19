@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include "../include/signals.h"
 #include "../include/shell.h"
 #include "../include/pipe.h"
 #include "../include/redirect.h"
@@ -36,13 +37,15 @@ bool	streq(char *str1, char *str2)
 
 void redirect_input_until(struct node_s *node)
 {
+    signal(SIGINT, handle_ctrl_c_heredoc);
     char *buff;
     int fd[2];
-
     pipe(fd);
     while (1)
     {
         buff = readline("> ");
+        if (!buff)
+            break;
         if (streq(buff, node->next_sibling->first_child->str))
             break;
         ft_putendl_fd(buff, fd[1]);
@@ -51,6 +54,7 @@ void redirect_input_until(struct node_s *node)
     dup2(fd[0], STDIN_FILENO);
     close(fd[0]);
     free(buff);
+    signal(SIGINT, handle_ctrl_c);
 }
 
 void redirect_input(struct node_s *node)

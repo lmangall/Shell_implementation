@@ -22,3 +22,9 @@ void handle_ctrl_d(int sig) {
     (void)sig;
     exit(0);
 }
+
+void handle_ctrl_c_heredoc(int sig) {
+    printf("\n");
+    (void)sig;
+    exit(0);
+}

@@ -4,5 +4,6 @@
 void handle_ctrl_c(int sig);
 void handle_ctrl_backslash(int sig);
 void handle_ctrl_d(int sig);
+void handle_ctrl_c_heredoc(int sig);
 
 #endif
