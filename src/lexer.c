@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 20:37:57 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:58:43 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void	replaceSpacesWithFormFeed(char *str)
+void	replace_spaces_with_form_feed(char *str)
 {
 	for (int i = 0; str[i] != '\0'; i++)
 	{
@@ -31,7 +31,7 @@ void	replaceSpacesWithFormFeed(char *str)
 	}
 }
 
-void	replaceFormFeedWithSpaces(char *str)
+void	replaceform_feed_with_spaces(char *str)
 {
 	for (int i = 0; str[i] != '\0'; i++)
 	{
@@ -72,6 +72,14 @@ char *check_for_quotes(char *line)
 }
 
 
+void print_double_pointer_to_char(char **strArray) {
+    int i = 0;
+    while (strArray[i] != NULL) {
+        printf("\nString %d: %s\n", i, strArray[i]);
+        i++;
+    }
+}
+
 char	**lexer(char *line)
 {
 	char	**tokens;
@@ -79,12 +87,47 @@ char	**lexer(char *line)
 	printf("line: %s\n", line);
 	check_for_quotes(line);
 	printf("line: %s\n", line);
-	replaceFormFeedWithSpaces(line);
-	printf("line: %s\n", line);
 	
 	// go through line and check for
 	if (!line)
 		return (NULL);
 	tokens = ft_split(line, ' ');
+	print_double_pointer_to_char(tokens);
+	put_space_back(tokens);
+	print_double_pointer_to_char(tokens);
+	return (tokens);
+}
+
+//checks for double quotes
+int	contains_two(char *str, char c)
+{
+	int i = 0;
+	int count = 0;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	if (count == 2)
+		return (1);
+	return (0);
+}
+
+//write a function that goes through **tokens
+//and checks for double quotes with contains_two
+//if double quotes are found, replace in the relevant str all the X with a space
+//then return the new **tokens
+char	**put_space_back(char **tokens)
+{
+	int i = 0;
+
+	while (tokens[i] != NULL)
+	{
+		if (contains_two(tokens[i], '\"'))
+			replaceform_feed_with_spaces(tokens[i]);
+		i++;
+	}
 	return (tokens);
 }
