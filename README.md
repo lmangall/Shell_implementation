@@ -1,6 +1,13 @@
 # minishell
 
 
+
+nice readme for checks:
+https://github.com/vportens/minishell
+
+
+
+
 ### Command line for docker
 Install and run docker
 Put minishell in the same folder as this file:
@@ -33,7 +40,7 @@ https://putaindecode.io/articles/maitriser-les-redirections-shell/
 
 
 
-
+#tests
 Several pipes test:
 ls | head -1 | wc -l
 ls | grep .md | sort -r | wc -l
@@ -57,6 +64,10 @@ sort -r | head -4  < input.txt
 
 Shouldn't do anything or should erase content
  cat output.txt | sort -r > output.txt 
+
+
+cat | cat | ls
+
 
 
 usefull trick:

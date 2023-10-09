@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 15:34:08 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:39:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			status = check_and_builtins(line, &data);
 			if (status == 1)
-				status = parse_and_execute(line, &data);
+				status = parse_and_execute(line);
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -81,7 +81,7 @@ static void	free_ast(struct node_type_master *master_node)
 	free(master_node);
 }
 
-int	parse_and_execute(char *line, t_data *data)
+int	parse_and_execute(char *line)
 {
 	char					**tokens;
 	int						status;
@@ -91,7 +91,6 @@ int	parse_and_execute(char *line, t_data *data)
 	tokens = lexer(line);
 	free(line);
 	status = 0;
-	(void)data;///Should we remove it ?
 	if (get_operator(tokens) != NONE)
 	{
 // have parse_advanced_command return smthing for execution, instead of executing straight away

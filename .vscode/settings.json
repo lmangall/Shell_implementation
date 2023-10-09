@@ -1,15 +1,16 @@
 {
 	"files.associations": {
-	  "executor.h": "c",
-	  "array": "c",
-	  "string": "c",
-	  "string_view": "c",
-	  "vector": "c",
-	  "iterator": "c",
-	  "__node_handle": "c",
-	  "libft.h": "c",
-	  "node.h": "c",
-	  "builtins.h": "c"
+		"executor.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"iterator": "c",
+		"__node_handle": "c",
+		"libft.h": "c",
+		"node.h": "c",
+		"builtins.h": "c",
+		"ioctl.h": "c"
 	},
 	"[c]": {
 	  "editor.defaultFormatter": "keyhr.42-c-format"

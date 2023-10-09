@@ -21,7 +21,7 @@
 
 //parser:
 
-int parse_and_execute(char *line, t_data *data);
+int parse_and_execute(char *line);
 
 void print_prompt1(void);
 void print_prompt2(void);

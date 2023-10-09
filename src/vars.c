@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:56 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 15:05:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:30:58 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void	init_vars(t_data *data, char **envp)
 		}
 		i++;
 		if (i >= MAX_VARS)
-		{
 			envp[i] = NULL; // Ensure we don't go out of bounds
-		}
 	}
 	data->vars_container[data->num_vars].name[0] = '\0';
 	data->vars_container[data->num_vars].value[0] = '\0';
