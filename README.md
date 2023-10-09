@@ -1,10 +1,18 @@
 # minishell
 
 
+### Command line for docker
+Install and run docker
+Put minishell in the same folder as this file:
+https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
+
+Enter the following commands:
 docker build -t ubuntu .
 docker run -it --rm -v $(pwd):/home/root ubuntu
 
+Install readline (or add the install to your makefile)
 apt-get install libreadline-dev
+
 
 
 ### TO DO
