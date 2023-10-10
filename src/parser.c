@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 19:28:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:45:57 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 			i++;
 			i--;
 		}
-		else
+		else  
 		{
 			// Handle regular words (non-options)
 			word = new_node(VAR);

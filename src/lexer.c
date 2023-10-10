@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 20:58:43 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:34:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	replace_spaces_with_form_feed(char *str)
 	{
 		if (str[i] == ' ')
 		{
-			str[i] = 'X'; // Replace space with form feed   \f
+			str[i] = '\f';
 		}
 	}
 }
@@ -35,9 +35,9 @@ void	replaceform_feed_with_spaces(char *str)
 {
 	for (int i = 0; str[i] != '\0'; i++)
 	{
-		if (str[i] == 'X')
+		if (str[i] == '\f')
 		{
-			str[i] = ' '; // Replace form feed with space     \f
+			str[i] = ' ';
 		}
 	}
 }
@@ -57,7 +57,7 @@ char *check_for_quotes(char *line)
             while (line[i] != quote && line[i] != '\0')
             {
                 if (line[i] == ' ')
-                    line[i] = 'X'; // Replace space with a placeholder ('X')
+                    line[i] = '\f';
                 i++;
             }
             if (line[i] == quote)
@@ -80,25 +80,6 @@ void print_double_pointer_to_char(char **strArray) {
     }
 }
 
-char	**lexer(char *line)
-{
-	char	**tokens;
-
-	printf("line: %s\n", line);
-	check_for_quotes(line);
-	printf("line: %s\n", line);
-	
-	// go through line and check for
-	if (!line)
-		return (NULL);
-	tokens = ft_split(line, ' ');
-	print_double_pointer_to_char(tokens);
-	put_space_back(tokens);
-	print_double_pointer_to_char(tokens);
-	return (tokens);
-}
-
-//checks for double quotes
 int	contains_two(char *str, char c)
 {
 	int i = 0;
@@ -115,19 +96,33 @@ int	contains_two(char *str, char c)
 	return (0);
 }
 
-//write a function that goes through **tokens
-//and checks for double quotes with contains_two
-//if double quotes are found, replace in the relevant str all the X with a space
-//then return the new **tokens
 char	**put_space_back(char **tokens)
 {
 	int i = 0;
 
 	while (tokens[i] != NULL)
 	{
-		if (contains_two(tokens[i], '\"'))
+		if (contains_two(tokens[i], '\"') || contains_two(tokens[i], '\''))
 			replaceform_feed_with_spaces(tokens[i]);
 		i++;
 	}
+	return (tokens);
+}
+
+char	**lexer(char *line)
+{
+	char	**tokens;
+
+	// printf("line: %s\n", line);
+	check_for_quotes(line);
+	// printf("line: %s\n", line);
+	
+	// go through line and check for
+	if (!line)
+		return (NULL);
+	tokens = ft_split(line, ' ');
+	// print_double_pointer_to_char(tokens);
+	put_space_back(tokens);
+	// print_double_pointer_to_char(tokens);
 	return (tokens);
 }

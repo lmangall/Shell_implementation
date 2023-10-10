@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 16:18:06 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:28:22 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ int	check_and_builtins(char *line, t_data *data)
 	return (1);
 }
 
-// void display_history()
-// {
-// 	int i = history_base;
+void display_history()
+{
+	int i = history_base;
 
-// 	while (i < history_length)
-// 	{
-// 		HIST_ENTRY *entry = history_get(i);
-// 		if (entry != NULL)
-// 			printf("%d: %s\n", i, entry->line);
-// 	}
-// 		i++;
-// }
+	while (i < history_length)
+	{
+		HIST_ENTRY *entry = history_get(i);
+		if (entry != NULL)
+			printf("%d: %s\n", i, entry->line);
+	}
+		i++;
+}

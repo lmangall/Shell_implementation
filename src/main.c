@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 16:39:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/10 21:01:02 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			status = check_and_builtins(line, &data);
 			if (status == 1)
-				status = parse_and_execute(line);
+				status = parse_and_execute(line, &data);
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -81,7 +81,7 @@ static void	free_ast(struct node_type_master *master_node)
 	free(master_node);
 }
 
-int	parse_and_execute(char *line)
+int	parse_and_execute(char *line, t_data *data)
 {
 	char					**tokens;
 	int						status;
@@ -104,6 +104,8 @@ int	parse_and_execute(char *line)
 	else
 	{
 		cmd = parse_simple_command(tokens);
+		if (cmd->first_child->next_sibling != NULL)
+			expansion_substitution(cmd->first_child->next_sibling, data);
 		if (fork() == 0)
 			exec_pipe_redir(cmd);
 		waitpid(-1, &status, 0);
