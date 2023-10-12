@@ -69,6 +69,9 @@ Shouldn't do anything or should erase content
 cat | cat | ls
 
 
+echo "et un test' > test.c
+
+
 
 usefull trick:
 (void) variable
