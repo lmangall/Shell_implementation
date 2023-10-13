@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:56 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 19:30:58 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:36:55 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,3 +217,51 @@ void	print_exported_vars(const t_data *data)
 
 
 /// there is a get_var_value function in the cd.c file (in builtins)
+
+
+// int isValidVariableDeclaration(const char *input)
+// this function checks if the input consist of only valid characters till the first equal sign
+// valid characters are: Capital letters, numbers and underscores
+// and after the first equal sign, it doesn't matter what the input is
+// returns 1 if valid, 0 if not
+int isValidVariableDeclaration(const char *input)
+{
+    // Check if the input is empty or starts with an equal sign
+    if (input == NULL || input[0] == '=')
+    {
+        return 0; // Invalid input
+    }
+
+    int i = 0;
+
+    // Check characters before the first equal sign
+    while (input[i] != '=' && input[i] != '\0')
+    {
+        // Check if the character is a capital letter, number, or underscore
+        if (!((input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= '0' && input[i] <= '9') || input[i] == '_'))
+        {
+            return 0; // Invalid character encountered
+        }
+        i++;
+    }
+
+    return 1; // Valid variable declaration
+}
+
+
+int check_for_variable_setting(t_data *data, char *token)
+{
+    // Check if the token is a valid variable declaration
+    if (isValidVariableDeclaration(token))
+    {
+        // Find the equal sign
+        int equal_sign = find_equal_sign(token);
+        set_var(data, token, token + equal_sign + 1);
+
+        return 1; // Variable set
+    }
+    else
+    {
+        return 0; // Variable not set
+    }
+}
