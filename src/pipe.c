@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 15:00:16 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:30:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void execute_pipe_command(struct node_s *node)
     if (pipe(pipe_fd) == -1)
     {
         // Fehlerbehandlung für pipe-Fehler hier einfügen
-        perror("pipe");
+        perror("pipe");//are we allowed to use this ?
         exit(EXIT_FAILURE);
     }
 

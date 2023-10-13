@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/10 19:28:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:31:59 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 int	check_and_builtins(char *line, t_data *data)
 {
+	int check_for_variable_setting(t_data *data, char *token);
+
 	if (ft_strcmp(line, "exit") == 0)
 	{
 		exit(0);

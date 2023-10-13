@@ -33,6 +33,8 @@ int export_var(t_data *data, const char *name);
 void print_exported_vars(const t_data *data);
 
 
+int isValidVariableDeclaration(const char *input);
+int check_for_variable_setting(t_data *data, char *token);
 // char *get_vars_value(char *name);
 
 #endif

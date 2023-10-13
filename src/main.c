@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/10 21:01:02 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 12:30:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 	status = 1;
 	while (status)
 	{
-		line = readline(SHELL_PROMPT);
+		line = readline(SHELL_PROMPT);     // what is returned is malloced and should be freed
 		if (line == NULL)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')
