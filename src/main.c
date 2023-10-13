@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 12:30:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:13:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	// 	exit(EXIT_FAILURE);
 	// }
 	init_vars(&data, envp);
+	// data.envp = return_env_from_container(data);
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, handle_ctrl_backslash);
 	status = 1;
@@ -97,7 +98,7 @@ int	parse_and_execute(char *line, t_data *data)
 		master_node = parse_advanced_command(tokens);
 		// print_master(master_node);
 		if (fork() == 0)
-			exec_pipe_redir(master_node->root_nodes[0]);
+			exec_pipe_redir(master_node->root_nodes[0], data);
 		waitpid(-1, &status, 0);
 		free_ast(master_node);
 	}
@@ -107,7 +108,7 @@ int	parse_and_execute(char *line, t_data *data)
 		if (cmd->first_child->next_sibling != NULL)
 			expansion_substitution(cmd->first_child->next_sibling, data);
 		if (fork() == 0)
-			exec_pipe_redir(cmd);
+			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);
 		// free_node(cmd);
 	}

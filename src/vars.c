@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:56 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 12:36:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:12:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,20 @@ void	print_vars(const t_data *data)
 		printf("%-18s", data->vars_container[i].name);
 		printf("value: %s\n", data->vars_container[i].value);
 	}
+}
+
+char	*return_env_from_container(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_vars)
+	{
+		if (ft_strcmp(data->vars_container[i].name, "PATH") == 0)
+			return (data->vars_container[i].value);
+		i++;
+	}
+	return (NULL);
 }
 
 int	set_var(t_data *data, const char *name, const char *value)

@@ -22,19 +22,21 @@ typedef struct s_data {
     t_vars exported_vars_container[MAX_VARS];
 } t_data;
 
-int find_equal_sign(char *str);
-void init_vars(t_data *data, char **envp);
-void print_vars(const t_data *data);
+char	*return_env_from_container(t_data *data);
 
-int set_var(t_data *data, const char *name, const char *value);
-int unset_var(t_data *data, const char *name);
+int     find_equal_sign(char *str);
+void    init_vars(t_data *data, char **envp);
+void    print_vars(const t_data *data);
 
-int export_var(t_data *data, const char *name);
-void print_exported_vars(const t_data *data);
+int     set_var(t_data *data, const char *name, const char *value);
+int     unset_var(t_data *data, const char *name);
+
+int     export_var(t_data *data, const char *name);
+void    print_exported_vars(const t_data *data);
 
 
-int isValidVariableDeclaration(const char *input);
-int check_for_variable_setting(t_data *data, char *token);
+int     isValidVariableDeclaration(const char *input);
+int     check_for_variable_setting(t_data *data, char *token);
 // char *get_vars_value(char *name);
 
 #endif

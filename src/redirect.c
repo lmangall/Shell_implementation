@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 15:02:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:19:24 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,65 +122,11 @@ void	redirect_output(struct node_s *node)
 			O_WRONLY | O_APPEND | O_CREAT, 0666);
 }
 
-void	exec_redirection(struct node_s *node)
+void	exec_redirection(struct node_s *node, t_data *data)
 {
 	struct node_s	*temp;
 
 	temp = node;
-	// if there is a node that has a prev_sibling,
-	// then there is an input redirection priority
-	// iterate through the AST and look for input redirection
-	// struct node_s *temp2;
-	// temp2 = node;
-	// int in_file = 0;
-	// int i = 0;
-	// while(temp2->prev_sibling != NULL)
-	// {
-	// 	printf("i = %d\n", i);
-	// 	temp2 = temp2->next_sibling;
-	// 	i++;
-	// }
-	// // while(operator != RDR_INPUT)
-	// while(temp2->prev_sibling == NULL || temp2->operator != RDR_INPUT)
-	// {
-	// 	if (temp2->next_sibling != NULL)
-	// 		temp2 = temp2->next_sibling;
-	// 	if (temp2->prev_sibling != NULL)
-	// 	{
-	// 		if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
-	// 		{
-	// 			if (access(temp2->first_child->str, F_OK) == 0)
-	// 				{
-	// 					in_file = open(temp2->first_child->str, O_RDONLY, 0666);
-	// 					dup2(in_file, STDIN_FILENO);
-	// 				}
-	// 		break ;
-	// 		}
-	// 	}
-	// 	i++;
-	// 	if (temp2->next_sibling != NULL)
-	// 		temp2 = temp2->next_sibling;
-	// 	// operator = temp2->next_sibling->operator;
-	// }
-	// while(i != 3)
-	// {
-	// 	if (temp2->prev_sibling != NULL)
-	// 	{
-	// 		if(temp2->operator == RDR_INPUT) //&& temp2->prev_sibling != NULL)
-	// 		{
-	// 			if (access(temp2->first_child->str, F_OK) == 0)
-	// 				{
-	// 					in_file = open(temp2->first_child->str, O_RDONLY, 0666);
-	// 					dup2(in_file, STDIN_FILENO);
-	// 				}
-	// 		break ;
-	// 		}
-	// 	}
-	// 	i++;
-	// 	if (temp2->next_sibling != NULL)
-	// 		temp2 = temp2->next_sibling;
-	// 	// operator = temp2->next_sibling->operator;
-	// }
 	if (node->operator== RDR_INPUT)
 		redirect_input(node);
 	else if (node->operator== RDR_INPUT_UNTIL)
@@ -191,9 +137,9 @@ void	exec_redirection(struct node_s *node)
 	while (node->operator!= NONE && node->operator!= PIPE)
 		node = node->next_sibling; // next will be output.txt
 	if (node->operator== NONE)
-		exec_pipe_redir(temp);
+		exec_pipe_redir(temp, data);
 	else
-		execute_pipe_command(node);
+		execute_pipe_command(node, data);
 }
 
 // struct node_s *identify_redirection(struct node_s *node)

@@ -11,7 +11,8 @@
 		"node.h": "c",
 		"builtins.h": "c",
 		"ioctl.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"vars.h": "c"
 	},
 	"[c]": {
 	  "editor.defaultFormatter": "keyhr.42-c-format"

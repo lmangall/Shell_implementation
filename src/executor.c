@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 14:45:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:08:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@
 
 // extern long long g_exit_status;       //   => get rid of this global var
 
-char	*search_path(char *cmd)
+char	*search_path(char *cmd, t_data *data)
 {
 	char	*paths;
 	char	**paths_arr;
 	char	*tmp;
 	char	*command;
 
-	paths = getenv("PATH");
+	// paths = getenv("PATH");
+	paths = return_env_from_container(data);
 	paths_arr = ft_split(paths, ':');
 	while (*paths_arr)
 	{
@@ -48,12 +49,13 @@ char	*search_path(char *cmd)
 		free(command);
 		paths_arr++;
 	}
+	//probably need to free paths_arr
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
 	// errno = ENOENT;
 	return (NULL);
 }
 
-int	do_exec_cmd(char **argv)
+int	do_exec_cmd(char **argv, t_data *data)
 {
 	char	*path;
 
@@ -61,7 +63,7 @@ int	do_exec_cmd(char **argv)
 		execv(argv[0], argv);
 	else
 	{
-		path = search_path(argv[0]);
+		path = search_path(argv[0], data);
 		if (!path)
 		{
 			return (0);
@@ -72,7 +74,7 @@ int	do_exec_cmd(char **argv)
 	return (0);
 }
 
-int	do_simple_command(struct node_s *root_node)
+int	do_simple_command(struct node_s *root_node, t_data *data)
 {
 	struct node_s	*child;
 	int				argc;
@@ -101,7 +103,7 @@ int	do_simple_command(struct node_s *root_node)
 			argc++;
 		}
 	argv[argc] = NULL;
-	do_exec_cmd(argv);
+	do_exec_cmd(argv, data);
 	free_argv(argc, argv);
 	return (0);
 }
