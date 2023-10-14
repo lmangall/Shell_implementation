@@ -27,4 +27,14 @@ void	do_env_builtin(t_data *data)
 		printf("%-18s", data->vars_container[i].name);
 		printf("value: %s\n", data->vars_container[i].value);
 	}
+
+	 printf("\n");
+	 if (data->num_shell_vars > 0)
+		{ 	printf("shell vars:\n");
+		 	for (int i = 0; i < data->num_shell_vars; i++)
+	 		{
+	 			printf("%-18s", data->shell_vars_container[i].name);
+	 			printf("value: %s\n", data->shell_vars_container[i].value);
+		 	}
+		}
 }

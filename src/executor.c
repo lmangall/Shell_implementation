@@ -59,8 +59,10 @@ int	do_exec_cmd(char **argv, t_data *data)
 {
 	char	*path;
 
+	char **custom_env = convert_vars_container_to_envp(data);
+
 	if (ft_strchr(argv[0], '/'))
-		execv(argv[0], argv);
+		execve(argv[0], argv,custom_env );
 	else
 	{
 		path = search_path(argv[0], data);
@@ -68,7 +70,7 @@ int	do_exec_cmd(char **argv, t_data *data)
 		{
 			return (0);
 		}
-		execv(path, argv);
+		execve(path, argv,custom_env );
 		free(path);
 	}
 	return (0);

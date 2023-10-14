@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		status;
 	t_data	data;
+	
 
 	(void)argc;
 	(void)argv;
@@ -47,6 +48,8 @@ int	main(int argc, char **argv, char **envp)
 	// 	exit(EXIT_FAILURE);
 	// }
 	init_vars(&data, envp);
+	//init_vars(&data, our_envp);
+
 	// data.envp = return_env_from_container(data);
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, handle_ctrl_backslash);

@@ -59,7 +59,7 @@ void	init_vars(t_data *data, char **envp)
 	// Assumption: extern declaration for the envpment variables
 	i = 0;
 	data->num_vars = 0;
-	data->num_exported_vars = 0;
+	data->num_shell_vars = 0;
 	while (envp[i] != NULL && i < MAX_VARS)
 	{
 		equal_sign = find_equal_sign(envp[i]);
@@ -159,6 +159,49 @@ int	set_var(t_data *data, const char *name, const char *value)
 	}
 }
 
+int set_shell_var(t_data *data, const char *name, const char *value)
+{
+    int i;
+
+    if (data->num_shell_vars >= MAX_VARS)
+    {
+        fprintf(stderr, "Maximum number of shell variables reached\n");
+        return (-1);
+    }
+
+    i = 0;
+    while (i < data->num_shell_vars)
+    {
+        if (ft_strcmp(data->shell_vars_container[i].name, name) == 0)
+        {
+            strncpy(data->shell_vars_container[i].value, value,
+                    sizeof(data->shell_vars_container[i].value) - 1);
+            data->shell_vars_container[i].value[sizeof(data->shell_vars_container[i].value) - 1] = '\0';
+            return (0);
+        }
+        i++;
+    }
+
+    // Variable not found, add it
+    if (data->num_shell_vars < MAX_VARS)
+    {
+        strncpy(data->shell_vars_container[data->num_shell_vars].name, name,
+                sizeof(data->shell_vars_container[data->num_shell_vars].name) - 1);
+        data->shell_vars_container[data->num_shell_vars].name[sizeof(data->shell_vars_container[data->num_shell_vars].name) - 1] = '\0';
+        strncpy(data->shell_vars_container[data->num_shell_vars].value, value,
+                sizeof(data->shell_vars_container[data->num_shell_vars].value) - 1);
+        data->shell_vars_container[data->num_shell_vars].value[sizeof(data->shell_vars_container[data->num_shell_vars].value) - 1] = '\0';
+        data->num_shell_vars++;
+        return (0);
+    }
+    else
+    {
+        fprintf(stderr, "Maximum number of shell variables reached\n");
+        return (-1);
+    }
+}
+
+
 int	unset_var(t_data *data, const char *name)
 {
 	int	i;
@@ -189,42 +232,90 @@ int	unset_var(t_data *data, const char *name)
 	return (-1);
 }
 
-int	export_var(t_data *data, const char *name)
+int unset_shell_var(t_data *data, const char *name)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < data->num_vars)
+	while (i < data->num_shell_vars)
 	{
-		if (ft_strcmp(data->vars_container[i].name, name) == 0)
+		if (ft_strcmp(data->shell_vars_container[i].name, name) == 0)
 		{
-			j = 0;
-			while (j < data->num_exported_vars)
+			j = i;
+			while (j < data->num_shell_vars - 1)
 			{
-				if (ft_strcmp(data->exported_vars_container[j].name, name) == 0)
-					return (0); // Bereits exportiert
+				strcpy(data->shell_vars_container[j].name, data->shell_vars_container[j
+					+ 1].name);
+				strcpy(data->shell_vars_container[j].value, data->shell_vars_container[j
+					+ 1].value);
 				j++;
 			}
-			if (data->num_exported_vars >= MAX_VARS)
-				return (0); // Kein Platz für weitere exportierte Variablen
-			data->exported_vars_container[data->num_exported_vars] = data->vars_container[i];
-			data->num_exported_vars++;
-			return (1); // Erfolgreich exportiert
+			data->num_shell_vars--;
+			data->shell_vars_container[data->num_shell_vars].name[0] = '\0';
+			data->shell_vars_container[data->num_shell_vars].value[0] = '\0';
+			return (0);
 		}
 		i++;
 	}
-	return (0); // Variable nicht gefunden
+	fprintf(stderr, "Variable '%s' not found\n", name);
+	return (-1);
 }
+
+// if the command "unset" is called with a space and a variable name, it will call this function unset
+
+int do_unset_builtin(char **tokens, t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (tokens[i] != NULL)
+	{
+		unset_var(data, tokens[i]);
+		i++;
+	}
+	return (0);
+}
+
+int export_var(t_data *data, const char *name)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < data->num_shell_vars)
+    {
+        if (ft_strcmp(data->shell_vars_container[i].name, name) == 0)
+        {
+            j = 0;
+            while (j < data->num_vars)
+            {
+                if (ft_strcmp(data->vars_container[j].name, name) == 0)
+                    return (0); // Bereits exportiert
+                j++;
+            }
+            if (data->num_vars >= MAX_VARS)
+                return (0); // Kein Platz für weitere Variablen
+            data->vars_container[data->num_vars] = data->shell_vars_container[i];
+            data->num_vars++;
+			unset_shell_var(data, name);
+            return (1); // Erfolgreich exportiert
+        }
+        i++;
+    }
+
+    return (0); // Variable nicht gefunden
+}
+
 
 void	print_exported_vars(const t_data *data)
 {
 	printf("\nExported Variables:\n");
 	int i = 0;
-	while (i < data->num_exported_vars)
+	while (i < data->num_shell_vars)
 	{
-		printf("%-18s", data->exported_vars_container[i].name);
-		printf("value: %s\n", data->exported_vars_container[i].value);
+		printf("%-18s", data->shell_vars_container[i].name);
+		printf("value: %s\n", data->shell_vars_container[i].value);
 		i++;
 	}
 }
@@ -270,7 +361,13 @@ int check_for_variable_setting(t_data *data, char *token)
     {
         // Find the equal sign
         int equal_sign = find_equal_sign(token);
-        set_var(data, token, token + equal_sign + 1);
+		char *name;
+		char *value;
+		// copy everything before the equal sign into name
+		// copy everything after the equal sign into value
+		name = ft_substr(token, 0, equal_sign);
+		value = ft_substr(token, equal_sign + 1, ft_strlen(token) - equal_sign);
+		set_shell_var(data, name, value);
 
         return 1; // Variable set
     }
@@ -278,4 +375,47 @@ int check_for_variable_setting(t_data *data, char *token)
     {
         return 0; // Variable not set
     }
+}
+
+// convert the vars container to a *char[] array
+// the array will be used as the envp for the execve function
+// the name and value of each variable will be concatenated with an equal sign and put into the array, like this:
+// name=value
+// the last element of the array will be NULL
+
+char	**convert_vars_container_to_envp(t_data *data)
+{
+	char	**envp = malloc((data->num_vars + 1) * sizeof(char *));
+	if (envp == NULL) {
+		perror("Fehler beim Allozieren von Speicher für Umgebungsvariablen");
+		exit(EXIT_FAILURE);
+	}
+
+	for (int i = 0; i < data->num_vars; i++) {
+		char *env_var = malloc(strlen(data->vars_container[i].name) + strlen(data->vars_container[i].value) + 2);
+		if (env_var == NULL) {
+			perror("Fehler beim Allozieren von Speicher für Umgebungsvariable");
+			exit(EXIT_FAILURE);
+		}
+
+		sprintf(env_var, "%s=%s", data->vars_container[i].name, data->vars_container[i].value);
+		envp[i] = env_var;
+	}
+
+	envp[data->num_vars] = NULL; // Null-Zeiger am Ende für das Ende des Umgebungsvariablen-Arrays
+
+	return envp;
+}
+
+int do_export_builtin(char **tokens, t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (tokens[i] != NULL)
+	{
+		export_var(data, tokens[i]);
+		i++;
+	}
+	return (0);
 }

@@ -22,6 +22,17 @@ int	check_and_builtins(char *line, t_data *data)
 {
 	if(check_for_variable_setting(data, line))
 		return(-1);
+	// check if unset followed by a space and a variable name is present
+	if (ft_strncmp(line, "unset ", 6) == 0)
+	{
+		do_unset_builtin(lexer(line), data);
+		return (-1);
+	}
+	if (ft_strncmp(line, "export ", 7) == 0)
+	{
+		do_export_builtin(lexer(line), data);
+		return (-1);
+	}
 
 	if (ft_strcmp(line, "exit") == 0)
 	{
