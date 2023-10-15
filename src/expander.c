@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/15 21:22:07 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 22:04:55 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,62 +69,39 @@ char	*identify_var(char *str, t_data *data)
 }
 
 
-char	*expand_var(char **str, t_vars *var)//, t_data *data)
+void	expand_var(char **str, t_vars *var)//, t_data *data)
 {
 // printf("inside expand_var\n");
-	char	*expanded_str;
-	char	*tmp;
 	int		i;
 	int		j;
-	int size;
-	int flag;
+	int		flag;
+	char	*expanded_str;
 
 	i = 0;
 	j = 0;
 	flag = 0;
-	size = ft_strlen(*str) - ft_strlen(var->name) + ft_strlen(var->value) + 1;
-	expanded_str = malloc(sizeof(char) * size);
+	expanded_str = malloc(1);
 	if (!expanded_str)
-		return (NULL);
+		printf("malloc failed\n");
 	while ((*str)[j] != '\0')
 	{
 		if ((*str)[j] == '$' && flag == 0)
 		{
-			tmp = malloc(sizeof(char) * (ft_strlen(expanded_str) + ft_strlen(var->value)) + 1);
-			tmp = ft_strjoin(expanded_str, var->value);
-// printf("tmp (expanded+value)= %s\n", tmp);
-			// free_ptr(expanded_str);
-			// expanded_str = tmp;
-			expanded_str = ft_strdup(tmp);
-			free(tmp);
-// printf("expanded_str = %s\n", expanded_str);
+			expanded_str = ft_strjoin(expanded_str, var->value);
 			i += ft_strlen(var->value);
-			// break;
 			j += ft_strlen(var->name);
 			// i++;
 			j++;
 			flag = 1;
 		}
-// printf("expanded_str[i] = %c, str[j] = %c, i = %d\n", expanded_str[i], str[j], i);
 			expanded_str[i] = (*str)[j];
-// printf("expanded_str[i] = %c, str[j] = %c, i = %d\n", expanded_str[i], str[j], i);
-
-// printf("expanded_str[i] = %c, i = %d\n", expanded_str[i], i);
-// printf("expanded_str = %s\n", expanded_str);
 			j++;
 			i++;
 	}
-	// }
 // printf("expanded_str end of func= %s\n", expanded_str);
 	expanded_str[i] = '\0';
 	free(*str);
 	*str = expanded_str;
-	// free(str);
-	// free_ptr(expanded_str);
-// printf("str end of func= %s\n", *str);
-	// free(expanded_str);
-// printf("expanded_str end of func 2= %s\n", expanded_str);
-	return (*str);
 }
 
 
@@ -330,71 +307,71 @@ t_vars	*find_var(char *name, t_data *data)
 
 
 
-static int	contains_dollar(struct node_s *node)
-{
-	if (node->str[0] == '$')
-		return (1);
-	return (0);
-}
+// static int	contains_dollar(struct node_s *node)
+// {
+// 	if (node->str[0] == '$')
+// 		return (1);
+// 	return (0);
+// }
 
-int	expansion_substitution(struct node_s *node, t_data *data)
-{
-	int	i;
+// int	expansion_substitution(struct node_s *node, t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	if (contains_dollar(node))
-	{
-		while (i <= data->num_vars)
-		{
-			if (ft_strcmp(node->str + 1, data->vars_container[i].name) == 0)
-			{
-				set_node_str(node, data->vars_container[i].value);
-				return (1);
-			}
-			i++;
-		}
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (contains_dollar(node))
+// 	{
+// 		while (i <= data->num_vars)
+// 		{
+// 			if (ft_strcmp(node->str + 1, data->vars_container[i].name) == 0)
+// 			{
+// 				set_node_str(node, data->vars_container[i].value);
+// 				return (1);
+// 			}
+// 			i++;
+// 		}
+// 	}
+// 	return (0);
+// }
 
-char	*get_var_name(char *str)
-{
-	int		i;
-	char	*var_name;
+// char	*get_var_name(char *str)
+// {
+// 	int		i;
+// 	char	*var_name;
 
-	i = 0;
-	var_name = malloc(sizeof(char) * strlen(str) + 1);
-	while (str[i] != '=')
-	{
-		var_name[i] = str[i];
-		i++;
-	}
-	var_name[i] = '\0';
-	return (var_name);
-}
+// 	i = 0;
+// 	var_name = malloc(sizeof(char) * strlen(str) + 1);
+// 	while (str[i] != '=')
+// 	{
+// 		var_name[i] = str[i];
+// 		i++;
+// 	}
+// 	var_name[i] = '\0';
+// 	return (var_name);
+// }
 
-static int	contains_equal(struct node_s *node)
-{
-	int	i;
+// static int	contains_equal(struct node_s *node)
+// {
+// 	int	i;
 
-	i = 0;
-	while (node->str[i] != '\0')
-	{
-		if (node->str[i] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (node->str[i] != '\0')
+// 	{
+// 		if (node->str[i] == '=')
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-int	expansion_set_var(struct node_s *node, t_data *data)
+// int	expansion_set_var(struct node_s *node, t_data *data)
 
-{
-	if (contains_equal(node))
-	{
-		char *var_name = get_var_name(node->str);
-		set_var(data, var_name, node->str + strlen(var_name) + 1);
-		return (1);
-	}
-	return (0);
-}
+// {
+// 	if (contains_equal(node))
+// 	{
+// 		char *var_name = get_var_name(node->str);
+// 		set_var(data, var_name, node->str + strlen(var_name) + 1);
+// 		return (1);
+// 	}
+// 	return (0);
+// }

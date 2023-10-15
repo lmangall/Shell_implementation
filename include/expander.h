@@ -38,8 +38,8 @@
 //  */
 // void expansion(struct node_s *node, struct Vars *vars_container);
 
-int expansion_substitution(struct node_s *node, t_data *data);
-int expansion_set_var(struct node_s *node, t_data *data);
+// int expansion_substitution(struct node_s *node, t_data *data);
+// int expansion_set_var(struct node_s *node, t_data *data);
 
 
 
@@ -65,7 +65,7 @@ char	*identify_var(char *str, t_data *data);
 ** @param data The data structure containing the variables to expand.
 ** @return The name of the VAR found.
 */
-char	*expand_var(char **str, t_vars *var);
+void	expand_var(char **str, t_vars *var);
 
 /*
 ** Finds the value of the given variable name in the given data structure.
