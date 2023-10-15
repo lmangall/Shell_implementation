@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/15 22:04:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 22:08:24 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	expand_var(char **str, t_vars *var)//, t_data *data)
 	i = 0;
 	j = 0;
 	flag = 0;
-	expanded_str = malloc(1);
+	expanded_str = malloc(sizeof(char) * ft_strlen(*str) + ft_strlen(var->value) + 1);
 	if (!expanded_str)
 		printf("malloc failed\n");
 	while ((*str)[j] != '\0')
@@ -143,7 +143,7 @@ void	expand(struct node_s *node, t_data *data)
 		// free_ptr(expanded_str);
 // printf("node->str in expd = %s\n\n", node->str);
 		// free(var_name);
-	break;
+	// break;
 	}
 }
 
