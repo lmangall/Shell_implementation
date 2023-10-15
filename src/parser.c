@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 13:06:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:31:52 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 #include "../include/lexer.h"
 #include "../include/node.h"
 #include "../include/parser.h"
+#include "../include/expander.h"
 #include "../include/shell.h"
 #include "../include/vars.h"
 #include "../lib/libft/src/libft.h"
 #include <unistd.h>
 
-struct node_s	*parse_simple_command(char **tokens)
+struct node_s	*parse_simple_command(char **tokens, t_data *data)
 {
 	int				i;
 	struct node_s	*cmd;
@@ -36,6 +37,11 @@ struct node_s	*parse_simple_command(char **tokens)
 		if (!word)
 			return (NULL);
 		set_node_str(word, tokens[i]);
+// printf("word->str bfr expd = %s\n", word->str);
+		expand(word, data);
+		(void)data;	
+// printf("word->str eft expd = %s\n", word->str);
+// printf("\n");
 		add_child_node(cmd, word);
 		i++;
 	}

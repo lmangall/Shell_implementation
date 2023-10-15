@@ -41,4 +41,49 @@
 int expansion_substitution(struct node_s *node, t_data *data);
 int expansion_set_var(struct node_s *node, t_data *data);
 
+
+
+/*
+** Expands variables in the given command node's string.
+** @param node The command node to expand variables in.
+** @param data The data structure containing the variables to expand.
+*/
+void	expand(struct node_s *node, t_data *data);
+
+/*
+** Identifies the variable name in the given string.
+** @param str The string to search for the variable name.
+** @param data The data structure containing the variables to search for.
+** @return The variable name if found, otherwise NULL.
+*/
+char	*identify_var(char *str, t_data *data);
+
+/*
+** Expands the given variable in the given string.
+** @param str The string to expand the variable in.
+** @param var The variable to expand.
+** @param data The data structure containing the variables to expand.
+** @return The expanded string.
+*/
+char	*expand_var(char *str, t_vars *var, t_data *data);
+
+/*
+** Finds the value of the given variable name in the given data structure.
+** @param name The name of the variable to find the value of.
+** @param data The data structure containing the variables to search for.
+** @return The value of the variable if found, otherwise NULL.
+*/
+char	*find_val(char *name, t_data *data);
+
+/*
+** Finds the variable with the given name in the given data structure.
+** @param name The name of the variable to find.
+** @param data The data structure containing the variables to search for.
+** @return The variable if found, otherwise NULL.
+*/
+t_vars	*find_var(char *name, t_data *data);
+
+
+
+
 #endif 

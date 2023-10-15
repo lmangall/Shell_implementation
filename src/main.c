@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 14:13:44 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:30:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ int	parse_and_execute(char *line, t_data *data)
 	}
 	else
 	{
-		cmd = parse_simple_command(tokens);
-		if (cmd->first_child->next_sibling != NULL)
-			expansion_substitution(cmd->first_child->next_sibling, data);
+		cmd = parse_simple_command(tokens, data);
+		// if (cmd->first_child->next_sibling != NULL)
+		// 	expansion_substitution(cmd->first_child->next_sibling, data);
 		if (fork() == 0)
 			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);
