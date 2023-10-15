@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/15 13:30:41 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 16:17:57 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	parse_and_execute(char *line, t_data *data)
 	{
 // have parse_advanced_command return smthing for execution, instead of executing straight away
 		master_node = parse_advanced_command(tokens);
-		// print_master(master_node);
+		print_master(master_node);
 		if (fork() == 0)
 			exec_pipe_redir(master_node->root_nodes[0], data);
 		waitpid(-1, &status, 0);

@@ -59,13 +59,13 @@ void	expand(struct node_s *node, t_data *data);
 char	*identify_var(char *str, t_data *data);
 
 /*
-** Expands the given variable in the given string.
+** Search if the first encountered $VAR exists
+** If so it returns its name
 ** @param str The string to expand the variable in.
-** @param var The variable to expand.
 ** @param data The data structure containing the variables to expand.
-** @return The expanded string.
+** @return The name of the VAR found.
 */
-char	*expand_var(char *str, t_vars *var, t_data *data);
+char	*expand_var(char *str, t_vars *var);
 
 /*
 ** Finds the value of the given variable name in the given data structure.
