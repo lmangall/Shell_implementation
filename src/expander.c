@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/15 18:27:08 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:22:07 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
-
-static void	free_ptr(void *ptr)
-{
-	if (ptr)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}
 
 char	*identify_var(char *str, t_data *data)
 {
@@ -80,7 +69,7 @@ char	*identify_var(char *str, t_data *data)
 }
 
 
-char	*expand_var(char *str, t_vars *var)//, t_data *data)
+char	*expand_var(char **str, t_vars *var)//, t_data *data)
 {
 // printf("inside expand_var\n");
 	char	*expanded_str;
@@ -93,13 +82,13 @@ char	*expand_var(char *str, t_vars *var)//, t_data *data)
 	i = 0;
 	j = 0;
 	flag = 0;
-	size = ft_strlen(str) - ft_strlen(var->name) + ft_strlen(var->value) + 1;
+	size = ft_strlen(*str) - ft_strlen(var->name) + ft_strlen(var->value) + 1;
 	expanded_str = malloc(sizeof(char) * size);
 	if (!expanded_str)
 		return (NULL);
-	while (str[j] != '\0')
+	while ((*str)[j] != '\0')
 	{
-		if (str[j] == '$' && flag == 0)
+		if ((*str)[j] == '$' && flag == 0)
 		{
 			tmp = malloc(sizeof(char) * (ft_strlen(expanded_str) + ft_strlen(var->value)) + 1);
 			tmp = ft_strjoin(expanded_str, var->value);
@@ -116,9 +105,8 @@ char	*expand_var(char *str, t_vars *var)//, t_data *data)
 			j++;
 			flag = 1;
 		}
-
 // printf("expanded_str[i] = %c, str[j] = %c, i = %d\n", expanded_str[i], str[j], i);
-			expanded_str[i] = str[j];
+			expanded_str[i] = (*str)[j];
 // printf("expanded_str[i] = %c, str[j] = %c, i = %d\n", expanded_str[i], str[j], i);
 
 // printf("expanded_str[i] = %c, i = %d\n", expanded_str[i], i);
@@ -127,10 +115,16 @@ char	*expand_var(char *str, t_vars *var)//, t_data *data)
 			i++;
 	}
 	// }
-printf("expanded_str end of func= %s\n", expanded_str);
+// printf("expanded_str end of func= %s\n", expanded_str);
 	expanded_str[i] = '\0';
-printf("expanded_str end of func 2= %s\n", expanded_str);
-	return (expanded_str);
+	free(*str);
+	*str = expanded_str;
+	// free(str);
+	// free_ptr(expanded_str);
+// printf("str end of func= %s\n", *str);
+	// free(expanded_str);
+// printf("expanded_str end of func 2= %s\n", expanded_str);
+	return (*str);
 }
 
 
@@ -153,23 +147,26 @@ void	expand(struct node_s *node, t_data *data)
 {
 // printf("\ninside expand\n");
 	char	*var_name;
-	char	*expanded_str;
-	char	*tmp;
+	// char	*expanded_str;
+	// char	*tmp;
 	t_vars	*var;
 
 	while ((var_name = identify_var(node->str, data)) != NULL)
 	{
-printf("\n\nvar_name = %s\n", var_name);
+// printf("\n\nvar_name = %s\n", var_name);
 		var = find_var(var_name, data);
-		expanded_str = expand_var(node->str, var);
-printf("expanded_str in expd = %s\n", expanded_str);
-		tmp = ft_strdup(expanded_str);
-printf("tmp in expd = %s\n", tmp);
+		expand_var(&node->str, var);
+// printf("expanded_str in expd = %s\n", expanded_str);
+		// tmp = ft_strdup(expanded_str);
+// printf("tmp in expd = %s\n", tmp);
 		// var_name = identify_var(tmp, data);
-		free_ptr(node->str);
-		node->str = tmp;
-printf("node->str in expd = %s\n\n", node->str);
-		free_ptr(expanded_str);
+		// free_ptr(node->str);
+		// node->str = tmp;
+// printf("node->str in expd = %s\n\n", node->str);
+		// free_ptr(expanded_str);
+// printf("node->str in expd = %s\n\n", node->str);
+		// free(var_name);
+	break;
 	}
 }
 

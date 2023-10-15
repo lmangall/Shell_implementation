@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/15 18:22:16 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:22:54 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 		set_node_str(word, tokens[i]);
 // printf("word->str bfr expd = %s\n", word->str);
 		expand(word, data);
-printf("word->str aft expd = %s\n", word->str);
+// printf("word->str aft expd = %s\n", word->str);
 // printf("\n");
 		add_child_node(cmd, word);
 		i++;
