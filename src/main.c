@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 12:58:06 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:19:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,6 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-// write a command that frees the AST from the master node
-static void	free_ast(struct node_type_master *master_node)
-{
-	int	i;
-
-	i = 0;
-	while (i < master_node->nbr_root_nodes)
-	{
-		free_node_tree(master_node->root_nodes[i]);
-		i++;
-	}
-	free(master_node->root_nodes);
-	free(master_node);
-}
-
 int	parse_and_execute(char *line, t_data *data)
 {
 	char					**tokens;
@@ -115,6 +100,6 @@ int	parse_and_execute(char *line, t_data *data)
 		waitpid(-1, &status, 0);
 		// free_node(cmd);
 	}
-	// free(tokens);
+	free_token_array(tokens);
 	return (1);
 }

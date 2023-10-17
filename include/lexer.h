@@ -9,7 +9,7 @@ char	*check_quotes_replace_ff(char *line);
 int		contains_two(char *str, char c);
 char	**put_space_back(char **tokens);
 
-char	**erase_quotes(char **tokens);
+// char	**erase_quotes(char **tokens);
 void	erase_quotes_str(char **str);
 
 #endif 

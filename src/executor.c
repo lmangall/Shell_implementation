@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 14:08:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:46:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	do_exec_cmd(char **argv, t_data *data)
 		execve(path, argv,custom_env );
 		free(path);
 	}
+	free_token_array(argv);
 	return (0);
 }
 
@@ -104,8 +105,10 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 			child = child->next_sibling;
 			argc++;
 		}
+	free_node_tree(root_node);
 	argv[argc] = NULL;
 	do_exec_cmd(argv, data);
 	free_argv(argc, argv);
 	return (0);
 }
+

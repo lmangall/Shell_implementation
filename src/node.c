@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:52:55 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 14:54:53 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/17 21:07:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ struct node_s	*new_node(enum node_type_e type)
 	node = malloc(sizeof(struct node_s));
 	if (!node)
 		return (NULL);
-	memset(node, 0, sizeof(struct node_s));
+	ft_memset(node, 0, sizeof(struct node_s));
 	node->type = type;
 	node->str = NULL;
 	node->first_child = NULL;
@@ -35,6 +35,7 @@ struct node_s	*new_node(enum node_type_e type)
 	node->operator= NONE;
 	return (node);
 }
+
 int	add_child_node(struct node_s *parent, struct node_s *child)
 {
 	struct node_s	*current_child;
@@ -64,14 +65,14 @@ void	set_node_str(struct node_s *node, char *val)
 		node->str = NULL;
 	else
 	{
-		val2 = malloc(strlen(val) + 1);
+		val2 = ft_calloc(strlen(val) + 1, sizeof(char));
 		if (!val2)
 			node->str = NULL;
 		else
 		{
 			if (node->str)
 				free(node->str);
-			strcpy(val2, val);
+			ft_strlcpy(val2, val, ft_strlen(val) + 1);
 			node->str = val2;
 		}
 	}
