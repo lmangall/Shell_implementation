@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/15 22:08:24 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:10:21 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,63 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
+// static char *ft_strtrim_single(char const *s1, char c) 
+// {
+//     size_t front = 0;
+//     size_t rear;
+//     char *str = NULL;
+
+//     if (s1 != NULL) 
+// 	{
+//         rear = ft_strlen(s1);
+
+//         while (s1[front] && s1[front] == c)
+//             front++;
+
+//         while (s1[rear - 1] && s1[rear - 1] == c && rear > front)
+//             rear--;
+
+//         str = (char *)malloc(sizeof(char) * (rear - front + 1));
+
+//         if (str)
+//             ft_strlcpy(str, &s1[front], rear - front + 1);
+//     }
+
+//     return str;
+// }
+
+static char *erase_substr(const char *str, const char *set) {
+    if (str == NULL || set == NULL)
+        return NULL;  // Check for NULL pointers
+
+    size_t len = (ft_strlen(str) - ft_strlen(set));
+    char *new_str = ft_calloc(len + 1, sizeof(char));
+
+    if (new_str == NULL) {
+        // Handle memory allocation failure
+        perror("Memory allocation failed");
+        return NULL;
+    }
+
+    size_t new_len = 0;
+    size_t index = 0;
+	size_t i = 0;
+    while (str[i] != '\0') 
+	{
+        if (ft_strchr(set, str[i]) == NULL) 
+		{
+            new_str[index] = str[i];
+            index++;
+        }
+        i++;
+    }
+
+    new_str[new_len] = '\0';  // Null-terminate the new string
+    return new_str;
+}
+
 
 char	*identify_var(char *str, t_data *data)
 {
@@ -68,39 +125,60 @@ char	*identify_var(char *str, t_data *data)
 	return (NULL);
 }
 
+// void	*ft_memcpy(void *dst, const void *src, size_t n)
+// size_t	ft_strlcat(char *dst, const char *src, size_t size)
+// char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+// char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+// char	*ft_strtrim(char const *s1, char const *set)
 
-void	expand_var(char **str, t_vars *var)//, t_data *data)
+void expand_var(char **str, t_vars **var)
 {
-// printf("inside expand_var\n");
-	int		i;
-	int		j;
-	int		flag;
-	char	*expanded_str;
+	int i = 0;
+	int j = 0;
+	int flag = 0;
+	char *expanded_str;
+	char *temp_str;
 
 	i = 0;
 	j = 0;
 	flag = 0;
-	expanded_str = malloc(sizeof(char) * ft_strlen(*str) + ft_strlen(var->value) + 1);
-	if (!expanded_str)
-		printf("malloc failed\n");
-	while ((*str)[j] != '\0')
+
+	// Allocate memory for expanded_str using ft_calloc
+	expanded_str = ft_calloc((ft_strlen(*str)) + ft_strlen((*var)->value) - ft_strlen((*var)->name + 1), sizeof(char));
+	if (!expanded_str) 
 	{
-		if ((*str)[j] == '$' && flag == 0)
-		{
-			expanded_str = ft_strjoin(expanded_str, var->value);
-			i += ft_strlen(var->value);
-			j += ft_strlen(var->name);
-			// i++;
+		printf("ft_calloc failed for expanded_str\n");
+		return;
+	}
+
+	// Allocate memory for temp_str using ft_calloc
+	temp_str = ft_calloc(ft_strlen((*var)->name) + 2, sizeof(char));  // $ + var->name + '\0'
+	if (!temp_str) {
+		printf("ft_calloc failed for temp_str\n");
+		free(expanded_str);  // Free previously allocated memory
+		return;
+	}
+
+	while ((*str)[j] != '\0') {
+		if ((*str)[j] == '$' && flag == 0) {
+			temp_str[0] = '$';
+			ft_strjoin(temp_str, (*var)->name);
+			expanded_str = erase_substr(*str, temp_str);
+			expanded_str = ft_strjoin(expanded_str, (*var)->value);
+			i += ft_strlen((*var)->value);
+			j += ft_strlen((*var)->name);
 			j++;
 			flag = 1;
 		}
-			expanded_str[i] = (*str)[j];
-			j++;
-			i++;
+
+		expanded_str[i] = (*str)[j];
+		j++;
+		i++;
 	}
-// printf("expanded_str end of func= %s\n", expanded_str);
+
 	expanded_str[i] = '\0';
-	free(*str);
+	// free(*str);
+	// free(temp_str);  // Free temp_str
 	*str = expanded_str;
 }
 
@@ -124,28 +202,24 @@ void	expand(struct node_s *node, t_data *data)
 {
 // printf("\ninside expand\n");
 	char	*var_name;
-	// char	*expanded_str;
-	// char	*tmp;
 	t_vars	*var;
 
 	while ((var_name = identify_var(node->str, data)) != NULL)
 	{
-// printf("\n\nvar_name = %s\n", var_name);
 		var = find_var(var_name, data);
-		expand_var(&node->str, var);
-// printf("expanded_str in expd = %s\n", expanded_str);
-		// tmp = ft_strdup(expanded_str);
-// printf("tmp in expd = %s\n", tmp);
-		// var_name = identify_var(tmp, data);
-		// free_ptr(node->str);
-		// node->str = tmp;
-// printf("node->str in expd = %s\n\n", node->str);
-		// free_ptr(expanded_str);
-// printf("node->str in expd = %s\n\n", node->str);
-		// free(var_name);
-	// break;
+		// if (!(contains_two(node->str, '\'')))
+		// {
+		// 	printf("inside contains two of expand");
+		// 	// erase_quotes(&node->str);
+		// 	// if (contains_two(node->str, '\"'))
+		// 	// 	erase_quotes_str(&node->str);
+		// 	expand_var(&node->str, &var);
+		// }
+		expand_var(&node->str, &var);
+		// ft_strtrim_single(&node->str, '\'')
 	}
 }
+
 
 t_vars	*find_var(char *name, t_data *data)
 {
@@ -153,7 +227,7 @@ t_vars	*find_var(char *name, t_data *data)
 	t_vars	*control;
 
 	i = 0;
-	control = malloc(sizeof(t_vars));
+	control = ft_calloc(1, sizeof(t_vars));
 	if (!control)
 		return (control);
 	while (i < data->num_vars)

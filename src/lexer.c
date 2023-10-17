@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/12 18:20:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:08:19 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +99,16 @@ char **erase_quotes(char **tokens)
 {
     int i = 0;
     char **new_tokens;
-
-    // Count the number of tokens
     int num_tokens = 0;
+
     while (tokens[num_tokens] != NULL)
         num_tokens++;
 
     // Allocate memory for the array of pointers to char
-    new_tokens = (char **)malloc((num_tokens + 1) * sizeof(char *));
-    if (new_tokens == NULL) {
+    // new_tokens = (char **)malloc((num_tokens + 1) * sizeof(char *));
+    new_tokens = calloc((num_tokens + 1), sizeof(char *));
+    if (new_tokens == NULL) 
+    {
         perror("Memory allocation failed");
         exit(EXIT_FAILURE);
     }
@@ -117,8 +118,9 @@ char **erase_quotes(char **tokens)
     {
         int len = strlen(tokens[i]);
         new_tokens[i] = (char *)malloc((len + 1) * sizeof(char));
-        if (new_tokens[i] == NULL) {
-            perror("Memory allocation failed");
+        if (new_tokens[i] == NULL)
+        {
+            perror("Memory allocation failed in erase_quote");
             exit(EXIT_FAILURE);
         }
 
@@ -141,6 +143,34 @@ char **erase_quotes(char **tokens)
     return new_tokens;
 }
 
+void erase_quotes_str(char **str) 
+    {
+    int len = strlen(*str);
+    char *new_str;
+    // char *new_str = (char *)malloc((len + 1) * sizeof(char));
+    new_str = calloc((len - 2), sizeof(char));
+    if (new_str == NULL) 
+    {
+        perror("Memory allocation failed in erase_quotes_str");
+        exit(EXIT_FAILURE);
+    }
+
+    int i = 0, j = 0;
+    while (*str[i] != '\0') 
+    {
+        if (*str[i] != '\"' && *str[i] != '\'') {
+            new_str[j] = *str[i];
+            j++;
+        }
+        i++;
+    }
+
+    new_str[j] = '\0';
+    *str = new_str;
+    }
+
+
+
 char	**lexer(char *line)
 {
 	char	**tokens;
@@ -153,7 +183,8 @@ char	**lexer(char *line)
 		return (NULL);
 	tokens = ft_split(line, ' ');
 	put_space_back(tokens);
-	char	**new_tokens = erase_quotes(tokens);
+	// char	**new_tokens = erase_quotes(tokens);
 	// print_double_pointer_to_char(tokens);
-	return (new_tokens);
+	// return (new_tokens);
+    return(tokens);
 }

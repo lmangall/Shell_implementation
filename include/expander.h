@@ -65,7 +65,7 @@ char	*identify_var(char *str, t_data *data);
 ** @param data The data structure containing the variables to expand.
 ** @return The name of the VAR found.
 */
-void	expand_var(char **str, t_vars *var);
+void	expand_var(char **str, t_vars **var);
 
 /*
 ** Finds the value of the given variable name in the given data structure.
