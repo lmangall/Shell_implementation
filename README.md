@@ -2,6 +2,13 @@
 
 
 
+Use errno for errors
+
+signals in heredoc: use the global var
+
+
+
+
 nice readme for checks:
 https://github.com/vportens/minishell
 
