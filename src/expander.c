@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 15:37:41 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:48:06 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,38 +105,38 @@ char	*identify_var(char *str, t_data *data)
 
 void expand_var(char **str, t_vars **var)
 {
-	int i = 0;
-	int j = 0;
-	int flag = 0;
-	char *expanded_str;
+    int i = 0;
+    int j = 0;
+    int flag = 0;
+    char *expanded_str;
 
-	i = 0;
-	j = 0;
-	flag = 0;
-	expanded_str = ft_strdup("");//WTF
+    i = 0;
+    j = 0;
+    flag = 0;
+    expanded_str = ft_strdup("");  // Initialize with an empty string
 
-	while ((*str)[j] != '\0') 
-	{
-		if ((*str)[j] == '$' && flag == 0) 
-		{
-			expanded_str = ft_strjoin(expanded_str, (*var)->value);
-			i += ft_strlen((*var)->value);
-			j += ft_strlen((*var)->name);
-			j++;
-			flag = 1;
-		}
-		if ((*str)[j] != '\0')
-		{
-			expanded_str[i] = (*str)[j];
-			j++;
-			i++;
-		}
-	}
-//printf("expanded_str = %s\n", expanded_str);
-	expanded_str[i] = '\0';
-	free(*str);
-	*str = expanded_str;
+    while ((*str)[j] != '\0') 
+    {
+        if ((*str)[j] == '$' && flag == 0) 
+        {
+            expanded_str = ft_strjoin(expanded_str, (*var)->value);
+            i += ft_strlen((*var)->value);
+            j += ft_strlen((*var)->name) + 1;  // +1 to skip the '$' character
+            flag = 1;
+        }
+
+        if ((*str)[j] != '\0')
+        {
+            expanded_str = ft_strjoin(expanded_str, (char[]){(*str)[j], '\0'});  // Append one character at a time
+            j++;
+            i++;
+        }
+    }
+
+    free(*str);
+    *str = expanded_str;
 }
+
 
 
 char	*find_val(char *name, t_data *data)
@@ -176,38 +176,52 @@ void	trim_quotes(char **str, char quote)
 	*str = trimmed_str;
 }
 
-void	expand(struct node_s **node, t_data *data)
+void expand(struct node_s **node, t_data *data)
 {
-// printf("\ninside expand\n");
-	char	*var_name;
-	t_vars	*var;
-	int i = 0;
+    char *var_name;
+    t_vars *var;
+    int i = 0;
 
-// 	if (contains_two((*node)->str, '\"'))
-// 	{
-// 			trim_quotes(&(*node)->str, '\"');
-// printf("node->str in expand 1= %s\n", (*node)->str);
+    while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
+    {
+        var = find_var(var_name, data);
+        expand_var(&(*node)->str, &var);
+        i++;
+    }
+}
+
+// void	expand(struct node_s **node, t_data *data)
+// {
+// // printf("\ninside expand\n");
+// 	char	*var_name;
+// 	t_vars	*var;
+// 	int i = 0;
+
+// // 	if (contains_two((*node)->str, '\"'))
+// // 	{
+// // 			trim_quotes(&(*node)->str, '\"');
+// // printf("node->str in expand 1= %s\n", (*node)->str);
+// // 		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
+// // 		{
+// // 			var = find_var(var_name, data);
+// // 			expand_var(&(*node)->str, &var);
+// // 			i++;
+// // 		}
+// // 	}                                           =>THIS IS DONE BEFORE
+// 	// else if (contains_two((*node)->str, '\''))
+// 	// {
+// 	// 		trim_quotes(&(*node)->str, '\'');
+// 	// }
+// 	// else
+// 	// {
 // 		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
 // 		{
 // 			var = find_var(var_name, data);
 // 			expand_var(&(*node)->str, &var);
 // 			i++;
 // 		}
-// 	}                                           =>THIS IS DONE BEFORE
-	// else if (contains_two((*node)->str, '\''))
-	// {
-	// 		trim_quotes(&(*node)->str, '\'');
-	// }
-	// else
-	// {
-		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
-		{
-			var = find_var(var_name, data);
-			expand_var(&(*node)->str, &var);
-			i++;
-		}
-	// }
-}	
+// 	// }
+// }	
 
 t_vars	*find_var(char *name, t_data *data)
 {

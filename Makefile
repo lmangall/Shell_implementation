@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/12/10 18:31:04 by lmangall         ###   ########.fr        #
+#    Updated: 2023/12/10 18:43:21 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS = lexer.c \
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
 CC = gcc
-CFLAGS = -I$(INCDIR) -Wall -Wextra -Werror
+CFLAGS = -I$(INCDIR) -Wall -Wextra -Werror -fsanitize=address
 LIBS = -L$(LIBFTDIR) -lft
 READLINE_LIBS = -lreadline
 READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
@@ -71,7 +71,6 @@ re: fclean all
 
 install_readline:
 	apt-get install libreadline-dev
-	# add sudo to line above
 	@$(MAKE) all READLINE_LIBS="$(READLINE_LIBS)" READLINE_INC="$(READLINE_INC)"
 
 readline: install_readline
