@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 17:11:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:29:38 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 
 	i = 0;
 	root = new_node(ROOT);//THIS IS MALLOCED AND SHOULD BE FREED
-	if (!cmd)
+	if (!root)
 		return (NULL);
 	while (tokens[i] != NULL)
 	{

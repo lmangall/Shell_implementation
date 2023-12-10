@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 19:51:46 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:27:48 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,7 @@ void	first_child(struct node_s *node, int pipe_fd[2], t_data *data)
 	close(pipe_fd[1]);
 	exec_pipe_redir(node, data);
 }
-#if 0
-void	second_child(struct node_s *node, int pipe_fd[2])
-{
-	close(STDIN_FILENO);
-	dup(pipe_fd[0]);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-	exec_pipe_redir(node);
-}
-#endif
+
 void second_child(struct node_s *node, int pipe_fd[2], t_data *data)
 {
     close(STDIN_FILENO);
@@ -65,38 +56,6 @@ void second_child(struct node_s *node, int pipe_fd[2], t_data *data)
     exit(EXIT_SUCCESS); // Beende den zweiten Kindprozess nach dem EOF
 }
 
-
-#if 0
-void	execute_pipe_command(struct node_s *node)
-{
-	pid_t child_pid;
-	int pipe_fd[2];
-	int status;
-
-	node->operator= NONE;
-
-	if (pipe(pipe_fd) == -1)
-	{
-		// panic(data, PIPE_ERR, EXIT_FAILURE);
-		ft_putstr_fd("pipe error\n", 2);
-	}
-	child_pid = fork();
-	if (child_pid == -1)
-	{
-		// panic(data, FORK_ERR, EXIT_FAILURE);
-		ft_putstr_fd("pipe error\n", 2);
-	}
-	if (child_pid == 0)
-		first_child(node, pipe_fd);
-
-	second_child(node->next_sibling, pipe_fd);
-
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-	waitpid(child_pid, &status, 0);
-	// g_exit_status = status;
-}
-#endif
 void execute_pipe_command(struct node_s *node, t_data *data)
 {
     pid_t child_pid1, child_pid2;
@@ -108,7 +67,7 @@ void execute_pipe_command(struct node_s *node, t_data *data)
     if (pipe(pipe_fd) == -1)
     {
         // Fehlerbehandlung für pipe-Fehler hier einfügen
-        perror("pipe");//are we allowed to use this ?
+        perror("pipe");
         exit(EXIT_FAILURE);
     }
 

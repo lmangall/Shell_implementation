@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/12/10 13:09:53 by lmangall         ###   ########.fr        #
+#    Updated: 2023/12/10 18:31:04 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,17 +39,18 @@ OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
 CC = gcc
 CFLAGS = -I$(INCDIR) -Wall -Wextra -Werror
-READLINE = -L./lib/libft -lft -lreadline
+LIBS = -L$(LIBFTDIR) -lft
+READLINE_LIBS = -lreadline
 READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
 # //add back -Werror -Wall -Wextra 
 NAME = minishell
 
-all: install_readline $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBFTDIR)
-	@$(CC) $(OBJS) $(READLINE) $(READLINE_INC) $(CFLAGS) -L$(LIBFTDIR) -lft -o $(NAME)
+	@$(CC) $(OBJS) $(CFLAGS) $(LIBS) $(READLINE_LIBS) -o $(NAME)
 	@echo "\033[32mCompilation succeeded!\033[0m"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
@@ -71,4 +72,8 @@ re: fclean all
 install_readline:
 	apt-get install libreadline-dev
 	# add sudo to line above
+	@$(MAKE) all READLINE_LIBS="$(READLINE_LIBS)" READLINE_INC="$(READLINE_INC)"
 
+readline: install_readline
+
+.PHONY: install_readline readline
