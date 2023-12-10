@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:56 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 14:32:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:58:35 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,24 +365,30 @@ int check_for_variable_setting(t_data *data, char *token)
         return 0;
 }
 
-// convert the vars container to a *char[] array
-// the array will be used as the envp for the execve function
-// the name and value of each variable will be concatenated with an equal sign and put into the array, like this:
-// name=value
-// the last element of the array will be NULL
 
+/**
+ * @brief Converts the variables container to an array of strings (envp).
+ *
+ * This function takes a data structure containing variables and converts it
+ * into the standard environment variable format (envp) required by functions
+ * like execve. It allocates memory for the resulting array and returns it.
+ * The caller is responsible for freeing the memory when it is no longer needed.
+ *
+ * @param data A data structure containing information about variables.
+ * @return An array of strings (envp) representing the variables.
+ */
 char	**convert_vars_container_to_envp(t_data *data)
 {
 	char	**envp = malloc((data->num_vars + 1) * sizeof(char *));
 	if (envp == NULL) {
-		perror("Fehler beim Allozieren von Speicher für Umgebungsvariablen");
+		perror("Ceci est une erreur");
 		exit(EXIT_FAILURE);
 	}
 
 	for (int i = 0; i < data->num_vars; i++) {
 		char *env_var = malloc(strlen(data->vars_container[i].name) + strlen(data->vars_container[i].value) + 2);
 		if (env_var == NULL) {
-			perror("Fehler beim Allozieren von Speicher für Umgebungsvariable");
+			perror("Tout va bien se passer");
 			exit(EXIT_FAILURE);
 		}
 
@@ -390,7 +396,7 @@ char	**convert_vars_container_to_envp(t_data *data)
 		envp[i] = env_var;
 	}
 
-	envp[data->num_vars] = NULL; // Null-Zeiger am Ende für das Ende des Umgebungsvariablen-Arrays
+	envp[data->num_vars] = NULL;
 
 	return envp;
 }

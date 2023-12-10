@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 15:44:26 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:11:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 			if (!add_command_node_to_list(&head, &current_cmd, new_cmd))
 				return NULL;
 			new_cmd->operator= get_operator(tokens + i);
-			// end of this "if" is used for the	->    wc > output.txt < input.txt
 			if (rdr_output == 1 && rdr_input == 1)
 			{
 				new_cmd->prev_sibling = head;
@@ -202,11 +201,9 @@ struct node_s	*create_root_node(char *token)
  * @return 1 if the command node was successfully added to the list,
 	0 otherwise.
  *
-
-	* This function adds a new command node to the list of command nodes. If the list is empty,
+* This function adds a new command node to the list of command nodes. If the list is empty,
  * the new command node becomes the head of the list. If the list is not empty,
-	the new command
- * node is added to the end of the list.
+	the new command  node is added to the end of the list.
  */
 int	add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd,
 		struct node_s *new_cmd)

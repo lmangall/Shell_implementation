@@ -8,15 +8,15 @@
 - [ ] figure out what is happening with display_history ? should it be a builtin ? 
 - [ ] in replaceform_feed_with_spaces change for to while loop 
 - [ ] check WTF 
-- [ ] Checkbox 
-- [ ] Checkbox 
+- [ ] in convert_vars_container_to_envp change for to while, check is enough memory is malloced, check if the caller frees the returned envp 
+- [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
 - [ ] Checkbox 
 
 ### TO DO
 - [ ] Handle memory leaks
 - [ ] Error messages (use errno)
 - [ ] Signals in heredoc (use the global var)
-- [ ] In and output redirections 
+- [ ] In and output redirections (see what we did in parse_advanced_command)
 - [ ] Parser: single and double quotes
 - [ ] in  func  check_and_builtins verify if "line is freed in all "if" cases
 - [ ] Checkbox 

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 19:46:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:05:28 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-// extern long long g_exit_status;       //   => get rid of this global var
 
 char	*search_path(char *cmd, t_data *data)
 {
@@ -35,7 +34,6 @@ char	*search_path(char *cmd, t_data *data)
 	char	*tmp;
 	char	*command;
 
-	// paths = getenv("PATH");
 	paths = return_env_from_container(data);
 	paths_arr = ft_split(paths, ':');
 	while (*paths_arr)
@@ -51,11 +49,11 @@ char	*search_path(char *cmd, t_data *data)
 	}
 	//probably need to free paths_arr
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
-	// errno = ENOENT;
+	// set errno, maybe errno = ENOENT;
 	return (NULL);
 }
 
-int	do_exec_cmd(char **argv, t_data *data)
+int	exec_cmd(char **argv, t_data *data)
 {
 	char	*path;
 
@@ -74,6 +72,9 @@ int	do_exec_cmd(char **argv, t_data *data)
 		free(path);
 	}
 	free_token_array(argv);
+
+	// =>custom_env needs to be freed
+	
 	return (0);
 }
 
@@ -107,7 +108,7 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 		}
 	free_node_tree(root_node);
 	argv[argc] = NULL;
-	do_exec_cmd(argv, data);
+	exec_cmd(argv, data);
 	free_argv(argc, argv);
 	return (0);
 }
