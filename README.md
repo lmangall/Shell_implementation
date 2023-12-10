@@ -1,18 +1,16 @@
 # minishell
 
 
-
-Use errno for errors
-
-signals in heredoc: use the global var
-
-
-
-
-nice readme for checks:
-https://github.com/vportens/minishell
+### TO DO
+- [ ] Handle memory leaks
+- [ ] Error messages (use errno)
+- [ ] Signals in heredoc (use the global var)
+- [ ] In and output redirections 
+- [ ] Parser: single and double quotes
+- [ ] Checkbox 
 
 
+THE GLOBAL VAR MIGHT GET USED (ONLY) FOR THE SIGNALS IN HEREDOC
 
 
 ### Command line for docker
@@ -29,25 +27,13 @@ apt-get install libreadline-dev
 
 
 
-### TO DO
-- [ ] barebone working code
-- [ ] Write tests before code ?
-- [ ] have a testcase on the main 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-----
+
+## nice readme for checks:
+https://github.com/vportens/minishell
 
 
 
-### Last stuff to organize
-
-https://www.codequoi.com/en/sending-and-intercepting-a-signal-in-c/
-https://putaindecode.io/articles/maitriser-les-redirections-shell/
-
-
-
-#tests
+# tests
 Several pipes test:
 ls | head -1 | wc -l
 ls | grep .md | sort -r | wc -l
@@ -79,33 +65,16 @@ cat | cat | ls
 echo "et un test' > test.c
 
 
+## usefull trick:
 
-usefull trick:
 (void) variable
-
-Oh and also when debugging things with pipes etc... use write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
-
-if I not forking befor execv and kill all the PIDs at the end they are running as zombies, there is the command:
-ps aux 
-that can be greped
-ps aux | grep ls
+Thanks to this the compiler doesn't complain about an unused var
 
 
-git stash
-
-git branch -a
-git checkout branch_name
-
-git checkout -b branch_name
-
+When debugging things with pipes etc... use write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
 
 julius tip:
 use fflush in c     to force printf to print even if wrong pipe
-
-
-"command block" is a conventionnal name for cmd+eventual words...
-
-„recursive descent parsing“  is not necessary, only for the bonus, he sayd that other than bonus they had something similar to what we have now, and that they were evaluating for a redirection (in which case it is not just left to right)
 
 The normal shell, in case of pipes, waits for all programs (commands) to be executed and only then kills them all
 example: command "yes" print infinite "Y" but if you execute "yes | head -10 " it will only print 10 because it waits for head to be executed
@@ -114,15 +83,22 @@ for this reason(more or less) we should fork (that's what Guillaume said) and th
 
 we are allowed 1 global var (and should use it for the return status)
 
-not from Tsveto but it seems everybody calls > < | (and such) "tokens"
-
 Job control and scheduling: all commands have to be executed before we kill their PID
 
 
+### Advices :
+*Advice from Martin* 
+- avoid *merge conflict* 
+- switch on a setting on the repo that doesn't allow anybody to push straight to main -> it has to be pushed to a branch before
+- Eventually a second setting : when one person pushes the code HAS TO be reviewed by the other person
+- have multiples folders
+- keep functions small and clear
 
-In C, the inline keyword is used as a hint to the compiler, suggesting that a particular function should be considered for inlining. Inlining is an optimization technique where the compiler replaces a function call with the actual code of the function at the call site.
-
-
+*Advice from Guillaume and Jules:*
+- Be careful with forks commands that kills a program after execution (a.i 'ls'). It needs to be executed as a child (not a parent) in order not to kill the whole minishell.
+- Parent/child: no need to use wait, the exec of one cmd will wait the output of the first "by itself"
+- 'which' command to know which is the path of a function
+- 'readline' instead of using GNL
 
 
 
@@ -165,24 +141,6 @@ https://docs.google.com/spreadsheets/d/1TDwyd-S0WBAXehgkrKQtBJ6zquQ4p6k7JfE5g3jI
 https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
 *Carlo graph for doxygen comments:*
 https://gist.github.com/CarloCattano/1f1db247c4eb8477a365e29eaf12aaf1
-
-
-### Advices :
-*Advice from Martin* 
-- avoid *merge conflict* 
-- switch on a setting on the repo that doesn't allow anybody to push straight to main -> it has to be pushed to a branch before
-- Eventually a second setting : when one person pushes the code HAS TO be reviewed by the other person
-- have multiples folders
-- keep functions small and clear
-
-*Advice from Guillaume and Jules:*
-- Be careful with forks commands that kills a program after execution (a.i 'ls'). It needs to be executed as a child (not a parent) in order not to kill the whole minishell.
-- Parent/child: no need to use wait, the exec of one cmd will wait the output of the first "by itself"
-- 'which' command to know which is the path of a function
-- 'readline' instead of using GNL
-
-
-
 
 
 ### Overal operation
