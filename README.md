@@ -22,7 +22,7 @@
 - [ ] Parser: single and double quotes
 - [ ] in  func  check_and_builtins verify if "line is freed in all "if" cases
 - [ ] Check for zombies processes on a command with multiple pipes 
-- [ ] Checkbox 
+- [ ] use ps -a to check for zombies (created by pipes 
 - [ ] Checkbox 
 
 
@@ -33,6 +33,10 @@
 - [ ] Checkbox 
 
 THE GLOBAL VAR MIGHT GET USED (ONLY) FOR THE SIGNALS IN HEREDOC
+
+<img width="1053" alt="Screenshot 2023-12-10 at 19 11 07" src="https://github.com/lmangall/minishell/assets/107299611/fbda1987-b26a-40f2-a604-33b08a8c13d4">
+<img width="1361" alt="Screenshot 2023-12-10 at 19 10 51" src="https://github.com/lmangall/minishell/assets/107299611/a6929027-51a7-4852-a7ab-f963548317df">
+
 
 
 ### Command line for docker
