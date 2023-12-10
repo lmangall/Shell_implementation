@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 20:11:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:44:26 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,44 @@
 #include "../lib/libft/src/libft.h"
 #include <unistd.h>
 
+/**
+ * @brief Parses a simple command.
+ *
+ * This function takes an array of tokens and a data structure as input,
+ * and it generates a one level linked list representing the parsed command.
+ * The `expand` function is called to handle variable expansion. 
+ *
+ *There is one empty root node of type "ROOT"
+ *There is one one node per word of type "WORD"
+ *
+ * @param tokens An array of tokens representing the command.
+ * @param data A data structure containing information about variables.
+ * @return A pointer to the root node of the generated one level linked list
+ */
 struct node_s	*parse_simple_command(char **tokens, t_data *data)
 {
 	int				i;
-	struct node_s	*cmd;
-	struct node_s	*word;
+	struct node_s	*root;
+	struct node_s	*var;
 
 	i = 0;
-	cmd = new_node(ROOT);
+	root = new_node(ROOT);//THIS IS MALLOCED AND SHOULD BE FREED
 	if (!cmd)
 		return (NULL);
 	while (tokens[i] != NULL)
 	{
-		word = new_node(VAR);
-		if (!word)
+		var = new_node(VAR);
+		if (!var)
 			return (NULL);
-		set_node_str(word, tokens[i]);
-// printf("word->str bfr expd = %s\n", word->str);
-		expand(&word, data);
-printf("word->str aft expd = %s\n", word->str);
+		set_node_str(var, tokens[i]);
+// printf("var->str bfr expd = %s\n", var->str);
+		expand(&var, data);
+//printf("var->str aft expd = %s\n", var->str);
 // printf("\n");
-		add_child_node(cmd, word);
+		add_child_node(root, var);
 		i++;
 	}
-	return (cmd);
+	return (root);
 }
 
 int	is_operator(char *str)

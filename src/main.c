@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 19:19:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:46:07 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	data.paths = NULL;
 	data.envp = NULL;
-	// data = malloc(sizeof(t_data)); // Allocate memory for data
-	// if (!data)
-	// {
-	// 	fprintf(stderr, "lsh: allocation error\n");
-	// 	exit(EXIT_FAILURE);
-	// }
 	init_vars(&data, envp);
-	//init_vars(&data, our_envp);
 
-	// data.envp = return_env_from_container(data);
 	signal(SIGINT, handle_ctrl_c);
 	signal(SIGQUIT, handle_ctrl_backslash);
 	status = 1;
@@ -93,8 +85,6 @@ int	parse_and_execute(char *line, t_data *data)
 	else
 	{
 		cmd = parse_simple_command(tokens, data);
-		// if (cmd->first_child->next_sibling != NULL)
-		// 	expansion_substitution(cmd->first_child->next_sibling, data);
 		if (fork() == 0)
 			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);

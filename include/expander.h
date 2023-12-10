@@ -30,18 +30,6 @@
 //  */
 // struct node_s *contains_dollar(struct node_s *node);
 
-// /**
-//  * @brief Expands variables in the given node's string using the given variables container.
-//  * 
-//  * @param node The node to expand variables in.
-//  * @param vars_container The container of variables to use for expansion.
-//  */
-// void expansion(struct node_s *node, struct Vars *vars_container);
-
-// int expansion_substitution(struct node_s *node, t_data *data);
-// int expansion_set_var(struct node_s *node, t_data *data);
-
-
 
 /*
 ** Expands variables in the given command node's string.

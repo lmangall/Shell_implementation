@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 20:37:52 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:57:26 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char	**put_space_back(char **tokens)
 	return (tokens);
 }
 
-//check for single or double quotes
-//calls replaceSpacesWithFormFeed for what is inside the quotes 
 char *check_quotes_replace_ff(char *line)
 {
     int i = 0;
@@ -52,7 +50,7 @@ char *check_quotes_replace_ff(char *line)
     {
         if (line[i] == '\'' || line[i] == '\"')
         {
-            char quote = line[i];  // Store the quote character
+            char quote = line[i];
             i++;
             while (line[i] != quote && line[i] != '\0')
             {
@@ -144,17 +142,14 @@ int	contains_two(char *str, char c)
 // }
 
 
-
+// generate some doxy
 char	**lexer(char *line)
 {
 	char	**tokens;
-
-	// printf("line: %s\n", line);
-	if (contains_two(line, '\"') || contains_two(line, '\''))
-		check_quotes_replace_ff(line);
-
 	if (!line)
 		return (NULL);
+	if (contains_two(line, '\"') || contains_two(line, '\''))
+		check_quotes_replace_ff(line);
 	tokens = ft_split(line, ' ');
 	put_space_back(tokens);
 	// char	**new_tokens = erase_quotes(tokens);

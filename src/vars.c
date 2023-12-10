@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:56 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 14:12:41 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:32:27 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@
 #include "../include/vars.h"
 #include "../lib/libft/src/libft.h"
 #include <unistd.h>
-
-// get_vars_value takes a name and returns the value of the variable with that name
-// it returns NULL if it failed
-// char *get_vars_value(char *name)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (vars_container[i].name[0] != '\0')
-// 	{
-// 		if (strcmp(vars_container[i].name, name) == 0)
-// 			return (vars_container[i].value);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
 
 // THIS FUNCTION IS MOR OR LESS DOUBLE
 int	find_equal_sign(char *str)
@@ -55,8 +39,6 @@ void	init_vars(t_data *data, char **envp)
 	int	j;
 	int	equal_sign;
 
-	// extern char **envp;
-	// Assumption: extern declaration for the envpment variables
 	i = 0;
 	data->num_vars = 0;
 	data->num_shell_vars = 0;
@@ -86,7 +68,7 @@ void	init_vars(t_data *data, char **envp)
 		}
 		i++;
 		if (i >= MAX_VARS)
-			envp[i] = NULL; // Ensure we don't go out of bounds
+			envp[i] = NULL;
 	}
 	data->vars_container[data->num_vars].name[0] = '\0';
 	data->vars_container[data->num_vars].value[0] = '\0';
@@ -232,6 +214,20 @@ int	unset_var(t_data *data, const char *name)
 	return (-1);
 }
 
+// if the command "unset" is called with a space and a variable name, it will call this function unset
+int do_unset_builtin(char **tokens, t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (tokens[i] != NULL)
+	{
+		unset_var(data, tokens[i]);
+		i++;
+	}
+	return (0);
+}
+
 int unset_shell_var(t_data *data, const char *name)
 {
 	int	i;
@@ -262,21 +258,6 @@ int unset_shell_var(t_data *data, const char *name)
 	return (-1);
 }
 
-// if the command "unset" is called with a space and a variable name, it will call this function unset
-
-int do_unset_builtin(char **tokens, t_data *data)
-{
-	int	i;
-
-	i = 1;
-	while (tokens[i] != NULL)
-	{
-		unset_var(data, tokens[i]);
-		i++;
-	}
-	return (0);
-}
-
 int export_var(t_data *data, const char *name)
 {
     int i;
@@ -291,22 +272,33 @@ int export_var(t_data *data, const char *name)
             while (j < data->num_vars)
             {
                 if (ft_strcmp(data->vars_container[j].name, name) == 0)
-                    return (0); // Bereits exportiert
+                    return (0);
                 j++;
             }
             if (data->num_vars >= MAX_VARS)
-                return (0); // Kein Platz für weitere Variablen
+                return (0);
             data->vars_container[data->num_vars] = data->shell_vars_container[i];
             data->num_vars++;
 			unset_shell_var(data, name);
-            return (1); // Erfolgreich exportiert
+            return (1);
         }
         i++;
     }
-
-    return (0); // Variable nicht gefunden
+    return (0);
 }
 
+int do_export_builtin(char **tokens, t_data *data)
+{
+	int	i;
+
+	i = 1;
+	while (tokens[i] != NULL)
+	{
+		export_var(data, tokens[i]);
+		i++;
+	}
+	return (0);
+}
 
 void	print_exported_vars(const t_data *data)
 {
@@ -329,7 +321,7 @@ void	print_exported_vars(const t_data *data)
 // valid characters are: Capital letters, numbers and underscores
 // and after the first equal sign, it doesn't matter what the input is
 // returns 1 if valid, 0 if not
-int isValidVariableDeclaration(const char *input)
+int is_valid_variable_declaration(const char *input)
 {
     // Check if the input is empty or starts with an equal sign
     if (input == NULL || input[0] == '=')
@@ -353,28 +345,24 @@ int isValidVariableDeclaration(const char *input)
     return 1; // Valid variable declaration
 }
 
-
+//maybe transfor into doxygen coments 
+        // Find the equal sign
+		// copy everything before the equal sign into name
+		// copy everything after the equal sign into value
 int check_for_variable_setting(t_data *data, char *token)
 {
-    // Check if the token is a valid variable declaration
-    if (isValidVariableDeclaration(token))
+    if (is_valid_variable_declaration(token))
     {
-        // Find the equal sign
         int equal_sign = find_equal_sign(token);
 		char *name;
 		char *value;
-		// copy everything before the equal sign into name
-		// copy everything after the equal sign into value
 		name = ft_substr(token, 0, equal_sign);
 		value = ft_substr(token, equal_sign + 1, ft_strlen(token) - equal_sign);
 		set_shell_var(data, name, value);
-
-        return 1; // Variable set
+        return 1;
     }
     else
-    {
-        return 0; // Variable not set
-    }
+        return 0;
 }
 
 // convert the vars container to a *char[] array
@@ -405,17 +393,4 @@ char	**convert_vars_container_to_envp(t_data *data)
 	envp[data->num_vars] = NULL; // Null-Zeiger am Ende für das Ende des Umgebungsvariablen-Arrays
 
 	return envp;
-}
-
-int do_export_builtin(char **tokens, t_data *data)
-{
-	int	i;
-
-	i = 1;
-	while (tokens[i] != NULL)
-	{
-		export_var(data, tokens[i]);
-		i++;
-	}
-	return (0);
 }

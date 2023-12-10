@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 15:04:37 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:06:05 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,11 @@ void	do_cd_builtin(char **argv, t_data *data)
 	pwd = NULL;
 	write(1, "...inside the builtin cd :)\n", 28);
 	if (argv[1] == NULL)
-	{
 		path = ft_strdup(get_var_value(data, "HOME"));
-	}
 	else if (ft_strcmp(argv[1], "-") == 0)
-	{
 		path = ft_strdup(get_var_value(data, "OLDPWD"));
-	}
 	else
-	{
 		path = ft_strdup(argv[1]);
-	}
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(path) == -1)
 	{

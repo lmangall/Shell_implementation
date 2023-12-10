@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 21:58:45 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 15:37:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*identify_var(char *str, t_data *data)
 				i++;
 			len = i - start;
 			(void)len;
-			break;//    carefull with this guy
+			break;
 		}
 		i++;
 	}
@@ -113,7 +113,7 @@ void expand_var(char **str, t_vars **var)
 	i = 0;
 	j = 0;
 	flag = 0;
-	expanded_str = ft_strdup("");
+	expanded_str = ft_strdup("");//WTF
 
 	while ((*str)[j] != '\0') 
 	{
@@ -132,7 +132,7 @@ void expand_var(char **str, t_vars **var)
 			i++;
 		}
 	}
-printf("expanded_str = %s\n", expanded_str);
+//printf("expanded_str = %s\n", expanded_str);
 	expanded_str[i] = '\0';
 	free(*str);
 	*str = expanded_str;
@@ -183,32 +183,31 @@ void	expand(struct node_s **node, t_data *data)
 	t_vars	*var;
 	int i = 0;
 
-	if (contains_two((*node)->str, '\"'))
-	{
-			trim_quotes(&(*node)->str, '\"');
-printf("node->str in expand 1= %s\n", (*node)->str);
+// 	if (contains_two((*node)->str, '\"'))
+// 	{
+// 			trim_quotes(&(*node)->str, '\"');
+// printf("node->str in expand 1= %s\n", (*node)->str);
+// 		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
+// 		{
+// 			var = find_var(var_name, data);
+// 			expand_var(&(*node)->str, &var);
+// 			i++;
+// 		}
+// 	}                                           =>THIS IS DONE BEFORE
+	// else if (contains_two((*node)->str, '\''))
+	// {
+	// 		trim_quotes(&(*node)->str, '\'');
+	// }
+	// else
+	// {
 		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
 		{
 			var = find_var(var_name, data);
 			expand_var(&(*node)->str, &var);
 			i++;
 		}
-	}
-	else if (contains_two((*node)->str, '\''))
-	{
-			trim_quotes(&(*node)->str, '\'');
-	}
-	else
-	{
-		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
-		{
-			var = find_var(var_name, data);
-			expand_var(&(*node)->str, &var);
-			i++;
-		}
-	}
+	// }
 }	
-
 
 t_vars	*find_var(char *name, t_data *data)
 {

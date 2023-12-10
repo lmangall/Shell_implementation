@@ -3,8 +3,8 @@
 
 enum node_type_e
 {
-    ROOT,           /* simple command */
-    VAR,               /* variable name (or simply, a word) */
+    ROOT,/* simple command */
+    VAR, /* variable name (or simply, a word) */
 	SPECIAL,
 	MASTER,
 };

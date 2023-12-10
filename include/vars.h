@@ -35,7 +35,7 @@ int     export_var(t_data *data, const char *name);
 void    print_exported_vars(const t_data *data);
 
 
-int     isValidVariableDeclaration(const char *input);
+int     is_valid_variable_declaration(const char *input);
 int     check_for_variable_setting(t_data *data, char *token);
 int		do_unset_builtin(char **tokens, t_data *data);
 char	**convert_vars_container_to_envp(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/13 12:51:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/10 14:37:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	check_and_builtins(char *line, t_data *data)
 {
 	if(check_for_variable_setting(data, line))
 		return(-1);
-	// check if unset followed by a space and a variable name is present
 	if (ft_strncmp(line, "unset ", 6) == 0)
 	{
 		do_unset_builtin(lexer(line), data);
@@ -33,11 +32,8 @@ int	check_and_builtins(char *line, t_data *data)
 		do_export_builtin(lexer(line), data);
 		return (-1);
 	}
-
 	if (ft_strcmp(line, "exit") == 0)
-	{
 		exit(0);
-	}
 	if (ft_strncmp(line, "cd ", 3) == 0)
 		do_cd_builtin(lexer(line), data);
 	if (ft_strcmp(line, "env") == 0) ///     => check if working properly
@@ -47,12 +43,11 @@ int	check_and_builtins(char *line, t_data *data)
 	}
 	if (ft_strcmp(line, "pwd") == 0)
 		do_pwd_builtin(data);
-	// if (ft_strcmp(line, "export") == 0)
-	// 	do_export_builtin(tokens, data);
-	// if (ft_strcmp(line, "unset") == 0)
-	// 	do_unset_builtin(tokens, data);
-	// if (ft_strcmp(line, "history") == 0)
+
+
 	// 	display_history();
+
+	
 	return (1);
 }
 

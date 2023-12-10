@@ -1,5 +1,16 @@
 # minishell
 
+### TO DO SIMPLE
+- [ ] change the for loop to a while in do_env_builtin
+- [ ] in func check_and_builtins : should "cd" also return (-1) ?
+- [ ] keep only one find_equal_sign
+- [ ] move do_export_builtin (2 functions) into its own file on th builtin folder
+- [ ] figure out what is happening with display_history ? should it be a builtin ? 
+- [ ] in replaceform_feed_with_spaces change for to while loop 
+- [ ] check WTF 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
 
 ### TO DO
 - [ ] Handle memory leaks
@@ -7,8 +18,17 @@
 - [ ] Signals in heredoc (use the global var)
 - [ ] In and output redirections 
 - [ ] Parser: single and double quotes
+- [ ] in  func  check_and_builtins verify if "line is freed in all "if" cases
+- [ ] Checkbox 
+- [ ] Checkbox 
 - [ ] Checkbox 
 
+
+### TO DO EVENTUALLY
+- [ ] "env" goes to our builtin but "env " (with space) goes to the real one +>same for pwd (probably)
+- [ ] what if somebody puts an operator in the prompt using smthing else than echo 
+- [ ] add printf (showed by Florian) builtin as echo 
+- [ ] Checkbox 
 
 THE GLOBAL VAR MIGHT GET USED (ONLY) FOR THE SIGNALS IN HEREDOC
 
@@ -69,7 +89,6 @@ echo "et un test' > test.c
 
 (void) variable
 Thanks to this the compiler doesn't complain about an unused var
-
 
 When debugging things with pipes etc... use write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
 
