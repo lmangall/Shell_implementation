@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 18:56:37 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:49:27 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ t_operator	get_operator(char **token)
 struct node_type_master	*parse_advanced_command(char **tokens)
 {
 	int						i;
-	int						rdr_input;
-	int						rdr_output;
+	// int						rdr_input;
+	// int						rdr_output;
 	struct node_s			*head;
 	struct node_s			*current_cmd;
 	struct node_s			*new_cmd;
@@ -126,8 +126,8 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 	struct node_type_master	*master_node;
 
 	i = 0;
-	rdr_input = 0;
-	rdr_output = 0;
+	// rdr_input = 0;
+	// rdr_output = 0;
 	head = NULL;
 	current_cmd = NULL;
 	while (tokens[i] != NULL)
@@ -140,15 +140,15 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 			if (!add_command_node_to_list(&head, &current_cmd, new_cmd))
 				return NULL;
 			new_cmd->operator= get_operator(tokens + i);
-			if (rdr_output == 1 && rdr_input == 1)
-			{
-				new_cmd->prev_sibling = head;
-				new_cmd->operator= RDR_INPUT; // this is getting overwritten
-			}
-			if (get_operator(tokens + i) == RDR_OUT_REPLACE)
-				rdr_output++;
-			if (get_operator(tokens + i) == RDR_INPUT)
-				rdr_input++;
+			// if (rdr_output == 1 && rdr_input == 1)
+			// {
+			// 	new_cmd->prev_sibling = head;
+			// 	new_cmd->operator= RDR_INPUT; // this is getting overwritten
+			// }
+			// if (get_operator(tokens + i) == RDR_OUT_REPLACE)
+			// 	rdr_output++;
+			// if (get_operator(tokens + i) == RDR_INPUT)
+			// 	rdr_input++;
 		}
 		else if (is_operator(tokens[i])) //(strcmp(tokens[i], "|") == 0)
 		{

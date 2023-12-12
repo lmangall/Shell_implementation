@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 17:05:28 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:02:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	exec_cmd(char **argv, t_data *data)
 		execve(path, argv,custom_env );
 		free(path);
 	}
-	free_token_array(argv);
-
+	free_string_array(argv);
+	free_string_array(custom_env);
 	// =>custom_env needs to be freed
 	
 	return (0);

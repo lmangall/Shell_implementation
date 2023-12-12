@@ -10,7 +10,7 @@
 - [ ] check WTF 
 - [ ] in convert_vars_container_to_envp change for to while, check is enough memory is malloced, check if the caller frees the returned envp 
 - [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
-- [ ] Checkbox 
+- [ ] change for to while in convert_vars_container_to_envp 
 - [ ] Checkbox 
 - [ ] Checkbox 
 

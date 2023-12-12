@@ -45,6 +45,6 @@ void free_ast(struct node_type_master *master_node);
  *
  * @param tokens The array of tokens to free.
  */
-void free_token_array(char **tokens);
+void free_string_array(char **tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/17 19:46:59 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:02:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	free_ast(struct node_type_master *master_node)
 }
 
 
-void free_token_array(char **tokens)
+void free_string_array(char **tokens)
 {
     int i = 0;
     while (tokens[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:56 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 16:58:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:57:24 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,7 +385,8 @@ char	**convert_vars_container_to_envp(t_data *data)
 		exit(EXIT_FAILURE);
 	}
 
-	for (int i = 0; i < data->num_vars; i++) {
+	for (int i = 0; i < data->num_vars; i++) 
+	{
 		char *env_var = malloc(strlen(data->vars_container[i].name) + strlen(data->vars_container[i].value) + 2);
 		if (env_var == NULL) {
 			perror("Tout va bien se passer");
