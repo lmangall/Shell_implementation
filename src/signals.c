@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:12 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 18:55:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:07:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handle_ctrl_backslash(int sig)
 
 void	handle_ctrl_d(int sig)
 {
-	printf("\nexit");
+	printf("exit\n");
 	(void)sig;
 	exit(0);
 }
