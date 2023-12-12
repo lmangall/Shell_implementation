@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 13:02:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:06:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,6 @@ void free_node_tree(struct node_s *node)
 	}
 	free(node->str);
 	free(node);
-}
-
-void	free_argv(int argc, char **argv)
-{
-	if (!argc)
-		return ;
-	while (argc--)
-		free(argv[argc]);
 }
 
 void	free_ast(struct node_type_master *master_node)

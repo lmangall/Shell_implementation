@@ -13,6 +13,8 @@
 - [ ] change for to while in convert_vars_container_to_envp 
 - [ ] Checkbox 
 - [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
 
 ### TO DO
 - [ ] Handle memory leaks
@@ -21,8 +23,9 @@
 - [ ] In and output redirections (see what we did in parse_advanced_command)
 - [ ] Parser: single and double quotes
 - [ ] in  func  check_and_builtins verify if "line is freed in all "if" cases
-- [ ] Check for zombies processes on a command with multiple pipes 
-- [ ] use ps -a to check for zombies (created by pipes 
+- [ ] use ps -a to check for zombies (created by pipes)
+- [ ] cat whithout argument, pressing enter, behaves not as expected 
+- [ ] ctrl+c signals are messy (double print) 
 - [ ] Checkbox 
 
 
@@ -30,6 +33,9 @@
 - [ ] "env" goes to our builtin but "env " (with space) goes to the real one +>same for pwd (probably)
 - [ ] what if somebody puts an operator in the prompt using smthing else than echo 
 - [ ] add printf (showed by Florian) builtin as echo 
+- [ ] Checkbox 
+- [ ] Checkbox 
+- [ ] Checkbox 
 - [ ] Checkbox 
 
 THE GLOBAL VAR MIGHT GET USED (ONLY) FOR THE SIGNALS IN HEREDOC

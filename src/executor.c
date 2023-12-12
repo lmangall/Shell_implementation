@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 13:02:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:06:22 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	exec_cmd(char **argv, t_data *data)
 		{
 			return (0);
 		}
-		execve(path, argv,custom_env );
+		execve(path, argv, custom_env);
 		free(path);
 	}
 	free_string_array(argv);
@@ -98,7 +98,7 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 			argv[argc] = malloc(strlen(str) + 1);
 			if (!argv[argc])
 			{
-				free_argv(argc, argv);
+				free_string_array(argv);
 				return (0);
 			}
 			ft_strlcpy(argv[argc], str, strlen(str) + 1);
@@ -109,7 +109,6 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 	free_node_tree(root_node);
 	argv[argc] = NULL;
 	exec_cmd(argv, data);
-	free_argv(argc, argv);
 	return (0);
 }
 

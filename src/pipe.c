@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 11:06:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:13:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	exec_pipe_redir(struct node_s *node, t_data *data)
         execute_pipe_command(node, data);
     else if (node->operator== NONE)
         do_simple_command(node, data);
-    // exit(g_exit_status);
+    //maybe here we should take care of the exit code
     else
         exec_redirection(node, data);
 }
@@ -59,29 +59,25 @@ void second_child(struct node_s *node, int pipe_fd[2], t_data *data)
 
 void execute_pipe_command(struct node_s *node, t_data *data)
 {
-    pid_t child_pid1, child_pid2;
+    pid_t child_pid1;
+    pid_t child_pid2;
     int pipe_fd[2];
     int status;
 
     node->operator = NONE;
-
     if (pipe(pipe_fd) == -1)
     {
         perror("pipe");
         exit(EXIT_FAILURE);
     }
-
     child_pid1 = fork();
     if (child_pid1 == -1)
     {
         perror("fork");
         exit(EXIT_FAILURE);
     }
-
     if (child_pid1 == 0)
-    {
         first_child(node, pipe_fd, data);
-    }
     else
     {
         child_pid2 = fork();
