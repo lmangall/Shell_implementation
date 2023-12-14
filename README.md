@@ -44,17 +44,17 @@
 THE GLOBAL VAR MIGHT GET USED (ONLY) FOR THE SIGNALS IN HEREDOC
 
 
-###This actually works, probably from our cd builtin,
+### This actually works, probably from our cd builtin,
 ###but then it seems it is parsed and passed to excve, hence the error message
 ![image](https://github.com/lmangall/minishell/assets/107299611/5c559b89-324c-4de3-85fc-46577859c771)
 
-###Example of expansion working, but not fully
+### Example of expansion working, but not fully
 ![image](https://github.com/lmangall/minishell/assets/107299611/e599512d-a13a-4a37-be54-bdb1f45858a6)
 
-###Setting a var / shell var problem:
+### Setting a var / shell var problem:
 ![image](https://github.com/lmangall/minishell/assets/107299611/23c064c7-c2a9-4647-a30c-da7c9958ddf5)
 
-###"command not found" when adding a var : it might be because the line gets sent to parse ad executor after the var is being added
+### "command not found" when adding a var : it might be because the line gets sent to parse ad executor after the var is being added
 ![image](https://github.com/lmangall/minishell/assets/107299611/44cd9f3a-6e85-4f4f-a2e3-f3ff2a878232)
 
 
