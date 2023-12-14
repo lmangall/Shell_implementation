@@ -11,7 +11,7 @@
 - [ ] in convert_vars_container_to_envp change for to while, check is enough memory is malloced, check if the caller frees the returned envp 
 - [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
 - [ ] change for to while in convert_vars_container_to_envp 
-- [ ] Checkbox 
+- [ ] Should the "quit" function work ? 
 - [ ] Checkbox 
 - [ ] Checkbox 
 - [ ] Checkbox 
@@ -26,6 +26,9 @@
 - [ ] use ps -a to check for zombies (created by pipes)
 - [ ] cat whithout argument, pressing enter, behaves not as expected 
 - [ ] ctrl+c signals are messy (double print) 
+- [ ] check if the erase_quotes function is working properly 
+- [ ] Checkbox 
+- [ ] Checkbox 
 - [ ] Checkbox 
 
 

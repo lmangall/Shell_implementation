@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 14:37:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:21:59 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <errno.h>
 #include <unistd.h>
 
+//the -1 return is needed for the command not be executed
 int	check_and_builtins(char *line, t_data *data)
 {
 	if(check_for_variable_setting(data, line))
@@ -35,15 +36,20 @@ int	check_and_builtins(char *line, t_data *data)
 	if (ft_strcmp(line, "exit") == 0)
 		exit(0);
 	if (ft_strncmp(line, "cd ", 3) == 0)
+	{
 		do_cd_builtin(lexer(line), data);
+		return (-1);
+	}
 	if (ft_strcmp(line, "env") == 0) ///     => check if working properly
 	{
 		do_env_builtin(data);
 		return (-1);
 	}
 	if (ft_strcmp(line, "pwd") == 0)
+	{
 		do_pwd_builtin(data);
-
+		return (-1);
+	}
 
 	// 	display_history();
 

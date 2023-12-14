@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 14:57:26 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:45:22 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,56 +93,65 @@ int	contains_two(char *str, char c)
 	return (0);
 }
 
-// char **erase_quotes(char **tokens)
-// {
-//     int i = 0;
-//     char **new_tokens;
-//     int num_tokens = 0;
+char **erase_quotes(char **tokens)
+{
+    int i = 0;
+    char **new_tokens;
+    int num_tokens = 0;
 
-//     while (tokens[num_tokens] != NULL)
-//         num_tokens++;
+    while (tokens[num_tokens] != NULL)
+        num_tokens++;
 
-//     // Allocate memory for the array of pointers to char
-//     // new_tokens = (char **)malloc((num_tokens + 1) * sizeof(char *));
-//     new_tokens = calloc((num_tokens + 1), sizeof(char *));
-//     if (new_tokens == NULL) 
-//     {
-//         perror("Memory allocation failed");
-//         exit(EXIT_FAILURE);
-//     }
+    // Allocate memory for the array of pointers to char
+    // new_tokens = (char **)malloc((num_tokens + 1) * sizeof(char *));
+    new_tokens = calloc((num_tokens + 1), sizeof(char *));
+    if (new_tokens == NULL) 
+    {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
 
-//     i = 0;
-//     while (tokens[i] != NULL)
-//     {
-//         int len = strlen(tokens[i]);
-//         new_tokens[i] = (char *)malloc((len + 1) * sizeof(char));
-//         if (new_tokens[i] == NULL)
-//         {
-//             perror("Memory allocation failed in erase_quote");
-//             exit(EXIT_FAILURE);
-//         }
+    i = 0;
+    while (tokens[i] != NULL)
+    {
+        int len = strlen(tokens[i]);
+        new_tokens[i] = (char *)malloc((len + 1) * sizeof(char));
+        if (new_tokens[i] == NULL)
+        {
+            perror("Memory allocation failed in erase_quote");
+            exit(EXIT_FAILURE);
+        }
 
-//         int j = 0, k = 0;
-//         while (tokens[i][j] != '\0')
-//         {
-//             if (tokens[i][j] != '\"' && tokens[i][j] != '\'')
-//             {
-//                 new_tokens[i][k] = tokens[i][j];
-//                 k++;
-//             }
-//             j++;
-//         }
+        int j = 0, k = 0;
+        while (tokens[i][j] != '\0')
+        {
+            if (tokens[i][j] != '\"' && tokens[i][j] != '\'')
+            {
+                new_tokens[i][k] = tokens[i][j];
+                k++;
+            }
+            j++;
+        }
 
-//         new_tokens[i][k] = '\0';
-//         i++;
-//     }
-//     new_tokens[num_tokens] = NULL;
+        new_tokens[i][k] = '\0';
+        i++;
+    }
+    new_tokens[num_tokens] = NULL;
 
-//     return new_tokens;
-// }
+    return new_tokens;
+}
 
 
-// generate some doxy
+
+
+
+//If the quotes are single and I have a VAR I should just return
+
+
+
+
+
+// CHECK IF THE ERASE QUOTES IS WORKING PROPERLY
 char	**lexer(char *line)
 {
 	char	**tokens;
@@ -152,8 +161,8 @@ char	**lexer(char *line)
 		check_quotes_replace_ff(line);
 	tokens = ft_split(line, ' ');
 	put_space_back(tokens);
-	// char	**new_tokens = erase_quotes(tokens);
+	char	**new_tokens = erase_quotes(tokens);
 	// print_double_pointer_to_char(tokens);
-	// return (new_tokens);
-    return(tokens);
+	return (new_tokens);
+    //return(tokens);
 }
