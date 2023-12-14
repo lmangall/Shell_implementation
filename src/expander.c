@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/10 18:48:06 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:14:43 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ char	*identify_var(char *str, t_data *data)
 	int		i;
 	char	*var;
 
-	i = 0;
 	start = 0;
+	len = 0;
+	i = 0;
+	var = NULL;
 	if (str == NULL)
 		return (NULL);
 	while (str[i])

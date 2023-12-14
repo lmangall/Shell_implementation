@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 13:02:37 by lmangall         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:57:21 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,16 @@ int	main(int argc, char **argv, char **envp)
 			status = check_and_builtins(line, &data);
 			if (status == 1)
 				status = parse_and_execute(line, &data);
+			if (status == 2)
+			{
+				free(line);
+			    rl_clear_history();
+				return (EXIT_SUCCESS);
+			}
 		}
+		free(line);
 	}
+    rl_clear_history();
 	return (EXIT_SUCCESS);
 }
 
