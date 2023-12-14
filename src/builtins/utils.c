@@ -21,18 +21,18 @@
 //the -1 return is needed for the command not be executed
 int	check_and_builtins(char *line, t_data *data)
 {
-	// check_for_variable_setting(data, line);
+	check_for_variable_setting(data, line);
 
-	// if (ft_strncmp(line, "unset ", 6) == 0)
-	// {
-	// 	do_unset_builtin(lexer(line), data);
-	// 	return (-1);
-	// }
-	// if (ft_strncmp(line, "export ", 7) == 0)
-	// {
-	// 	do_export_builtin(lexer(line), data);
-	// 	return (-1);
-	// }
+	if (ft_strncmp(line, "unset ", 6) == 0)
+	{
+		do_unset_builtin(lexer(line), data);
+		return (-1);
+	}
+	if (ft_strncmp(line, "export ", 7) == 0)
+	{
+		do_export_builtin(lexer(line), data);
+		return (-1);
+	}
 	if (ft_strcmp(line, "exit") == 0)
 	{
 		printf("exit\n");
