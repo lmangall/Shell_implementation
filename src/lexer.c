@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/14 13:45:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/03 23:01:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-void	replaceform_feed_with_spaces(char *str)
+void replace_form_feed_with_spaces(char *str)
 {
-	for (int i = 0; str[i] != '\0'; i++)
-	{
-		if (str[i] == '\f')
-			str[i] = ' ';
-	}
+    int i = 0;
+    while (str[i] != '\0')
+    {
+        if (str[i] == '\f')
+            str[i] = ' ';
+        i++;
+    }
 }
 
 char	**put_space_back(char **tokens)
@@ -36,7 +38,7 @@ char	**put_space_back(char **tokens)
 	while (tokens[i] != NULL)
 	{
 		if (contains_two(tokens[i], '\"') || contains_two(tokens[i], '\''))
-			replaceform_feed_with_spaces(tokens[i]);
+			replace_form_feed_with_spaces(tokens[i]);
 		i++;
 	}
 	return (tokens);
@@ -67,13 +69,6 @@ char *check_quotes_replace_ff(char *line)
         }
     }
     return line;
-}
-
-
-void print_double_pointer_to_char(char **strArray) {
-    int i = 0;
-    while (strArray[i] != NULL)
-        i++;
 }
 
 int	contains_two(char *str, char c)
@@ -141,14 +136,7 @@ char **erase_quotes(char **tokens)
     return new_tokens;
 }
 
-
-
-
-
 //If the quotes are single and I have a VAR I should just return
-
-
-
 
 
 // CHECK IF THE ERASE QUOTES IS WORKING PROPERLY

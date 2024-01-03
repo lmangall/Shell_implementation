@@ -109,24 +109,29 @@ int check_for_variable_setting(t_data *data, char *token)
  * @param data A data structure containing information about variables.
  * @return An array of strings (envp) representing the variables.
  */
-char	**convert_vars_container_to_envp(t_data *data)
+char **convert_vars_container_to_envp(t_data *data)
 {
-	char	**envp = malloc((data->num_vars + 1) * sizeof(char *));
-	if (envp == NULL) {
+	char **envp = malloc((data->num_vars + 1) * sizeof(char *));
+	if (envp == NULL)
+	{
 		perror("Ceci est une erreur");
 		exit(EXIT_FAILURE);
 	}
 
-	for (int i = 0; i < data->num_vars; i++) 
+	int i = 0;
+	while (i < data->num_vars)
 	{
 		char *env_var = malloc(strlen(data->vars_container[i].name) + strlen(data->vars_container[i].value) + 2);
-		if (env_var == NULL) {
+		if (env_var == NULL)
+		{
 			perror("Tout va bien se passer");
 			exit(EXIT_FAILURE);
 		}
 
 		sprintf(env_var, "%s=%s", data->vars_container[i].name, data->vars_container[i].value);
 		envp[i] = env_var;
+
+		i++;
 	}
 
 	envp[data->num_vars] = NULL;

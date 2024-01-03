@@ -4,11 +4,12 @@
 - [x] change the for loop to a while in do_env_builtin           ++ aded colors
 - [x] in func check_and_builtins : should "cd" also return (-1) ?          => it should otherwise it get parsed and goes to execve
 - [x] keep only one find_equal_sign
-- [ ] move do_export_builtin (2 functions) into its own file on th builtin folder
+- [x] move do_export_builtin (2 functions) into its own file on th builtin folder
 - [ ] figure out what is happening with display_history ? should it be a builtin ? 
-- [ ] in replaceform_feed_with_spaces change for to while loop 
-- [ ] check WTF (ctrl+maj+f in vscode)
-- [ ] in convert_vars_container_to_envp change for to while, check is enough memory is malloced, check if the caller frees the returned envp 
+- [x] in replaceform_feed_with_spaces change for to while loop 
+- [x] check WTF (ctrl+maj+f in vscode)
+- [x] in convert_vars_container_to_envp change for to while, 
+- [ ] in convert_vars_container_to_envp check is enough memory is malloced, check if the caller frees the returned envp 
 - [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
 - [ ] change for to while in convert_vars_container_to_envp 
 - [ ] Should the "quit" function work ? 
