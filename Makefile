@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2023/12/10 18:59:32 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/03 22:46:41 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRCS = lexer.c \
 		node.c \
 		errors.c \
 		expander.c \
-		vars.c \
 		signals.c \
 		free.c \
 		pipe.c \
@@ -33,6 +32,12 @@ SRCS = lexer.c \
 		builtins/echo.c  \
 		builtins/pwd.c \
 		builtins/env.c \
+		vars/export_var.c \
+		vars/unset_var.c \
+		vars/set_var.c \
+		vars/utils_var.c \
+		vars/utils_var_dev.c \
+		vars/vars.c \
 		extra.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))

@@ -1,9 +1,6 @@
 
-
 #ifndef VARS_H
 #define VARS_H
-
-
 #include "node.h"
 
 #define MAX_VARS 100
@@ -22,26 +19,27 @@ typedef struct s_data {
     t_vars shell_vars_container[MAX_VARS];
 } t_data;
 
-char	*return_env_from_container(t_data *data);
 
-int     find_equal_sign(char *str);
-void    init_vars(t_data *data, char **envp);
-void    print_vars(const t_data *data);
-
-int     set_var(t_data *data, const char *name, const char *value);
-int     unset_var(t_data *data, const char *name);
-
-int     export_var(t_data *data, const char *name);
-void    print_exported_vars(const t_data *data);
-
-
-int     is_valid_variable_declaration(const char *input);
+//vars
 int     check_for_variable_setting(t_data *data, char *token);
-int		do_unset_builtin(char **tokens, t_data *data);
+void    init_vars(t_data *data, char **envp);
+int     is_valid_variable_declaration(const char *input);
 char	**convert_vars_container_to_envp(t_data *data);
-int		do_export_builtin(char **tokens, t_data *data);
-int		unset_shell_var(t_data *data, const char *name);
+//set
 int		set_shell_var(t_data *data, const char *name, const char *value);
-// char *get_vars_value(char *name);
+int     set_var(t_data *data, const char *name, const char *value);
+//export
+int export_var(t_data *data, const char *name);
+int do_export_builtin(char **tokens, t_data *data);
+//unset
+int unset_shell_var(t_data *data, const char *name);
+int	unset_var(t_data *data, const char *name);
+int do_unset_builtin(char **tokens, t_data *data);
+//utils
+char	*return_env_from_container(t_data *data);
+int     find_equal_sign(char *str);
+//utils_dev
+void    print_vars(const t_data *data);
+void    print_exported_vars(const t_data *data);
 
 #endif

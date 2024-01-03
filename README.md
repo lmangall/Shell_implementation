@@ -3,7 +3,7 @@
 ### TO DO SIMPLE
 - [x] change the for loop to a while in do_env_builtin           ++ aded colors
 - [x] in func check_and_builtins : should "cd" also return (-1) ?          => it should otherwise it get parsed and goes to execve
-- [ ] keep only one find_equal_sign
+- [x] keep only one find_equal_sign
 - [ ] move do_export_builtin (2 functions) into its own file on th builtin folder
 - [ ] figure out what is happening with display_history ? should it be a builtin ? 
 - [ ] in replaceform_feed_with_spaces change for to while loop 
@@ -17,7 +17,7 @@
 - [ ] Checkbox 
 
 ### TO DO
-- [ ] Handle memory leaks
+- [ ] Handle memory leaks -> cat README.md | head -10 caused a double free and crash
 - [ ] Error messages (use errno)
 - [ ] Signals in heredoc (use the global var)
 - [ ] In and output redirections (see what we did in parse_advanced_command)
@@ -69,8 +69,14 @@ Put minishell in the same folder as this file:
 https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
 
 Enter the following commands:
+```shell
 docker build -t ubuntu .
 docker run -it --rm -v $(pwd):/home/root ubuntu
+```
+compile with readline 
+```shell
+make install_readline
+```
 
 Install readline (or add the install to your makefile)
 apt-get install libreadline-dev
