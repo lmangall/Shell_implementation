@@ -12,7 +12,8 @@
 		"builtins.h": "c",
 		"ioctl.h": "c",
 		"sstream": "c",
-		"vars.h": "c"
+		"vars.h": "c",
+		"expander.h": "c"
 	},
 	"[c]": {
 	  "editor.defaultFormatter": "keyhr.42-c-format"
