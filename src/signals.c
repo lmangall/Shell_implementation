@@ -27,6 +27,8 @@ void	handle_ctrl_c(int sig)
 void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
+	printf("quit (core dumped)\n");
+	//exit(0);
 }
 
 void	handle_ctrl_d(int sig)
@@ -38,7 +40,7 @@ void	handle_ctrl_d(int sig)
 
 void	handle_ctrl_c_heredoc(int sig)
 {
-	printf("\n");
+	printf("             \n");
 	(void)sig;
 	exit(0);
 }
