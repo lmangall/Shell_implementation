@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/04 11:18:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/04 11:56:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,58 +61,6 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 	return (root);
 }
 
-int	is_operator(char *str)
-{
-	if (ft_strcmp(str, "|") == 0)
-		return (1);
-	if (ft_strcmp(str, ">") == 0)
-		return (1);
-	if (ft_strcmp(str, ">>") == 0)
-		return (1);
-	if (ft_strcmp(str, "<") == 0)
-		return (1);
-	if (ft_strcmp(str, "<<") == 0)
-		return (1);
-	return (0);
-}
-
-/**
- * @brief Looks for the first operator
- * in the array of tokens and returns the operator type.
- *
-
-	* This function iterates over the array of tokens and determines the operator type
- * based on the token values. The following operators are supported:
- * - PIPE: "|"
- * - RDR_OUT_REPLACE: ">"
- * - RDR_OUT_APPEND: ">>"
- * - RDR_INPUT: "<"
- * - RDR_INPUT_UNTIL: "<<"
- *
- * @param token An array of tokens to search for operators.
- * @return The operator type, or NONE if no operator is found.
- */
-t_operator	get_operator(char **token)
-{
-	int	i;
-
-	i = 0;
-	while (token[i] != NULL)
-	{
-		if (ft_strnstr(token[i], ">>", 2))
-			return (RDR_OUT_APPEND);
-		if (ft_strnstr(token[i], "<<", 2))
-			return (RDR_INPUT_UNTIL);
-		if (ft_strnstr(token[i], "|", 1))
-			return (PIPE);
-		if (ft_strnstr(token[i], ">", 1))
-			return (RDR_OUT_REPLACE);
-		if (ft_strnstr(token[i], "<", 1))
-			return (RDR_INPUT);
-		i++;
-	}
-	return (NONE);
-}
 
 struct node_type_master	*parse_advanced_command(char **tokens)
 {
@@ -174,28 +122,11 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 	return master_node;
 }
 
-struct node_s	*create_root_node(char *token)
-{
-	struct node_s	*new_cmd;
-	struct node_s	*cmd_var;
-
-	new_cmd = new_node(ROOT);
-	if (!new_cmd)
-		return NULL;
-	cmd_var = new_node(VAR);
-	if (!cmd_var)
-		return NULL;
-	set_node_str(cmd_var, token);
-	if (!add_child_node(new_cmd, cmd_var))
-		return NULL;
-	return new_cmd;
-}
-
 /**
  * @brief Adds a new command node to the list of command nodes.
  *
  * @param cmd Pointer to the head of the list of command nodes.
- * @param current_cmd Pointer to the current command node in the list.
+ * @param current_cmd Pointer to the current command nosde in the list.
  * @param new_cmd Pointer to the new command node to add to the list.
  *
  * @return 1 if the command node was successfully added to the list,
@@ -243,31 +174,4 @@ struct node_type_master	*create_master_node(struct node_s *cmd)
 		current_cmd = current_cmd->next_sibling;
 	}
 	return master_node;
-}
-
-/**
- * @brief Links the root nodes
- *
- * This function iterates through the root nodes and links them by.
- * The linking is done based on the presence of next siblings: master_node->root_nodes[i + 1]
- * and the existence of the next root node in the array.
- *
- * @param master_node Pointer to the master node structure containing information about the tree.
- *
- * @note The linking is performed using the add_sibling_node function.
- *       The last root node's next_sibling is set to NULL after linking.
- */
-void	link_root_nodes(struct node_type_master *master_node)
-{
-	int i = 0;
-	while (i < master_node->nbr_root_nodes)
-	{
-		if ((master_node->root_nodes[i]->next_sibling == NULL)
-			&& (master_node->root_nodes[i + 1]))
-			add_sibling_node(master_node->root_nodes[i],
-				master_node->root_nodes[i + 1]);
-		i++;
-	}
-	master_node->root_nodes[master_node->nbr_root_nodes
-		- 1]->next_sibling = NULL;
 }

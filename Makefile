@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/03 22:46:41 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/04 11:54:35 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ OBJDIR = obj
 
 SRCS = lexer.c \
 		parser.c \
+		parser_operators.c \
+		parser_root_node.c \
 		executor.c \
 		main.c \
 		node.c \

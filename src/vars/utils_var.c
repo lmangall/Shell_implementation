@@ -5,6 +5,7 @@
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
+
 // is this function double ?
 int	find_equal_sign(char *str)
 {
