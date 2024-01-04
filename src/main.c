@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 	init_vars(&data, envp);
 
 	signal(SIGINT, handle_ctrl_c);
-	signal(SIGQUIT, handle_ctrl_backslash);
+	signal(SIGQUIT, SIG_IGN);
 	status = 1;
 	while (status)
 	{
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')
 		{
+			signal(SIGQUIT, handle_ctrl_backslash);
 			add_history(line);
 			status = check_and_builtins(line, &data);
 			if (status == 1)
@@ -64,7 +65,9 @@ int	main(int argc, char **argv, char **envp)
 				return (EXIT_SUCCESS);
 			}
 		}
-		free(line);
+		signal(SIGQUIT, SIG_IGN);
+		// this free might be causing a double free
+		//free(line);
 	}
     rl_clear_history();
 	return (EXIT_SUCCESS);
