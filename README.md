@@ -1,24 +1,5 @@
 # minishell
 
-Handle ’ (single quote) which should prevent the shell from interpreting the meta-
-characters in the quoted sequence.
-
-•Handle " (double quote) which should prevent the shell from interpreting the meta-
-characters in the quoted sequence except for $ (dollar sign).
-
-
-
-cat > lol.c
-gives the prompt 3 times
-
-cat lol.c | cat > lol.c
-
-ls>lol.c
-does not work without whitespaces (works with)
-
-are some thing missing in our env ? We don't have USER as instance...
-
-
 ### TO DO SIMPLE
 - [x] change the for loop to a while in do_env_builtin           ++ aded colors
 - [x] in func check_and_builtins : should "cd" also return (-1) ?          => it should otherwise it get parsed and goes to execve

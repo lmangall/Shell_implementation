@@ -10,6 +10,23 @@
 #include <errno.h>
 #include <unistd.h>
 
+int	contains_two(char *str, char c)
+{
+	int i = 0;
+	int count = 0;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	if (count == 2)
+		return (1);
+
+	return (0);
+}
+
 void replace_form_feed_with_spaces(char *str)
 {
     int i = 0;
@@ -34,6 +51,13 @@ char	**put_space_back(char **tokens)
 	return (tokens);
 }
 
+/**
+ * @brief Checks for single and double quotes in a string 
+ * and replaces spaces within quotes with form feed characters.
+ *
+ * @note The input string is modified in-place, 
+ * and the function returns a pointer to the same string.
+ */
 char *check_quotes_replace_ff(char *line)
 {
     int i = 0;
@@ -59,23 +83,6 @@ char *check_quotes_replace_ff(char *line)
         }
     }
     return line;
-}
-
-int	contains_two(char *str, char c)
-{
-	int i = 0;
-	int count = 0;
-
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-			count++;
-		i++;
-	}
-	if (count == 2)
-		return (1);
-
-	return (0);
 }
 
 char **erase_quotes(char **tokens)

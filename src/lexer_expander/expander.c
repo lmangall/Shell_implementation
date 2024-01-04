@@ -6,13 +6,12 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/04 12:51:31 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:31:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 #include "../../include/shell.h"
-#include "../../include/fcntl.h"
 #include "../../include/vars.h"
 #include "../../include/expander.h"
 #include "../../include/node.h"
@@ -21,38 +20,18 @@
 #include <errno.h>
 #include <unistd.h>
 
-// static char *ft_strtrim_single(char **s1, char c) 
-// {
-// 	size_t front = 0;
-// 	size_t rear = 0;
-// 	char *str = NULL;
-// 	printf("inside ft_strtrim_single\n");
-
-// 	if (s1 != NULL && *s1 != NULL && **s1 != '\0') 
-// 	{
-// 		rear = ft_strlen(*s1);
-// printf("rear = %zu\n", rear);
-
-// 		while (front < rear && (*s1)[front] == c)
-// 			front++;
-// printf("front = %zu\n", front);
-
-// 		while (rear > front && (*s1)[rear - 1] == c)
-// 			rear--;
-// printf("rear = %zu\n", rear);
-
-// 		str = ft_calloc(rear - front + 1, sizeof(char));
-// printf("str = %s\n", str);
-// 		if (str)
-// 			ft_strlcpy(str, &(*s1)[front], rear - front + 1);
-// 	}
-// printf("str = %s\n", str);
-
-// 	return str;
-// }
-	// int	ft_strncmp(const char *str1, const char *str2, size_t n);
-	// int	ft_strcmp(const char *s1, const char *s2);
-
+/**
+ * @brief Identifies a variable in a string and returns its name.
+ *
+ * This function searches for a variable starting with the '$' character in the given string.
+ * It returns the name of the identified variable or NULL if no variable is found.
+ *
+ * @param str   The input string to search for variables.
+ * @param data  A pointer to the data structure containing information about variables.
+ *
+ * @return A dynamically allocated string representing the name of the identified variable,
+ *         or NULL if no variable is found or on memory allocation failure.
+ */
 char	*identify_var(char *str, t_data *data)
 {
 	int		start;
@@ -103,7 +82,45 @@ char	*identify_var(char *str, t_data *data)
 	return (NULL);
 }
 
+/**
+ * @brief Finds a variable in the data structure by its name.
+ *
+ * This function searches for a variable with the given name in the data structure.
+ * If found, it returns a pointer to the variable; otherwise, it returns a control structure.
+ *
+ * @param name  The name of the variable to find.
+ * @param data  A pointer to the data structure containing information about variables.
+ *
+ * @return A pointer to the found variable or a control structure if the variable is not found
+ *         or on memory allocation failure.
+ */
+t_vars	*find_var(char *name, t_data *data)
+{
+	int	i;
+	t_vars	*control;
 
+	i = 0;
+	control = ft_calloc(1, sizeof(t_vars));
+	if (!control)
+		return (control);
+	while (i < data->num_vars)
+	{
+		if (ft_strcmp(name, data->vars_container[i].name) == 0)
+			return (&data->vars_container[i]);
+		else
+			i++;
+	}
+	return (control);
+}
+
+/**
+ * @brief Expands a variable in a string by replacing it with its value.
+ *
+ * This function takes a string containing a variable and replaces it with its corresponding value.
+ *
+ * @param str  A pointer to a string that may contain a variable to be expanded.
+ * @param var  A pointer to the variable structure containing the name and value.
+ */
 void expand_var(char **str, t_vars **var)
 {
     int i = 0;
@@ -133,50 +150,20 @@ void expand_var(char **str, t_vars **var)
             i++;
         }
     }
-
     free(*str);
     *str = expanded_str;
 }
 
 
-
-char	*find_val(char *name, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->num_vars)
-	{
-		if (ft_strcmp(name, data->vars_container[i].name) == 0)
-			return (data->vars_container[i].value);
-		else
-			i++;
-	}
-	return (NULL);
-}
-
-
-void	trim_quotes(char **str, char quote) 
-{
-	int i = 0;
-	int j = 0;
-	char *trimmed_str;
-
-	trimmed_str = ft_calloc(ft_strlen(*str) - 1, sizeof(char));
-	while (*str[i] != '\0') 
-	{
-		if (*str[i] != quote)
-		{
-			trimmed_str[j] = *str[i];
-			j++;
-		}
-		i++;
-	}
-	free((char *)str);
-	trimmed_str[j] = '\0';
-	*str = trimmed_str;
-}
-
+/**
+ * @brief Expands variables within a node's string.
+ *
+ * This function recursively expands variables within the string of a given node.
+ * It identifies variables, finds their values, and expands them in the node's string.
+ *
+ * @param node  A double pointer to the node whose string is to be expanded.
+ * @param data  A pointer to the data structure containing information about variables.
+ */
 void expand(struct node_s **node, t_data *data)
 {
     char *var_name;
@@ -191,54 +178,3 @@ void expand(struct node_s **node, t_data *data)
     }
 }
 
-// void	expand(struct node_s **node, t_data *data)
-// {
-// // printf("\ninside expand\n");
-// 	char	*var_name;
-// 	t_vars	*var;
-// 	int i = 0;
-
-// // 	if (contains_two((*node)->str, '\"'))
-// // 	{
-// // 			trim_quotes(&(*node)->str, '\"');
-// // printf("node->str in expand 1= %s\n", (*node)->str);
-// // 		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
-// // 		{
-// // 			var = find_var(var_name, data);
-// // 			expand_var(&(*node)->str, &var);
-// // 			i++;
-// // 		}
-// // 	}                                           =>THIS IS DONE BEFORE
-// 	// else if (contains_two((*node)->str, '\''))
-// 	// {
-// 	// 		trim_quotes(&(*node)->str, '\'');
-// 	// }
-// 	// else
-// 	// {
-// 		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
-// 		{
-// 			var = find_var(var_name, data);
-// 			expand_var(&(*node)->str, &var);
-// 			i++;
-// 		}
-// 	// }
-// }	
-
-t_vars	*find_var(char *name, t_data *data)
-{
-	int	i;
-	t_vars	*control;
-
-	i = 0;
-	control = ft_calloc(1, sizeof(t_vars));
-	if (!control)
-		return (control);
-	while (i < data->num_vars)
-	{
-		if (ft_strcmp(name, data->vars_container[i].name) == 0)
-			return (&data->vars_container[i]);
-		else
-			i++;
-	}
-	return (control);
-}
