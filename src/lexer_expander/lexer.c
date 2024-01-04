@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/04 12:54:48 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:48:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,22 @@
 #include <errno.h>
 #include <unistd.h>
 
-// CHECK IF THE ERASE QUOTES IS WORKING PROPERLY
+
+// char	**lexer(char *line)
+// {
+// 	char	**tokens;
+// 	if (!line)
+// 		return (NULL);
+// 	if (contains_two(line, '\"') || contains_two(line, '\''))
+// 		check_quotes_replace_ff(line);
+// 	tokens = ft_split(line, ' ');
+// 	put_space_back(tokens);
+// 	char	**new_tokens = erase_quotes(tokens);
+// 	// print_double_pointer_to_char(tokens);
+// 	return (new_tokens);
+//     //return(tokens);
+// }
+
 char	**lexer(char *line)
 {
 	char	**tokens;
@@ -30,8 +45,7 @@ char	**lexer(char *line)
 		check_quotes_replace_ff(line);
 	tokens = ft_split(line, ' ');
 	put_space_back(tokens);
-	char	**new_tokens = erase_quotes(tokens);
 	// print_double_pointer_to_char(tokens);
-	return (new_tokens);
+	return (tokens);
     //return(tokens);
 }

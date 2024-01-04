@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/04 13:31:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:48:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,11 @@ void expand(struct node_s **node, t_data *data)
     char *var_name;
     t_vars *var;
     int i = 0;
+	int expansion = 0;
+
+	//1 if there is double quotes ("), not preceeded by single quotes('), then expand and remove the double quotes
+	//2 if there is single quotes ('), expand only if they are inside double quotes
+	//3 if there is no quotes, expand and erase single quotes
 
     while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
     {
@@ -178,3 +183,36 @@ void expand(struct node_s **node, t_data *data)
     }
 }
 
+
+	
+// /**
+// 	* @brief This function that takes a string
+// 	*the function should return 1 if there is double quotes, not preceeded by single quotes
+// 	*the function should return 2 if there is single quotes inside double quotes
+// 	*the function should return 3 if there is no quotes
+// 	*otherwise the function should return 0
+// 	 */
+// int should_expand(char *str)
+// {
+//     int i = 0;
+//     int double_quotes = 0;
+//     int single_quotes = 0;
+
+//     while (str[i] != '\0')
+//     {
+//         if (str[i] == '\"' && single_quotes == 0)
+//             double_quotes++;
+//         if (str[i] == '\'' && double_quotes % 2 == 1)
+//             single_quotes++;
+//         i++;
+//     }
+
+//     if (double_quotes % 2 == 1 && single_quotes == 0)
+//         return 1;
+//     if (double_quotes % 2 == 1 && single_quotes % 2 == 1)
+//         return 2;
+//     if (double_quotes == 0 && single_quotes == 0)
+//         return 3;
+
+//     return 0;
+// }
