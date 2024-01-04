@@ -1,24 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/03 23:01:56 by lmangall         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../include/lexer.h"
-#include "../include/shell.h"
-#include "../lib/libft/src/libft.h"
+#include "../../include/lexer.h"
+#include "../../include/shell.h"
+// #include "../../include/fcntl.h"
+#include "../../include/vars.h"
+#include "../../include/expander.h"
+#include "../../include/node.h"
+#include "../../include/parser.h"
+#include "../../lib/libft/src/libft.h"
 #include <errno.h>
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 
 void replace_form_feed_with_spaces(char *str)
 {
@@ -135,22 +125,5 @@ char **erase_quotes(char **tokens)
 
     return new_tokens;
 }
-
 //If the quotes are single and I have a VAR I should just return
 
-
-// CHECK IF THE ERASE QUOTES IS WORKING PROPERLY
-char	**lexer(char *line)
-{
-	char	**tokens;
-	if (!line)
-		return (NULL);
-	if (contains_two(line, '\"') || contains_two(line, '\''))
-		check_quotes_replace_ff(line);
-	tokens = ft_split(line, ' ');
-	put_space_back(tokens);
-	char	**new_tokens = erase_quotes(tokens);
-	// print_double_pointer_to_char(tokens);
-	return (new_tokens);
-    //return(tokens);
-}

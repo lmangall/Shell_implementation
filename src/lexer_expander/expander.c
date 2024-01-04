@@ -6,20 +6,20 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/14 21:14:43 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:51:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/expander.h"
-#include "../include/node.h"
-#include "../include/parser.h"
-#include "../include/shell.h"
-#include "../lib/libft/src/libft.h"
+#include "../../include/lexer.h"
+#include "../../include/shell.h"
+#include "../../include/fcntl.h"
+#include "../../include/vars.h"
+#include "../../include/expander.h"
+#include "../../include/node.h"
+#include "../../include/parser.h"
+#include "../../lib/libft/src/libft.h"
 #include <errno.h>
-#include <expander.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 
 // static char *ft_strtrim_single(char **s1, char c) 
 // {
@@ -55,7 +55,6 @@
 
 char	*identify_var(char *str, t_data *data)
 {
-// printf("inside identify_var\n");
 	int		start;
 	int		len;
 	int		i;

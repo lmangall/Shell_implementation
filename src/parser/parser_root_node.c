@@ -1,15 +1,12 @@
 
-#include "../include/fcntl.h"
-#include "../include/free.h"
-#include "../include/lexer.h"
-#include "../include/node.h"
-#include "../include/parser.h"
-#include "../include/expander.h"
-#include "../include/shell.h"
-#include "../include/vars.h"
-#include "../lib/libft/src/libft.h"
+#include "../../include/fcntl.h"
+#include "../../include/vars.h"
+#include "../../include/expander.h"
+#include "../../include/node.h"
+#include "../../include/parser.h"
+#include "../../lib/libft/src/libft.h"
+#include <errno.h>
 #include <unistd.h>
-
 
 struct node_s	*create_root_node(char *token)
 {
