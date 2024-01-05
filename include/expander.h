@@ -36,7 +36,8 @@
 ** @param node The command node to expand variables in.
 ** @param data The data structure containing the variables to expand.
 */
-void	expand(struct node_s **node, t_data *data);
+// void	expand(struct node_s **node, t_data *data);
+char *expand(char *line, t_data *data);
 
 /*
 ** Identifies the variable name in the given string.

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 13:22:50 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:13:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_vars	*find_var(char *name, t_data *data)
  */
 void expand_var(char **str, t_vars **var)
 {
+// printf("enter expand_var\n");
     int i = 0;
     int j = 0;
     int flag = 0;
@@ -154,39 +155,25 @@ void expand_var(char **str, t_vars **var)
     *str = expanded_str;
 }
 
-
-/**
- * @brief Expands variables within a node's string.
- *
- * This function recursively expands variables within the string of a given node.
- * It identifies variables, finds their values, and expands them in the node's string.
- *
- * @param node  A double pointer to the node whose string is to be expanded.
- * @param data  A pointer to the data structure containing information about variables.
- */
-void expand(struct node_s **node, t_data *data)
+char *expand(char *str, t_data *data)
 {
     char *var_name;
     t_vars *var;
     int i = 0;
-	int expansion = 0;
+	int expansion = 5;
 
-	expansion = quote_type((*node)->str);
-	// if(expansion >= 3)
-	// 	printf("should not expand = %d\n", expansion);
-	if(expansion <= 2)
+	if(contains_two(str, '\"') || contains_two(str, '\''))
+		expansion = quote_type(str);
+	if(expansion <= 2 || expansion == 5)
 	{
-		while ((var_name = identify_var((*node)->str, data)) != NULL || i < 5)
+		while ((var_name = identify_var(str, data)) != NULL || i < 5)
 		{
 			var = find_var(var_name, data);
-            expand_var(&(*node)->str, &var);
+            expand_var(&str, &var);
 			i++;
 		}
-        // char *new_str = malloc(sizeof(char) * (ft_strlen((*node)->str) + 1));
-		// new_str = erase_outside_quotes((*node)->str);
-		// free((*node)->str);
-		// (*node)->str = new_str;
 	}
-	if(contains_two((*node)->str, '\"') || contains_two((*node)->str, '\''))
-		(*node)->str = (char *)erase_outside_quotes((*node)->str);
+	if(contains_two(str, '\"') || contains_two(str, '\''))
+		str = (char *)erase_outside_quotes(str);
+	return(str);
 }
