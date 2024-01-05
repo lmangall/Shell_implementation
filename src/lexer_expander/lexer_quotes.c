@@ -1,7 +1,6 @@
 
 #include "../../include/lexer.h"
 #include "../../include/shell.h"
-// #include "../../include/fcntl.h"
 #include "../../include/vars.h"
 #include "../../include/expander.h"
 #include "../../include/node.h"
@@ -132,5 +131,4 @@ char **erase_quotes(char **tokens)
 
     return new_tokens;
 }
-//If the quotes are single and I have a VAR I should just return
 

@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/04 12:51:58 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/05 11:46:01 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = parser/parser.c \
 		lexer_expander/lexer.c \
 		lexer_expander/lexer_quotes.c \
 		lexer_expander/expander.c \
+		lexer_expander/expander_quotes.c \
 		executor.c \
 		main.c \
 		node.c \

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:54:17 by lmangall          #+#    #+#             */
-/*   Updated: 2023/07/10 10:23:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 11:58:29 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char		*ft_strchr(const char *str, int c);
 * @return return a pointer to the matched character 
 *or NULL if the character is not found
 */
-char		*ft_strrchr(char *str, int c);
+char		*ft_strrchr(const char *str, int c);
 
 /**
 * @brief Compares the two strings s1 and s2. 

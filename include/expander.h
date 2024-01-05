@@ -72,6 +72,6 @@ char	*find_val(char *name, t_data *data);
 t_vars	*find_var(char *name, t_data *data);
 
 
-
-
+int quote_type(const char *str);
+char *erase_outside_quotes(const char *str);
 #endif 
