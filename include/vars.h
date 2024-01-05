@@ -15,6 +15,7 @@ typedef struct s_data {
     char *envp;
     int num_vars;
     int num_shell_vars;
+    int last_command_exit_status;
     t_vars vars_container[MAX_VARS];
     t_vars shell_vars_container[MAX_VARS];
 } t_data;

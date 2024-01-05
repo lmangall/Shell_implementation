@@ -75,34 +75,55 @@ int	main(int argc, char **argv, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-int	parse_and_execute(char *line, t_data *data)
-{
-	char					**tokens;
-	int						status;
-	struct node_type_master	*master_node;
-	struct node_s			*cmd;
+int parse_and_execute(char *line, t_data *data) {
+    char **tokens;
+    int status;
+    struct node_type_master *master_node;
+    struct node_s *cmd;
 
-	tokens = lexer(line);
-	free(line);
-	status = 0;
-	if (get_operator(tokens) != NONE)
-	{
-// have parse_advanced_command return smthing for execution, instead of executing straight away
-		master_node = parse_advanced_command(tokens);
-		print_master(master_node);
-		if (fork() == 0)
-			exec_pipe_redir(master_node->root_nodes[0], data);
-		waitpid(-1, &status, 0);
-		free_ast(master_node);
-	}
-	else
-	{
-		cmd = parse_simple_command(tokens, data);
-		if (fork() == 0)
-			exec_pipe_redir(cmd, data);
-		waitpid(-1, &status, 0);
-		// free_node(cmd);
-	}
-	free_string_array(tokens);
-	return (1);
+    tokens = lexer(line);
+    free(line);
+    status = 0;
+
+    if (get_operator(tokens) != NONE) {
+        master_node = parse_advanced_command(tokens);
+        print_master(master_node);
+
+        if (fork() == 0) {
+            exec_pipe_redir(master_node->root_nodes[0], data);
+        }
+
+        waitpid(-1, &status, 0);
+
+        if (WIFEXITED(status)) {
+            data->last_command_exit_status = WEXITSTATUS(status);
+            set_var(data, "?", ft_itoa(data->last_command_exit_status));
+        } else if (WIFSIGNALED(status)) {
+            data->last_command_exit_status = 128 + WTERMSIG(status);  // Signalnummer + 128
+            set_var(data, "?", ft_itoa(data->last_command_exit_status));
+        }
+
+        free_ast(master_node);
+    } else {
+        cmd = parse_simple_command(tokens, data);
+
+        if (fork() == 0) {
+            exec_pipe_redir(cmd, data);
+        }
+
+        waitpid(-1, &status, 0);
+
+        if (WIFEXITED(status)) {
+            data->last_command_exit_status = WEXITSTATUS(status);
+            set_var(data, "?", ft_itoa(data->last_command_exit_status));
+        } else if (WIFSIGNALED(status)) {
+            data->last_command_exit_status = 128 + WTERMSIG(status);
+            set_var(data, "?", ft_itoa(data->last_command_exit_status));
+        }
+
+        // free_node(cmd);
+    }
+
+    free_string_array(tokens);
+    return 1;
 }
