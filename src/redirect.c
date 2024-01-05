@@ -63,11 +63,11 @@ void	redirect_input_until(struct node_s *node)
 			break ;
 		ft_putendl_fd(buff, fd[1]);
 	}
+	signal(SIGINT, handle_ctrl_c);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	free(buff);
-	signal(SIGINT, handle_ctrl_c);
 }
 
 void	redirect_input(struct node_s *node)
