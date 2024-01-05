@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/05 11:46:01 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/05 16:58:11 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,21 +16,13 @@ INCDIR = include
 LIBFTDIR = lib/libft
 OBJDIR = obj
 
-SRCS = parser/parser.c \
-		parser/parser_operators.c \
-		parser/parser_root_node.c \
-		lexer_expander/lexer.c \
+SRCS =	lexer_expander/lexer.c \
 		lexer_expander/lexer_quotes.c \
 		lexer_expander/expander.c \
 		lexer_expander/expander_quotes.c \
-		executor.c \
-		main.c \
-		node.c \
-		errors.c \
-		signals.c \
-		free.c \
-		pipe.c \
-		redirect.c \
+		parser/parser.c \
+		parser/parser_operators.c \
+		parser/parser_root_node.c \
 		builtins/builtins.c \
 		builtins/cd.c \
 		builtins/echo.c  \
@@ -42,7 +34,15 @@ SRCS = parser/parser.c \
 		vars/utils_var.c \
 		vars/utils_var_dev.c \
 		vars/vars.c \
-		extra.c
+		executor.c \
+		main.c \
+		node.c \
+		errors.c \
+		signals.c \
+		free.c \
+		pipe.c \
+		redirect.c \
+		DEV.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
@@ -52,7 +52,6 @@ LIBS = -L$(LIBFTDIR) -lft
 READLINE_LIBS = -lreadline
 READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
 #READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
-# //add back -Werror -Wall -Wextra 
 NAME = minishell
 
 all: $(NAME)

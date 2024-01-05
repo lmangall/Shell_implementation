@@ -71,20 +71,16 @@ int	quote_type(const char *str)
 	{
 		if (*str == '\"')
 		{
-			// Check for double quotes not inside single quotes
 			if (!single && ft_strrchr(str + 1, '\"') != NULL)
 				doubleq = 1;
-			// Check for double quotes inside single quotes
 			else if (single && ft_strrchr(str + 1, '\"') != NULL
 				&& ft_strchr(str + 1, '\'') != NULL)
-				return (3); // Return 3 for double quotes inside single quotes
+				return (3);
 		}
 		else if (*str == '\'')
 		{
-			// Check for single quotes not inside double quotes
 			if (!doubleq && ft_strrchr(str + 1, '\'') != NULL)
 				single = 1;
-			// Check for single quotes inside double quotes
 			else if (doubleq && ft_strrchr(str + 1, '\'') != NULL
 					&& ft_strchr(str + 1, '\"') != NULL)
 				return (2);

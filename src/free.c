@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 13:06:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:59:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@
 //     free(master);
 // }
 
-void free_node_tree(struct node_s *node)
+void	free_node_tree(struct node_s *node)
 {
 	struct node_s	*child;
 	struct node_s	*next;
@@ -115,14 +115,15 @@ void	free_ast(struct node_type_master *master_node)
 	free(master_node);
 }
 
-
-void free_string_array(char **tokens)
+void	free_string_array(char **tokens)
 {
-    int i = 0;
-    while (tokens[i] != NULL)
-    {
-        free(tokens[i]);
-        i++;
-    }
-    free(tokens);
+	int	i;
+
+	i = 0;
+	while (tokens[i] != NULL)
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
 }

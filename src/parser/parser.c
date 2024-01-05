@@ -6,14 +6,14 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 15:17:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:52:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/vars.h"
 #include "../../include/expander.h"
 #include "../../include/node.h"
 #include "../../include/parser.h"
+#include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
@@ -23,7 +23,7 @@
  *
  * This function takes an array of tokens and a data structure as input,
  * and it generates a one level linked list representing the parsed command.
- * The `expand` function is called to handle variable expansion. 
+ * The `expand` function is called to handle variable expansion.
  *
  *There is one empty root node of type "ROOT"
  *There is one one node per word of type "WORD"
@@ -39,7 +39,7 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 	struct node_s	*var;
 
 	i = 0;
-	root = new_node(ROOT);//THIS IS MALLOCED AND SHOULD BE FREED
+	root = new_node(ROOT); // THIS IS MALLOCED AND SHOULD BE FREED
 	if (!root)
 		return (NULL);
 	while (tokens[i] != NULL)
@@ -48,32 +48,28 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 		if (!var)
 			return (NULL);
 		set_node_str(var, tokens[i]);
-// printf("var->str bfr expd = %s\n", var->str);
-
-
+		// printf("var->str bfr expd = %s\n", var->str);
 		// expand(&var, data);
 		(void)data;
-
-//printf("var->str aft expd = %s\n", var->str);
-// printf("\n");
+		// printf("var->str aft expd = %s\n", var->str);
+		// printf("\n");
 		add_child_node(root, var);
 		i++;
 	}
 	return (root);
 }
 
-
 struct node_type_master	*parse_advanced_command(char **tokens)
 {
 	int						i;
-	// int						rdr_input;
-	// int						rdr_output;
 	struct node_s			*head;
 	struct node_s			*current_cmd;
 	struct node_s			*new_cmd;
 	struct node_s			*word;
 	struct node_type_master	*master_node;
 
+	// int						rdr_input;
+	// int						rdr_output;
 	i = 0;
 	// rdr_input = 0;
 	// rdr_output = 0;
@@ -87,7 +83,7 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 			if (!new_cmd)
 				return (NULL);
 			if (!add_command_node_to_list(&head, &current_cmd, new_cmd))
-				return NULL;
+				return (NULL);
 			new_cmd->operator= get_operator(tokens + i);
 			// if (rdr_output == 1 && rdr_input == 1)
 			// {
@@ -104,23 +100,23 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 			i++;
 			i--;
 		}
-		else  
+		else
 		{
 			// Handle regular words (non-options)
 			word = new_node(VAR);
 			if (!word)
-				return NULL;
+				return (NULL);
 			set_node_str(word, tokens[i]);
 			if (!add_child_node(current_cmd, word))
-				return NULL;
+				return (NULL);
 		}
 		i++;
 	}
 	master_node = create_master_node(head);
 	if (master_node == NULL)
-		return NULL;
+		return (NULL);
 	link_root_nodes(master_node);
-	return master_node;
+	return (master_node);
 }
 
 /**
@@ -150,7 +146,7 @@ int	add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd,
 		(*current_cmd)->next_sibling = new_cmd;
 		*current_cmd = (*current_cmd)->next_sibling;
 	}
-	return 1;
+	return (1);
 }
 
 struct node_type_master	*create_master_node(struct node_s *cmd)
@@ -160,7 +156,7 @@ struct node_type_master	*create_master_node(struct node_s *cmd)
 
 	master_node = malloc(sizeof(struct node_type_master));
 	if (!master_node)
-		return NULL;
+		return (NULL);
 	master_node->type = MASTER;
 	master_node->str = NULL;
 	master_node->nbr_root_nodes = 0;
@@ -174,5 +170,5 @@ struct node_type_master	*create_master_node(struct node_s *cmd)
 		master_node->root_nodes[master_node->nbr_root_nodes - 1] = current_cmd;
 		current_cmd = current_cmd->next_sibling;
 	}
-	return master_node;
+	return (master_node);
 }

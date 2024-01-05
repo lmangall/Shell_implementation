@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 13:53:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:01:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,9 @@ void	exec_redirection(struct node_s *node, t_data *data)
 	else
 		redirect_output(node); // mark
 	temp->operator= NONE;
-	while (node->operator != NONE && node->operator != PIPE)
+	while (node->operator!= NONE && node->operator!= PIPE)
 		node = node->next_sibling; // next will be output.txt
-	if (node->operator == NONE)
+	if (node->operator== NONE)
 		exec_pipe_redir(temp, data);
 	else
 		execute_pipe_command(node, data);

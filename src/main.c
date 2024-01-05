@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 16:13:48 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:00:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	while (status)
 	{
 		line = readline(SHELL_PROMPT);
-			// what is returned is malloced and should be freed
+		// what is returned is malloced and should be freed
 		if (line == NULL)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')
@@ -115,7 +115,7 @@ int	parse_and_execute(char *line, t_data *data)
 		else if (WIFSIGNALED(status))
 		{
 			data->last_command_exit_status = 128 + WTERMSIG(status);
-				// Signalnummer + 128
+			// Signalnummer + 128
 			set_var(data, "?", ft_itoa(data->last_command_exit_status));
 		}
 

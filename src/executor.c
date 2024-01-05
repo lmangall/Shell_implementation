@@ -6,10 +6,9 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 13:06:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:06:08 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/builtins.h"
 #include "../include/executor.h"
@@ -26,7 +25,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-
+// probably need to free paths_arr
 char	*search_path(char *cmd, t_data *data)
 {
 	char	*paths;
@@ -40,27 +39,24 @@ char	*search_path(char *cmd, t_data *data)
 	{
 		tmp = ft_strjoin(*paths_arr, "/");
 		command = ft_strjoin(tmp, cmd);
-		// free(tmp); => this free was causing a problem :
-		// pointer being freed was not allocated
 		if (access(command, 0) == 0)
 			return (command);
 		free(command);
 		paths_arr++;
 	}
-	//probably need to free paths_arr
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
-	// set errno, maybe errno = ENOENT;
 	return (NULL);
 }
 
+// =>custom_env needs to be freed ?
 int	exec_cmd(char **argv, t_data *data)
 {
 	char	*path;
+	char	**custom_env;
 
-	char **custom_env = convert_vars_container_to_envp(data);
-
+	custom_env = convert_vars_container_to_envp(data);
 	if (ft_strchr(argv[0], '/'))
-		execve(argv[0], argv,custom_env );
+		execve(argv[0], argv, custom_env);
 	else
 	{
 		path = search_path(argv[0], data);
@@ -73,8 +69,6 @@ int	exec_cmd(char **argv, t_data *data)
 	}
 	free_string_array(argv);
 	free_string_array(custom_env);
-	// =>custom_env needs to be freed
-	
 	return (0);
 }
 
@@ -84,13 +78,13 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 	int				argc;
 	long			max_args;
 	char			*str;
+	char			*argv[255 + 1];
 
 	child = root_node->first_child;
-	if (!child)
-		return (0);
 	argc = 0;
 	max_args = 255;
-	char *argv[max_args + 1]; /* keep 1 for the terminating NULL arg */
+	if (!child)
+		return (0);
 	if (child)
 		while (child && argc < max_args)
 		{
@@ -102,7 +96,6 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 				return (0);
 			}
 			ft_strlcpy(argv[argc], str, strlen(str) + 1);
-			// maybe there should be a guard if next_sibling is inexistant
 			child = child->next_sibling;
 			argc++;
 		}
@@ -111,4 +104,3 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 	exec_cmd(argv, data);
 	return (0);
 }
-
