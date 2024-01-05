@@ -28,14 +28,12 @@ void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
 	printf("quit (core dumped)\n");
-	//exit(0);
 }
 
-void	handle_ctrl_c_simple_command(int sig)
+void	handle_ctrl_c_in_command(int sig)
 {
 	(void)sig;
 	printf("   \n");
-	//exit(0);
 }
 
 void	handle_ctrl_d(int sig)

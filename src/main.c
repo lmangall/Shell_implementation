@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		if (line[0] != '\0')
 		{
 			signal(SIGQUIT, handle_ctrl_backslash);
+			signal(SIGINT, handle_ctrl_c_in_command);
 			add_history(line);
 			status = check_and_builtins(line, &data);
 			if (status == 1)
@@ -66,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 		}
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handle_ctrl_c);
 		// this free might be causing a double free
 		//free(line);
 	}
@@ -95,12 +97,10 @@ int	parse_and_execute(char *line, t_data *data)
 	}
 	else
 	{
-		signal(SIGINT, handle_ctrl_c_simple_command);
 		cmd = parse_simple_command(tokens, data);
 		if (fork() == 0)
 			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);
-		signal(SIGINT, handle_ctrl_c);
 		// free_node(cmd);
 	}
 	free_string_array(tokens);
