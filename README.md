@@ -12,7 +12,7 @@
 - [ ] in convert_vars_container_to_envp check is enough memory is malloced, check if the caller frees the returned envp 
 - [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
 - [ ] Should the "quit" function work ? 
-- [ ] Checkbox 
+- [x] Checkbox 
 - [ ] Checkbox 
 - [ ] Checkbox 
 
