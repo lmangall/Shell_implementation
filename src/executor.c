@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 17:06:08 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:23:29 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 				free_string_array(argv);
 				return (0);
 			}
-			ft_strlcpy(argv[argc], str, strlen(str) + 1);
+			ft_strlcpy(argv[argc], str, ft_strlen(str) + 1);
 			child = child->next_sibling;
 			argc++;
 		}

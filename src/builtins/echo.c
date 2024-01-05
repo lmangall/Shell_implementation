@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:05:44 by lmangall          #+#    #+#             */
-/*   Updated: 2023/10/09 15:06:06 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:50:28 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
 
-void	do_echo_builtin(char **argv)
+int	do_echo_builtin(char **argv)
 {
 	int print_newline = 1; // 1 entspricht true, 0 entspricht false
 	int i = 1;
@@ -48,6 +48,5 @@ void	do_echo_builtin(char **argv)
 	{
 		ft_putstr_fd("\n", 1);
 	}
-
-	// return (EXIT_SUCCESS);
+	return (-1);
 }

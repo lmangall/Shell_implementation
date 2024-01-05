@@ -116,7 +116,7 @@ char	**erase_quotes(char **tokens)
 	i = 0;
 	while (tokens[i] != NULL)
 	{
-		len = strlen(tokens[i]);
+		len = ft_strlen(tokens[i]);
 		new_tokens[i] = (char *)malloc((len + 1) * sizeof(char));
 		if (new_tokens[i] == NULL)
 		{

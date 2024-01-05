@@ -121,7 +121,7 @@ char **convert_vars_container_to_envp(t_data *data)
 	int i = 0;
 	while (i < data->num_vars)
 	{
-		char *env_var = malloc(strlen(data->vars_container[i].name) + strlen(data->vars_container[i].value) + 2);
+		char *env_var = malloc(strlen(data->vars_container[i].name) + ft_strlen(data->vars_container[i].value) + 2);
 		if (env_var == NULL)
 		{
 			perror("Tout va bien se passer");

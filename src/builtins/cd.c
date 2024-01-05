@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 20:19:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:51:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
 
-char	*get_var_value(t_data *data, char *name)
+char	*return_var_value(t_data *data, char *name)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ char	*get_var_value(t_data *data, char *name)
 	return (NULL);
 }
 
-void do_cd_builtin(char **argv, t_data *data)
+int do_cd_builtin(char **argv, t_data *data)
 {
 	char *path;
 	char *oldpwd;
@@ -39,11 +39,10 @@ void do_cd_builtin(char **argv, t_data *data)
 	path = NULL;
 	oldpwd = NULL;
 	pwd = NULL;
-
 	if (argv[1] == NULL)
-		path = ft_strdup(get_var_value(data, "HOME"));
+		path = ft_strdup(return_var_value(data, "HOME"));
 	else if (ft_strcmp(argv[1], "-") == 0)
-		path = ft_strdup(get_var_value(data, "OLDPWD"));
+		path = ft_strdup(return_var_value(data, "OLDPWD"));
 	else
 		path = ft_strdup(argv[1]);
 
@@ -53,15 +52,14 @@ void do_cd_builtin(char **argv, t_data *data)
 		printf("cd: %s: %s\n", path, strerror(errno));
 		free(path);
 		free(oldpwd);
-		return;
+		return (1);
 	}
-
 	pwd = getcwd(NULL, 0);
 	set_var(data, "OLDPWD", oldpwd);
 	set_var(data, "PWD", pwd);
-
 	free(path);
 	free(oldpwd);
 	free(pwd);
+	return (-1);
 }
 

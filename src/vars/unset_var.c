@@ -78,5 +78,5 @@ int do_unset_builtin(char **tokens, t_data *data)
 		unset_var(data, tokens[i]);
 		i++;
 	}
-	return (0);
+	return (-1);
 }

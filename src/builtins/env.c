@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:06:14 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/14 20:24:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:51:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define COLOR_RED "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
 
-void do_env_builtin(t_data *data)
+int do_env_builtin(t_data *data)
 {
 	int i = 0;
 
@@ -51,4 +51,5 @@ void do_env_builtin(t_data *data)
 			j++;
 		}
 	}
+	return (-1);
 }

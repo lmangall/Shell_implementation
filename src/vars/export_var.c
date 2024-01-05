@@ -46,5 +46,5 @@ int do_export_builtin(char **tokens, t_data *data)
 		export_var(data, tokens[i]);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
