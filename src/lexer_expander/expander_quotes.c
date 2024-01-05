@@ -10,40 +10,97 @@
 #include <stddef.h>
 #include <unistd.h>
 
+//use an exit function
 char	*erase_outside_quotes(const char *str)
 {
-	int		i;
+	int		j;
 	int		flag;
 	char	*new_str;
 
-	i = 0;
+	j = 0;
 	flag = 0;
 	new_str = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (new_str == NULL)
+	while (*str != '\0')
 	{
-		perror("Memory allocation failed in erase_quotes");
-		exit(EXIT_FAILURE);
-	}
-	int j = 0; // Use a separate index for new_str
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\'' && (flag == 0 || flag == 1))
+		if (*str == '\'' && (flag == 0 || flag == 1))
 		{
 			flag = 1;
-			i++; // Remove this line to avoid skipping the first character
+			str++;
 		}
-		else if (str[i] == '\"' && (flag == 0 || flag == 2))
+		else if (*str == '\"' && (flag == 0 || flag == 2))
 		{
 			flag = 2;
-			i++; // Remove this line to avoid skipping the first character
+			str++;
 		}
-		new_str[j] = str[i];
-		i++;
+		new_str[j] = *str;
+		str++;
 		j++;
 	}
 	new_str[j] = '\0';
 	return (new_str);
 }
+
+
+/**
+ * @brief Find the first occurrence of quotes in the string.
+ *
+ * @param str The input string to be examined.
+ * @return A pointer to the first occurrence of quotes or NULL if not found.
+ */
+static	const	char	*find_first_quotes(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+			return &str[i];
+		i++;
+	}
+
+	return (NULL);
+}
+
+/**
+* @brief Find the last occurrence of quotes in the string.
+*
+* @param str The input string to be examined.
+* @return A pointer to the last occurrence of quotes or NULL if not found.
+*/
+static	const char	*find_last_quotes(const char *str) 
+{
+	int	i;
+
+	i = ft_strlen(str);
+	while (i != 0) 
+	{
+		i--;
+
+		if (str[i] == '\"' || str[i] == '\'')
+			return (&str[i]);
+	}
+
+	return (NULL);
+}
+
+/**
+* @return 2 if there are double quotes
+*         3 if there are single quotes
+*         5 if different or missing quotes
+*/
+static int inside_quote(const char *str)
+{
+	const char *start_quote = find_first_quotes(str);
+	const char *end_quote = find_last_quotes(str);
+
+	if (start_quote != NULL && end_quote != NULL && *start_quote == '\"' && *end_quote == '\"')
+		return (2); // Double quotes
+	if (start_quote != NULL && end_quote != NULL && *start_quote == '\'' && *end_quote == '\'')
+		return (3); // Single quotes
+	return (5); // Different or missing quotes
+}
+
 
 /**
  * @brief Determine the presence and types of quotes in a given string.
@@ -57,42 +114,22 @@ char	*erase_outside_quotes(const char *str)
  * @return 1 if there are double quotes (not inside single quotes)		EXPAND
  * @return 2 if there are single quotes inside double quotes			EXPAND
  * @return 3 if there are double quotes inside single quotes			DONT_EXPAND
-
-	* @return 4 if there are single quotes									DONT_EXPAND
+ * @return 4 if there are single quotes									DONT_EXPAND
  */
 int	quote_type(const char *str)
 {
-	int	doubleq;
-	int	single;
+	int	ret;
 
-	doubleq = 0;
-	single = 0;
-	while (*str)
-	{
-		if (*str == '\"')
-		{
-			if (!single && ft_strrchr(str + 1, '\"') != NULL)
-				doubleq = 1;
-			else if (single && ft_strrchr(str + 1, '\"') != NULL
-				&& ft_strchr(str + 1, '\'') != NULL)
-				return (3);
-		}
-		else if (*str == '\'')
-		{
-			if (!doubleq && ft_strrchr(str + 1, '\'') != NULL)
-				single = 1;
-			else if (doubleq && ft_strrchr(str + 1, '\'') != NULL
-					&& ft_strchr(str + 1, '\"') != NULL)
-				return (2);
-			else
-				return (4);
-		}
-		++str;
-	}
-	if (doubleq)
-		return (1);
-	else if (single)
-		return (4);
+	ret = 0;
+	if (contains_two((char *)str, '\"') && contains_two((char *)str, '\''))
+		ret = inside_quote(str);
 	else
-		return (0);
+	{
+		if (contains_two((char *)str, '\"'))
+			ret = 1; // Double quotes
+		if (contains_two((char *)str, '\''))
+			ret = 4; // Single quotes
+	}
+
+	return (ret);
 }
