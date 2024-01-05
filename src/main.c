@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 17:00:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:18:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ int	main(int argc, char **argv, char **envp)
 			{
 				tmp = NULL;
 				tmp = expand(line, &data);
-				// printf("line before dup = %s\n", tmp);
-				free(line);
 				line = ft_strdup(tmp);
-				// printf("line after expander = %s\n", line);
+				free(tmp);
 			}
 			status = check_and_builtins(line, &data);
 			if (status == 1)

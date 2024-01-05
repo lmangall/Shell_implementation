@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/14 20:02:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/05 20:19:19 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,38 @@ char	*get_var_value(t_data *data, char *name)
 	return (NULL);
 }
 
-void	do_cd_builtin(char **argv, t_data *data)
+void do_cd_builtin(char **argv, t_data *data)
 {
-	char	*path;
-	char	*oldpwd;
-	char	*pwd;
+	char *path;
+	char *oldpwd;
+	char *pwd;
 
 	path = NULL;
 	oldpwd = NULL;
 	pwd = NULL;
-	write(1, "...inside the builtin cd :)\n", 28);
+
 	if (argv[1] == NULL)
 		path = ft_strdup(get_var_value(data, "HOME"));
 	else if (ft_strcmp(argv[1], "-") == 0)
 		path = ft_strdup(get_var_value(data, "OLDPWD"));
 	else
 		path = ft_strdup(argv[1]);
+
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
+		printf("cd: %s: %s\n", path, strerror(errno));
 		free(path);
 		free(oldpwd);
-		return ;
+		return;
 	}
+
 	pwd = getcwd(NULL, 0);
 	set_var(data, "OLDPWD", oldpwd);
 	set_var(data, "PWD", pwd);
+
 	free(path);
 	free(oldpwd);
 	free(pwd);
 }
-#if 0
-#endif
+

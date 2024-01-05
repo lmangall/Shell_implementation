@@ -1,6 +1,5 @@
 
 #include "../../include/expander.h"
-#include "../../include/fcntl.h"
 #include "../../include/node.h"
 #include "../../include/parser.h"
 #include "../../include/vars.h"

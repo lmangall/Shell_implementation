@@ -107,7 +107,7 @@ char	**erase_quotes(char **tokens)
 		num_tokens++;
 	// Allocate memory for the array of pointers to char
 	// new_tokens = (char **)malloc((num_tokens + 1) * sizeof(char *));
-	new_tokens = calloc((num_tokens + 1), sizeof(char *));
+	new_tokens = ft_calloc((num_tokens + 1), sizeof(char *));
 	if (new_tokens == NULL)
 	{
 		perror("Memory allocation failed");

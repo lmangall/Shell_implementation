@@ -1,5 +1,4 @@
 
-#include "../../include/fcntl.h"
 #include "../../include/vars.h"
 #include "../../include/expander.h"
 #include "../../include/node.h"
