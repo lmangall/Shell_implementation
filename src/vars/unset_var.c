@@ -31,8 +31,10 @@ int	unset_shell_var(t_data *data, const char *name)
 			j = i;
 			while (j < data->num_shell_vars - 1)
 			{
-				strcpy(data->shell_vc[j].name, data->shell_vc[j + 1].name);
-				strcpy(data->shell_vc[j].value, data->shell_vc[j + 1].value);
+				ft_strlcpy(data->shell_vc[j].name,
+					data->shell_vc[j + 1].name, 50);
+				ft_strlcpy(data->shell_vc[j].value,
+					data->shell_vc[j + 1].value, 100);
 				j++;
 			}
 			data->num_shell_vars--;
@@ -42,7 +44,7 @@ int	unset_shell_var(t_data *data, const char *name)
 		}
 		i++;
 	}
-	fprintf(stderr, "Variable '%s' not found\n", name);
+	perror("Variable not found");
 	return (-1);
 }
 
@@ -59,8 +61,8 @@ int	unset_var(t_data *data, const char *name)
 			j = i;
 			while (j < data->num_vars - 1)
 			{
-				strcpy(data->vc[j].name, data->vc[j + 1].name);
-				strcpy(data->vc[j].value, data->vc[j + 1].value);
+				ft_strlcpy(data->vc[j].name, data->vc[j + 1].name, 50);
+				ft_strlcpy(data->vc[j].value, data->vc[j + 1].value, 100);
 				j++;
 			}
 			data->num_vars--;
@@ -70,7 +72,7 @@ int	unset_var(t_data *data, const char *name)
 		}
 		i++;
 	}
-	fprintf(stderr, "Variable '%s' not found\n", name);
+	perror("Variable '%s' not found");
 	return (-1);
 }
 

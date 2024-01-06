@@ -27,14 +27,16 @@
 char	*duplicate_string(const char *str)
 {
 	char	*duplicate;
+	size_t	len;
 
-	duplicate = malloc(strlen(str) + 1);
+	len = strlen(str);
+	duplicate = malloc(len + 1);
 	if (!duplicate)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	ft_strcpy(duplicate, str);
+	ft_strlcpy(duplicate, str, len + 1);
 	return (duplicate);
 }
 

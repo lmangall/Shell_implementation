@@ -120,13 +120,17 @@ char	**convert_vc_to_envp(t_data *data)
 	}
 	while (i < data->num_vars)
 	{
-		env_var = malloc(ft_strlen(data->vc[i].name) + ft_strlen(data->vc[i].value)+ 2);
+		env_var = malloc(ft_strlen(data->vc[i].name)
+				+ ft_strlen(data->vc[i].value) + 2);
 		if (env_var == NULL)
 		{
 			perror("Tout va bien se passer");
 			exit(EXIT_FAILURE);
 		}
-		sprintf(env_var, "%s=%s", data->vc[i].name, data->vc[i].value);
+		ft_strlcpy(env_var, data->vc[i].name, ft_strlen(data->vc[i].name) + 1);
+		ft_strlcat(env_var, "=", ft_strlen(data->vc[i].name) + 2);
+		ft_strlcat(env_var, data->vc[i].value, ft_strlen(data->vc[i].name)
+			+ ft_strlen(data->vc[i].value) + 2);
 		envp[i] = env_var;
 		i++;
 	}

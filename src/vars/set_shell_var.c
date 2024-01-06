@@ -22,7 +22,7 @@ static int	check_max_vars(t_data *data)
 {
 	if (data->num_shell_vars >= MAX_VARS)
 	{
-		fprintf(stderr, "Maximum number of shell variables reached\n");
+		write(STDERR_FILENO, "Maximum number of shell variables reached\n", 43);
 		return (-1);
 	}
 	return (0);
@@ -47,16 +47,15 @@ static int	set_new_var(t_data *data, const char *name, const char *value)
 	int	index;
 
 	index = data->num_shell_vars;
-	strncpy(data->shell_vc[index].name, name, sizeof(data->shell_vc[index].name)
-		- 1);
+	ft_strlcpy(data->shell_vc[index].name, name,
+		sizeof(data->shell_vc[index].name));
 	data->shell_vc[index].name[sizeof(data->shell_vc[index].name) - 1] = '\0';
-	strncpy(data->shell_vc[index].value, value,
-		sizeof(data->shell_vc[index].value) - 1);
+	ft_strlcpy(data->shell_vc[index].value, value,
+		sizeof(data->shell_vc[index].value));
 	data->shell_vc[index].value[sizeof(data->shell_vc[index].value) - 1] = '\0';
 	data->num_shell_vars++;
 	return (0);
 }
-
 int	set_shell_var(t_data *data, const char *name, const char *value)
 {
 	int	index;
@@ -66,7 +65,7 @@ int	set_shell_var(t_data *data, const char *name, const char *value)
 	index = find_var_index(data, name);
 	if (index >= 0)
 	{
-		strncpy(data->shell_vc[index].value, value,
+		ft_strlcpy(data->shell_vc[index].value, value,
 			sizeof(data->shell_vc[index].value) - 1);
 		data->shell_vc[index].value[sizeof(data->shell_vc[index].value)
 			- 1] = '\0';

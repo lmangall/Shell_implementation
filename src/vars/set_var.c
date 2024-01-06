@@ -20,19 +20,19 @@
 
 static int	set_existing_var(t_data *data, int i, const char *value)
 {
-	strncpy(data->vc[i].value, value, sizeof(data->vc[i].value) - 1);
+	ft_strlcpy(data->vc[i].value, value, sizeof(data->vc[i].value));
 	data->vc[i].value[sizeof(data->vc[i].value) - 1] = '\0';
 	return (0);
 }
 
 static int	set_new_var(t_data *data, const char *name, const char *value)
 {
-	strncpy(data->vc[data->num_vars].name, name,
-		sizeof(data->vc[data->num_vars].name) - 1);
+	ft_strlcpy(data->vc[data->num_vars].name, name,
+		sizeof(data->vc[data->num_vars].name));
 	data->vc[data->num_vars].name[sizeof(data->vc[data->num_vars].name)
 		- 1] = '\0';
-	strncpy(data->vc[data->num_vars].value, value,
-		sizeof(data->vc[data->num_vars].value) - 1);
+	ft_strlcpy(data->vc[data->num_vars].value, value,
+		sizeof(data->vc[data->num_vars].value));
 	data->vc[data->num_vars].value[sizeof(data->vc[data->num_vars].value)
 		- 1] = '\0';
 	data->num_vars++;
@@ -43,11 +43,12 @@ static int	check_var_limit(t_data *data)
 {
 	if (data->num_vars >= MAX_VARS)
 	{
-		fprintf(stderr, "Maximum number of variables reached\n");
+		write(STDERR_FILENO, "Maximum number of variables reached\n", 37);
 		return (-1);
 	}
 	return (0);
 }
+
 
 int	set_var(t_data *data, const char *name, const char *value)
 {
