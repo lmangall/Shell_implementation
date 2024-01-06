@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:59:26 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*return_var_value(t_data *data, char *name)
 	return (NULL);
 }
 
-int do_cd_builtin(char **argv, t_data *data)
+int	do_cd_builtin(char **argv, t_data *data)
 {
 	char	*path;
 	char	*oldpwd;

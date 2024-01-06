@@ -6,20 +6,16 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:25:44 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:04:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/builtins.h"
 #include "../include/executor.h"
 #include "../include/free.h"
+#include "../include/main.h"
 #include "../include/parser_nodes.h"
 #include "../include/pipe.h"
-#include "../include/main.h"
-#include "../lib/libft/src/libft.h"
-#include "../include/free.h"
-#include "../include/parser_nodes.h"
-#include "../include/main.h"
 #include "../lib/libft/src/libft.h"
 #include <errno.h>
 #include <stdio.h>
@@ -90,6 +86,7 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 	if (!child)
 		return (0);
 	if (child)
+	{
 		while (child && argc < max_args)
 		{
 			str = child->str;
@@ -103,6 +100,7 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 			child = child->next_sibling;
 			argc++;
 		}
+	}
 	free_node_tree(root_node);
 	argv[argc] = NULL;
 	exec_cmd(argv, data);
@@ -111,19 +109,19 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 
 void	update_status_and_cleanup(int status, t_data *data)
 {
-	if (WIFEXITED(status)) 
+	if (WIFEXITED(status))
 	{
 		data->last_command_exit_status = WEXITSTATUS(status);
 		set_var(data, "?", ft_itoa(data->last_command_exit_status));
 	}
-	else if (WIFSIGNALED(status)) 
+	else if (WIFSIGNALED(status))
 	{
 		data->last_command_exit_status = 128 + WTERMSIG(status);
 		set_var(data, "?", ft_itoa(data->last_command_exit_status));
 	}
 }
 
-//shoud the call to update_status_and_cleanup be in parse_and_execute
+// shoud the call to update_status_and_cleanup be in parse_and_execute
 void	simple_or_advanced(char **tokens, t_data *data)
 {
 	int						status;
@@ -140,7 +138,7 @@ void	simple_or_advanced(char **tokens, t_data *data)
 		update_status_and_cleanup(status, data);
 		free_ast(master_node);
 	}
-	else 
+	else
 	{
 		cmd = parse_simple_command(tokens, data);
 		if (fork() == 0)

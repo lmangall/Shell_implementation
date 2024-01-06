@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:06:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:01:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	do_pwd_builtin(t_data *data)
 	(void)data;
 	if (pwd == NULL)
 	{
-		fprintf(stderr, "pwd: error retrieving current directory: getcwd: cannot access parent directories: %s\n", strerror(errno));
+		fprintf(stderr, 
+			"getcwd: cannot access parent directories: %s\n", strerror(errno));
 		return (1);
 	}
 	printf("%s\n", pwd);

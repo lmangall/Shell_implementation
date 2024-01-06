@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vars.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
+/*   Updated: 2024/01/06 17:57:43 by lmangall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/expander.h"
 #include "../../include/parser.h"
 #include "../../include/parser_nodes.h"
@@ -53,24 +65,6 @@ void	init_vars(t_data *data, char **envp)
 	data->vc[data->num_vars].value[0] = '\0';
 }
 
-
-
-
-/// there is a get_var_value function in the cd.c file (in builtins)
-
-// int isValidVariableDeclaration(const char *input)
-// this function checks if the input consist of only
-// valid characters till the first equal sign
-// valid characters are: Capital letters, numbers and underscores
-// and after the first equal sign, it doesn't matter what the input is
-// returns 1 if valid, 0 if not
-// Check if the input is empty or starts with an equal sign
-// Invalid input
-// Check characters before the first equal sign
-// Check if the character is a capital letter, number, or underscore
-// Invalid character encountered
-// Valid variable declaration
-
 int	is_valid_variable_declaration(const char *input)
 {
 	int	i;
@@ -111,33 +105,22 @@ int	check_for_variable_setting(t_data *data, char *token)
 		return (0);
 }
 
-/**
- * @brief Converts the variables container to an array of strings (envp).
- *
- * This function takes a data structure containing variables and converts it
- * into the standard environment variable format (envp) required by functions
- * like execve. It allocates memory for the resulting array and returns it.
- * The caller is responsible for freeing the memory when it is no longer needed.
- *
- * @param data A data structure containing information about variables.
- * @return An array of strings (envp) representing the variables.
- */
 char	**convert_vc_to_envp(t_data *data)
 {
 	char	**envp;
 	int		i;
 	char	*env_var;
 
+	i = 0;
 	envp = malloc((data->num_vars + 1) * sizeof(char *));
 	if (envp == NULL)
 	{
 		perror("Ceci est une erreur");
 		exit(EXIT_FAILURE);
 	}
-	i = 0;
 	while (i < data->num_vars)
 	{
-		env_var = malloc(strlen(data->vc[i].name) + ft_strlen(data->vc[i].value) + 2);
+		env_var = malloc(ft_strlen(data->vc[i].name) + ft_strlen(data->vc[i].value)+ 2);
 		if (env_var == NULL)
 		{
 			perror("Tout va bien se passer");

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:18:26 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:55:17 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ typedef struct s_data
 int			check_for_variable_setting(t_data *data, char *token);
 void		init_vars(t_data *data, char **envp);
 int			is_valid_variable_declaration(const char *input);
+
+
+
+/**
+ * @brief Converts the variables container to an array of strings (envp).
+ *
+ * This function takes a data structure containing variables and converts it
+ * into the standard environment variable format (envp) required by functions
+ * like execve. It allocates memory for the resulting array and returns it.
+ * The caller is responsible for freeing the memory when it is no longer needed.
+ *
+ * @param data A data structure containing information about variables.
+ * @return An array of strings (envp) representing the variables.
+ */
 char		**convert_vc_to_envp(t_data *data);
 // set
 int			set_shell_var(t_data *data, const char *name, const char *value);
