@@ -6,45 +6,55 @@
 #include <errno.h>
 #include <unistd.h>
 
+static int	add_var_from_env(t_data *data, char *env_var)
+{
+	int	equal_sign;
+	int	j;
+
+	equal_sign = find_equal_sign(env_var);
+	if (equal_sign == -1)
+		return (0);
+	j = 0;
+	while (j < equal_sign && (size_t)j < sizeof(data->vc[data->num_vars].name)
+		- 1)
+	{
+		data->vc[data->num_vars].name[j] = env_var[j];
+		j++;
+	}
+	data->vc[data->num_vars].name[j] = '\0';
+	j = 0;
+	while (env_var[equal_sign + 1] != '\0'
+		&& (size_t)j < sizeof(data->vc[data->num_vars].value) - 1)
+	{
+		data->vc[data->num_vars].value[j] = env_var[equal_sign + 1];
+		j++;
+		equal_sign++;
+	}
+	data->vc[data->num_vars].value[j] = '\0';
+	data->num_vars++;
+	return (1);
+}
+
 void	init_vars(t_data *data, char **envp)
 {
 	int	i;
-	int	j;
-	int	equal_sign;
 
 	i = 0;
 	data->num_vars = 0;
 	data->num_shell_vars = 0;
 	while (envp[i] != NULL && i < MAX_VARS)
 	{
-		equal_sign = find_equal_sign(envp[i]);
-		if (equal_sign != -1)
-		{
-			j = 0;
-			while (j < equal_sign && (size_t)j < sizeof(data->vc[i].name) - 1)
-			{
-				data->vc[i].name[j] = envp[i][j];
-				j++;
-			}
-			data->vc[i].name[j] = '\0';
-			j = 0;
-			while (envp[i][equal_sign + 1] != '\0'
-				&& (size_t)j < sizeof(data->vc[i].value) - 1)
-			{
-				data->vc[i].value[j] = envp[i][equal_sign + 1];
-				j++;
-				equal_sign++;
-			}
-			data->vc[i].value[j] = '\0';
-			data->num_vars++;
-		}
-		i++;
+		if (add_var_from_env(data, envp[i]))
+			i++;
 		if (i >= MAX_VARS)
 			envp[i] = NULL;
 	}
 	data->vc[data->num_vars].name[0] = '\0';
 	data->vc[data->num_vars].value[0] = '\0';
 }
+
+
+
 
 /// there is a get_var_value function in the cd.c file (in builtins)
 

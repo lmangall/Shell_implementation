@@ -32,6 +32,7 @@ SRCS =	lexer_expander/lexer.c \
 		vars/export_var.c \
 		vars/unset_var.c \
 		vars/set_var.c \
+		vars/set_shell_var.c \
 		vars/utils_var.c \
 		vars/utils_var_dev.c \
 		vars/vars.c \
