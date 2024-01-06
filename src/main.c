@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 20:54:56 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 21:34:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 		set_signal_handlers();
+		// free(line); => when on, only ctrlc after cat complains
 	}
 	cleanup_and_exit(NULL);
 }

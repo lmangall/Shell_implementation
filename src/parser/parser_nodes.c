@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:21:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:21:07 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 21:51:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
+
+// static void *my_realloc(void *ptr, size_t size)
+// {
+// 	void *reptr;
+
+// 	if (ptr == NULL)
+// 		return (malloc(size));
+// 	reptr = malloc(size);
+// 	if (reptr)
+// 		ft_memcpy(reptr, ptr, size);
+// 	if (ptr)
+// 		free(ptr);
+// 	return (reptr);
+// }
 
 struct node_s	*create_root_node(char *token)
 {
@@ -43,9 +57,9 @@ void	link_root_nodes(struct node_type_master *master_node)
 	while (i < master_node->nbr_root_nodes)
 	{
 		if ((master_node->root_nodes[i]->next_sibling == NULL)
-			&& (master_node->root_nodes[i + 1]))
+			&& (master_node->root_nodes[i]))
 			add_sibling_node(master_node->root_nodes[i],
-				master_node->root_nodes[i + 1]);
+				master_node->root_nodes[i]);
 		i++;
 	}
 	master_node->root_nodes[master_node->nbr_root_nodes
