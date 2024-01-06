@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 18:21:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:23:49 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,13 @@ char	**build_argv(struct node_s *root_node, int *argc)
 
 void	free_argv(char **argv)
 {
-	for (int i = 0; argv[i] != NULL; i++)
+	int	i;
+
+	i = 0;
+	while (argv[i] != NULL)
 	{
 		free(argv[i]);
+		i++;
 	}
 	free(argv);
 }
