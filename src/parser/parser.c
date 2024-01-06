@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:24:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:48:12 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,100 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 	}
 	return (root);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// struct node_s *create_command_node(char *token);
+// int process_word_token(struct node_s **current_cmd, char *token);
+
+
+
+
+// struct node_s *create_command_node(char *token) {
+// 	struct node_s *new_cmd = create_root_node(token);
+// 	if (!new_cmd)
+// 		return NULL;
+// 	new_cmd->operator = get_operator(&token);
+// 	return new_cmd;
+// }
+
+// int process_word_token(struct node_s **current_cmd, char *token) {
+// 	struct node_s *word = new_node(VAR);
+// 	if (!word)
+// 		return 0;
+// 	set_node_str(word, token);
+// 	return add_child_node(*current_cmd, word);
+// }
+
+// struct node_type_master *parse_advanced_command(char **tokens) {
+// 	int i = 0;
+// 	struct node_s *head = NULL;
+// 	struct node_s *current_cmd = NULL;
+// 	struct node_s *new_cmd;
+// 	struct node_type_master *master_node;
+
+// 	while (tokens[i] != NULL) {
+// 		if (i == 0 || (is_operator(tokens[i - 1]) && i > 0)) {
+// 			new_cmd = create_command_node(tokens[i]);
+// 			if (!new_cmd || !add_command_node_to_list(&head, &current_cmd, new_cmd))
+// 				return NULL;
+// 		} else if (is_operator(tokens[i])) {
+// 			i++;
+// 			i--;
+// 		} else {
+// 			if (!process_word_token(&current_cmd, tokens[i]))
+// 				return NULL;
+// 		}
+// 		i++;
+// 	}
+
+// 	master_node = create_master_node(head);
+// 	if (!master_node)
+// 		return NULL;
+
+// 	link_root_nodes(master_node);
+// 	return master_node;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 struct node_type_master	*parse_advanced_command(char **tokens)
 {

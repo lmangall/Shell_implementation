@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:49:49 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:48:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,28 @@ void	expand_var(char **str, t_vars **var)
 {
 	int		i;
 	int		j;
-	int		flag;
-	char	*expanded_str;
-	
+	char	*str_xpnded;
+
 	i = 0;
 	j = 0;
-	flag = 0;
-	expanded_str = ft_strdup("");
+	str_xpnded = ft_strdup("");
 	while ((*str)[j] != '\0')
 	{
-		if ((*str)[j] == '$' && flag == 0)
+		if ((*str)[j] == '$')
 		{
-			expanded_str = ft_strjoin(expanded_str, (*var)->value);
+			str_xpnded = ft_strjoin(str_xpnded, (*var)->value);
 			i += ft_strlen((*var)->value);
 			j += ft_strlen((*var)->name) + 1;
-			flag = 1;
 		}
 		if ((*str)[j] != '\0')
 		{
-			expanded_str = ft_strjoin(expanded_str, (char []){(*str)[j], '\0'});
+			str_xpnded = ft_strjoin(str_xpnded, (char []){(*str)[j], '\0'});
 			j++;
 			i++;
 		}
 	}
 	free(*str);
-	*str = expanded_str;
+	*str = str_xpnded;
 }
 
 t_vars	*find_var(char *name, t_data *data)
