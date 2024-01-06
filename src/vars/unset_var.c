@@ -7,7 +7,7 @@
 #include <errno.h>
 #include <unistd.h>
 
-int unset_shell_var(t_data *data, const char *name)
+int	unset_shell_var(t_data *data, const char *name)
 {
 	int	i;
 	int	j;
@@ -20,10 +20,8 @@ int unset_shell_var(t_data *data, const char *name)
 			j = i;
 			while (j < data->num_shell_vars - 1)
 			{
-				strcpy(data->shell_vc[j].name, data->shell_vc[j
-					+ 1].name);
-				strcpy(data->shell_vc[j].value, data->shell_vc[j
-					+ 1].value);
+				strcpy(data->shell_vc[j].name, data->shell_vc[j + 1].name);
+				strcpy(data->shell_vc[j].value, data->shell_vc[j + 1].value);
 				j++;
 			}
 			data->num_shell_vars--;
@@ -50,10 +48,8 @@ int	unset_var(t_data *data, const char *name)
 			j = i;
 			while (j < data->num_vars - 1)
 			{
-				strcpy(data->vc[j].name, data->vc[j
-					+ 1].name);
-				strcpy(data->vc[j].value, data->vc[j
-					+ 1].value);
+				strcpy(data->vc[j].name, data->vc[j + 1].name);
+				strcpy(data->vc[j].value, data->vc[j + 1].value);
 				j++;
 			}
 			data->num_vars--;
