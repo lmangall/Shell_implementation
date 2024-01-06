@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/06 17:18:53 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/06 18:16:09 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,18 @@ SRCS =	lexer_expander/lexer.c \
 		lexer_expander/lexer_quotes.c \
 		lexer_expander/expander.c \
 		lexer_expander/expander_quotes.c \
-		parser/parser.c \
-		parser/parser_advcd_cmd.c \
-		parser/parser_operators.c \
-		parser/parser_nodes.c \
-		parser/parser_nodes_utils.c \
 		builtins/builtins.c \
 		builtins/cd.c \
 		builtins/echo.c  \
 		builtins/pwd.c \
 		builtins/env.c \
+		parser/parser.c \
+		parser/parser_advcd_cmd.c \
+		parser/parser_operators.c \
+		parser/parser_nodes.c \
+		parser/parser_nodes_utils.c \
+		executor/executor.c \
+		executor/executor_simple.c \
 		vars/export_var.c \
 		vars/unset_var.c \
 		vars/set_var.c \
@@ -37,7 +39,6 @@ SRCS =	lexer_expander/lexer.c \
 		vars/utils_var.c \
 		vars/utils_var_dev.c \
 		vars/vars.c \
-		executor.c \
 		main.c \
 		signals.c \
 		free.c \

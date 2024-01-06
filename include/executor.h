@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:11:07 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:49:49 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:14:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 char	*search_path(char *cmd, t_data *data);
 int		exec_cmd(char**argv, t_data *data);
-int		do_simple_command(struct node_s *root_node, t_data *data);
 /**
  * @brief Update the command exit status and perform cleanup.
  *
@@ -28,7 +27,7 @@ int		do_simple_command(struct node_s *root_node, t_data *data);
  * @param status The exit status of the executed command.
  * @param data   A pointer to the data structure containing relevant information.
  */
-void    update_status_and_cleanup(int status, t_data *data);
+void	update_status_and_cleanup(int status, t_data *data);
 
 /**
  * @brief Execute a command and update the status.
@@ -39,7 +38,12 @@ void    update_status_and_cleanup(int status, t_data *data);
  * @param tokens The array of command tokens.
  * @param data   A pointer to the data structure containing relevant information.
  */
-void    simple_or_advanced(char **tokens, t_data *data);
+void	simple_or_advanced(char **tokens, t_data *data);
+
+char	*duplicate_string(const char *str);
+char	**build_argv(struct node_s *root_node, int *argc);
+void	free_argv(char **argv);
+int		do_simple_command(struct node_s *root_node, t_data *data);
 
 
 #endif

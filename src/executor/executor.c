@@ -6,23 +6,22 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 18:04:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:20:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/builtins.h"
-#include "../include/executor.h"
-#include "../include/free.h"
-#include "../include/main.h"
-#include "../include/parser_nodes.h"
-#include "../include/pipe.h"
-#include "../lib/libft/src/libft.h"
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
+#include "../../include/expander.h"
+#include "../../include/lexer.h"
+#include "../../include/main.h"
+#include "../../include/parser_nodes.h"
+#include "../../include/parser.h"
+#include "../../include/free.h"
+#include "../../include/pipe.h"
+#include "../../include/vars.h"
+#include "../../lib/libft/src/libft.h"
 #include <sys/wait.h>
+#include <errno.h>
+#include <stddef.h>
 #include <unistd.h>
 
 // probably need to free paths_arr
@@ -72,40 +71,41 @@ int	exec_cmd(char **argv, t_data *data)
 	return (0);
 }
 
-int	do_simple_command(struct node_s *root_node, t_data *data)
-{
-	struct node_s	*child;
-	int				argc;
-	long			max_args;
-	char			*str;
-	char			*argv[255 + 1];
 
-	child = root_node->first_child;
-	argc = 0;
-	max_args = 255;
-	if (!child)
-		return (0);
-	if (child)
-	{
-		while (child && argc < max_args)
-		{
-			str = child->str;
-			argv[argc] = malloc(strlen(str) + 1);
-			if (!argv[argc])
-			{
-				free_string_array(argv);
-				return (0);
-			}
-			ft_strlcpy(argv[argc], str, ft_strlen(str) + 1);
-			child = child->next_sibling;
-			argc++;
-		}
-	}
-	free_node_tree(root_node);
-	argv[argc] = NULL;
-	exec_cmd(argv, data);
-	return (0);
-}
+// int	do_simple_command(struct node_s *root_node, t_data *data)
+// {
+// 	struct node_s	*child;
+// 	int				argc;
+// 	long			max_args;
+// 	char			*str;
+// 	char			*argv[255 + 1];
+
+// 	child = root_node->first_child;
+// 	argc = 0;
+// 	max_args = 255;
+// 	if (!child)
+// 		return (0);
+// 	if (child)
+// 	{
+// 		while (child && argc < max_args)
+// 		{
+// 			str = child->str;
+// 			argv[argc] = malloc(strlen(str) + 1);
+// 			if (!argv[argc])
+// 			{
+// 				free_string_array(argv);
+// 				return (0);
+// 			}
+// 			ft_strlcpy(argv[argc], str, ft_strlen(str) + 1);
+// 			child = child->next_sibling;
+// 			argc++;
+// 		}
+// 	}
+// 	free_node_tree(root_node);
+// 	argv[argc] = NULL;
+// 	exec_cmd(argv, data);
+// 	return (0);
+// }
 
 void	update_status_and_cleanup(int status, t_data *data)
 {
