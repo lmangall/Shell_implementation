@@ -28,15 +28,15 @@ typedef struct s_data
 	int		num_vars;
 	int		num_shell_vars;
 	int		last_command_exit_status;
-	t_vars	vars_container[MAX_VARS];
-	t_vars	shell_vars_container[MAX_VARS];
+	t_vars	vc[MAX_VARS];
+	t_vars	shell_vc[MAX_VARS];
 }			t_data;
 
 // vars
 int			check_for_variable_setting(t_data *data, char *token);
 void		init_vars(t_data *data, char **envp);
 int			is_valid_variable_declaration(const char *input);
-char		**convert_vars_container_to_envp(t_data *data);
+char		**convert_vc_to_envp(t_data *data);
 // set
 int			set_shell_var(t_data *data, const char *name, const char *value);
 int			set_var(t_data *data, const char *name, const char *value);

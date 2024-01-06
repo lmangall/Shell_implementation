@@ -21,10 +21,10 @@ char	*return_var_value(t_data *data, char *name)
 	int	i;
 
 	i = 0;
-	while (data->vars_container[i].name[0] != '\0')
+	while (data->vc[i].name[0] != '\0')
 	{
-		if (strcmp(data->vars_container[i].name, name) == 0)
-			return (data->vars_container[i].value);
+		if (strcmp(data->vc[i].name, name) == 0)
+			return (data->vc[i].value);
 		i++;
 	}
 	return (NULL);

@@ -8,8 +8,8 @@
 - [ ] figure out what is happening with display_history ? should it be a builtin ? 
 - [x] in replaceform_feed_with_spaces change for to while loop 
 - [x] check WTF (ctrl+maj+f in vscode)
-- [x] in convert_vars_container_to_envp change for to while, 
-- [ ] in convert_vars_container_to_envp check is enough memory is malloced, check if the caller frees the returned envp 
+- [x] in convert_vc_to_envp change for to while, 
+- [ ] in convert_vc_to_envp check is enough memory is malloced, check if the caller frees the returned envp 
 - [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
 - [ ] Should the "quit" function work ? 
 - [x] Checkbox 

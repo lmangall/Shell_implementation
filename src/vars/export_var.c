@@ -15,18 +15,18 @@ int export_var(t_data *data, const char *name)
     i = 0;
     while (i < data->num_shell_vars)
     {
-        if (ft_strcmp(data->shell_vars_container[i].name, name) == 0)
+        if (ft_strcmp(data->shell_vc[i].name, name) == 0)
         {
             j = 0;
             while (j < data->num_vars)
             {
-                if (ft_strcmp(data->vars_container[j].name, name) == 0)
+                if (ft_strcmp(data->vc[j].name, name) == 0)
                     return (0);
                 j++;
             }
             if (data->num_vars >= MAX_VARS)
                 return (0);
-            data->vars_container[data->num_vars] = data->shell_vars_container[i];
+            data->vc[data->num_vars] = data->shell_vc[i];
             data->num_vars++;
 			unset_shell_var(data, name);
             return (1);

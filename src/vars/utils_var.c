@@ -28,8 +28,8 @@ char	*return_env_from_container(t_data *data)
 	i = 0;
 	while (i < data->num_vars)
 	{
-		if (ft_strcmp(data->vars_container[i].name, "PATH") == 0)
-			return (data->vars_container[i].value);
+		if (ft_strcmp(data->vc[i].name, "PATH") == 0)
+			return (data->vc[i].value);
 		i++;
 	}
 	return (NULL);

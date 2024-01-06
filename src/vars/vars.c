@@ -22,29 +22,29 @@ void	init_vars(t_data *data, char **envp)
 		{
 			j = 0;
 			while (j < equal_sign
-				&& (size_t)j < sizeof(data->vars_container[i].name) - 1)
+				&& (size_t)j < sizeof(data->vc[i].name) - 1)
 			{
-				data->vars_container[i].name[j] = envp[i][j];
+				data->vc[i].name[j] = envp[i][j];
 				j++;
 			}
-			data->vars_container[i].name[j] = '\0';
+			data->vc[i].name[j] = '\0';
 			j = 0;
 			while (envp[i][equal_sign + 1] != '\0'
-				&& (size_t)j < sizeof(data->vars_container[i].value) - 1)
+				&& (size_t)j < sizeof(data->vc[i].value) - 1)
 			{
-				data->vars_container[i].value[j] = envp[i][equal_sign + 1];
+				data->vc[i].value[j] = envp[i][equal_sign + 1];
 				j++;
 				equal_sign++;
 			}
-			data->vars_container[i].value[j] = '\0';
+			data->vc[i].value[j] = '\0';
 			data->num_vars++;
 		}
 		i++;
 		if (i >= MAX_VARS)
 			envp[i] = NULL;
 	}
-	data->vars_container[data->num_vars].name[0] = '\0';
-	data->vars_container[data->num_vars].value[0] = '\0';
+	data->vc[data->num_vars].name[0] = '\0';
+	data->vc[data->num_vars].value[0] = '\0';
 }
 
 
@@ -109,7 +109,7 @@ int check_for_variable_setting(t_data *data, char *token)
  * @param data A data structure containing information about variables.
  * @return An array of strings (envp) representing the variables.
  */
-char **convert_vars_container_to_envp(t_data *data)
+char **convert_vc_to_envp(t_data *data)
 {
 	char **envp = malloc((data->num_vars + 1) * sizeof(char *));
 	if (envp == NULL)
@@ -121,14 +121,14 @@ char **convert_vars_container_to_envp(t_data *data)
 	int i = 0;
 	while (i < data->num_vars)
 	{
-		char *env_var = malloc(strlen(data->vars_container[i].name) + ft_strlen(data->vars_container[i].value) + 2);
+		char *env_var = malloc(strlen(data->vc[i].name) + ft_strlen(data->vc[i].value) + 2);
 		if (env_var == NULL)
 		{
 			perror("Tout va bien se passer");
 			exit(EXIT_FAILURE);
 		}
 
-		sprintf(env_var, "%s=%s", data->vars_container[i].name, data->vars_container[i].value);
+		sprintf(env_var, "%s=%s", data->vc[i].name, data->vc[i].value);
 		envp[i] = env_var;
 
 		i++;

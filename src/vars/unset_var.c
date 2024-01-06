@@ -15,20 +15,20 @@ int unset_shell_var(t_data *data, const char *name)
 	i = 0;
 	while (i < data->num_shell_vars)
 	{
-		if (ft_strcmp(data->shell_vars_container[i].name, name) == 0)
+		if (ft_strcmp(data->shell_vc[i].name, name) == 0)
 		{
 			j = i;
 			while (j < data->num_shell_vars - 1)
 			{
-				strcpy(data->shell_vars_container[j].name, data->shell_vars_container[j
+				strcpy(data->shell_vc[j].name, data->shell_vc[j
 					+ 1].name);
-				strcpy(data->shell_vars_container[j].value, data->shell_vars_container[j
+				strcpy(data->shell_vc[j].value, data->shell_vc[j
 					+ 1].value);
 				j++;
 			}
 			data->num_shell_vars--;
-			data->shell_vars_container[data->num_shell_vars].name[0] = '\0';
-			data->shell_vars_container[data->num_shell_vars].value[0] = '\0';
+			data->shell_vc[data->num_shell_vars].name[0] = '\0';
+			data->shell_vc[data->num_shell_vars].value[0] = '\0';
 			return (0);
 		}
 		i++;
@@ -45,20 +45,20 @@ int	unset_var(t_data *data, const char *name)
 	i = 0;
 	while (i < data->num_vars)
 	{
-		if (ft_strcmp(data->vars_container[i].name, name) == 0)
+		if (ft_strcmp(data->vc[i].name, name) == 0)
 		{
 			j = i;
 			while (j < data->num_vars - 1)
 			{
-				strcpy(data->vars_container[j].name, data->vars_container[j
+				strcpy(data->vc[j].name, data->vc[j
 					+ 1].name);
-				strcpy(data->vars_container[j].value, data->vars_container[j
+				strcpy(data->vc[j].value, data->vc[j
 					+ 1].value);
 				j++;
 			}
 			data->num_vars--;
-			data->vars_container[data->num_vars].name[0] = '\0';
-			data->vars_container[data->num_vars].value[0] = '\0';
+			data->vc[data->num_vars].name[0] = '\0';
+			data->vc[data->num_vars].value[0] = '\0';
 			return (0);
 		}
 		i++;

@@ -13,8 +13,8 @@ void	print_exported_vars(const t_data *data)
 	int i = 0;
 	while (i < data->num_shell_vars)
 	{
-		printf("%-18s", data->shell_vars_container[i].name);
-		printf("value: %s\n", data->shell_vars_container[i].value);
+		printf("%-18s", data->shell_vc[i].name);
+		printf("value: %s\n", data->shell_vc[i].value);
 		i++;
 	}
 }
@@ -25,7 +25,7 @@ void	print_vars(const t_data *data)
 	printf("\n");
 	for (int i = 0; i < data->num_vars; i++)
 	{
-		printf("%-18s", data->vars_container[i].name);
-		printf("value: %s\n", data->vars_container[i].value);
+		printf("%-18s", data->vc[i].name);
+		printf("value: %s\n", data->vc[i].value);
 	}
 }

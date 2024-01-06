@@ -71,8 +71,8 @@ char	*find_val(char *name, t_data *data)
 	i = 0;
 	while (i < data->num_vars)
 	{
-		if (ft_strcmp(name, data->vars_container[i].name) == 0)
-			return (data->vars_container[i].value);
+		if (ft_strcmp(name, data->vc[i].name) == 0)
+			return (data->vc[i].value);
 		else
 			i++;
 	}

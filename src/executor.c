@@ -58,7 +58,7 @@ int	exec_cmd(char **argv, t_data *data)
 	char	*path;
 	char	**custom_env;
 
-	custom_env = convert_vars_container_to_envp(data);
+	custom_env = convert_vc_to_envp(data);
 	if (ft_strchr(argv[0], '/'))
 		execve(argv[0], argv, custom_env);
 	else

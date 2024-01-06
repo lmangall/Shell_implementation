@@ -62,8 +62,8 @@ t_vars	*find_var(char *name, t_data *data)
 		return (control);
 	while (i < data->num_vars)
 	{
-		if (ft_strcmp(name, data->vars_container[i].name) == 0)
-			return (&data->vars_container[i]);
+		if (ft_strcmp(name, data->vc[i].name) == 0)
+			return (&data->vc[i]);
 		else
 			i++;
 	}
@@ -79,8 +79,8 @@ char	*identify_var(char *str, t_data *data)
 		return (NULL);
 	while (i < data->num_vars)
 	{
-		if (ft_strstr(str, data->vars_container[i].name) != NULL)
-			return (data->vars_container[i].name);
+		if (ft_strstr(str, data->vc[i].name) != NULL)
+			return (data->vc[i].name);
 		else
 			i++;
 	}
