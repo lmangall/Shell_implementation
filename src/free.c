@@ -6,14 +6,14 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/builtins.h"
 #include "../include/executor.h"
 #include "../include/free.h"
-#include "../include/node.h"
+#include "../include/parser_nodes.h"
 #include "../include/main.h"
 #include "../lib/libft/src/libft.h"
 #include <errno.h>
@@ -24,62 +24,38 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-// void free_command_str(struct node_s *node)
-// {
-//     if (node == NULL)
-//     {
-//         return ;
-//     }
+//we can use a preprocessor # define to define the error messages
+// code and message can just be copied from errno.h for accuracy
 
-//     if (node->type == NODE_COMMAND)
-//     {
-//         free(node->str);
-//     }
+// # define ENOMEM "Cannot allocate memory\n"
+// # define ENODATA "No message available on STREAM\n"
 
-//     struct node_s *child = node->first_child;
-//     while (child != NULL)
-//     {
-//         free_command_str(child);
-//         child = child->next_sibling;
-//     }
-// }
+// # define ENODATA "No message available on STREAM\n"
+// # define ENODATA "No message available on STREAM\n"
 
-// void free_master_command_str(struct node_type_master *master_node)
-// {
-//     if (master_node == NULL)
-//     {
-//         return ;
-//     }
-
-//     for (int i = 0; i < master_node->nbr_root_nodes; i++)
-//     {
-//         free_command_str(master_node->root_nodes[i]);
-//     }
-// }
-
-// static void free_node(struct node_s *node)
-// {
-//     if (!node)
-//         return ;
-
-//     free_node(node->first_child);
-//     free_node(node->next_sibling);
-//     free(node->str);
-//     free(node);
-// }
-
-// static void free_master(struct node_type_master *master)
-// {
-//     if (!master)
-//         return ;
-
-//     for (int i = 0; i < master->nbr_root_nodes; i++)
-//         free_node(master->root_nodes[i]);
-
-//     free(master->root_nodes);
-//     free(master->str);
-//     free(master);
-// }
+void	exit_print(char *msg)
+{
+	ft_putstr_fd("Error:\n", 2);
+	ft_putendl_fd(msg, 2);
+	/*
+	if (ft_strcmp(msg, "correct execution") != 0)
+	{
+		ft_putstr_fd("Error:\n", 2);
+		ft_putendl_fd(msg, 2);
+	}
+	if (ft_strcmp(msg, "Nothing to sort") == 0 || ft_strcmp(msg,
+			"Duplicate among the arguments") == 0)
+		exit(1);
+	if (ft_strcmp(msg, "sorted") == 0)
+	{
+		free_stack(*stack_a);
+		exit(1);
+	}
+	if (stack_a != NULL)
+		free_stack(*stack_a);
+	*/
+	exit(1);
+}
 
 void	free_node_tree(struct node_s *node)
 {

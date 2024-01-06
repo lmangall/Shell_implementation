@@ -6,17 +6,17 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/builtins.h"
 #include "../include/executor.h"
 #include "../include/free.h"
-#include "../include/node.h"
+#include "../include/main.h"
+#include "../include/parser_nodes.h"
 #include "../include/pipe.h"
 #include "../include/redirect.h"
-#include "../include/main.h"
 #include "../lib/libft/src/libft.h"
 #include <errno.h>
 #include <stdio.h>
@@ -28,9 +28,9 @@
 
 void	exec_pipe_redir(struct node_s *node, t_data *data)
 {
-	if (node->operator== PIPE)
+	if (node->operator == PIPE)
 		execute_pipe_command(node, data);
-	else if (node->operator== NONE)
+	else if (node->operator == NONE)
 		do_simple_command(node, data);
 	// maybe here we should take care of the exit code
 	else
@@ -64,7 +64,7 @@ void	execute_pipe_command(struct node_s *node, t_data *data)
 	int		pipe_fd[2];
 	int		status;
 
-	node->operator= NONE;
+	node->operator = NONE;
 	if (pipe(pipe_fd) == -1)
 	{
 		perror("pipe");

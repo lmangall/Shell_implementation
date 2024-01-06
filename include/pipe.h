@@ -1,6 +1,6 @@
 #ifndef PIPE_H
 #define PIPE_H
-#include "node.h"
+#include "parser_nodes.h"
 
 
 void exec_pipe_redir(struct node_s *node, t_data *data);

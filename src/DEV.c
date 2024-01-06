@@ -6,13 +6,13 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:46:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/free.h"
 #include "../include/lexer.h"
-#include "../include/node.h"
+#include "../include/parser_nodes.h"
 #include "../include/parser.h"
 #include "../include/main.h"
 #include "../include/vars.h"

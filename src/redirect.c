@@ -6,14 +6,14 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/builtins.h"
 #include "../include/executor.h"
 #include "../include/free.h"
-#include "../include/node.h"
+#include "../include/parser_nodes.h"
 #include "../include/pipe.h"
 #include "../include/redirect.h"
 #include "../include/main.h"
@@ -77,9 +77,9 @@ void	redirect_input(struct node_s *node)
 
 	if (node->next_sibling->first_child->str)
 	{
-		while (node->next_sibling->operator== RDR_INPUT)
+		while (node->next_sibling->operator == RDR_INPUT)
 			node = node->next_sibling;
-		while (node->next_sibling->operator== RDR_INPUT)
+		while (node->next_sibling->operator == RDR_INPUT)
 			node = node->next_sibling;
 		if (access(node->next_sibling->first_child->str, F_OK) == 0)
 		{
@@ -93,7 +93,6 @@ void	redirect_input(struct node_s *node)
 					node->next_sibling->first_child->str);
 			perror(error_msg_prefix);
 			free(error_msg_prefix);
-			// g_exit_status = 2;
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -102,22 +101,22 @@ void	redirect_input(struct node_s *node)
 void	redirect_output(struct node_s *node)
 {
 	close(STDOUT_FILENO);
-	while (node->next_sibling->operator== RDR_OUT_REPLACE
-		|| node->next_sibling->operator== RDR_OUT_APPEND)
+	while (node->next_sibling->operator == RDR_OUT_REPLACE
+		|| node->next_sibling->operator == RDR_OUT_APPEND)
 	{
-		if (node->operator== RDR_OUT_REPLACE)
+		if (node->operator == RDR_OUT_REPLACE)
 			open(node->next_sibling->first_child->str,
 				O_WRONLY | O_TRUNC | O_CREAT, 0666);
-		else if (node->operator== RDR_OUT_APPEND)
+		else if (node->operator == RDR_OUT_APPEND)
 			open(node->next_sibling->first_child->str,
 				O_WRONLY | O_APPEND | O_CREAT, 0666);
 		node = node->next_sibling;
 		close(1);
 	}
-	if (node->operator== RDR_OUT_REPLACE)
+	if (node->operator == RDR_OUT_REPLACE)
 		open(node->next_sibling->first_child->str, O_WRONLY | O_TRUNC | O_CREAT,
 			0666);
-	else if (node->operator== RDR_OUT_APPEND)
+	else if (node->operator == RDR_OUT_APPEND)
 		open(node->next_sibling->first_child->str,
 			O_WRONLY | O_APPEND | O_CREAT, 0666);
 }
@@ -127,30 +126,17 @@ void	exec_redirection(struct node_s *node, t_data *data)
 	struct node_s	*temp;
 
 	temp = node;
-	if (node->operator== RDR_INPUT)
+	if (node->operator == RDR_INPUT)
 		redirect_input(node);
-	else if (node->operator== RDR_INPUT_UNTIL)
+	else if (node->operator == RDR_INPUT_UNTIL)
 		redirect_input_until(node);
 	else
-		redirect_output(node); // mark
-	temp->operator= NONE;
-	while (node->operator!= NONE && node->operator!= PIPE)
-		node = node->next_sibling; // next will be output.txt
-	if (node->operator== NONE)
+		redirect_output(node);
+	temp->operator = NONE;
+	while (node->operator != NONE && node->operator != PIPE)
+		node = node->next_sibling;
+	if (node->operator == NONE)
 		exec_pipe_redir(temp, data);
 	else
 		execute_pipe_command(node, data);
 }
-
-// struct node_s *identify_redirection(struct node_s *node)
-// {
-// 	while (node->operator != NONE)
-// 	{
-// 		if (node->operator == RDR_INPUT)
-// 			return (node);
-// 		node = node->next_sibling;
-// 	}
-// 	return (NULL);
-// }
-
-// #endif

@@ -6,28 +6,20 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/expander.h"
 #include "../../include/lexer.h"
-#include "../../include/node.h"
-#include "../../include/parser.h"
 #include "../../include/main.h"
+#include "../../include/parser_nodes.h"
+#include "../../include/parser.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
 
-/**
- * @brief Expands a variable in a string by replacing it with its value.
- *
-* This function takes a string containing a variable and replaces it with its corresponding value.
- *
- * @param str  A pointer to a string that may contain a variable to be expanded.
-* @param var  A pointer to the variable structure containing the name and value.
- */
 void	expand_var(char **str, t_vars **var)
 {
 	int		i;
@@ -83,7 +75,7 @@ t_vars	*find_var(char *name, t_data *data)
 
 char	*identify_var(char *str, t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (str == NULL)

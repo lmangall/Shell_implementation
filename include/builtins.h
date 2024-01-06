@@ -1,7 +1,7 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-#include "node.h"
+#include "parser_nodes.h"
 #include "../include/main.h"
 
 int	check_for_builtins(char *line, t_data *data);

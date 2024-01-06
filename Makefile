@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/06 13:56:38 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/06 15:04:53 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS =	lexer_expander/lexer.c \
 		parser/parser.c \
 		parser/parser_operators.c \
 		parser/parser_nodes.c \
+		parser/parser_nodes_utils.c \
 		builtins/builtins.c \
 		builtins/cd.c \
 		builtins/echo.c  \
@@ -36,8 +37,6 @@ SRCS =	lexer_expander/lexer.c \
 		vars/vars.c \
 		executor.c \
 		main.c \
-		node.c \
-		errors.c \
 		signals.c \
 		free.c \
 		pipe.c \

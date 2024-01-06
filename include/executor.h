@@ -1,6 +1,6 @@
 #ifndef EXECUTOR_H
 #define EXECUTOR_H
-#include "node.h"
+#include "parser_nodes.h"
 
 
 char	*search_path(char *cmd, t_data *data);

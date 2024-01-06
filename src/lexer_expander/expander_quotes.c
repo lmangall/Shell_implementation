@@ -6,23 +6,22 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../include/expander.h"
 #include "../../include/lexer.h"
-#include "../../include/node.h"
-#include "../../include/parser.h"
 #include "../../include/main.h"
+#include "../../include/parser_nodes.h"
+#include "../../include/parser.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <stddef.h>
 #include <unistd.h>
 
-//use an exit function
+// use an exit function
 char	*erase_outside_quotes(const char *str)
 {
 	int		j;
@@ -52,7 +51,7 @@ char	*erase_outside_quotes(const char *str)
 	return (new_str);
 }
 
-const	char	*find_first_quotes(const char *str)
+const char	*find_first_quotes(const char *str)
 {
 	int	i;
 
@@ -60,7 +59,7 @@ const	char	*find_first_quotes(const char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\"' || str[i] == '\'')
-			return &str[i];
+			return (&str[i]);
 		i++;
 	}
 	return (NULL);
@@ -85,9 +84,11 @@ int	inside_quote(const char *str)
 	const char	*start_quote = find_first_quotes(str);
 	const char	*end_quote = find_last_quotes(str);
 
-	if (start_quote != NULL && end_quote != NULL && *start_quote == '\"' && *end_quote == '\"')
+	if (start_quote != NULL && end_quote != NULL && *start_quote == '\"'
+		&& *end_quote == '\"')
 		return (2);
-	if (start_quote != NULL && end_quote != NULL && *start_quote == '\'' && *end_quote == '\'')
+	if (start_quote != NULL && end_quote != NULL && *start_quote == '\''
+		&& *end_quote == '\'')
 		return (3);
 	return (5);
 }

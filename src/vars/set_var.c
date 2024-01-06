@@ -1,7 +1,7 @@
 
 #include "../../include/vars.h"
 #include "../../include/expander.h"
-#include "../../include/node.h"
+#include "../../include/parser_nodes.h"
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>

@@ -1,7 +1,7 @@
 
 #ifndef VARS_H
 #define VARS_H
-#include "node.h"
+#include "parser_nodes.h"
 
 #define MAX_VARS 100
 
