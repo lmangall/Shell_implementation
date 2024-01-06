@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 14:04:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:32:48 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,41 +107,41 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 
 void update_status_and_cleanup(int status, t_data *data)
 {
-    if (WIFEXITED(status)) 
+	if (WIFEXITED(status)) 
 	{
-        data->last_command_exit_status = WEXITSTATUS(status);
-        set_var(data, "?", ft_itoa(data->last_command_exit_status));
-    } 
+		data->last_command_exit_status = WEXITSTATUS(status);
+		set_var(data, "?", ft_itoa(data->last_command_exit_status));
+	} 
 	else if (WIFSIGNALED(status)) 
 	{
-        data->last_command_exit_status = 128 + WTERMSIG(status);
-        set_var(data, "?", ft_itoa(data->last_command_exit_status));
-    }
+		data->last_command_exit_status = 128 + WTERMSIG(status);
+		set_var(data, "?", ft_itoa(data->last_command_exit_status));
+	}
 }
 
 //shoud the call to update_status_and_cleanup be in parse_and_execute
 void simple_or_advanced(char **tokens, t_data *data)
 {
-    int status;
-    struct node_s *cmd;
+	int status;
+	struct node_s *cmd;
 
 	status = 0;
-    if (get_operator(tokens) != NONE) 
+	if (get_operator(tokens) != NONE) 
 	{
-        struct node_type_master *master_node = parse_advanced_command(tokens);
-        if (fork() == 0)
-            exec_pipe_redir(master_node->root_nodes[0], data);
-        waitpid(-1, &status, 0);
-        update_status_and_cleanup(status, data);
-        free_ast(master_node);
-    } 
+		struct node_type_master *master_node = parse_advanced_command(tokens);
+		if (fork() == 0)
+			exec_pipe_redir(master_node->root_nodes[0], data);
+		waitpid(-1, &status, 0);
+		update_status_and_cleanup(status, data);
+		free_ast(master_node);
+	} 
 	else 
 	{
-        cmd = parse_simple_command(tokens, data);
-        if (fork() == 0)
-            exec_pipe_redir(cmd, data);
-        waitpid(-1, &status, 0);
-        update_status_and_cleanup(status, data);
-        // free_node(cmd);
-    }
+		cmd = parse_simple_command(tokens, data);
+		if (fork() == 0)
+			exec_pipe_redir(cmd, data);
+		waitpid(-1, &status, 0);
+		update_status_and_cleanup(status, data);
+		// free_node(cmd);
+	}
 }

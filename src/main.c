@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 14:03:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:32:58 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,52 +32,71 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
-	int		status;
-	t_data	data;
-	char	*tmp;
+	t_data data;
+	int execution_status;
+
+	execution_status = 1;
 
 	(void)argc;
 	(void)argv;
-	data.paths = NULL;
-	data.envp = NULL;
 	init_vars(&data, envp);
-	signal(SIGINT, handle_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
-	status = 1;
-	while (status)
+	set_signal_handlers();
+	while (1)
 	{
-		line = readline(SHELL_PROMPT);
-		// what is returned is malloced and should be freed
-		if (line == NULL)
+		char *line = readline(SHELL_PROMPT);
+		if (!line)
 			handle_ctrl_d(SIGQUIT);
+
 		if (line[0] != '\0')
 		{
-			signal(SIGQUIT, handle_ctrl_backslash);
-			signal(SIGINT, handle_ctrl_c_in_command);
-			add_history(line);
-			if (ft_strchr(line, '$') != NULL)
+			prepare_command_execution(&line, &data);
+			execution_status = builtins_to_parsing(line, &data);
+			if (execution_status == 2)
 			{
-				tmp = NULL;
-				tmp = expand(line, &data);
-				line = ft_strdup(tmp);
-				free(tmp);
+				cleanup_and_exit(line);
 			}
-			status = check_and_builtins(line, &data);
-			if (status == 1)
-				status = parse_and_execute(line, &data);
-			if (status == 2)
-			{
-				free(line);
-				rl_clear_history();
-				return (EXIT_SUCCESS);
-			}
+			free(line);
 		}
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, handle_ctrl_c);
-		// this free might be causing a double free
-		// free(line);
 	}
-	rl_clear_history();
-	return (EXIT_SUCCESS);
+	cleanup_and_exit(NULL);
+}
+
+void	set_signal_handlers()
+{
+	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	prepare_command_execution(char **line, t_data *data)
+{
+	signal(SIGQUIT, handle_ctrl_backslash);
+	signal(SIGINT, handle_ctrl_c_in_command);
+	add_history(*line);
+
+	if (ft_strchr(*line, '$') != NULL)
+	{
+		char *expanded_line = expand(*line, data);
+		// free(*line);          ==>> causes a double free when expansion is triggered
+		*line = ft_strdup(expanded_line);
+		free(expanded_line);
+	}
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_ctrl_c);
+}
+
+int	builtins_to_parsing(char *line, t_data *data)
+{
+	int status = check_for_builtins(line, data);
+	if (status == 1)
+		status = parse_and_execute(line, data);
+	return status;
+}
+
+void	cleanup_and_exit(char *line)
+{
+	if (line)
+		free(line);
+	// Clear Readline history
+	clear_history();
+	exit(EXIT_SUCCESS);
 }

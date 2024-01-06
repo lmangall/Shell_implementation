@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 14:04:43 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:27:49 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int parse_and_execute(char *line, t_data *data)
     char **tokens;
     
     tokens = lexer(line);
-    free(line);
+    // free(line);      ==>> causes a double free when outp.redir is used
     simple_or_advanced(tokens, data);
     free_string_array(tokens);
     return 1;

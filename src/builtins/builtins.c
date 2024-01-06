@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 00:50:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:22:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 //the builtins return -1 if they are called
 //if they return -1 to main, main exit the readline main loop
-int	check_and_builtins(char *line, t_data *data)
+int	check_for_builtins(char *line, t_data *data)
 {
 	int	ret;
 

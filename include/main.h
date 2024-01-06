@@ -19,16 +19,44 @@
 
 
 /**
- * @brief Parse and execute a given command line.
- *
- * This function parses the command line, determines the type of command,
- * and delegates the execution to the appropriate handler function.
- *
- * @param line The input command line to be parsed and executed.
- * @param data A pointer to the data structure containing relevant information.
- * @return 1 on successful execution.
+ * @brief Set signal handlers for the shell.
  */
-int parse_and_execute(char *line, t_data *data);
+void set_signal_handlers();
+
+/**
+ * @brief Prepare a command for execution, including signal handling and variable expansion.
+ *
+ * @param line A pointer to the command line.
+ * @param data A pointer to the data structure containing relevant information.
+ */
+void prepare_command_execution(char **line, t_data *data);
+
+/**
+ * @brief Handle built-ins and parsing for the given command line.
+ *
+ * @param line A pointer to the command line.
+ * @param data A pointer to the data structure containing relevant information.
+ * @return The status of the execution.
+ */
+int builtins_to_parsing(char *line, t_data *data);
+
+/**
+ * @brief Clean up resources and exit the shell.
+ *
+ * @param line A pointer to the command line (may be NULL if no command line).
+ */
+void cleanup_and_exit(char *line);
+
+/**
+ * @brief The main function of the shell.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of command-line argument strings.
+ * @param envp An array of environment variable strings.
+ * @return The exit status of the shell.
+ */
+int main(int argc, char **argv, char **envp);
+
 
 
 #endif 
