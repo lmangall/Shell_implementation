@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 18:23:49 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:25:40 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*duplicate_string(const char *str)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	strcpy(duplicate, str);
+	ft_strcpy(duplicate, str);
 	return (duplicate);
 }
 
@@ -63,19 +63,6 @@ char	**build_argv(struct node_s *root_node, int *argc)
 	return (argv);
 }
 
-void	free_argv(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i] != NULL)
-	{
-		free(argv[i]);
-		i++;
-	}
-	free(argv);
-}
-
 int	do_simple_command(struct node_s *root_node, t_data *data)
 {
 	int		argc;
@@ -88,6 +75,6 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 	}
 	free_node_tree(root_node);
 	exec_cmd(argv, data);
-	free_argv(argv);
+	free_string_array(argv);
 	return (0);
 }
