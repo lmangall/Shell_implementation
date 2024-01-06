@@ -67,8 +67,9 @@ int	unset_var(t_data *data, const char *name)
 	return (-1);
 }
 
-// if the command "unset" is called with a space and a variable name, it will call this function unset
-int do_unset_builtin(char **tokens, t_data *data)
+// if the command "unset" is called with a space 
+// and a variable name, it will call this function unset
+int	do_unset_builtin(char **tokens, t_data *data)
 {
 	int	i;
 

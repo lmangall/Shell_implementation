@@ -9,8 +9,10 @@
 ///This should probably be DELETED
 void	print_exported_vars(const t_data *data)
 {
+	int	i;
+
+	i = 0;
 	printf("\nExported Variables:\n");
-	int i = 0;
 	while (i < data->num_shell_vars)
 	{
 		printf("%-18s", data->shell_vc[i].name);
@@ -22,10 +24,14 @@ void	print_exported_vars(const t_data *data)
 ///This should probably be DELETED
 void	print_vars(const t_data *data)
 {
+	int	i;
+
+	i = 0;
 	printf("\n");
-	for (int i = 0; i < data->num_vars; i++)
+	while (i < data->num_vars)
 	{
 		printf("%-18s", data->vc[i].name);
 		printf("value: %s\n", data->vc[i].value);
+		i++;
 	}
 }
