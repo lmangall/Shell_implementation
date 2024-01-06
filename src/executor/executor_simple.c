@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 18:25:40 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 23:58:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,10 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 
 	argv = build_argv(root_node, &argc);
 	if (!argv)
-	{
 		return (0);
-	}
 	free_node_tree(root_node);
 	exec_cmd(argv, data);
 	free_string_array(argv);
+	cleanup_and_exit(NULL);
 	return (0);
 }

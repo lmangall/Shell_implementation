@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 21:34:56 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 22:40:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline(SHELL_PROMPT);
+		add_history(line);
 		if (!line)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')
@@ -54,8 +55,10 @@ int	main(int argc, char **argv, char **envp)
 		}
 		set_signal_handlers();
 		// free(line); => when on, only ctrlc after cat complains
+	// rl_clear_history();
 	}
 	cleanup_and_exit(NULL);
+	return (0);
 }
 
 void	set_signal_handlers(void)
@@ -68,7 +71,6 @@ void	prepare_command_execution(char **line, t_data *data)
 {
 	char	*expanded_line;
 
-	add_history(*line);
 	if (ft_strchr(*line, '$') != NULL)
 	{
 		expanded_line = expand(*line, data);

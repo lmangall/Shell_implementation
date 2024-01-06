@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:19:52 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 23:51:59 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 		add_child_node(root, var);
 		i++;
 	}
+	free_string_array(tokens);
 	return (root);
 }
 
@@ -49,6 +50,6 @@ int	parse_and_execute(char *line, t_data *data)
 	tokens = lexer(line);
 	// free(line);      ==>> causes a double free when outp.redir is used
 	simple_or_advanced(tokens, data);
-	free_string_array(tokens);
+	// free_string_array(tokens);//==>is this happening
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 21:10:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 00:00:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 // probably need to free paths_arr
 char	*search_path(char *cmd, t_data *data)
 {
+	printf("search_path\n");
 	char	*paths;
 	char	**paths_arr;
 	char	*tmp;
@@ -39,10 +40,14 @@ char	*search_path(char *cmd, t_data *data)
 		tmp = ft_strjoin(*paths_arr, "/");
 		command = ft_strjoin(tmp, cmd);
 		if (access(command, 0) == 0)
+		{
+			// free_string_array(paths_arr);
 			return (command);
-		free(command);
+		}
 		paths_arr++;
 	}
+	free(command);
+	// free_string_array(paths_arr);
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
 	return (NULL);
 }
@@ -55,57 +60,24 @@ int	exec_cmd(char **argv, t_data *data)
 
 	custom_env = convert_vc_to_envp(data);
 	if (ft_strchr(argv[0], '/'))
+	{
 		execve(argv[0], argv, custom_env);
+	}
 	else
 	{
 		path = search_path(argv[0], data);
 		if (!path)
 		{
+			free(path);
+			free_string_array(custom_env);
 			return (0);
 		}
 		execve(path, argv, custom_env);
 		free(path);
 	}
-	free_string_array(argv);
 	free_string_array(custom_env);
 	return (0);
 }
-
-
-// int	do_simple_command(struct node_s *root_node, t_data *data)
-// {
-// 	struct node_s	*child;
-// 	int				argc;
-// 	long			max_args;
-// 	char			*str;
-// 	char			*argv[255 + 1];
-
-// 	child = root_node->first_child;
-// 	argc = 0;
-// 	max_args = 255;
-// 	if (!child)
-// 		return (0);
-// 	if (child)
-// 	{
-// 		while (child && argc < max_args)
-// 		{
-// 			str = child->str;
-// 			argv[argc] = malloc(strlen(str) + 1);
-// 			if (!argv[argc])
-// 			{
-// 				free_string_array(argv);
-// 				return (0);
-// 			}
-// 			ft_strlcpy(argv[argc], str, ft_strlen(str) + 1);
-// 			child = child->next_sibling;
-// 			argc++;
-// 		}
-// 	}
-// 	free_node_tree(root_node);
-// 	argv[argc] = NULL;
-// 	exec_cmd(argv, data);
-// 	return (0);
-// }
 
 void	update_status_and_cleanup(int status, t_data *data)
 {
@@ -145,6 +117,6 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);
 		update_status_and_cleanup(status, data);
-		free_node_tree(cmd);
+		// free_node_tree(cmd);
 	}
 }

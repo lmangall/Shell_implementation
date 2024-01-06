@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 19:29:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 23:47:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@
 
 void	cleanup_and_exit(char *line)
 {
+	rl_clear_history();
 	if (line)
 		free(line);
-	// Clear Readline history
-	clear_history();
 	exit(EXIT_SUCCESS);
 }
 

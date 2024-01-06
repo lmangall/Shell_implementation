@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 21:06:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 22:34:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,10 @@ int	check_for_builtins(char *line, t_data *data)
 		ret = do_env_builtin(data);
 	else if (ft_strcmp(line, "pwd") == 0)
 		ret = do_pwd_builtin(data);
-	else if (ft_strncmp(line, "echo ", 5) == 0)
-		ret = do_echo_builtin(lexer(line));
 	else if (ft_strcmp(line, "exit") == 0)
 	{
 		printf("exit\n");
 		return (2);
 	}
 	return (ret);
-}
-
-void	display_history(void)
-{
-	int			i;
-	HIST_ENTRY	*entry;
-
-	i = history_base;
-	while (i < history_length)
-	{
-		entry = history_get(i);
-		if (entry != NULL)
-			printf("%d: %s\n", i, entry->line);
-	}
-	i++;
 }

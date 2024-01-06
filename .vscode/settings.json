@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"builtins.h": "c",
+		"main.h": "c",
+		"readline.h": "c",
+		"wait.h": "c"
+	}
+}
