@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 18:25:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:29:22 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,13 @@
 // # define ENODATA "No message available on STREAM\n"
 // # define ENODATA "No message available on STREAM\n"
 
-void	exit_print(char *msg)
+void	cleanup_and_exit(char *line)
 {
-	ft_putstr_fd("Error:\n", 2);
-	ft_putendl_fd(msg, 2);
-	/*
-	if (ft_strcmp(msg, "correct execution") != 0)
-	{
-		ft_putstr_fd("Error:\n", 2);
-		ft_putendl_fd(msg, 2);
-	}
-	if (ft_strcmp(msg, "Nothing to sort") == 0 || ft_strcmp(msg,
-			"Duplicate among the arguments") == 0)
-		exit(1);
-	if (ft_strcmp(msg, "sorted") == 0)
-	{
-		free_stack(*stack_a);
-		exit(1);
-	}
-	if (stack_a != NULL)
-		free_stack(*stack_a);
-	*/
-	exit(1);
+	if (line)
+		free(line);
+	// Clear Readline history
+	clear_history();
+	exit(EXIT_SUCCESS);
 }
 
 void	free_node_tree(struct node_s *node)

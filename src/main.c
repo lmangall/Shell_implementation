@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 14:53:53 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:29:34 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@ int	main(int argc, char **argv, char **envp)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')
 		{
+			signal(SIGQUIT, handle_ctrl_backslash);
+			signal(SIGINT, handle_ctrl_c_in_command);
 			prepare_command_execution(&line, &data);
 			execution_status = builtins_to_parsing(line, &data);
-			if (execution_status == 2)
-			{
-				cleanup_and_exit(line);
-			}
 			free(line);
 		}
+		set_signal_handlers();
 	}
 	cleanup_and_exit(NULL);
 }
@@ -70,18 +69,13 @@ void	prepare_command_execution(char **line, t_data *data)
 {
 	char	*expanded_line;
 
-	signal(SIGQUIT, handle_ctrl_backslash);
-	signal(SIGINT, handle_ctrl_c_in_command);
 	add_history(*line);
 	if (ft_strchr(*line, '$') != NULL)
 	{
 		expanded_line = expand(*line, data);
-		// free(*line);          ==>> causes a double free when expansion is triggered
 		*line = ft_strdup(expanded_line);
 		free(expanded_line);
 	}
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_ctrl_c);
 }
 
 int	builtins_to_parsing(char *line, t_data *data)
@@ -91,14 +85,8 @@ int	builtins_to_parsing(char *line, t_data *data)
 	status = check_for_builtins(line, data);
 	if (status == 1)
 		status = parse_and_execute(line, data);
+	if (status == 2)
+		cleanup_and_exit(line);
 	return (status);
 }
 
-void	cleanup_and_exit(char *line)
-{
-	if (line)
-		free(line);
-	// Clear Readline history
-	clear_history();
-	exit(EXIT_SUCCESS);
-}
