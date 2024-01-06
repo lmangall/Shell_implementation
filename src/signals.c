@@ -6,11 +6,11 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:12 by lmangall          #+#    #+#             */
-/*   Updated: 2023/12/12 11:07:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/shell.h"
+#include "../include/main.h"
 #include "../include/signals.h"
 #include <stdio.h>
 #include <stdlib.h>

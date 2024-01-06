@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
+/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/expander.h"
 #include "../../include/lexer.h"
 #include "../../include/node.h"
 #include "../../include/parser.h"
-#include "../../include/shell.h"
+#include "../../include/main.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
@@ -105,8 +116,6 @@ char	**erase_quotes(char **tokens)
 	num_tokens = 0;
 	while (tokens[num_tokens] != NULL)
 		num_tokens++;
-	// Allocate memory for the array of pointers to char
-	// new_tokens = (char **)malloc((num_tokens + 1) * sizeof(char *));
 	new_tokens = ft_calloc((num_tokens + 1), sizeof(char *));
 	if (new_tokens == NULL)
 	{
@@ -123,7 +132,8 @@ char	**erase_quotes(char **tokens)
 			perror("Memory allocation failed in erase_quote");
 			exit(EXIT_FAILURE);
 		}
-		j = 0, k = 0;
+		j = 0, 
+		k = 0;
 		while (tokens[i][j] != '\0')
 		{
 			if (tokens[i][j] != '\"' && tokens[i][j] != '\'')

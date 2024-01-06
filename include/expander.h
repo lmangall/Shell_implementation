@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include "../include/shell.h"
+#include "../include/main.h"
 #include "../include/lexer.h"
 #include "../include/vars.h"
 #include "../include/parser.h"
@@ -73,6 +73,45 @@ char	*find_val(char *name, t_data *data);
 t_vars	*find_var(char *name, t_data *data);
 
 
-int quote_type(const char *str);
+int quote_pattern(const char *str);
 char *erase_outside_quotes(const char *str);
+
+
+/**
+ * @brief Find the first occurrence of quotes in the string.
+ *
+ * @param str The input string to be examined.
+ * @return A pointer to the first occurrence of quotes or NULL if not found.
+ */
+const	char	*find_first_quotes(const char *str);
+/**
+* @brief Find the last occurrence of quotes in the string.
+*
+* @param str The input string to be examined.
+* @return A pointer to the last occurrence of quotes or NULL if not found.
+*/
+const char	*find_last_quotes(const char *str);
+
+/**
+* @return 2 if there are double quotes
+*         3 if there are single quotes
+*         5 if different or missing quotes
+*/
+int inside_quote(const char *str);
+
+/**
+ * @brief Determine the presence and types of quotes in a given string.
+ *
+ * This function analyzes a string and categorizes the occurrence and types of quotes.
+ *
+ * @param str The input string to be examined.
+ *
+ * @return 0 if there are no quotes										EXPAND
+ * @return 1 if there are double quotes (not inside single quotes)		EXPAND
+ * @return 2 if there are single quotes inside double quotes			EXPAND
+ * @return 3 if there are double quotes inside single quotes			DONT_EXPAND
+ * @return 4 if there are single quotes									DONT_EXPAND
+ */
+int	quote_pattern(const char *str);
+
 #endif 

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 16:52:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 14:04:43 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../include/node.h"
 #include "../../include/parser.h"
 #include "../../include/vars.h"
+#include "../include/free.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
@@ -119,56 +120,13 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 	return (master_node);
 }
 
-/**
- * @brief Adds a new command node to the list of command nodes.
- *
- * @param cmd Pointer to the head of the list of command nodes.
- * @param current_cmd Pointer to the current command nosde in the list.
- * @param new_cmd Pointer to the new command node to add to the list.
- *
- * @return 1 if the command node was successfully added to the list,
-	0 otherwise.
- *
-* This function adds a new command node to the list of command nodes. If the list is empty,
- * the new command node becomes the head of the list. If the list is not empty,
-	the new command  node is added to the end of the list.
- */
-int	add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd,
-		struct node_s *new_cmd)
+int parse_and_execute(char *line, t_data *data)
 {
-	if (*cmd == NULL)
-	{
-		*cmd = new_cmd;
-		*current_cmd = *cmd;
-	}
-	else
-	{
-		(*current_cmd)->next_sibling = new_cmd;
-		*current_cmd = (*current_cmd)->next_sibling;
-	}
-	return (1);
-}
-
-struct node_type_master	*create_master_node(struct node_s *cmd)
-{
-	struct node_type_master	*master_node;
-	struct node_s			*current_cmd;
-
-	master_node = malloc(sizeof(struct node_type_master));
-	if (!master_node)
-		return (NULL);
-	master_node->type = MASTER;
-	master_node->str = NULL;
-	master_node->nbr_root_nodes = 0;
-	master_node->root_nodes = NULL;
-	current_cmd = cmd;
-	while (current_cmd != NULL)
-	{
-		master_node->nbr_root_nodes++;
-		master_node->root_nodes = realloc(master_node->root_nodes,
-				sizeof(struct node_s *) * master_node->nbr_root_nodes);
-		master_node->root_nodes[master_node->nbr_root_nodes - 1] = current_cmd;
-		current_cmd = current_cmd->next_sibling;
-	}
-	return (master_node);
+    char **tokens;
+    
+    tokens = lexer(line);
+    free(line);
+    simple_or_advanced(tokens, data);
+    free_string_array(tokens);
+    return 1;
 }

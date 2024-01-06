@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:46:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 16:58:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../include/lexer.h"
 #include "../include/node.h"
 #include "../include/parser.h"
-#include "../include/shell.h"
+#include "../include/main.h"
 #include "../include/vars.h"
 #include "../lib/libft/src/libft.h"
 #include <unistd.h>

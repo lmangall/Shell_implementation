@@ -5,8 +5,29 @@
 
 char	*search_path(char *cmd, t_data *data);
 int exec_cmd(char** argv, t_data *data);
-
 int do_simple_command(struct node_s *root_node, t_data *data);
+/**
+ * @brief Update the command exit status and perform cleanup.
+ *
+ * This function takes the exit status of a command, updates the command exit status
+ * variable, and sets the corresponding variable in the data structure. It also performs
+ * any necessary cleanup operations.
+ *
+ * @param status The exit status of the executed command.
+ * @param data   A pointer to the data structure containing relevant information.
+ */
+void update_status_and_cleanup(int status, t_data *data);
+
+/**
+ * @brief Execute a command and update the status.
+ *
+ * This function determines the type of command (advanced or simple),
+ * executes it, and updates the command exit status and relevant variables.
+ *
+ * @param tokens The array of command tokens.
+ * @param data   A pointer to the data structure containing relevant information.
+ */
+void simple_or_advanced(char **tokens, t_data *data);
 
 
 #endif

@@ -3,12 +3,10 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include "../include/shell.h"
 #include "../include/lexer.h"
 #include "../include/vars.h"
 #include "../include/parser.h"
 #include "../include/executor.h"
-#include "../include/expander.h"
 #include "../lib/libft/src/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -19,12 +17,18 @@
 #define ERRCHAR         ( 0)
 #define INIT_SRC_POS    (-2)
 
-//parser:
 
+/**
+ * @brief Parse and execute a given command line.
+ *
+ * This function parses the command line, determines the type of command,
+ * and delegates the execution to the appropriate handler function.
+ *
+ * @param line The input command line to be parsed and executed.
+ * @param data A pointer to the data structure containing relevant information.
+ * @return 1 on successful execution.
+ */
 int parse_and_execute(char *line, t_data *data);
 
-void print_prompt1(void);
-void print_prompt2(void);
-char *read_cmd(void);
 
 #endif 

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:05:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 20:50:28 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 00:59:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,24 @@
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
 
+//add something to erase the quotes
 int	do_echo_builtin(char **argv)
 {
-	int print_newline = 1; // 1 entspricht true, 0 entspricht false
-	int i = 1;
+	int	print_newline;
+	int	i;
 
-	// it checks for -n and if it finds it, it sets print_newline to 0
-	// if it finds after that -nn or
-	//-nnnnn it leaves print_newline to 0 and it will not print -nn or -nnnnn
-	// so basically, it will print everything after the first
-	//	-n except following -nn -nnnn and so on.
+	print_newline = 1;
+	i = 1;
 	while (argv[i] && ft_strncmp(argv[i], "-n", 2) == 0)
 	{
 		print_newline = 0;
 		i++;
 	}
-
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], 1);
-
 		if (argv[i + 1])
-		{
 			ft_putstr_fd(" ", 1);
-		}
-
 		i++;
 	}
 

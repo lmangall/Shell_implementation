@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include "../include/shell.h"
+#include "../include/main.h"
 #include "../lib/libft/src/libft.h"
 
 //we can use a preprocessor # define to define the error messages

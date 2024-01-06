@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 20:51:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 00:58:35 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*return_var_value(t_data *data, char *name)
 
 int do_cd_builtin(char **argv, t_data *data)
 {
-	char *path;
-	char *oldpwd;
-	char *pwd;
+	char	*path;
+	char	*oldpwd;
+	char	*pwd;
 
 	path = NULL;
 	oldpwd = NULL;
@@ -45,7 +45,6 @@ int do_cd_builtin(char **argv, t_data *data)
 		path = ft_strdup(return_var_value(data, "OLDPWD"));
 	else
 		path = ft_strdup(argv[1]);
-
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(path) == -1)
 	{
@@ -62,4 +61,3 @@ int do_cd_builtin(char **argv, t_data *data)
 	free(pwd);
 	return (-1);
 }
-

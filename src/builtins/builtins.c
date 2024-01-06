@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 21:20:59 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 00:50:27 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 //if they return -1 to main, main exit the readline main loop
 int	check_and_builtins(char *line, t_data *data)
 {
-	int ret;
+	int	ret;
 
 	ret = 1;
 	check_for_variable_setting(data, line);
@@ -46,8 +46,9 @@ int	check_and_builtins(char *line, t_data *data)
 
 void	display_history(void)
 {
-	int i = history_base;
-
+	int	i;
+	
+	i = history_base;
 	while (i < history_length)
 	{
 		HIST_ENTRY *entry = history_get(i);

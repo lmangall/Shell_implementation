@@ -2,7 +2,7 @@
 # define BUILTINS_H
 
 #include "node.h"
-#include "../include/shell.h"
+#include "../include/main.h"
 
 int	check_and_builtins(char *line, t_data *data);
 int do_cd_builtin(char **argv, t_data *data);

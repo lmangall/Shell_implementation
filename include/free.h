@@ -4,7 +4,7 @@
 
 
 #include "node.h"
-#include "../include/shell.h"
+#include "../include/main.h"
 
 /**
  * @brief Recursively frees a tree of nodes.

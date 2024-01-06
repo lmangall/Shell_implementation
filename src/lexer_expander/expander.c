@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 20:19:40 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../include/lexer.h"
 #include "../../include/node.h"
 #include "../../include/parser.h"
-#include "../../include/shell.h"
+#include "../../include/main.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
@@ -108,7 +108,7 @@ char	*expand(char *str, t_data *data)
 	var = NULL;
 	expansion = 5;
 	if (contains_two(str, '\"') || contains_two(str, '\''))
-		expansion = quote_type(str);
+		expansion = quote_pattern(str);
 	if (expansion <= 2 || expansion == 5)
 	{
 		var_name = identify_var(str, data);

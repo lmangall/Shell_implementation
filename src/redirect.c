@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/05 17:01:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:32:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../include/node.h"
 #include "../include/pipe.h"
 #include "../include/redirect.h"
-#include "../include/shell.h"
+#include "../include/main.h"
 #include "../include/signals.h"
 #include "../lib/libft/src/libft.h"
 #include <errno.h>
