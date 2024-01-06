@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:20:41 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:16:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ int						is_operator(char *str);
  */
 t_operator				get_operator(char **token);
 void					i_and_o_redir(struct node_type_master *master_node);
+
+/**
+ * @brief Parses a simple command.
+ *
+ * This function takes an array of tokens and a data structure as input,
+ * and it generates a one level linked list representing the parsed command.
+ * The `expand` function is called to handle variable expansion.
+ *
+ *There is one empty root node of type "ROOT"
+ *There is one one node per word of type "WORD"
+ *
+ * @param tokens An array of tokens representing the command.
+ * @param data A data structure containing information about variables.
+ * @return A pointer to the root node of the generated one level linked list
+ */
 struct node_s			*parse_simple_command(char **tokens, t_data *data);
 struct node_type_master	*parse_advanced_command(char **tokens);
 
@@ -51,5 +66,9 @@ struct node_type_master	*parse_advanced_command(char **tokens);
  * @return 1 on successful execution.
  */
 int						parse_and_execute(char *line, t_data *data);
+
+struct node_s			*create_new_command(char **tokens, int i, struct node_s **head, struct node_s **current_cmd);
+struct node_s			*handle_regular_word(char **tokens, int i, struct node_s *current_cmd);
+struct node_type_master	*create_master_and_link(struct node_s *head);
 
 #endif

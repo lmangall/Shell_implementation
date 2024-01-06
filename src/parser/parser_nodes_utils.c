@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:52:55 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:05:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:20:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ struct node_s	*new_node(enum node_type_e type)
 	node->first_child = NULL;
 	node->prev_sibling = NULL;
 	node->next_sibling = NULL;
-	node->operator= NONE;
+	node->operator = NONE;
 	return (node);
 }
 
