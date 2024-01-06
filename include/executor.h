@@ -1,11 +1,23 @@
-#ifndef EXECUTOR_H
-#define EXECUTOR_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/06 15:11:07 by lmangall          #+#    #+#             */
+/*   Updated: 2024/01/06 15:22:33 by lmangall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef		EXECUTOR_H
+# define	EXECUTOR_H
+#include "vars.h"
 #include "parser_nodes.h"
 
-
 char	*search_path(char *cmd, t_data *data);
-int exec_cmd(char** argv, t_data *data);
-int do_simple_command(struct node_s *root_node, t_data *data);
+int		exec_cmd(char**argv, t_data *data);
+int		do_simple_command(struct node_s *root_node, t_data *data);
 /**
  * @brief Update the command exit status and perform cleanup.
  *
@@ -16,7 +28,7 @@ int do_simple_command(struct node_s *root_node, t_data *data);
  * @param status The exit status of the executed command.
  * @param data   A pointer to the data structure containing relevant information.
  */
-void update_status_and_cleanup(int status, t_data *data);
+void    update_status_and_cleanup(int status, t_data *data);
 
 /**
  * @brief Execute a command and update the status.
@@ -27,7 +39,7 @@ void update_status_and_cleanup(int status, t_data *data);
  * @param tokens The array of command tokens.
  * @param data   A pointer to the data structure containing relevant information.
  */
-void simple_or_advanced(char **tokens, t_data *data);
+void    simple_or_advanced(char **tokens, t_data *data);
 
 
 #endif

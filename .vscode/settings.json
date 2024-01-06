@@ -1,5 +1,11 @@
 {
 	"files.associations": {
-		"parser.h": "c"
+		"parser.h": "c",
+		"parser_nodes.h": "c",
+		"vars.h": "c",
+		"free.h": "c",
+		"pipe.h": "c",
+		"libft.h": "c",
+		"expander.h": "c"
 	}
 }

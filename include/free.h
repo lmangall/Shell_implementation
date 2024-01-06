@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
+/*   Updated: 2024/01/06 15:16:40 by lmangall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #ifndef FREE_H
 #define FREE_H
@@ -14,7 +26,7 @@
  *
  * @param node The root node of the tree to free.
  */
-void free_node_tree(struct node_s *node);
+void	free_node_tree(struct node_s *node);
 
 /**
  * @brief Frees an abstract syntax tree.
@@ -24,7 +36,7 @@ void free_node_tree(struct node_s *node);
  *
  * @param master_node The master node of the abstract syntax tree to free.
  */
-void free_ast(struct node_type_master *master_node);
+void	free_ast(struct node_type_master *master_node);
 
 /**
  * @brief Frees an array of string tokens.
@@ -34,6 +46,6 @@ void free_ast(struct node_type_master *master_node);
  *
  * @param tokens The array of tokens to free.
  */
-void free_string_array(char **tokens);
+void	free_string_array(char **tokens);
 
 #endif

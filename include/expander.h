@@ -37,7 +37,7 @@
 ** @param data The data structure containing the variables to expand.
 */
 // void	expand(struct node_s **node, t_data *data);
-char *expand(char *line, t_data *data);
+char		*expand(char *line, t_data *data);
 
 /*
 ** Identifies the variable name in the given string.
@@ -45,7 +45,7 @@ char *expand(char *line, t_data *data);
 ** @param data The data structure containing the variables to search for.
 ** @return The variable name if found, otherwise NULL.
 */
-char	*identify_var(char *str, t_data *data);
+char		*identify_var(char *str, t_data *data);
 
 /*
 ** Search if the first encountered $VAR exists
@@ -54,7 +54,7 @@ char	*identify_var(char *str, t_data *data);
 ** @param data The data structure containing the variables to expand.
 ** @return The name of the VAR found.
 */
-void	expand_var(char **str, t_vars **var);
+void		expand_var(char **str, t_vars **var);
 
 /*
 ** Finds the value of the given variable name in the given data structure.
@@ -62,7 +62,7 @@ void	expand_var(char **str, t_vars **var);
 ** @param data The data structure containing the variables to search for.
 ** @return The value of the variable if found, otherwise NULL.
 */
-char	*find_val(char *name, t_data *data);
+char		*find_val(char *name, t_data *data);
 
 /*
 ** Finds the variable with the given name in the given data structure.
@@ -70,11 +70,11 @@ char	*find_val(char *name, t_data *data);
 ** @param data The data structure containing the variables to search for.
 ** @return The variable if found, otherwise NULL.
 */
-t_vars	*find_var(char *name, t_data *data);
+t_vars		*find_var(char *name, t_data *data);
 
 
-int quote_pattern(const char *str);
-char *erase_outside_quotes(const char *str);
+int 		quote_pattern(const char *str);
+char 		*erase_outside_quotes(const char *str);
 
 
 /**
@@ -83,7 +83,7 @@ char *erase_outside_quotes(const char *str);
  * @param str The input string to be examined.
  * @return A pointer to the first occurrence of quotes or NULL if not found.
  */
-const	char	*find_first_quotes(const char *str);
+const char	*find_first_quotes(const char *str);
 /**
 * @brief Find the last occurrence of quotes in the string.
 *
@@ -97,7 +97,7 @@ const char	*find_last_quotes(const char *str);
 *         3 if there are single quotes
 *         5 if different or missing quotes
 */
-int inside_quote(const char *str);
+int			inside_quote(const char *str);
 
 /**
  * @brief Determine the presence and types of quotes in a given string.
@@ -112,6 +112,6 @@ int inside_quote(const char *str);
  * @return 3 if there are double quotes inside single quotes			DONT_EXPAND
  * @return 4 if there are single quotes									DONT_EXPAND
  */
-int	quote_pattern(const char *str);
+int			quote_pattern(const char *str);
 
 #endif 

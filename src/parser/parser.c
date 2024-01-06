@@ -6,15 +6,15 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:24:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/vars.h"
 #include "../../include/expander.h"
 #include "../../include/parser_nodes.h"
 #include "../../include/parser.h"
-#include "../../include/vars.h"
-#include "../include/free.h"
+#include "../../include/free.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
