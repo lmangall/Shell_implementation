@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:54:37 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:54:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 20:57:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../include/parser_nodes.h"
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
+#include "../../include/free.h"
 #include <errno.h>
 #include <unistd.h>
 
@@ -88,5 +89,6 @@ int	do_unset_builtin(char **tokens, t_data *data)
 		unset_var(data, tokens[i]);
 		i++;
 	}
+	free_string_array(tokens);
 	return (-1);
 }

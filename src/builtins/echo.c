@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:05:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:58:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 20:56:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../include/parser_nodes.h"
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
+#include "../../include/free.h"
 
 //add something to erase the quotes
 int	do_echo_builtin(char **argv)
@@ -40,5 +41,6 @@ int	do_echo_builtin(char **argv)
 	{
 		ft_putstr_fd("\n", 1);
 	}
+	free_string_array(argv);
 	return (-1);
 }

@@ -1,6 +1,8 @@
 {
-   ignore_libreadline_conditional_jump_errors
+   <readline>
    Memcheck:Leak
    ...
-   obj:*/libreadline.so.*
+   fun:readline
+   ...
+   ...
 }

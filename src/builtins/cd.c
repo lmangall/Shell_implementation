@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:59:26 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 21:04:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../include/parser_nodes.h"
 #include "../../include/parser.h"
 #include "../../lib/libft/src/libft.h"
+#include "../../include/free.h"
 
 char	*return_var_value(t_data *data, char *name)
 {
@@ -57,7 +58,6 @@ int	do_cd_builtin(char **argv, t_data *data)
 	set_var(data, "OLDPWD", oldpwd);
 	set_var(data, "PWD", pwd);
 	free(path);
-	free(oldpwd);
-	free(pwd);
+	free_string_array(argv);
 	return (-1);
 }
