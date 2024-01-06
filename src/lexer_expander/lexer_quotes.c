@@ -6,15 +6,15 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:28:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:33:27 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/expander.h"
 #include "../../include/lexer.h"
-#include "../../include/parser_nodes.h"
-#include "../../include/parser.h"
 #include "../../include/main.h"
+#include "../../include/parser.h"
+#include "../../include/parser_nodes.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
@@ -99,53 +99,4 @@ char	*check_quotes_replace_ff(char *line)
 		}
 	}
 	return (line);
-}
-
-char	**erase_quotes(char **tokens)
-{
-	int		i;
-	char	**new_tokens;
-	int		num_tokens;
-	int		len;
-	int		j;
-    int     k;
-    
-	i = 0;
-	j = 0;
-    k = 0;
-	num_tokens = 0;
-	while (tokens[num_tokens] != NULL)
-		num_tokens++;
-	new_tokens = ft_calloc((num_tokens + 1), sizeof(char *));
-	if (new_tokens == NULL)
-	{
-		perror("Memory allocation failed");
-		exit(EXIT_FAILURE);
-	}
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		len = ft_strlen(tokens[i]);
-		new_tokens[i] = (char *)malloc((len + 1) * sizeof(char));
-		if (new_tokens[i] == NULL)
-		{
-			perror("Memory allocation failed in erase_quote");
-			exit(EXIT_FAILURE);
-		}
-		j = 0, 
-		k = 0;
-		while (tokens[i][j] != '\0')
-		{
-			if (tokens[i][j] != '\"' && tokens[i][j] != '\'')
-			{
-				new_tokens[i][k] = tokens[i][j];
-				k++;
-			}
-			j++;
-		}
-		new_tokens[i][k] = '\0';
-		i++;
-	}
-	new_tokens[num_tokens] = NULL;
-	return (new_tokens);
 }
