@@ -1,5 +1,13 @@
 # minishell
 
+
+valgrind --leak-check=full --show-leak-kinds=all ./minishell
+
+valgrind --suppressions=suppressions.supp --leak-check=full --show-leak-kinds=all ./minishell
+
+
+
+
 ### TO DO SIMPLE
 - [x] change the for loop to a while in do_env_builtin           ++ aded colors
 - [x] in func check_and_builtins : should "cd" also return (-1) ?          => it should otherwise it get parsed and goes to execve

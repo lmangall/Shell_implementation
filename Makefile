@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/06 18:16:09 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/06 18:47:30 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,11 @@ SRCS =	lexer_expander/lexer.c \
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 
-CC = gcc
-CFLAGS = -I$(INCDIR) -Wall -Wextra -Werror #-fsanitize=address
+CC = cc
+CFLAGS = -I$(INCDIR) -Wall -Wextra -Werror -g #-fsanitize=address
 LIBS = -L$(LIBFTDIR) -lft
 READLINE_LIBS = -lreadline
 READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
-#READLINE = -L /Users/$(USER)/.brew/opt/readline/lib
 NAME = minishell
 
 all: $(NAME)
