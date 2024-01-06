@@ -6,7 +6,7 @@
 #    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/06 18:47:30 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/06 20:10:38 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 CC = cc
 CFLAGS = -I$(INCDIR) -Wall -Wextra -Werror -g #-fsanitize=address
 LIBS = -L$(LIBFTDIR) -lft
-READLINE_LIBS = -lreadline
+READLINE_LIBS = -Lreadline -lreadline -Lhistory -lhistory
 READLINE_INC = -I /Users/$(USER)/.brew/opt/readline/include
 NAME = minishell
 

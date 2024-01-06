@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 19:29:34 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 20:08:59 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	int		execution_status;
 	char	*line;
 
-	execution_status = 1;
 	(void)argc;
 	(void)argv;
 	init_vars(&data, envp);
@@ -51,7 +49,7 @@ int	main(int argc, char **argv, char **envp)
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
 			prepare_command_execution(&line, &data);
-			execution_status = builtins_to_parsing(line, &data);
+			builtins_to_parsing(line, &data);
 			free(line);
 		}
 		set_signal_handlers();
