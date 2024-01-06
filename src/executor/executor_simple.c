@@ -29,7 +29,7 @@ char	*duplicate_string(const char *str)
 	char	*duplicate;
 	size_t	len;
 
-	len = strlen(str);
+	len = ft_strlen(str);
 	duplicate = malloc(len + 1);
 	if (!duplicate)
 	{
