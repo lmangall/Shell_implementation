@@ -6,13 +6,29 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:34:21 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:40:16 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 #define LEXER_H
 
+/**
+ * @brief Tokenizes a string based on spaces, handling quotes.
+ *
+ * This function takes a string as input and tokenizes
+ * it into an array of strings based on spaces. It handles
+ * double or single quotes by checking and replacing them.
+ *
+ * @param line The input string to be tokenized.
+ * @return A dynamically allocated array of strings
+ *         (tokens). Last element is NULL.
+ * @retval NULL if input string is NULL or memory
+ *         allocation fails.
+ *
+ * @note Caller must free the allocated memory for the
+ *       returned array when not needed.
+ */
 char	**lexer(char *line);
 
 void	replace_form_feed_with_spaces(char *str);
@@ -46,6 +62,7 @@ char	*copy_token_without_quotes(const char *source);
  * @return A new array of tokens without quotes.
  */
 char	**erase_quotes_from_tokens(char **tokens);
+
 
 
 #endif 

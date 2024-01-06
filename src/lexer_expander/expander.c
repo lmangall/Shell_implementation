@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/06 15:49:49 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	expand_var(char **str, t_vars **var)
 	int		j;
 	int		flag;
 	char	*expanded_str;
-
-	i = 0;
-	j = 0;
-	flag = 0;
+	
 	i = 0;
 	j = 0;
 	flag = 0;
@@ -45,7 +42,7 @@ void	expand_var(char **str, t_vars **var)
 		}
 		if ((*str)[j] != '\0')
 		{
-			expanded_str = ft_strjoin(expanded_str, (char[]){(*str)[j], '\0'});
+			expanded_str = ft_strjoin(expanded_str, (char []){(*str)[j], '\0'});
 			j++;
 			i++;
 		}
