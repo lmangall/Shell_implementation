@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 23:51:59 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:35:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../include/parser_nodes.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
+#include "../../include/DEV.h"
 #include <errno.h>
 #include <unistd.h>
 

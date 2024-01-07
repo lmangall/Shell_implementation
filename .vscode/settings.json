@@ -3,6 +3,11 @@
 		"builtins.h": "c",
 		"main.h": "c",
 		"readline.h": "c",
-		"wait.h": "c"
+		"wait.h": "c",
+		"libft.h": "c",
+		"dev.h": "c",
+		"vars.h": "c",
+		"lexer.h": "c",
+		"free.h": "c"
 	}
 }

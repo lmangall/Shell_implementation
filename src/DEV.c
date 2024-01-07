@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:46:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:35:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 #include "../include/vars.h"
 #include "../lib/libft/src/libft.h"
 #include <unistd.h>
+
+void	print_string_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		printf("array[%d] = %s\n", i, array[i]);
+		i++;
+	}
+}
 
 void	print_the_first_child_of_root_nodes(struct node_type_master *master)
 {

@@ -14,6 +14,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+char	**erase_outside_quotes_array(char **array);
+
+
 // /**
 //  * @brief Replaces the variable in the given node's string with its value.
 //  * 

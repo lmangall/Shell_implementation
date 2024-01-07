@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 23:58:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:38:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "../../include/pipe.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
+#include "../../include/DEV.h"
 #include <sys/wait.h>
 #include <errno.h>
 #include <stddef.h>

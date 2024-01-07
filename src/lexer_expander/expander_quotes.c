@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:33:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 #include "../../include/parser_nodes.h"
 #include "../../include/parser.h"
 #include "../../include/vars.h"
+#include "../../include/free.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <stddef.h>
 #include <unistd.h>
 
-// use an exit function
+// should str be freed
 char	*erase_outside_quotes(const char *str)
 {
 	int		j;
