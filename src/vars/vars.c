@@ -137,5 +137,6 @@ char	**convert_vc_to_envp(t_data *data)
 		i++;
 	}
 	envp[data->num_vars] = NULL;
+	// should en_var be freed here? it is malloced
 	return (envp);
 }
