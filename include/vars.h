@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:55:17 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:31:46 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int			find_equal_sign(char *str);
 // utils_dev
 void		print_vars(const t_data *data);
 void		print_exported_vars(const t_data *data);
+int	set_existing_var(t_data *data, int i, const char *value);
 
 #endif

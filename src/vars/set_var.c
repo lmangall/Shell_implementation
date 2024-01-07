@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:57:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 20:27:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:37:45 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 #include <errno.h>
 #include <unistd.h>
 
-static int	set_existing_var(t_data *data, int i, const char *value)
+int	set_existing_var(t_data *data, int i, const char *value)
 {
+	printf("value of existing var successfully replaced\n");
 	ft_strlcpy(data->vc[i].value, value, sizeof(data->vc[i].value));
 	data->vc[i].value[sizeof(data->vc[i].value) - 1] = '\0';
-		free((void *)value);
 	return (0);
 }
 
