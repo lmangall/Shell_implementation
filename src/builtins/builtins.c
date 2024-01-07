@@ -20,9 +20,10 @@
 
 // the builtins return -1 if they are called
 // if they return -1 to main, main exit the readline main loop
+
 int	check_for_builtins(char *line, t_data *data)
 {
-	int	ret;
+	int		ret;
 
 	ret = 1;
 	check_for_variable_setting(data, line);
@@ -36,10 +37,10 @@ int	check_for_builtins(char *line, t_data *data)
 		ret = do_env_builtin(data);
 	else if (ft_strcmp(line, "pwd") == 0)
 		ret = do_pwd_builtin(data);
-	else if (ft_strcmp(line, "exit") == 0)
+	else if (ft_strncmp(line, "exit", 4) == 0)
 	{
-		printf("exit\n");
-		return (2);
+		ret = do_exit_builtin(line, data);
 	}
 	return (ret);
 }
+

@@ -21,5 +21,6 @@ int	do_cd_builtin(char **argv, t_data *data);
 int	do_echo_builtin(char **argv);
 int	do_pwd_builtin(t_data *data);
 int	do_env_builtin(t_data *data);
+int	do_exit_builtin(char *line, t_data *data);
 
 #endif

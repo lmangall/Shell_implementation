@@ -25,6 +25,7 @@ SRCS =	lexer_expander/lexer.c \
 		builtins/echo.c  \
 		builtins/pwd.c \
 		builtins/env.c \
+		builtins/exit.c \
 		parser/parser.c \
 		parser/parser_advcd_cmd.c \
 		parser/parser_operators.c \
