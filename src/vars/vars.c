@@ -99,7 +99,7 @@ int	check_for_variable_setting(t_data *data, char *token)
 		name = ft_substr(token, 0, equal_sign);
 		value = ft_substr(token, equal_sign + 1, ft_strlen(token) - equal_sign);
 		set_shell_var(data, name, value);
-		return (1);
+		return (-1);
 	}
 	else
 		return (0);

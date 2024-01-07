@@ -58,7 +58,7 @@ int	unset_shell_var(t_data *data, const char *name)
 	index = find_var_index(data, name);
 	if (index == -1)
 	{
-		perror("Variable not found");
+		//perror("Variable not found");
 		return (-1);
 	}
 	remove_var_at_index(data, index);
@@ -89,7 +89,6 @@ int	unset_var(t_data *data, const char *name)
 		}
 		i++;
 	}
-	perror("Variable '%s' not found");
 	return (-1);
 }
 

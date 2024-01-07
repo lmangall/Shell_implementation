@@ -26,7 +26,7 @@ int	check_for_builtins(char *line, t_data *data)
 	int		ret;
 
 	ret = 1;
-	check_for_variable_setting(data, line);
+	ret = check_for_variable_setting(data, line);
 	if (ft_strncmp(line, "unset ", 6) == 0)
 		ret = do_unset_builtin(lexer(line), data);
 	else if (ft_strncmp(line, "export ", 7) == 0)
