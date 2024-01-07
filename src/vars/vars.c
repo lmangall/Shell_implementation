@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:57:43 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:16:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int	check_for_variable_setting(t_data *data, char *token)
 	int		equal_sign;
 	char	*name;
 	char	*value;
-
 	if (is_valid_variable_declaration(token))
 	{
 		equal_sign = find_equal_sign(token);
