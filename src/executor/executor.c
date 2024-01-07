@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 00:00:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 11:36:57 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 // probably need to free paths_arr
 char	*search_path(char *cmd, t_data *data)
 {
-	printf("search_path\n");
 	char	*paths;
 	char	**paths_arr;
 	char	*tmp;

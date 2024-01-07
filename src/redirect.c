@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 12:23:41 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	redirect_input_until(struct node_s *node)
 void	redirect_input(struct node_s *node)
 {
 	int		in_file;
-	char	*error_msg_prefix;
 
 	if (node->next_sibling->first_child->str)
 	{
@@ -89,11 +88,8 @@ void	redirect_input(struct node_s *node)
 		}
 		else
 		{
-			error_msg_prefix = ft_strjoin("minishell: ",
-					node->next_sibling->first_child->str);
-			perror(error_msg_prefix);
-			free(error_msg_prefix);
-			exit(EXIT_FAILURE);
+			printf("No such file or directory\n");
+			exit(1);
 		}
 	}
 }
