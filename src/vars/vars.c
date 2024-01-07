@@ -102,7 +102,7 @@ int	check_for_variable_setting(t_data *data, char *token)
 		return (-1);
 	}
 	else
-		return (0);
+		return (1);
 }
 
 char	**convert_vc_to_envp(t_data *data)

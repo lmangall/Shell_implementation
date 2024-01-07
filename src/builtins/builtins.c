@@ -38,9 +38,7 @@ int	check_for_builtins(char *line, t_data *data)
 	else if (ft_strcmp(line, "pwd") == 0)
 		ret = do_pwd_builtin(data);
 	else if (ft_strncmp(line, "exit", 4) == 0)
-	{
 		ret = do_exit_builtin(line, data);
-	}
 	return (ret);
 }
 
