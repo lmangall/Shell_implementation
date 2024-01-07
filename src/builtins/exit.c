@@ -6,16 +6,26 @@
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
 
+int	calculate_exit_code(char *arg)
+{
+	int	exit_code;
+
+	exit_code = ft_atoi(arg) % 256;
+	if (exit_code < 0)
+		exit_code += 256;
+	return (exit_code);
+}
+
 int	do_exit_builtin(char *line, t_data *data)
 {
-	int		exit_code;
 	char	**argv;
+	int		exit_code;
 
-	(void)data;
 	argv = ft_split(line, ' ');
+	(void)data;
 	if (argv[1] != NULL && argv[2] == NULL)
 	{
-		exit_code = ft_atoi(argv[1]);
+		exit_code = calculate_exit_code(argv[1]);
 	}
 	else if (argv[1] == NULL)
 	{
@@ -26,7 +36,6 @@ int	do_exit_builtin(char *line, t_data *data)
 		write(2, "minishell: exit: too many arguments\n", 36);
 		exit_code = 1;
 	}
-	free(argv);
+	free_string_array(argv);
 	exit(exit_code);
 }
-
