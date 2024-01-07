@@ -92,12 +92,15 @@ int	check_for_variable_setting(t_data *data, char *token)
 	int		equal_sign;
 	char	*name;
 	char	*value;
+
 	if (is_valid_variable_declaration(token))
 	{
 		equal_sign = find_equal_sign(token);
 		name = ft_substr(token, 0, equal_sign);
 		value = ft_substr(token, equal_sign + 1, ft_strlen(token) - equal_sign);
 		set_shell_var(data, name, value);
+		free(name);
+		free(value);
 		return (-1);
 	}
 	else

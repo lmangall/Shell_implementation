@@ -58,6 +58,8 @@ int	do_cd_builtin(char **argv, t_data *data)
 	set_var(data, "OLDPWD", oldpwd);
 	set_var(data, "PWD", pwd);
 	free(path);
+	free(oldpwd);
+	free(pwd);
 	free_string_array(argv);
 	return (-1);
 }
