@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 21:04:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:59:37 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	do_cd_builtin(char **argv, t_data *data)
 		printf("cd: %s: %s\n", path, strerror(errno));
 		free(path);
 		free(oldpwd);
-		return (1);
+		return (3);
 	}
 	pwd = getcwd(NULL, 0);
 	set_var(data, "OLDPWD", oldpwd);

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 17:47:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:05:18 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,19 @@ void	prepare_command_execution(char **line, t_data *data)
 
 	if (ft_strchr(*line, '$') != NULL)
 	{
-printf("line before expand: %s\n", *line);
 		expanded_line = expand(*line, data);
 		*line = ft_strdup(expanded_line);
 		free(expanded_line);
 	}
-	else
-	{
-		if (contains_two(*line, '\"') || contains_two(*line, '\''))
-		{
-			expanded_line = erase_outside_quotes(*line);
-			*line = ft_strdup(expanded_line);
-			free(expanded_line);
-		}
-	}	
+	// else
+	// {
+	// 	if (contains_two(*line, '\"') || contains_two(*line, '\''))
+	// 	{
+	// 		expanded_line = erase_outside_quotes(*line);
+	// 		*line = ft_strdup(expanded_line);
+	// 		free(expanded_line);
+	// 	}
+	// }	
 }
 
 int	builtins_to_parsing(char *line, t_data *data)

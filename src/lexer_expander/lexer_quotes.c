@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:33:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:18:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**put_space_back(char **tokens)
 	i = 0;
 	while (tokens[i] != NULL)
 	{
-		if (contains_two(tokens[i], '\"') || contains_two(tokens[i], '\''))
+		// if (contains_two(tokens[i], '\"') || contains_two(tokens[i], '\''))
 			replace_form_feed_with_spaces(tokens[i]);
 		i++;
 	}

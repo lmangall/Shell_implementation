@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 17:35:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:08:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ int	parse_and_execute(char *line, t_data *data)
 {
 	char	**tokens;
 
+	// if (contains_two(line, '\"') || contains_two(line, '\''))
+	// {
+	// 	char	*line_without_quotes;
+	// 	line_without_quotes = erase_outside_quotes(line);
+	// 	line = ft_strdup(line_without_quotes);
+	// 	free(line_without_quotes);
+	// }
 	tokens = lexer(line);
 	// free(line);      ==>> causes a double free when outp.redir is used
 	simple_or_advanced(tokens, data);
