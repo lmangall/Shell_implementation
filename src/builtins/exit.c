@@ -37,5 +37,7 @@ int	do_exit_builtin(char *line, t_data *data)
 		exit_code = 1;
 	}
 	free_string_array(argv);
+	free(line);
+	rl_clear_history();
 	exit(exit_code);
 }
