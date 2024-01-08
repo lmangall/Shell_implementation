@@ -22,6 +22,7 @@ int	set_existing_var(t_data *data, int i, const char *value)
 {
 	ft_strlcpy(data->vc[i].value, value, sizeof(data->vc[i].value));
 	data->vc[i].value[sizeof(data->vc[i].value) - 1] = '\0';
+	free((void *)value);
 	return (0);
 }
 
