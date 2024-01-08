@@ -27,7 +27,7 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 	struct node_s	*var;
 
 	i = 0;
-	root = new_node(ROOT); // THIS IS MALLOCED AND SHOULD BE FREED
+	root = new_node(ROOT);
 	if (!root)
 		return (NULL);
 	while (tokens[i] != NULL)
@@ -39,6 +39,7 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 		(void)data;
 		add_child_node(root, var);
 		i++;
+		free(var);
 	}
 	free_string_array(tokens);
 	return (root);
