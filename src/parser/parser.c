@@ -38,7 +38,6 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 		(void)data;
 		add_child_node(root, var);
 		i++;
-		free(var);
 	}
 	free_string_array(tokens);
 	return (root);
