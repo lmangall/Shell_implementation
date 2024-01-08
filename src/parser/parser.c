@@ -34,12 +34,11 @@ struct node_s	*parse_simple_command(char **tokens, t_data *data)
 		var = new_node(VAR);
 		if (!var)
 			return (NULL);
-		set_node_str(var, tokens[i]);
+		var->str = tokens[i];
 		(void)data;
 		add_child_node(root, var);
 		i++;
 	}
-	free_string_array(tokens);
 	return (root);
 }
 
