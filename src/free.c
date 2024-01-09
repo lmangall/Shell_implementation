@@ -59,12 +59,10 @@ void	free_node_tree(struct node_s *node)
 	}
 	if(node->str)
 	{
-printf("\033[0;31m" "in free_node_tree free(node->str) pointer=%p\n" "\033[0m", node->str);
 		free(node->str);
 	}
 	if(node)
 	{
-printf("\033[0;31m" "in free_node_tree free(node) pointer=%p\n" "\033[0m", node);
 		free(node);
 	}
 }
@@ -81,19 +79,16 @@ void	free_ast(struct node_type_master *master_node)
 	}
 if(master_node->root_nodes)
 {
-printf("\033[0;31m" "free(master_node->root_nodes) pointer=%p\n" "\033[0m", master_node->root_nodes);
 	free(master_node->root_nodes);
 }
 if(master_node)
 {
-printf("\033[0;31m" "free(master_node) pointer=%p\n" "\033[0m", master_node);
 	free(master_node);
 }
 }
 
 void	free_string_array(char **tokens)
 {
-printf("\033[0;31m" "free_string_array\n" "\033[0m");
 	int	i;
 
 	i = 0;

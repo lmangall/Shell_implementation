@@ -53,7 +53,7 @@ void					i_and_o_redir(struct node_type_master *master_node);
  * @return A pointer to the root node of the generated one level linked list
  */
 struct node_s			*parse_simple_command(char **tokens, t_data *data);
-struct node_type_master	*parse_advanced_command(char **tokens);
+struct node_s	*parse_advanced_command(char **tokens);
 
 /**
  * @brief Parse and execute a given command line.

@@ -65,7 +65,7 @@ struct node_type_master	*create_master_and_link(struct node_s *head)
 	return (master_node);
 }
 
-struct node_type_master	*parse_advanced_command(char **tokens)
+struct node_s	*parse_advanced_command(char **tokens)
 {
 	int				i;
 	struct node_s	*head;
@@ -91,7 +91,8 @@ struct node_type_master	*parse_advanced_command(char **tokens)
 		}
 		i++;
 	}
-	return (create_master_and_link(head));
+	return (head);
+	// return (create_master_and_link(head));
 }
 
 // struct node_type_master	*parse_advanced_command(char **tokens)

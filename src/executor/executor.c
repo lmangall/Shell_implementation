@@ -99,17 +99,16 @@ void	simple_or_advanced(char **tokens, t_data *data)
 {
 	int						status;
 	struct node_s			*cmd;
-	struct node_type_master	*master_node;
 
 	status = 0;
 	if (get_operator(tokens) != NONE)
 	{
-		master_node = parse_advanced_command(tokens);
+		cmd = parse_advanced_command(tokens);
 		if (fork() == 0)
-			exec_pipe_redir(master_node->root_nodes[0], data);
+			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);
 		update_status_and_cleanup(status, data);
-		free_ast(master_node);
+		// free_ast(master_node);
 	}
 	else
 	{
