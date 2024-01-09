@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:21:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 21:54:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:26:55 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ struct node_s	*create_root_node(char *token)
 	cmd_var = new_node(VAR);
 	if (!cmd_var)
 		return (NULL);
-	set_node_str(cmd_var, token);
+	cmd_var->str = token;
+	// set_node_str(cmd_var, token);
 	if (!add_child_node(new_cmd, cmd_var))
 		return (NULL);
 	return (new_cmd);
@@ -88,6 +89,7 @@ struct node_type_master	*create_master_node(struct node_s *cmd)
 	struct node_s			*current_cmd;
 
 	master_node = malloc(sizeof(struct node_type_master));
+printf("\034[0;31m" "create_master_node, pointer created= %p\n" "\033[0m", master_node);
 	if (!master_node)
 		return (NULL);
 	master_node->type = MASTER;

@@ -11,6 +11,7 @@
 		"free.h": "c",
 		"errno.h": "c",
 		"stdlib.h": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"parser.h": "c"
 	}
 }

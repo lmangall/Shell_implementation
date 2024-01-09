@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 19:15:59 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:04:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	exec_cmd(char **argv, t_data *data)
 			return (0);
 		}
 		execve(path, argv, custom_env);
+printf("\n    -   RIGHT AFTER EXECVE    -\n");
 		free(path);
 	}
 	free_string_array(custom_env);
@@ -112,9 +113,11 @@ void	simple_or_advanced(char **tokens, t_data *data)
 	}
 	else
 	{
-		cmd = parse_simple_command(tokens, data);
 		if (fork() == 0)
+		{
+			cmd = parse_simple_command(tokens, data);
 			exec_pipe_redir(cmd, data);
+		}
 		waitpid(-1, &status, 0);
 		update_status_and_cleanup(status, data);
 		free_string_array(tokens);

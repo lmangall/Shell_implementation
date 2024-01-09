@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:19:36 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 17:20:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:32:02 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ struct node_s	*handle_regular_word(char **tokens, int i,
 	word = new_node(VAR);
 	if (!word)
 		return (NULL);
-	set_node_str(word, tokens[i]);
+	word->str = tokens[i];
+	// set_node_str(word, tokens[i]);
 	if (!add_child_node(current_cmd, word))
 		return (NULL);
 	return (word);

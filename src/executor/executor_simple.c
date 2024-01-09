@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 17:38:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 09:18:57 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	do_simple_command(struct node_s *root_node, t_data *data)
 		return (0);
 	free_node_tree(root_node);
 	exec_cmd(argv, data);
+printf("\033[0;31m" "do_simple_command : after exec_cmd (which calls execve)\n" "\033[0m");
 	free_string_array(argv);
 	cleanup_and_exit(NULL);
 	return (0);
