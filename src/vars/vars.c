@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 19:16:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 09:07:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	**convert_vc_to_envp(t_data *data)
 			exit(EXIT_FAILURE);
 		}
 		ft_strlcpy(env_var, data->vc[i].name, ft_strlen(data->vc[i].name) + 1);
-		ft_strlcat(env_var, "=", ft_strlen(data->vc[i].name) + 2);
+		ft_strlcat(env_var, "=", ft_strlen(data->vc[i].name) + 1);
 		ft_strlcat(env_var, data->vc[i].value, ft_strlen(data->vc[i].name)
 			+ ft_strlen(data->vc[i].value) + 2);
 		envp[i] = env_var;
