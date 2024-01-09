@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 10:04:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:40:22 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ int	exec_cmd(char **argv, t_data *data)
 			free_string_array(custom_env);
 			return (0);
 		}
+printf("\n      printing custom_env passed to execve\n");
+print_string_array(custom_env);
+printf("\n");
+
 		execve(path, argv, custom_env);
 printf("\n    -   RIGHT AFTER EXECVE    -\n");
 		free(path);

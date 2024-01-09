@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:52:55 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 17:35:25 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:44:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,26 @@ int	add_child_node(struct node_s *parent, struct node_s *child)
 	}
 }
 
-void	set_node_str(struct node_s *node, char *val)
-{
-	char	*val2;
+// void	set_node_str(struct node_s *node, char *val)
+// {
+// 	char	*val2;
 
-	if (!val)
-		node->str = NULL;
-	else
-	{
-		val2 = ft_calloc(strlen(val) + 1, sizeof(char));
-		if (!val2)
-			node->str = NULL;
-		else
-		{
-			if (node->str)
-				free(node->str);
-			ft_strlcpy(val2, val, ft_strlen(val) + 1);
-			node->str = val2;
-		}
-	}
-}
+// 	if (!val)
+// 		node->str = NULL;
+// 	else
+// 	{
+// 		val2 = ft_calloc(strlen(val) + 1, sizeof(char));
+// 		if (!val2)
+// 			node->str = NULL;
+// 		else
+// 		{
+// 			if (node->str)
+// 				free(node->str);
+// 			ft_strlcpy(val2, val, ft_strlen(val) + 1);
+// 			node->str = val2;
+// 		}
+// 	}
+// }
 
 int	add_sibling_node(struct node_s *parent, struct node_s *child)
 {

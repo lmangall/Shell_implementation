@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:19:36 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 10:32:02 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:42:34 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ struct node_s	*handle_regular_word(char **tokens, int i,
 	return (word);
 }
 
-struct node_type_master	*create_master_and_link(struct node_s *head)
-{
-	struct node_type_master	*master_node;
+// struct node_type_master	*create_master_and_link(struct node_s *head)
+// {
+// 	struct node_type_master	*master_node;
 
-	master_node = create_master_node(head);
-	if (master_node == NULL)
-		return (NULL);
-	link_root_nodes(master_node);
-	return (master_node);
-}
+// 	master_node = create_master_node(head);
+// 	if (master_node == NULL)
+// 		return (NULL);
+// 	link_root_nodes(master_node);
+// 	return (master_node);
+// }
 
 struct node_s	*parse_advanced_command(char **tokens)
 {
