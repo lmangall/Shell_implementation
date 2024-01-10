@@ -64,9 +64,11 @@ int			do_unset_builtin(char **tokens, t_data *data);
 // utils
 char		*return_env_from_container(t_data *data);
 int			find_equal_sign(char *str);
+void		copy_env_var(char *env_var, t_data *data, int i);
+void		exit_with_error(const char *errorMessage);
 // utils_dev
 void		print_vars(const t_data *data);
 void		print_exported_vars(const t_data *data);
-int	set_existing_var(t_data *data, int i, const char *value);
+int			set_existing_var(t_data *data, int i, const char *value);
 
 #endif

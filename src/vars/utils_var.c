@@ -18,6 +18,24 @@
 #include <errno.h>
 #include <unistd.h>
 
+void	exit_with_error(const char *errorMessage)
+{
+	perror(errorMessage);
+	exit(EXIT_FAILURE);
+}
+
+void	copy_env_var(char *env_var, t_data *data, int i)
+{
+	size_t	total_length;
+
+	total_length = 0;
+	total_length = ft_strlen(data->vc[i].name);
+	total_length += ft_strlen(data->vc[i].value) + 2;
+	ft_strlcpy(env_var, data->vc[i].name, total_length);
+	ft_strlcat(env_var, "=", total_length);
+	ft_strlcat(env_var, data->vc[i].value, total_length);
+}
+
 // is this function double ?
 int	find_equal_sign(char *str)
 {

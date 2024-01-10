@@ -107,6 +107,7 @@ int	check_for_variable_setting(t_data *data, char *token)
 		return (1);
 }
 
+// should envp be freed ?
 char	**convert_vc_to_envp(t_data *data)
 {
 	char	**envp;
@@ -117,8 +118,7 @@ char	**convert_vc_to_envp(t_data *data)
 	envp = malloc((data->num_vars + 1) * sizeof(char *));
 	if (envp == NULL)
 	{
-		perror("Ceci est une erreur");
-		exit(EXIT_FAILURE);
+		exit_with_error("Ceci est une erreur");
 	}
 	while (i < data->num_vars)
 	{
@@ -126,17 +126,12 @@ char	**convert_vc_to_envp(t_data *data)
 				+ ft_strlen(data->vc[i].value) + 2);
 		if (env_var == NULL)
 		{
-			perror("Tout va bien se passer");
-			exit(EXIT_FAILURE);
+			exit_with_error("Tout va bien se passer");
 		}
-		ft_strlcpy(env_var, data->vc[i].name, ft_strlen(data->vc[i].name) + 1);
-		ft_strlcat(env_var, "=", ft_strlen(data->vc[i].name) + 1);
-		ft_strlcat(env_var, data->vc[i].value, ft_strlen(data->vc[i].name)
-			+ ft_strlen(data->vc[i].value) + 2);
+		copy_env_var(env_var, data, i);
 		envp[i] = env_var;
 		i++;
 	}
 	envp[data->num_vars] = NULL;
-	// should en_var be freed here? it is malloced
 	return (envp);
 }
