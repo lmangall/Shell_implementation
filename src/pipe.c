@@ -97,7 +97,7 @@ void	execute_pipe_command(struct node_s *node, t_data *data)
 			close(pipe_fd[1]);
 			waitpid(child_pid1, &status, 0);
 			waitpid(child_pid2, &status, 0);
-			// exit(EXIT_SUCCESS);
+			exit(EXIT_SUCCESS);
 		}
 	}
 }
