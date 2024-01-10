@@ -114,7 +114,7 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			exec_pipe_redir(cmd, data);
 		}
 		waitpid(-1, &status, 0);
-		free_node_tree(cmd);
+		//free_node_tree(cmd);
 		update_status_and_cleanup(status, data);
 	}
 	else
