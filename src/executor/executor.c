@@ -107,14 +107,15 @@ void	simple_or_advanced(char **tokens, t_data *data)
 	status = 0;
 	if (get_operator(tokens) != NONE)
 	{
-			cmd = parse_advanced_command(tokens);
+	
 		if (fork() == 0)
 		{
+			cmd = parse_advanced_command(tokens);
 			exec_pipe_redir(cmd, data);
 		}
 		waitpid(-1, &status, 0);
+		free_node_tree(cmd);
 		update_status_and_cleanup(status, data);
-		// free_ast(master_node);
 	}
 	else
 	{
@@ -126,6 +127,5 @@ void	simple_or_advanced(char **tokens, t_data *data)
 		waitpid(-1, &status, 0);
 		update_status_and_cleanup(status, data);
 		free_string_array(tokens);
-		// free_node_tree(cmd);
 	}
 }
