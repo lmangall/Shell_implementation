@@ -18,7 +18,7 @@
 typedef struct s_vars
 {
 	char	name[50];
-	char	value[120];
+	char	value[150];
 }			t_vars;
 
 typedef struct s_data

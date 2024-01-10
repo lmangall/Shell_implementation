@@ -43,7 +43,7 @@ void	remove_var_at_index(t_data *data, int index)
 	while (j < data->num_shell_vars - 1)
 	{
 		ft_strlcpy(data->shell_vc[j].name, data->shell_vc[j + 1].name, 50);
-		ft_strlcpy(data->shell_vc[j].value, data->shell_vc[j + 1].value, 120);
+		ft_strlcpy(data->shell_vc[j].value, data->shell_vc[j + 1].value, 150);
 		j++;
 	}
 	data->num_shell_vars--;
@@ -79,7 +79,7 @@ int	unset_var(t_data *data, const char *name)
 			while (j < data->num_vars - 1)
 			{
 				ft_strlcpy(data->vc[j].name, data->vc[j + 1].name, 50);
-				ft_strlcpy(data->vc[j].value, data->vc[j + 1].value, 120);
+				ft_strlcpy(data->vc[j].value, data->vc[j + 1].value, 150);
 				j++;
 			}
 			data->num_vars--;
