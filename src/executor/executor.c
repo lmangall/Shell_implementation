@@ -72,9 +72,9 @@ int	exec_cmd(char **argv, t_data *data)
 			free_string_array(custom_env);
 			return (0);
 		}
-printf("\n      printing custom_env passed to execve\n");
-print_string_array(custom_env);
-printf("\n");
+//printf("\n      printing custom_env passed to execve\n");
+//print_string_array(custom_env);
+//printf("\n");
 
 		execve(path, argv, custom_env);
 printf("\n    -   RIGHT AFTER EXECVE    -\n");
