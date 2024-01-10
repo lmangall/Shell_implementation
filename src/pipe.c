@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 15:48:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:18:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,13 @@ void	execute_pipe_command(struct node_s *node, t_data *data)
 			close(pipe_fd[1]);
 			waitpid(child_pid1, &status, 0);
 			waitpid(child_pid2, &status, 0);
+
+			// free(data->exec_path);
+			// free_string_array(data->exec_custom_env);
+			// free_string_array(data->exec_custom_env);
+
+			free_node_tree(node->next_sibling);
+			free_node_tree(node);
 			exit(EXIT_SUCCESS);
 		}
 	}

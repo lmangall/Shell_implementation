@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:38 by lmangall          #+#    #+#             */
-/*   Updated: 2023/09/03 11:42:38 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:18:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ char	**ft_split(char const *s, char c)
 		i++;
 	}
 	tab[i] = NULL;
+printf("printinf from ft_split number of tokens: %zu\n", i);
 	return (tab);
 }

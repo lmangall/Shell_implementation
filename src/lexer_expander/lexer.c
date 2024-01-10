@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 18:22:25 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:19:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@
 char	**lexer(char *line)
 {
 	char	**tokens;
-
-	tokens = NULL;
-	if (!line)
-		return (NULL);
-	if (contains_two(line, '\"') || contains_two(line, '\''))
-	{
-		check_quotes_replace_ff(line);
-		char	*line_without_quotes;
-		line_without_quotes = erase_outside_quotes(line);
-		line = ft_strdup(line_without_quotes);
-		free(line_without_quotes);
-	}
+printf("accessing lexer\n");
+printf("\n\nEXPANSION COMMENTED OUT in lexer\n\n");
+	// tokens = NULL;
+	// if (!line)
+	// 	return (NULL);
+	// if (contains_two(line, '\"') || contains_two(line, '\''))
+	// {
+	// 	check_quotes_replace_ff(line);
+	// 	char	*line_without_quotes;
+	// 	line_without_quotes = erase_outside_quotes(line);
+	// 	line = ft_strdup(line_without_quotes);
+	// 	free(line_without_quotes);
+	// }
 	tokens = ft_split(line, ' ');
-	put_space_back(tokens);
+	// put_space_back(tokens);
 	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 16:04:54 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 00:18:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*search_path(char *cmd, t_data *data)
 		command = ft_strjoin(tmp, cmd);
 		if (access(command, 0) == 0)
 		{
-			// free_string_array(paths_arr);
 			return (command);
 		}
 		paths_arr++;
@@ -52,37 +51,41 @@ char	*search_path(char *cmd, t_data *data)
 	return (NULL);
 }
 
-// =>custom_env needs to be freed ?
-int	exec_cmd(char **argv, t_data *data)
+int exec_cmd(char **argv, t_data *data)
 {
-	char	*path;
-	char	**custom_env;
+    char    *path;
+    char    **custom_env;
 
-	custom_env = convert_vc_to_envp(data);
-	if (ft_strchr(argv[0], '/'))
-	{
-		execve(argv[0], argv, custom_env);
-	}
-	else
-	{
-		path = search_path(argv[0], data);
-		if (!path)
-		{
-			free(path);
-			free_string_array(custom_env);
-			return (0);
-		}
-//printf("\n      printing custom_env passed to execve\n");
-//print_string_array(custom_env);
-//printf("\n");
+    custom_env = convert_vc_to_envp(data);
+    if (ft_strchr(argv[0], '/'))
+    {
+        // data->exec_path = NULL;
+        // data->exec_argv = argv;
+        // data->exec_custom_env = custom_env;
+        execve(argv[0], argv, custom_env);
+    }
+    else
+    {
+        path = search_path(argv[0], data);
+        if (!path)
+        {
+            free(path);
+            free_string_array(custom_env);
+            return (0);
+        }
+        // data->exec_path = path;
+        // data->exec_argv = argv;
+        // data->exec_custom_env = custom_env;
 
-		execve(path, argv, custom_env);
-printf("\n    -   RIGHT AFTER EXECVE    -\n");
-		free(path);
-	}
-	free_string_array(custom_env);
-	return (0);
+        execve(path, argv, custom_env);
+        printf("\n    -   RIGHT AFTER EXECVE    -\n");
+    }
+    // This part will only be reached if execve fails
+    // free(data->exec_path);
+    // free_string_array(data->exec_custom_env);
+    return (0);
 }
+
 
 void	update_status_and_cleanup(int status, t_data *data)
 {
@@ -114,6 +117,13 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			exec_pipe_redir(cmd, data);
 		}
 		waitpid(-1, &status, 0);
+
+
+		// free(data->exec_path);
+		// free_string_array(data->exec_argv);
+		// free_string_array(data->exec_custom_env);
+
+		// free_string_array(tokens);
 		//free_node_tree(cmd);
 		update_status_and_cleanup(status, data);
 	}
