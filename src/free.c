@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:45:03 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:01:07 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	cleanup_and_exit(char *line)
 	exit(EXIT_SUCCESS);
 }
 
-void	free_node_tree(struct node_s *node)
+void	free_node_tree(struct s_node *node)
 {
-	struct node_s	*child;
-	struct node_s	*next;
+	struct s_node	*child;
+	struct s_node	*next;
 
 	if (!node)
 	{

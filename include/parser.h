@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 13:50:26 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/11 16:05:01 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <vars.h>
 # include "parser_nodes.h"
 
+struct node_type_master	*search_special(struct node_s *cmd);
 int						is_operator(char *str);
 
 /**
@@ -50,7 +51,7 @@ t_operator				get_operator(char **token);
  * @return A pointer to the root node of the generated one level linked list
  */
 struct node_s			*parse_simple_command(char **tokens, t_data *data);
-struct node_s			*parse_advanced_command(char **tokens);
+struct node_s	*parse_advanced_command(char **tokens);
 
 /**
  * @brief Parse and execute a given command line.
@@ -64,12 +65,8 @@ struct node_s			*parse_advanced_command(char **tokens);
  */
 int						parse_and_execute(char *line, t_data *data);
 
-struct node_s			*create_new_command(char **tokens,
-							int i, struct node_s **head,
-							struct node_s **current_cmd);
-struct node_s			*handle_regular_word(char **tokens,
-							int i,
-							struct node_s *current_cmd);
+struct node_s			*create_new_command(char **tokens, int i, struct node_s **head, struct node_s **current_cmd);
+struct node_s			*handle_regular_word(char **tokens, int i, struct node_s *current_cmd);
 struct node_type_master	*create_master_and_link(struct node_s *head);
 
 #endif

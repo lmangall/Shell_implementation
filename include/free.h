@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 13:47:12 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/11 16:04:48 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  *
  * @param node The root node of the tree to free.
  */
-void	free_node_tree(struct node_s *node);
+void	free_node_tree(struct s_node *node);
 
 /**
  * @brief Frees an abstract syntax tree.

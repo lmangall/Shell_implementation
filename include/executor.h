@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:11:07 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 18:14:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:04:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	update_status_and_cleanup(int status, t_data *data);
 void	simple_or_advanced(char **tokens, t_data *data);
 
 char	*duplicate_string(const char *str);
-char	**build_argv(struct node_s *root_node, int *argc);
+char	**build_argv(struct s_node *root_node, int *argc);
 void	free_argv(char **argv);
-int		do_simple_command(struct node_s *root_node, t_data *data);
+int		do_simple_command(struct s_node *root_node, t_data *data);
+
+
 #endif

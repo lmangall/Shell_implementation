@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:36:57 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:59:05 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	update_status_and_cleanup(int status, t_data *data)
 void	simple_or_advanced(char **tokens, t_data *data)
 {
 	int				status;
-	struct node_s	*cmd;
+	struct s_node	*cmd;
 
 	status = 0;
 	if (get_operator(tokens) != NONE)
