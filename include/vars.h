@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 19:39:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:07:51 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ typedef struct s_data
 	t_vars	vc[MAX_VARS];
 	t_vars	shell_vc[MAX_VARS];
 	char 	**tokens;
+	char	**argv;
+	char	**envp_arr;
+	char	*path;
 }	t_data;
 
 // vars

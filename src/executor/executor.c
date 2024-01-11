@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 19:38:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:47:22 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	exec_cmd(char **argv, t_data *data)
 	char	**custom_env;
 
 	custom_env = convert_vc_to_envp(data);
+	data->envp_arr = custom_env;
 	if (ft_strchr(argv[0], '/'))
 	{
 		if (access(argv[0], 0))
@@ -69,6 +70,7 @@ int	exec_cmd(char **argv, t_data *data)
 	else
 	{
 		path = search_path(argv[0], data);
+		data->path = path;
 		if (!path)
 		{
 			free(path);
