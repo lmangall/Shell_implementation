@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 18:05:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:43:12 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 		set_signal_handlers();
-		// free(line); => when on, only ctrlc after cat complains	
 	}
 	cleanup_and_exit(NULL);
 	return (0);
@@ -76,15 +75,6 @@ void	prepare_command_execution(char **line, t_data *data)
 		*line = ft_strdup(expanded_line);
 		free(expanded_line);
 	}
-	// else
-	// {
-	// 	if (contains_two(*line, '\"') || contains_two(*line, '\''))
-	// 	{
-	// 		expanded_line = erase_outside_quotes(*line);
-	// 		*line = ft_strdup(expanded_line);
-	// 		free(expanded_line);
-	// 	}
-	// }	
 }
 
 int	builtins_to_parsing(char *line, t_data *data)

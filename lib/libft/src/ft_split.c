@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 18:06:38 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 00:18:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:41:06 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,6 @@ static void	ft_get_next_word(char **next_word, size_t *next_word_len, char c)
 	}
 }
 
-// static void	ft_get_next_word(char **next_word, size_t *next_word_len, char c)
-// {
-//     size_t	i;
-//     int     in_quote;
-
-//     *next_word += *next_word_len;
-//     *next_word_len = 0;
-//     i = 0;
-//     in_quote = 0;
-//     while (**next_word && **next_word == c)
-//         (*next_word)++;
-//     while ((*next_word)[i])
-//     {
-//         if ((*next_word)[i] == c && !in_quote)
-//             return ;
-//         if ((*next_word)[i] == '"' && (i == 0 || (*next_word)[i - 1] != '\\'))
-//         {
-//             in_quote = !in_quote;
-//             i++;
-//             continue;
-//         }
-//         (*next_word_len)++;
-//         i++;
-//     }
-//     if ((*next_word)[i - 1] != c)
-//         (*next_word_len)++;
-// }
-
 char	**ft_split(char const *s, char c)
 {
 	char	**tab;
@@ -124,6 +96,5 @@ char	**ft_split(char const *s, char c)
 		i++;
 	}
 	tab[i] = NULL;
-printf("printinf from ft_split number of tokens: %zu\n", i);
 	return (tab);
 }

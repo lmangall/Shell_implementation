@@ -6,33 +6,38 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:04:49 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 21:43:41 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:40:57 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t size)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned int count;
-	const char *copy_src = src;
-	char *copy_dest = dest;
+	size_t	i;
 
-	for (count = 0; count <= size; count++) 
+	if (!dst && !src)
+		return (NULL);
+	i = 0;
+	while (i < n)
 	{
-		copy_dest[count] = copy_src[count];
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
 	}
-	return (dest);
+	return (dst);
 }
 /*
-int main(void)
+int	main(void)
 {
-    char			src[] = "Pleaseletmebe";
-    unsigned char	dest[] = "I will get you";
-    size_t			n = 10;
+	char			src[] = "Pleaseletmebe";
+	unsigned char	dest[] = "I will get you";
+	size_t			n;
+	char			*s1;
+	char			*s2;
 
-	char	*s1 = memcpy(dest, src, n);
-	char	*s2 = ft_memcpy(dest, src, n);
+	n = 10;
+	s1 = memcpy(dest, src, n);
+	s2 = ft_memcpy(dest, src, n);
 	printf ("memcpy: %s\nft_memcpy: %s\n", s1, s2);
 }
 */
