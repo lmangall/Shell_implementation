@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:07:18 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 19:16:38 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:16:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,3 @@ int	check_for_builtins(char *line, t_data *data)
 		ret = do_exit_builtin(line, data);
 	return (ret);
 }
-

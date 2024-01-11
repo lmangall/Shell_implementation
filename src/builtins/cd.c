@@ -6,16 +6,16 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 17:59:37 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:24:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 #include "../../include/expander.h"
-#include "../../include/parser_nodes.h"
-#include "../../include/parser.h"
-#include "../../lib/libft/src/libft.h"
 #include "../../include/free.h"
+#include "../../include/parser.h"
+#include "../../include/parser_nodes.h"
+#include "../../lib/libft/src/libft.h"
 
 char	*return_var_value(t_data *data, char *name)
 {
@@ -31,21 +31,21 @@ char	*return_var_value(t_data *data, char *name)
 	return (NULL);
 }
 
-int	do_cd_builtin(char **argv, t_data *data)
+char	*get_cd_path(char **argv, t_data *data)
 {
-	char	*path;
+	if (!argv[1])
+		return (ft_strdup(return_var_value(data, "HOME")));
+	else if (strcmp(argv[1], "-") == 0)
+		return (ft_strdup(return_var_value(data, "OLDPWD")));
+	else
+		return (ft_strdup(argv[1]));
+}
+
+int	change_directory(char *path, t_data *data)
+{
 	char	*oldpwd;
 	char	*pwd;
 
-	path = NULL;
-	oldpwd = NULL;
-	pwd = NULL;
-	if (argv[1] == NULL)
-		path = ft_strdup(return_var_value(data, "HOME"));
-	else if (ft_strcmp(argv[1], "-") == 0)
-		path = ft_strdup(return_var_value(data, "OLDPWD"));
-	else
-		path = ft_strdup(argv[1]);
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(path) == -1)
 	{
@@ -57,9 +57,19 @@ int	do_cd_builtin(char **argv, t_data *data)
 	pwd = getcwd(NULL, 0);
 	set_var(data, "OLDPWD", oldpwd);
 	set_var(data, "PWD", pwd);
-	free(path);
 	free(oldpwd);
 	free(pwd);
-	free_string_array(argv);
 	return (-1);
+}
+
+int	do_cd_builtin(char **argv, t_data *data)
+{
+	char	*path;
+	int		result;
+
+	path = get_cd_path(argv, data);
+	result = change_directory(path, data);
+	free(path);
+	free_string_array(argv);
+	return (result);
 }
