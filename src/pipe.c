@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:58:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:26:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-void	exec_pipe_redir(struct node_s *node, t_data *data)
+void	exec_pipe_redir(struct s_node *node, t_data *data)
 {
 	if (node->operator == PIPE)
 		execute_pipe_command(node, data);
@@ -36,7 +36,7 @@ void	exec_pipe_redir(struct node_s *node, t_data *data)
 		exec_redirection(node, data);
 }
 
-void	first_child(struct node_s *node, int pipe_fd[2], t_data *data)
+void	first_child(struct s_node *node, int pipe_fd[2], t_data *data)
 {
 	close(STDOUT_FILENO);
 	dup(pipe_fd[1]);
@@ -46,7 +46,7 @@ void	first_child(struct node_s *node, int pipe_fd[2], t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void	second_child(struct node_s *node, int pipe_fd[2], t_data *data)
+void	second_child(struct s_node *node, int pipe_fd[2], t_data *data)
 {
 	close(STDIN_FILENO);
 	dup(pipe_fd[0]);
@@ -57,17 +57,19 @@ void	second_child(struct node_s *node, int pipe_fd[2], t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void run_second_child_process(struct node_s *node, int pipe_fd[2], pid_t child_pid1, t_data *data)
+void	run_second_child_process(struct s_node *node, 
+							int pipe_fd[2], pid_t child_pid1, t_data *data)
 {
-	pid_t	child_pid2 = fork();
+	pid_t	child_pid2;
 	int		status;
 
 	status = 0;
-	if (child_pid2 == -1) {
+	child_pid2 = fork();
+	if (child_pid2 == -1)
+	{
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-
 	if (child_pid2 == 0) 
 		second_child(node->next_sibling, pipe_fd, data);
 	else
@@ -82,7 +84,7 @@ void run_second_child_process(struct node_s *node, int pipe_fd[2], pid_t child_p
 	}
 }
 
-void	execute_pipe_command(struct node_s *node, t_data *data)
+void	execute_pipe_command(struct s_node *node, t_data *data)
 {
 	pid_t	child_pid1;
 	int		pipe_fd[2];
