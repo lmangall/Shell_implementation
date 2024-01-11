@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 16:04:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:42:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ t_vars	*find_var(char *name, t_data *data)
 	while (i < data->num_vars)
 	{
 		if (ft_strcmp(name, data->vc[i].name) == 0)
+		{
+			free(control); // Free the memory allocated by ft_calloc
 			return (&data->vc[i]);
+		}
 		else
 			i++;
 	}
