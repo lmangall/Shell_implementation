@@ -44,7 +44,6 @@ struct node_s	*create_root_node(char *token)
 	if (!cmd_var)
 		return (NULL);
 	cmd_var->str = token;
-	// set_node_str(cmd_var, token);
 	if (!add_child_node(new_cmd, cmd_var))
 		return (NULL);
 	return (new_cmd);
@@ -89,7 +88,8 @@ int	add_command_node_to_list(struct node_s **cmd, struct node_s **current_cmd,
 // 	struct node_s			*current_cmd;
 
 // 	master_node = malloc(sizeof(struct node_type_master));
-// printf("\034[0;31m" "create_master_node, pointer created= %p\n" "\033[0m", master_node);
+// printf("\034[0;31m" "create_master_node, 
+// pointer created= %p\n" "\033[0m", master_node);
 // 	if (!master_node)
 // 		return (NULL);
 // 	master_node->type = MASTER;
