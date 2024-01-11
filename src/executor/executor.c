@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 15:59:05 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:56:34 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*search_path(char *cmd, t_data *data)
 	}
 	free(command);
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
+	exit(1);
 	return (NULL);
 }
 
@@ -58,6 +59,11 @@ int	exec_cmd(char **argv, t_data *data)
 	custom_env = convert_vc_to_envp(data);
 	if (ft_strchr(argv[0], '/'))
 	{
+		if (access(argv[0], 0))
+		{
+			printf("No such file or directory\n");
+			exit(127);
+		}
 		execve(argv[0], argv, custom_env);
 	}
 	else
@@ -70,7 +76,6 @@ int	exec_cmd(char **argv, t_data *data)
 			return (0);
 		}
 		execve(path, argv, custom_env);
-		printf("\n    -   RIGHT AFTER EXECVE    -\n");
 	}
 	return (0);
 }

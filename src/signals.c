@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:12 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 14:46:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:53:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	handle_ctrl_c(int sig)
 void	handle_ctrl_backslash(int sig)
 {
 	(void)sig;
-	printf("quit (core dumped)\n");
+	printf("quit (core dumped) -> everything is fine, "
+		"this is supposed to happen\n");
 }
 
 void	handle_ctrl_c_in_command(int sig)

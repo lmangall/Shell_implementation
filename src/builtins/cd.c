@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:58:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:26:49 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	change_directory(char *path, t_data *data)
 	pwd = getcwd(NULL, 0);
 	set_var(data, "OLDPWD", oldpwd);
 	set_var(data, "PWD", pwd);
-	free(oldpwd);
-	free(pwd);
 	return (-1);
 }
 

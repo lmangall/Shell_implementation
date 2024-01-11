@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 09:40:38 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:06:05 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	check_for_variable_setting(t_data *data, char *token)
 		set_shell_var(data, name, value);
 		free(name);
 		free(value);
-		return (-1);
+		return (3);
 	}
 	else
 		return (1);
