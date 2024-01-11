@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 22:16:17 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:59:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,21 @@ char	*erase_outside_quotes(const char *str)
 	j = 0;
 	flag = 0;
 	new_str = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);
-
 	while (*str != '\0')
 	{
 		if (*str == '\'' && (flag == 0 || flag == 1))
-			flag = 1;
-		else if (*str == '\"' && (flag == 0 || flag == 2))
-			flag = 2;
-		else
 		{
-			new_str[j] = *str;
-			j++;
+			flag = 1;
+			str++;
 		}
+		else if (*str == '\"' && (flag == 0 || flag == 2))
+		{
+			flag = 2;
+			str++;
+		}
+		new_str[j] = *str;
 		str++;
+		j++;
 	}
 	new_str[j] = '\0';
 	return (new_str);

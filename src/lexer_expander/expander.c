@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 22:42:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:58:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	*expand(char *str, t_data *data)
 	char	*var_name;
 	t_vars	*var;
 	int		expansion;
+	char	*str_without_quotes;
 
 	var_name = NULL;
 	var = NULL;
@@ -105,6 +106,10 @@ char	*expand(char *str, t_data *data)
 		expand_var(&str, &var);
 	}
 	if (contains_two(str, '\"') || contains_two(str, '\''))
-		str = (char *)erase_outside_quotes(str);
+	{		
+		str_without_quotes = (char *)erase_outside_quotes(str);
+		free(str);
+		str = str_without_quotes;
+	}
 	return (str);
 }
