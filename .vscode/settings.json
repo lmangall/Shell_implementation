@@ -12,6 +12,7 @@
 		"errno.h": "c",
 		"stdlib.h": "c",
 		"type_traits": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"expander.h": "c"
 	}
 }
