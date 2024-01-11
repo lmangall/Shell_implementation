@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:40:16 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:47:45 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
-#define LEXER_H
+# define LEXER_H
 
 /**
  * @brief Tokenizes a string based on spaces, handling quotes.
@@ -39,8 +39,6 @@ char	**put_space_back(char **tokens);
 void	erase_quotes_str(char **str);
 char	**erase_quotes(char **tokens);
 
-
-
 /**
  * @brief Allocate memory for a new array of tokens.
  *
@@ -62,7 +60,5 @@ char	*copy_token_without_quotes(const char *source);
  * @return A new array of tokens without quotes.
  */
 char	**erase_quotes_from_tokens(char **tokens);
-
-
 
 #endif 

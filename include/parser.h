@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:50:13 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:50:26 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 # include <vars.h>
-#include "parser_nodes.h"
+# include "parser_nodes.h"
 
-struct node_type_master	*search_special(struct node_s *cmd);
 int						is_operator(char *str);
 
 /**
@@ -23,7 +22,8 @@ int						is_operator(char *str);
  * in the array of tokens and returns the operator type.
  *
 
-	* This function iterates over the array of tokens and determines the operator type
+ * This function iterates over the array of 
+ * tokens and determines the operator type
  * based on the token values. The following operators are supported:
  * - PIPE: "|"
  * - RDR_OUT_REPLACE: ">"
@@ -35,8 +35,6 @@ int						is_operator(char *str);
  * @return The operator type, or NONE if no operator is found.
  */
 t_operator				get_operator(char **token);
-void					i_and_o_redir(struct node_type_master *master_node);
-
 /**
  * @brief Parses a simple command.
  *
@@ -52,7 +50,7 @@ void					i_and_o_redir(struct node_type_master *master_node);
  * @return A pointer to the root node of the generated one level linked list
  */
 struct node_s			*parse_simple_command(char **tokens, t_data *data);
-struct node_s	*parse_advanced_command(char **tokens);
+struct node_s			*parse_advanced_command(char **tokens);
 
 /**
  * @brief Parse and execute a given command line.
@@ -66,8 +64,12 @@ struct node_s	*parse_advanced_command(char **tokens);
  */
 int						parse_and_execute(char *line, t_data *data);
 
-struct node_s			*create_new_command(char **tokens, int i, struct node_s **head, struct node_s **current_cmd);
-struct node_s			*handle_regular_word(char **tokens, int i, struct node_s *current_cmd);
+struct node_s			*create_new_command(char **tokens,
+							int i, struct node_s **head,
+							struct node_s **current_cmd);
+struct node_s			*handle_regular_word(char **tokens,
+							int i,
+							struct node_s *current_cmd);
 struct node_type_master	*create_master_and_link(struct node_s *head);
 
 #endif

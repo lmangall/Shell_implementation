@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:43:36 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:44:35 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-// #if 1
-// extern long long g_exit_status;
 
 bool	streq(char *str1, char *str2)
 {

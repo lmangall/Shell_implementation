@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:57 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:17:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:55:49 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef MAIN_H
+# define MAIN_H
 # include "../include/executor.h"
 # include "../include/lexer.h"
 # include "../include/parser.h"
@@ -22,12 +22,12 @@
 # include <readline/readline.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdio.h>
 
 # define SHELL_PROMPT "\033[1;35mminishell$ \033[0m"
 
-# define EOF (-1)
-# define ERRCHAR (0)
-# define INIT_SRC_POS (-2)
+# define ERRCHAR 0
+# define INIT_SRC_POS -2
 
 /**
  * @brief Set signal handlers for the shell.

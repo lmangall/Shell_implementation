@@ -10,18 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef		EXECUTOR_H
-# define	EXECUTOR_H
-#include "vars.h"
-#include "parser_nodes.h"
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
+# include "vars.h"
+# include "parser_nodes.h"
 
 char	*search_path(char *cmd, t_data *data);
 int		exec_cmd(char**argv, t_data *data);
 /**
  * @brief Update the command exit status and perform cleanup.
  *
- * This function takes the exit status of a command, updates the command exit status
- * variable, and sets the corresponding variable in the data structure. It also performs
+ * This function takes the exit status of a command,
+ *  updates the command exit status
+ * variable, and sets the corresponding variable
+ * in the data structure. It also performs
  * any necessary cleanup operations.
  *
  * @param status The exit status of the executed command.
@@ -44,6 +46,4 @@ char	*duplicate_string(const char *str);
 char	**build_argv(struct node_s *root_node, int *argc);
 void	free_argv(char **argv);
 int		do_simple_command(struct node_s *root_node, t_data *data);
-
-
 #endif
