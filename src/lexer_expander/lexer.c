@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 18:46:27 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 22:22:53 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ char	**lexer(char *line)
 	{
 		check_quotes_replace_ff(line);
 		line_without_quotes = erase_outside_quotes(line);
-		line = ft_strdup(line_without_quotes);
+		tokens = ft_split(line_without_quotes, ' ');
 		free(line_without_quotes);
 	}
-	tokens = ft_split(line, ' ');
+	else
+		tokens = ft_split(line, ' ');
 	put_space_back(tokens);
 	return (tokens);
 }
