@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 17:06:05 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:23:06 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	is_valid_variable_declaration(const char *input)
 {
 	int	i;
 
+	if (find_equal_sign((char *) input) == -1)
+		return (-1);
 	if (input == NULL || input[0] == '=')
 	{
 		return (0);
@@ -93,7 +95,7 @@ int	check_for_variable_setting(t_data *data, char *token)
 	char	*name;
 	char	*value;
 
-	if (is_valid_variable_declaration(token))
+	if (is_valid_variable_declaration(token) != -1)
 	{
 		equal_sign = find_equal_sign(token);
 		name = ft_substr(token, 0, equal_sign);

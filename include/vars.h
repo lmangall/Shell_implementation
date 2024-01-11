@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:59:11 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:39:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ typedef struct s_data
 	char	*envp;
 	int		num_vars;
 	int		num_shell_vars;
-	int		last_command_exit_status;
+	char	*last_command_exit_status;
 	t_vars	vc[MAX_VARS];
 	t_vars	shell_vc[MAX_VARS];
+	char 	**tokens;
 }	t_data;
 
 // vars

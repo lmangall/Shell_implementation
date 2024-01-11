@@ -14,6 +14,20 @@
 		"type_traits": "c",
 		"parser.h": "c",
 		"expander.h": "c",
-		"parser_nodes.h": "c"
+		"parser_nodes.h": "c",
+		"__bit_reference": "c",
+		"__node_handle": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"__memory": "c",
+		"limits": "c",
+		"optional": "c",
+		"ratio": "c",
+		"system_error": "c",
+		"tuple": "c",
+		"vector": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c"
 	}
 }

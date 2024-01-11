@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:15:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 19:01:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	free_node_tree(struct s_node *node);
  * @param tokens The array of tokens to free.
  */
 void	free_string_array(char **tokens);
+
+void free_node_tree_recursive(struct s_node *node);
 
 #endif
