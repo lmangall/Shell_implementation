@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:52:55 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 13:17:26 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct node_s	*new_node(enum e_node type)
+struct s_node	*new_node(enum e_node type)
 {
-	struct node_s	*node;
+	struct s_node	*node;
 
-	node = malloc(sizeof(struct node_s));
+	node = malloc(sizeof(struct s_node));
 	if (!node)
 		return (NULL);
-	ft_memset(node, 0, sizeof(struct node_s));
+	ft_memset(node, 0, sizeof(struct s_node));
 	node->type = type;
 	node->str = NULL;
 	node->first_child = NULL;
@@ -36,9 +36,9 @@ struct node_s	*new_node(enum e_node type)
 	return (node);
 }
 
-int	add_child_node(struct node_s *parent, struct node_s *child)
+int	add_child_node(struct s_node *parent, struct s_node *child)
 {
-	struct node_s	*current_child;
+	struct s_node	*current_child;
 
 	if (parent == NULL || child == NULL)
 		return (0);
@@ -57,7 +57,7 @@ int	add_child_node(struct node_s *parent, struct node_s *child)
 	}
 }
 
-// void	set_node_str(struct node_s *node, char *val)
+// void	set_s_nodetr(struct s_node *node, char *val)
 // {
 // 	char	*val2;
 
@@ -78,7 +78,7 @@ int	add_child_node(struct node_s *parent, struct node_s *child)
 // 	}
 // }
 
-int	add_sibling_node(struct node_s *parent, struct node_s *child)
+int	add_sibling_node(struct s_node *parent, struct s_node *child)
 {
 	if (parent == NULL || child == NULL)
 		return (0);

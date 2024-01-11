@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/07 18:25:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 #include <errno.h>
 #include <unistd.h>
 
-struct node_s	*parse_simple_command(char **tokens, t_data *data)
+struct s_node	*parse_simple_command(char **tokens, t_data *data)
 {
 	int				i;
-	struct node_s	*root;
-	struct node_s	*var;
+	struct s_node	*root;
+	struct s_node	*var;
 
 	i = 0;
 	root = new_node(ROOT);

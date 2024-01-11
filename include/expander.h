@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:37:03 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/11 13:46:39 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ char		**erase_outside_quotes_array(char **array);
 //  * @param node The node to replace the variable in.
 //  * @return int Returns 0 on success.
 //  */
-// static int replace_var(struct node_s *node);
+// static int replace_var(struct s_node *node);
 
 // /**
 //  * @brief Checks if the given node's string contains a dollar sign.
 //  * 
 //  * @param node The node to check.
-//  * @return struct node_s* Returns the node if it contains a 
+//  * @return struct s_node* Returns the node if it contains a 
 //  * dollar sign, otherwise returns NULL.
 //  */
-// struct node_s *contains_dollar(struct node_s *node);
+// struct s_node *contains_dollar(struct s_node *node);
 
 /*
 ** Expands variables in the given command node's string.
 ** @param node The command node to expand variables in.
 ** @param data The data structure containing the variables to expand.
 */
-// void	expand(struct node_s **node, t_data *data);
+// void	expand(struct s_node **node, t_data *data);
 char		*expand(char *line, t_data *data);
 
 /*

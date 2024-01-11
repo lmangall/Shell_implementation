@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:00:24 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 13:44:35 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/11 16:08:52 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-
 bool	streq(char *str1, char *str2)
 {
 	size_t	i;
@@ -45,7 +44,7 @@ bool	streq(char *str1, char *str2)
 	return (true);
 }
 
-void	redirect_input_until(struct node_s *node)
+void	redirect_input_until(struct s_node *node)
 {
 	char	*buff;
 	int		fd[2];
@@ -70,7 +69,7 @@ void	redirect_input_until(struct node_s *node)
 	free(buff);
 }
 
-void	redirect_input(struct node_s *node)
+void	redirect_input(struct s_node *node)
 {
 	int		in_file;
 
@@ -94,7 +93,7 @@ void	redirect_input(struct node_s *node)
 	}
 }
 
-void	redirect_output(struct node_s *node)
+void	redirect_output(struct s_node *node)
 {
 	close(STDOUT_FILENO);
 	while (node->next_sibling->operator == RDR_OUT_REPLACE
@@ -117,9 +116,9 @@ void	redirect_output(struct node_s *node)
 			O_WRONLY | O_APPEND | O_CREAT, 0666);
 }
 
-void	exec_redirection(struct node_s *node, t_data *data)
+void	exec_redirection(struct s_node *node, t_data *data)
 {
-	struct node_s	*temp;
+	struct s_node	*temp;
 
 	temp = node;
 	if (node->operator == RDR_INPUT)

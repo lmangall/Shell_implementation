@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:37:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*duplicate_string(const char *str)
 	return (duplicate);
 }
 
-char	**build_argv(struct node_s *root_node, int *argc)
+char	**build_argv(struct s_node *root_node, int *argc)
 {
-	struct node_s	*child;
+	struct s_node	*child;
 	int				max_args;
 	char			**argv;
 
@@ -66,7 +66,7 @@ char	**build_argv(struct node_s *root_node, int *argc)
 	return (argv);
 }
 
-int	do_simple_command(struct node_s *root_node, t_data *data)
+int	do_simple_command(struct s_node *root_node, t_data *data)
 {
 	int		argc;
 	char	**argv;

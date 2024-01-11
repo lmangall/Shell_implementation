@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:46:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:17:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:08:07 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,36 +31,36 @@ void	print_string_array(char **array)
 	}
 }
 
-void	print_the_first_child_of_root_nodes(struct node_type_master *master)
-{
-	struct node_s	*node;
+// void	print_the_first_child_of_root_nodes(struct node_type_master *master)
+// {
+// 	struct s_node	*node;
 
-	for (int i = 0; i < master->nbr_root_nodes; i++)
-	{
-		node = master->root_nodes[i]->first_child;
-		while (node)
-		{
-			printf("node->str: %s\n", node->str);
-			node = node->next_sibling;
-		}
-	}
-}
+// 	for (int i = 0; i < master->nbr_root_nodes; i++)
+// 	{
+// 		node = master->root_nodes[i]->first_child;
+// 		while (node)
+// 		{
+// 			printf("node->str: %s\n", node->str);
+// 			node = node->next_sibling;
+// 		}
+// 	}
+// }
 
-// goes through the root nodes (node_command) and prints the first child of each
-// the function should use the next_sibling pointer to go through the list of root nodes
-void	print_root_nodes(struct node_type_master *master_node)
-{
-	struct node_s	*current;
-	int				i;
+// // goes through the root nodes (node_command) and prints the first child of each
+// // the function should use the next_sibling pointer to go through the list of root nodes
+// void	print_root_nodes(struct node_type_master *master_node)
+// {
+// 	struct s_node	*current;
+// 	int				i;
 
-	printf("\n\n\n\n");
-	current = master_node->root_nodes[0];
-	i = 0;
-	while (current != NULL)
-	{
-		printf("root_nodes[%d] first_child->str = %s\n", i,
-			current->first_child->str);
-		current = current->next_sibling;
-		i++;
-	}
-}
+// 	printf("\n\n\n\n");
+// 	current = master_node->root_nodes[0];
+// 	i = 0;
+// 	while (current != NULL)
+// 	{
+// 		printf("root_nodes[%d] first_child->str = %s\n", i,
+// 			current->first_child->str);
+// 		current = current->next_sibling;
+// 		i++;
+// 	}
+// }

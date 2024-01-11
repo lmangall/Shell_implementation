@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:26 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 13:24:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:17:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ enum			e_node
 	MASTER,
 };
 
-typedef	enum	e_operator
+typedef enum e_operator
 {
 	NONE,
 	RDR_OUT_REPLACE,
 	RDR_OUT_APPEND,
 	RDR_INPUT,
 	RDR_INPUT_UNTIL,
-	PIPE,
-}						t_operator;
+	PIPE
+}	t_operator;
 
 struct			s_node
 {

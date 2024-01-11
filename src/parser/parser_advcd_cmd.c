@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:19:36 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 15:42:34 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include <errno.h>
 #include <unistd.h>
 
-struct node_s	*create_new_command(char **tokens, int i, struct node_s **head,
-		struct node_s **current_cmd)
+struct s_node	*create_new_command(char **tokens, int i, struct s_node **head,
+		struct s_node **current_cmd)
 {
-	struct node_s	*new_cmd;
+	struct s_node	*new_cmd;
 
 	new_cmd = create_root_node(tokens[i]);
 	if (!new_cmd)
@@ -39,10 +39,10 @@ void	handle_operator(int *i)
 	(*i)--;
 }
 
-struct node_s	*handle_regular_word(char **tokens, int i,
-		struct node_s *current_cmd)
+struct s_node	*handle_regular_word(char **tokens, int i,
+		struct s_node *current_cmd)
 {
-	struct node_s	*word;
+	struct s_node	*word;
 
 	word = new_node(VAR);
 	if (!word)
@@ -53,7 +53,7 @@ struct node_s	*handle_regular_word(char **tokens, int i,
 	return (word);
 }
 
-// struct node_type_master	*create_master_and_link(struct node_s *head)
+// struct node_type_master	*create_master_and_link(struct s_node *head)
 // {
 // 	struct node_type_master	*master_node;
 
@@ -64,11 +64,11 @@ struct node_s	*handle_regular_word(char **tokens, int i,
 // 	return (master_node);
 // }
 
-struct node_s	*parse_advanced_command(char **tokens)
+struct s_node	*parse_advanced_command(char **tokens)
 {
 	int				i;
-	struct node_s	*head;
-	struct node_s	*current_cmd;
+	struct s_node	*head;
+	struct s_node	*current_cmd;
 
 	i = 0;
 	head = NULL;
@@ -96,10 +96,10 @@ struct node_s	*parse_advanced_command(char **tokens)
 // struct node_type_master	*parse_advanced_command(char **tokens)
 // {
 // 	int						i;
-// 	struct node_s			*head;
-// 	struct node_s			*current_cmd;
-// 	struct node_s			*new_cmd;
-// 	struct node_s			*word;
+// 	struct s_node			*head;
+// 	struct s_node			*current_cmd;
+// 	struct s_node			*new_cmd;
+// 	struct s_node			*word;
 // 	struct node_type_master	*master_node;
 
 // 	i = 0;
@@ -127,7 +127,7 @@ struct node_s	*parse_advanced_command(char **tokens)
 // 			word = new_node(VAR);
 // 			if (!word)
 // 				return (NULL);
-// 			set_node_str(word, tokens[i]);
+// 			set_s_nodetr(word, tokens[i]);
 // 			if (!add_child_node(current_cmd, word))
 // 				return (NULL);
 // 		}

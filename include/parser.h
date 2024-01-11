@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:05:01 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:14:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 # include <vars.h>
 # include "parser_nodes.h"
 
-struct node_type_master	*search_special(struct node_s *cmd);
-int						is_operator(char *str);
+int				is_operator(char *str);
 
 /**
  * @brief Looks for the first operator
@@ -35,7 +34,7 @@ int						is_operator(char *str);
  * @param token An array of tokens to search for operators.
  * @return The operator type, or NONE if no operator is found.
  */
-t_operator				get_operator(char **token);
+t_operator		get_operator(char **token);
 /**
  * @brief Parses a simple command.
  *
@@ -50,8 +49,8 @@ t_operator				get_operator(char **token);
  * @param data A data structure containing information about variables.
  * @return A pointer to the root node of the generated one level linked list
  */
-struct node_s			*parse_simple_command(char **tokens, t_data *data);
-struct node_s	*parse_advanced_command(char **tokens);
+struct s_node	*parse_simple_command(char **tokens, t_data *data);
+struct s_node	*parse_advanced_command(char **tokens);
 
 /**
  * @brief Parse and execute a given command line.
@@ -63,10 +62,13 @@ struct node_s	*parse_advanced_command(char **tokens);
  * @param data A pointer to the data structure containing relevant information.
  * @return 1 on successful execution.
  */
-int						parse_and_execute(char *line, t_data *data);
+int				parse_and_execute(char *line, t_data *data);
 
-struct node_s			*create_new_command(char **tokens, int i, struct node_s **head, struct node_s **current_cmd);
-struct node_s			*handle_regular_word(char **tokens, int i, struct node_s *current_cmd);
-struct node_type_master	*create_master_and_link(struct node_s *head);
+struct s_node	*create_new_command(char **tokens, 
+					int i, struct s_node **head, 
+					struct s_node **current_cmd);
+
+struct s_node	*handle_regular_word(char **tokens, 
+					int i, struct s_node *current_cmd);
 
 #endif
