@@ -56,6 +56,7 @@ static int	set_new_var(t_data *data, const char *name, const char *value)
 	data->num_shell_vars++;
 	return (0);
 }
+
 int	set_shell_var(t_data *data, const char *name, const char *value)
 {
 	int	index;

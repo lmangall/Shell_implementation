@@ -37,7 +37,7 @@ static int	set_new_var(t_data *data, const char *name, const char *value)
 	data->vc[data->num_vars].value[sizeof(data->vc[data->num_vars].value)
 		- 1] = '\0';
 	data->num_vars++;
-		free((void *)value);
+	free((void *)value);
 	return (0);
 }
 
@@ -50,7 +50,6 @@ static int	check_var_limit(t_data *data)
 	}
 	return (0);
 }
-
 
 int	set_var(t_data *data, const char *name, const char *value)
 {
