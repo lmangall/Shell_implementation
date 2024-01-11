@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:43:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:45:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,3 @@ int	builtins_to_parsing(char *line, t_data *data)
 		cleanup_and_exit(line);
 	return (status);
 }
-

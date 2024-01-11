@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 10:04:17 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:50:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "parser_nodes.h"
 
 struct node_type_master	*search_special(struct node_s *cmd);
-void					print_master(struct node_type_master *master_node);
 int						is_operator(char *str);
 
 /**

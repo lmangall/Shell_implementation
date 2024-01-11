@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:44:29 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:55:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,34 @@ void	second_child(struct node_s *node, int pipe_fd[2], t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
+void run_second_child_process(struct node_s *node, int pipe_fd[2], pid_t child_pid1, t_data *data)
+{
+	pid_t child_pid2 = fork();
+
+	if (child_pid2 == -1) {
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+
+	if (child_pid2 == 0) 
+		second_child(node->next_sibling, pipe_fd, data);
+	else
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		int status;
+		waitpid(child_pid1, &status, 0);
+		waitpid(child_pid2, &status, 0);
+		free_node_tree(node->next_sibling);
+		free_node_tree(node);
+		exit(EXIT_SUCCESS);
+	}
+}
+
 void	execute_pipe_command(struct node_s *node, t_data *data)
 {
 	pid_t	child_pid1;
-	pid_t	child_pid2;
 	int		pipe_fd[2];
-	int		status;
 
 	node->operator = NONE;
 	if (pipe(pipe_fd) == -1)
@@ -80,25 +102,6 @@ void	execute_pipe_command(struct node_s *node, t_data *data)
 		first_child(node, pipe_fd, data);
 	else
 	{
-		child_pid2 = fork();
-		if (child_pid2 == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		if (child_pid2 == 0)
-		{
-			second_child(node->next_sibling, pipe_fd, data);
-		}
-		else
-		{
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-			waitpid(child_pid1, &status, 0);
-			waitpid(child_pid2, &status, 0);
-			free_node_tree(node->next_sibling);
-			free_node_tree(node);
-			exit(EXIT_SUCCESS);
-		}
+		run_second_child_process(node, pipe_fd, child_pid1, data);
 	}
 }
