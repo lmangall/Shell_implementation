@@ -48,5 +48,6 @@ int	parse_and_execute(char *line, t_data *data)
 
 	tokens = lexer(line);
 	simple_or_advanced(tokens, data);
+	free_string_array(tokens);
 	return (1);
 }

@@ -54,8 +54,7 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 		set_signal_handlers();
-		// free(line); => when on, only ctrlc after cat complains
-		rl_clear_history();
+		// free(line); => when on, only ctrlc after cat complains	
 	}
 	cleanup_and_exit(NULL);
 	return (0);
