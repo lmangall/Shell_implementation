@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:52:55 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/09 15:44:13 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:17:26 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct node_s	*new_node(enum node_type_e type)
+struct node_s	*new_node(enum e_node type)
 {
 	struct node_s	*node;
 

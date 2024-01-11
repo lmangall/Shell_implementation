@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:55:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:58:55 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void	second_child(struct node_s *node, int pipe_fd[2], t_data *data)
 
 void run_second_child_process(struct node_s *node, int pipe_fd[2], pid_t child_pid1, t_data *data)
 {
-	pid_t child_pid2 = fork();
+	pid_t	child_pid2 = fork();
+	int		status;
 
+	status = 0;
 	if (child_pid2 == -1) {
 		perror("fork");
 		exit(EXIT_FAILURE);
@@ -72,7 +74,6 @@ void run_second_child_process(struct node_s *node, int pipe_fd[2], pid_t child_p
 	{
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
-		int status;
 		waitpid(child_pid1, &status, 0);
 		waitpid(child_pid2, &status, 0);
 		free_node_tree(node->next_sibling);

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 00:18:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:59:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,12 @@ typedef struct s_data
 	int		last_command_exit_status;
 	t_vars	vc[MAX_VARS];
 	t_vars	shell_vc[MAX_VARS];
-	// char	*argv[200];
-	// int	argc;
-    // char    *exec_path;        // Pointer to store the path for cleanup
-    // char    **exec_argv;       // Pointer to store the argv for cleanup
-    // char    **exec_custom_env; 
 }	t_data;
 
 // vars
 int			check_for_variable_setting(t_data *data, char *token);
 void		init_vars(t_data *data, char **envp);
 int			is_valid_variable_declaration(const char *input);
-
-
 
 /**
  * @brief Converts the variables container to an array of strings (envp).
