@@ -48,7 +48,6 @@ struct node_s	*handle_regular_word(char **tokens, int i,
 	if (!word)
 		return (NULL);
 	word->str = tokens[i];
-	// set_node_str(word, tokens[i]);
 	if (!add_child_node(current_cmd, word))
 		return (NULL);
 	return (word);
@@ -92,7 +91,6 @@ struct node_s	*parse_advanced_command(char **tokens)
 		i++;
 	}
 	return (head);
-	// return (create_master_and_link(head));
 }
 
 // struct node_type_master	*parse_advanced_command(char **tokens)
