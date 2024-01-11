@@ -56,6 +56,7 @@ void	redirect_input_until(struct node_s *node)
 	pipe(fd);
 	while (1)
 	{
+		signal(SIGQUIT, handle_ctrl_d);
 		buff = readline("> ");
 		if (!buff)
 			break ;
@@ -64,6 +65,7 @@ void	redirect_input_until(struct node_s *node)
 		ft_putendl_fd(buff, fd[1]);
 	}
 	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
