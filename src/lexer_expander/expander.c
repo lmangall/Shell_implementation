@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 22:58:39 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:21:24 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_vars	*find_var(char *name, t_data *data)
 	{
 		if (ft_strcmp(name, data->vc[i].name) == 0)
 		{
-			free(control); // Free the memory allocated by ft_calloc
+			free(control);
 			return (&data->vc[i]);
 		}
 		else
@@ -106,7 +106,7 @@ char	*expand(char *str, t_data *data)
 		expand_var(&str, &var);
 	}
 	if (contains_two(str, '\"') || contains_two(str, '\''))
-	{		
+	{
 		str_without_quotes = (char *)erase_outside_quotes(str);
 		free(str);
 		str = str_without_quotes;
