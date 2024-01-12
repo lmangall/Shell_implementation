@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:57:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 19:46:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:17:13 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	set_existing_var(t_data *data, int i, const char *value)
 {
 	ft_strlcpy(data->vc[i].value, value, sizeof(data->vc[i].value));
 	data->vc[i].value[sizeof(data->vc[i].value) - 1] = '\0';
-	// free((void *)value);
 	return (0);
 }
 
@@ -37,7 +36,6 @@ static int	set_new_var(t_data *data, const char *name, const char *value)
 	data->vc[data->num_vars].value[sizeof(data->vc[data->num_vars].value)
 		- 1] = '\0';
 	data->num_vars++;
-	// free((void *)value);
 	return (0);
 }
 
@@ -58,9 +56,8 @@ int	set_var(t_data *data, const char *name, const char *value)
 	i = 0;
 	if (check_var_limit(data) == -1)
 	{
-        if (value != NULL)
-            // free((void *)value);
-		return (-1);
+		if (value != NULL)
+			return (-1);
 	}
 	while (i < data->num_vars)
 	{
@@ -72,7 +69,6 @@ int	set_var(t_data *data, const char *name, const char *value)
 	}
 	if (check_var_limit(data) == -1)
 	{
-		// free((void *)value);
 		return (-1);
 	}
 	return (set_new_var(data, name, value));
