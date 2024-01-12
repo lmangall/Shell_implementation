@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:11:07 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:09:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 10:08:18 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "parser_nodes.h"
 
 char	*search_path(char *cmd, t_data *data);
+void	handle_absolute_path(char **argv, char **custom_env);
 int		exec_cmd(char**argv, t_data *data);
 /**
  * @brief Update the command exit status and perform cleanup.

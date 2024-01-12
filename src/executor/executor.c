@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:24:00 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/12 10:13:46 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-// probably need to free paths_arr
-char	*search_path(char *cmd, t_data *data)
-{
-	char	*paths;
-	char	**paths_arr;
-	char	*tmp;
-	char	*command;
-
-	paths = return_env_from_container(data);
-	paths_arr = ft_split(paths, ':');
-	while (*paths_arr)
-	{
-		tmp = ft_strjoin(*paths_arr, "/");
-		command = ft_strjoin(tmp, cmd);
-		if (access(command, 0) == 0)
-		{
-			return (command);
-		}
-		paths_arr++;
-	}
-	free(command);
-	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
-	exit(1);
-	return (NULL);
-}
-
 int	exec_cmd(char **argv, t_data *data)
 {
 	char	*path;
@@ -59,12 +33,7 @@ int	exec_cmd(char **argv, t_data *data)
 	data->envp_arr = custom_env;
 	if (ft_strchr(argv[0], '/'))
 	{
-		if (access(argv[0], 0))
-		{
-			printf("No such file or directory\n");
-			exit(127);
-		}
-		execve(argv[0], argv, custom_env);
+		handle_absolute_path(argv, custom_env);
 	}
 	else
 	{
@@ -101,7 +70,6 @@ void	update_status_and_cleanup(int status, t_data *data)
 	}
 }
 
-// shoud the call to update_status_and_cleanup be in parse_and_execute
 void	simple_or_advanced(char **tokens, t_data *data)
 {
 	int				status;
@@ -116,9 +84,7 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			exec_pipe_redir(cmd, data);
 		}
 		waitpid(-1, &status, 0);
-		free_string_array(data->tokens);
 		free_node_tree_recursive(cmd);
-		update_status_and_cleanup(status, data);
 	}
 	else
 	{
@@ -128,7 +94,7 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			exec_pipe_redir(cmd, data);
 		}
 		waitpid(-1, &status, 0);
-		free_string_array(data->tokens);
-		update_status_and_cleanup(status, data);
 	}
+	free_string_array(data->tokens);
+	update_status_and_cleanup(status, data);
 }

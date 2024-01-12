@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+         #
+#    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/12 09:07:53 by ohoro            ###   ########.fr        #
+#    Updated: 2024/01/12 10:10:32 by lmangall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS =	lexer_expander/lexer.c \
 		parser/parser_nodes_utils.c \
 		executor/executor.c \
 		executor/executor_simple.c \
+		executor/path.c \
 		vars/export_var.c \
 		vars/unset_var.c \
 		vars/set_var.c \
