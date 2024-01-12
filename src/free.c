@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 19:08:03 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:13:37 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,14 @@ void	cleanup_and_exit(char *line)
 	exit(EXIT_SUCCESS);
 }
 
-void free_node_tree_recursive(struct s_node *node)
+void	free_node_tree_recursive(struct s_node *node)
 {
-    if (!node)
-    {
-        return;
-    }
-
-    // First, free the next siblings
-    free_node_tree_recursive(node->next_sibling);
-
-    // Then, free the current node
-    free_node_tree(node);
+	if (!node)
+	{
+		return ;
+	}
+	free_node_tree_recursive(node->next_sibling);
+	free_node_tree(node);
 }
 
 void	free_node_tree(struct s_node *node)
@@ -62,10 +58,6 @@ void	free_node_tree(struct s_node *node)
 		free_node_tree(child);
 		child = next;
 	}
-	// if (node->str)
-	// {
-	// 	free(node->str);
-	// }
 	if (node)
 	{
 		free(node);
@@ -77,16 +69,16 @@ void	free_string_array(char **tokens)
 	int	i;
 
 	i = 0;
-	if(!tokens)
+	if (!tokens)
 		return ;
 	while (tokens[i] != NULL)
 	{
-		if(tokens[i])
+		if (tokens[i])
 		{
 			free(tokens[i]);
 			tokens[i] = NULL;
 		}
-	i++;
+		i++;
 	}
 	free(tokens);
 	tokens = NULL;
