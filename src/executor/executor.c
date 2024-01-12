@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:09:10 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/12 09:24:00 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	update_status_and_cleanup(int status, t_data *data)
 	else if (WIFSIGNALED(status))
 	{
 		status_char = ft_itoa(WTERMSIG(status) + 128);
-		data->last_command_exit_status =  status_char;
+		data->last_command_exit_status = status_char;
 		set_var(data, "?", data->last_command_exit_status);
 		free(status_char);
 	}
@@ -110,7 +110,7 @@ void	simple_or_advanced(char **tokens, t_data *data)
 	status = 0;
 	if (get_operator(tokens) != NONE)
 	{
-			cmd = parse_advanced_command(tokens);
+		cmd = parse_advanced_command(tokens);
 		if (fork() == 0)
 		{
 			exec_pipe_redir(cmd, data);
