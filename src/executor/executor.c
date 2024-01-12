@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 10:13:46 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:36:53 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,9 @@ int	exec_cmd(char **argv, t_data *data)
 	else
 	{
 		path = search_path(argv[0], data);
-		data->path = path;
 		if (!path)
-		{
-			free(path);
-			free_string_array(custom_env);
 			return (0);
-		}
+		data->path = path;
 		execve(path, argv, custom_env);
 	}
 	return (0);

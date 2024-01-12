@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:04:45 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/12 11:33:14 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
  * @param node The root node of the tree to free.
  */
 void	free_node_tree(struct s_node *node);
+
+void	free_string_array_index(char **arr, size_t i);
 
 /**
  * @brief Frees an array of string tokens.

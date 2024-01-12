@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:09:42 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 10:10:34 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 11:37:54 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,26 @@ char	*search_path(char *cmd, t_data *data)
 	char	**paths_arr;
 	char	*tmp;
 	char	*command;
+	int		i;
 
+	i = 0;
 	paths = return_env_from_container(data);
 	paths_arr = ft_split(paths, ':');
-	while (*paths_arr)
+	while (paths_arr[i] != NULL)
 	{
-		tmp = ft_strjoin(*paths_arr, "/");
+		tmp = ft_strjoin(paths_arr[i], "/");
 		command = ft_strjoin(tmp, cmd);
 		if (access(command, 0) == 0)
-		{
 			return (command);
-		}
-		paths_arr++;
+		free(command);
+		command = NULL;
+		i++;
 	}
-	free(command);
+	free_string_array_index(paths_arr, i);
+	if (paths_arr)
+		free(paths_arr);
+	paths_arr = NULL;
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
-	exit(1);
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:13:37 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/12 11:32:50 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,20 @@ void	free_string_array(char **tokens)
 	}
 	free(tokens);
 	tokens = NULL;
+}
+
+void	free_string_array_index(char **arr, size_t i)
+{
+	while (arr[i] != NULL) 
+	{
+		if (arr[i]) 
+		{
+			free(arr[i]);
+			arr[i] = NULL;
+		}
+		arr[i] = NULL;
+		i++;
+	}
+	free(arr);
+	arr = NULL;
 }
