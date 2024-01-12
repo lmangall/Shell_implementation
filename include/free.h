@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 19:01:31 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:04:45 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	free_node_tree(struct s_node *node);
  */
 void	free_string_array(char **tokens);
 
-void free_node_tree_recursive(struct s_node *node);
+void	free_node_tree_recursive(struct s_node *node);
 
 #endif
