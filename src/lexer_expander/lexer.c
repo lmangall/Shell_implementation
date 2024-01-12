@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 22:22:53 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:08:47 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../../include/parser.h"
 #include "../../include/main.h"
 #include "../../include/vars.h"
-#include "../../include/DEV.h"
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>

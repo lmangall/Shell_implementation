@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_simple.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 22:07:52 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:09:26 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include "../../include/pipe.h"
 #include "../../include/vars.h"
 #include "../../lib/libft/src/libft.h"
-#include "../../include/DEV.h"
 #include <sys/wait.h>
 #include <errno.h>
 #include <stddef.h>

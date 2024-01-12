@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/07 15:43:04 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/12 09:07:53 by ohoro            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SRCS =	lexer_expander/lexer.c \
 		free.c \
 		pipe.c \
 		redirect.c \
-		DEV.c
 
 OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 

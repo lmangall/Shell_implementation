@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 21:47:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:09:10 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/DEV.h"
 #include "../../include/expander.h"
 #include "../../include/free.h"
 #include "../../include/lexer.h"
