@@ -7,73 +7,9 @@ valgrind --suppressions=suppressions.supp --leak-check=full --show-leak-kinds=al
 
 
 
-
-### TO DO SIMPLE
-- [x] change the for loop to a while in do_env_builtin           ++ aded colors
-- [x] in func check_and_builtins : should "cd" also return (-1) ?          => it should otherwise it get parsed and goes to execve
-- [x] keep only one find_equal_sign
-- [x] move do_export_builtin (2 functions) into its own file on th builtin folder
-- [ ] figure out what is happening with display_history ? should it be a builtin ? 
-- [x] in replaceform_feed_with_spaces change for to while loop 
-- [x] check WTF (ctrl+maj+f in vscode)
-- [x] in convert_vc_to_envp change for to while, 
-- [ ] in convert_vc_to_envp check is enough memory is malloced, check if the caller frees the returned envp 
-- [ ] (not so simple) cleanup and break down parse_advanced_command + make a clear doxy comment
-- [ ] Should the "quit" function work ? 
-- [x] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-
-### TO DO
-- [ ] Handle memory leaks -> cat README.md | head -10 caused a double free and crash
-- [ ] Error messages (use errno)
-- [ ] Signals in heredoc (use the global var)
-- [ ] In and output redirections (see what we did in parse_advanced_command)
-- [ ] Parser: single and double quotes
-- [ ] in  func  check_and_builtins verify if "line is freed in all "if" cases
-- [ ] use ps -a to check for zombies (created by pipes)
-- [ ] cat whithout argument, pressing enter, behaves not as expected 
-- [ ] ctrl+c signals are messy (double print) 
-- [ ] check if the erase_quotes function is working properly 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-
-
-### TO DO EVENTUALLY
-- [ ] "env" goes to our builtin but "env " (with space) goes to the real one +>same for pwd (probably)
-- [ ] what if somebody puts an operator in the prompt using smthing else than echo 
-- [ ] add printf (showed by Florian) builtin as echo 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-- [ ] Checkbox 
-
-THE GLOBAL VAR MIGHT GET USED (ONLY) FOR THE SIGNALS IN HEREDOC
-
-
-### This actually works, probably from our cd builtin,
-### but then it seems it is parsed and passed to excve, hence the error message
-![image](https://github.com/lmangall/minishell/assets/107299611/5c559b89-324c-4de3-85fc-46577859c771)
-_______________________________________
-### Example of expansion working, but not fully
-![image](https://github.com/lmangall/minishell/assets/107299611/e599512d-a13a-4a37-be54-bdb1f45858a6)
-_______________________________________
-### Setting a var / shell var problem:
-![image](https://github.com/lmangall/minishell/assets/107299611/23c064c7-c2a9-4647-a30c-da7c9958ddf5)
-_______________________________________
-### "command not found" when adding a var : it might be because the line gets sent to parse ad executor after the var is being added
-![image](https://github.com/lmangall/minishell/assets/107299611/44cd9f3a-6e85-4f4f-a2e3-f3ff2a878232)
-_______________________________________
-
-<img width="1053" alt="Screenshot 2023-12-10 at 19 11 07" src="https://github.com/lmangall/minishell/assets/107299611/fbda1987-b26a-40f2-a604-33b08a8c13d4">
-<img width="1361" alt="Screenshot 2023-12-10 at 19 10 51" src="https://github.com/lmangall/minishell/assets/107299611/a6929027-51a7-4852-a7ab-f963548317df">
-
-
-
-### Command line for docker
+### Command line for docker to work on an Intel mac
 Install and run docker
-Put minishell in the same folder as this file:
+Put minishell in the same folder as this file (Docker container by Carlo):
 https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
 
 Enter the following commands:
@@ -81,19 +17,10 @@ Enter the following commands:
 docker build -t ubuntu .
 docker run -it --rm -v $(pwd):/home/root ubuntu
 ```
-compile with readline 
+compile with readline (see Makefile)
 ```shell
 make install_readline
 ```
-
-Install readline (or add the install to your makefile)
-apt-get install libreadline-dev
-
-
-
-
-## nice readme for checks:
-https://github.com/vportens/minishell
 
 
 
@@ -108,15 +35,12 @@ wc < output.txt
 cat output.txt | wc
 
 
-Test for input and output redir in one command
+Test for input and output redir in the same command:
 wc > output.txt < input.txt   
 
 
-crazy test:
+More pipes and redir test:
 cat < input1.txt | sort -r | cat < input2.txt > output.txt
-
-sort -r is not working in bash and zsh
-sort -r | head -4  < input.txt
 
 
 Shouldn't do anything or should erase content
@@ -126,7 +50,10 @@ Shouldn't do anything or should erase content
 cat | cat | ls
 
 
-echo "et un test' > test.c
+export a command then execute:
+A="cat path/to/myfile.txt"
+export A
+$A
 
 
 ## usefull trick:
@@ -134,17 +61,13 @@ echo "et un test' > test.c
 (void) variable
 Thanks to this the compiler doesn't complain about an unused var
 
-When debugging things with pipes etc... use write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
+When debugging things with pipes etc... use fprintf, ft_putstrfd or write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
 
-julius tip:
-use fflush in c     to force printf to print even if wrong pipe
+Valgrind additionnal flags for children process:
+--trace-children=yes
 
 The normal shell, in case of pipes, waits for all programs (commands) to be executed and only then kills them all
 example: command "yes" print infinite "Y" but if you execute "yes | head -10 " it will only print 10 because it waits for head to be executed
-
-for this reason(more or less) we should fork (that's what Guillaume said) and then execute, and only at the end kill the PIDs Tsveto told me right now that I am fighting with a zombie program
-
-we are allowed 1 global var (and should use it for the return status)
 
 Job control and scheduling: all commands have to be executed before we kill their PID
 
