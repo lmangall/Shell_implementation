@@ -1,13 +1,27 @@
+
 # minishell
 
+##Our AST:
 
+For simple commands
+<img width="1129" alt="Screenshot 2024-01-14 at 13 44 04" src="https://github.com/lmangall/minishell/assets/107299611/4240c60d-920b-4385-8b6a-419cfa071e6d">
+
+formal approach to complex commands
+<img width="957" alt="Screenshot 2024-01-14 at 13 44 16" src="https://github.com/lmangall/minishell/assets/107299611/49772a90-8ad0-4a7a-a777-5eb842f6793f">
+
+Final approach to complex commands
+<img width="965" alt="Screenshot 2024-01-14 at 13 44 45" src="https://github.com/lmangall/minishell/assets/107299611/3f6fad9e-adab-4891-a46a-85a79b694261">
+
+
+##Valgrind
 valgrind --leak-check=full --show-leak-kinds=all ./minishell
 
 valgrind --suppressions=suppressions.supp --leak-check=full --show-leak-kinds=all ./minishell
 
+Valgrind additionnal flags for children process:
+--trace-children=yes
 
-
-### Command line for docker to work on an Intel mac
+### Using Docker (to work on an Intel mac)
 Install and run docker
 Put minishell in the same folder as this file (Docker container by Carlo):
 https://gist.github.com/CarloCattano/73482a9e846e27165e85dcf32cda91ad
@@ -56,15 +70,16 @@ export A
 $A
 
 
-## usefull trick:
+## Good to know:
 
 (void) variable
 Thanks to this the compiler doesn't complain about an unused var
 
 When debugging things with pipes etc... use fprintf, ft_putstrfd or write instead of printf in order to output to STDERR because otherwise what is supposed to be a debbuging printing line goes into the pipe and doesn't get printed
 
-Valgrind additionnal flags for children process:
---trace-children=yes
+execve:
+Upon successful execution of the code following execve, it will not proceed to be executed; instead, it will return to the end of the fork.
+
 
 The normal shell, in case of pipes, waits for all programs (commands) to be executed and only then kills them all
 example: command "yes" print infinite "Y" but if you execute "yes | head -10 " it will only print 10 because it waits for head to be executed
