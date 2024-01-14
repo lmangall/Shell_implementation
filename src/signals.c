@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:12 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:53:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 15:03:53 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ void	handle_ctrl_d(int sig)
 void	handle_ctrl_c_heredoc(int sig)
 {
 	printf("             \n");
-	(void)sig;
-	exit(0);
+	exit(sig + 128);
 }
