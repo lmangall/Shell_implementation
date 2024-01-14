@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:09:42 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 22:00:12 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:03:09 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*search_path(char *cmd, t_data *data)
 	paths_arr = NULL;
 	set_var(data, "?", "127");
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
-	// exit(127);
+	exit(127);
 	return (NULL);
 }
 
