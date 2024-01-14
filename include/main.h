@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:57 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 13:55:49 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/14 17:54:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		builtins_to_parsing(char *line, t_data *data);
  *
  * @param line A pointer to the command line (may be NULL if no command line).
  */
-void	cleanup_and_exit(char *line);
+void	cleanup_and_exit(char *line, t_data *data);
 
 /**
  * @brief The main function of the shell.

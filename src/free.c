@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 11:32:50 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:32:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../include/free.h"
 #include "../include/main.h"
 #include "../include/parser_nodes.h"
+#include "../include/vars.h"
 #include "../lib/libft/src/libft.h"
 #include <errno.h>
 #include <stdio.h>
@@ -24,12 +25,31 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-void	cleanup_and_exit(char *line)
+int get_var(t_data *data, char *name)
+{
+	int i = 0;
+	while (i != 255)
+	{
+		if (strcmp(data->vc[i].name, name) == 0)
+		{
+			return ft_atoi(data->vc[i].value);
+		}
+		i++;
+	}
+
+	return (0);
+}
+
+void	cleanup_and_exit(char *line, t_data *data)
 {
 	rl_clear_history();
 	if (line)
 		free(line);
-	exit(EXIT_SUCCESS);
+
+	int ex = get_var(data, "?");
+	printf("exit with status %d\n", ex);
+	exit(ex);
+printf(" after exit with status %d\n", get_var(data, "?"));
 }
 
 void	free_node_tree_recursive(struct s_node *node)

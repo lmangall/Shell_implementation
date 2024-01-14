@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:04:01 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 19:11:31 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:40:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	change_directory(char *path, t_data *data)
 	if (chdir(path) == -1)
 	{
 		printf("cd: %s: %s\n", path, strerror(errno));
-		free(path);
 		free(oldpwd);
 		return (3);
 	}

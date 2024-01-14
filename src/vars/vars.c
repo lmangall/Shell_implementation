@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 18:23:06 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:20:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	add_var_from_env(t_data *data, char *env_var)
 void	init_vars(t_data *data, char **envp)
 {
 	int	i;
+printf("init_vars\n");
 
 	i = 0;
 	data->num_vars = 0;
@@ -63,6 +64,9 @@ void	init_vars(t_data *data, char **envp)
 	}
 	data->vc[data->num_vars].name[0] = '\0';
 	data->vc[data->num_vars].value[0] = '\0';
+printf("init_vars ended 0\n");
+	set_var(data, "?", "0");
+printf("init_vars end\n");
 }
 
 int	is_valid_variable_declaration(const char *input)

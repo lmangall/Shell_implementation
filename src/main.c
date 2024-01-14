@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 18:46:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:59:04 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,21 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_vars(&data, envp);
 	set_signal_handlers();
+// printf("? before loop %d\n", get_var(&data, "?"));
 	while (1)
 	{
+// printf("? at start %d\n", get_var(&data, "?"));
 		line = readline(SHELL_PROMPT);
 		add_history(line);
 		if (!line)
+{
+// printf("line is null\n");
 			handle_ctrl_d(SIGQUIT);
+			}
 		if (line[0] != '\0')
 		{
+// printf("line exists\n");
+// printf("? before signal handlers %d\n", get_var(&data, "?"));
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
 			prepare_command_execution(&line, &data);
@@ -54,8 +61,10 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 		}
 		set_signal_handlers();
+// printf("? before end loop %d\n", get_var(&data, "?"));
 	}
-	cleanup_and_exit(NULL);
+// printf("? before exit %d\n", get_var(&data, "?"));
+	cleanup_and_exit(line, &data);
 	return (0);
 }
 
@@ -85,6 +94,6 @@ int	builtins_to_parsing(char *line, t_data *data)
 	if (status == 1)
 		status = parse_and_execute(line, data);
 	if (status == 2)
-		cleanup_and_exit(line);
+		cleanup_and_exit(line, data);
 	return (status);
 }

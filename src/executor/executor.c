@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 11:36:53 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:00:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	exec_cmd(char **argv, t_data *data)
 
 	custom_env = convert_vc_to_envp(data);
 	data->envp_arr = custom_env;
+set_var(data, "?", "0");
 	if (ft_strchr(argv[0], '/'))
 	{
 		handle_absolute_path(argv, custom_env);
@@ -41,6 +42,7 @@ int	exec_cmd(char **argv, t_data *data)
 		if (!path)
 			return (0);
 		data->path = path;
+		set_var(data, "?", "0");
 		execve(path, argv, custom_env);
 	}
 	return (0);
@@ -48,22 +50,11 @@ int	exec_cmd(char **argv, t_data *data)
 
 void	update_status_and_cleanup(int status, t_data *data)
 {
-	char	*status_char;
 
 	if (WIFEXITED(status))
-	{
-		status_char = ft_itoa(WEXITSTATUS(status));
-		data->last_command_exit_status = status_char;
-		set_var(data, "?", data->last_command_exit_status);
-		free(status_char);
-	}
+		set_var(data, "?", ft_itoa(WEXITSTATUS(status)));
 	else if (WIFSIGNALED(status))
-	{
-		status_char = ft_itoa(WTERMSIG(status) + 128);
-		data->last_command_exit_status = status_char;
-		set_var(data, "?", data->last_command_exit_status);
-		free(status_char);
-	}
+		set_var(data, "?", ft_itoa(WTERMSIG(status) + 128));
 }
 
 void	simple_or_advanced(char **tokens, t_data *data)
@@ -77,9 +68,12 @@ void	simple_or_advanced(char **tokens, t_data *data)
 		cmd = parse_advanced_command(tokens);
 		if (fork() == 0)
 		{
+// printf(" before exec_pipe_redir with status %d\n", get_var(data, "?"));
 			exec_pipe_redir(cmd, data);
+// printf(" after exec_pipe_redir with status %d\n", get_var(data, "?"));
 		}
 		waitpid(-1, &status, 0);
+// printf(" after waitpid with status %d\n", get_var(data, "?"));
 		free_node_tree_recursive(cmd);
 	}
 	else
@@ -89,8 +83,21 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			cmd = parse_simple_command(tokens, data);
 			exec_pipe_redir(cmd, data);
 		}
+
+		
 		waitpid(-1, &status, 0);
-	}
-	free_string_array(data->tokens);
+
+		// if(WIFEXITED(status))
+		// {	
+		// 	printf("   after waitpid with status %d\n", WEXITSTATUS(status));
+		// 	set_var(data, "?", ft_itoa(WEXITSTATUS(status)));
+		// }
+		// else if (WIFSIGNALED(status))
+		// 	printf(" after waitpid with status %d\n", WTERMSIG(status) + 128);
 	update_status_and_cleanup(status, data);
+	}
+
+	// printf("   after waitpid with env %d\n", get_var(data, "?"));
+	free_string_array(data->tokens);
+
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 11:33:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:18:24 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	free_string_array_index(char **arr, size_t i);
 void	free_string_array(char **tokens);
 
 void	free_node_tree_recursive(struct s_node *node);
+int		get_var(t_data *data, char *name);
 
 #endif

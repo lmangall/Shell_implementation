@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:09:42 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 12:24:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:00:12 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ char	*search_path(char *cmd, t_data *data)
 	}
 	free_string_array_index(paths_arr, i);
 	paths_arr = NULL;
+	set_var(data, "?", "127");
 	printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
+	// exit(127);
 	return (NULL);
 }
 
@@ -56,6 +58,7 @@ void	handle_absolute_path(char **argv, char **custom_env)
 	if (access(argv[0], 0))
 	{
 		printf("No such file or directory\n");
+		// set_var(data, "?", "127");
 		exit(127);
 	}
 	execve(argv[0], argv, custom_env);

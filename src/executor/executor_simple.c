@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_simple.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:19:38 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/14 21:38:04 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int	do_simple_command(struct s_node *root_node, t_data *data)
 	exec_cmd(argv, data);
 	free_string_array(argv);
 	free_string_array(data->envp_arr);
-	cleanup_and_exit(NULL);
+	// cleanup_and_exit(NULL, data);
 	return (0);
 }
