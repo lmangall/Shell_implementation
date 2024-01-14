@@ -6,12 +6,15 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:14 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:18:14 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:46:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIGNALS_H
 # define SIGNALS_H
+
+extern int global_exit_status;
+
 
 void	handle_ctrl_c(int sig);
 void	handle_ctrl_backslash(int sig);

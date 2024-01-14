@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 21:59:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:50:17 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,16 @@ int	main(int argc, char **argv, char **envp)
 			}
 		if (line[0] != '\0')
 		{
-// printf("line exists\n");
-// printf("? before signal handlers %d\n", get_var(&data, "?"));
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
+		printf("global_exit_status %d\n", global_exit_status);
+		set_var(&data, "?", ft_itoa(global_exit_status));
 			prepare_command_execution(&line, &data);
 			builtins_to_parsing(line, &data);
 			free(line);
 		}
 		set_signal_handlers();
-// printf("? before end loop %d\n", get_var(&data, "?"));
 	}
-// printf("? before exit %d\n", get_var(&data, "?"));
 	cleanup_and_exit(line, &data);
 	return (0);
 }
