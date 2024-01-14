@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:12 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 22:51:59 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:53:11 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void handle_ctrl_c_heredoc(int sig)
 /*
 
 VERSION BELOW IS BEFORE MONDAY 18TH JANUARY 2021
-I added a global var in main.h to store the exit status
+I added a global var in signals.h to store the exit status
 */
 
 
