@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:06:14 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/06 15:03:32 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:53:25 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,41 @@
 #define COLOR_RED "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
 
+int do_env_builtin(t_data *data)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+
+    ft_putstr_fd("Name            Value\n", STDOUT_FILENO);
+
+    while (i < data->num_vars) {
+        ft_putstr_fd(data->vc[i].name, STDOUT_FILENO);
+        ft_putstr_fd("=", STDOUT_FILENO);
+        ft_putstr_fd(data->vc[i].value, STDOUT_FILENO);
+        ft_putstr_fd("\n", STDOUT_FILENO);
+        i++;
+    }
+
+    if (data->num_shell_vars > 0) {
+        ft_putstr_fd("Shell Vars (for clarity) :\n", STDOUT_FILENO);
+
+        while (j < data->num_shell_vars) {
+            ft_putstr_fd(data->shell_vc[j].name, STDOUT_FILENO);
+            ft_putstr_fd("=", STDOUT_FILENO);
+            ft_putstr_fd(data->shell_vc[j].value, STDOUT_FILENO);
+            ft_putstr_fd("\n", STDOUT_FILENO);
+            j++;
+        }
+    }
+
+    return -1;
+}
+
+// this is the old beautiful version
+#if 0
 int	do_env_builtin(t_data *data)
 {
 	int	i;
@@ -49,3 +84,4 @@ int	do_env_builtin(t_data *data)
 	}
 	return (-1);
 }
+#endif
