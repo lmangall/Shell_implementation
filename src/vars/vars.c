@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:55:43 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 21:20:13 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:11:29 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	add_var_from_env(t_data *data, char *env_var)
 void	init_vars(t_data *data, char **envp)
 {
 	int	i;
-printf("init_vars\n");
 
 	i = 0;
 	data->num_vars = 0;
@@ -64,9 +63,8 @@ printf("init_vars\n");
 	}
 	data->vc[data->num_vars].name[0] = '\0';
 	data->vc[data->num_vars].value[0] = '\0';
-printf("init_vars ended 0\n");
+	data->erased_out_quotes = 0;
 	set_var(data, "?", "0");
-printf("init_vars end\n");
 }
 
 int	is_valid_variable_declaration(const char *input)
