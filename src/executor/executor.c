@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 18:21:40 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:28:29 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ int	exec_cmd(char **argv, t_data *data)
 	{
 		path = search_path(argv[0], data);
 		if (!path)
-        {
-		// data->path = path;
-        printf("Looking for trouble?\n %s: that's bullshit\n", argv[0]);
-        // set_var(data, "?", "127");
-        // update_status(32512, data);
-		// free(data->path);
-        free_string_array(data->argv);
-        free_string_array(data->envp_arr);
-        free_string_array(data->tokens);
-        exit(127);
-        return(1);
-         }
+		{
+			// data->path = path;
+			printf("Looking for trouble?\n %s: that's bullshit\n", argv[0]);
+			// set_var(data, "?", "127");
+			// update_status(32512, data);
+			free_string_array(data->argv);
+			free_string_array(data->envp_arr);
+			free_string_array(data->tokens);
+			exit(127);
+			return (1);
+		}
 		data->path = path;
 		execve(path, argv, custom_env);
 	}
@@ -99,26 +98,11 @@ void	simple_or_advanced(char **tokens, t_data *data)
 		{
 			cmd = parse_simple_command(tokens, data);
 			exec_pipe_redir(cmd, data);
-        printf("HERE\n");
+			printf("HERE\n");
 		}
 		waitpid(-1, &status, 0);
-        update_status(status, data);
-
-
-		// free(data->path);
-        // free_string_array(data->argv);
-        // free_string_array(data->envp_arr);
-
-        free_string_array(data->tokens);
+		update_status(status, data);
+		free_string_array(data->tokens);
 		free_node_tree_recursive(cmd);
-	
-
-	// free_string_array(data->argv);
-	// free_string_array(data->envp_arr);
-	// free_string_array(data->tokens);
-
-
-        // free_string_array(data->tokens);
 	}
-	// free_string_array(data->tokens);
 }

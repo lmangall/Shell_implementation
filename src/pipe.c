@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 18:19:41 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:41:39 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,12 @@
 
 int	exec_pipe_redir(struct s_node *node, t_data *data)
 {
-// printf("exec_pipe_redir\n");
 	if (node->operator == PIPE)
 		execute_pipe_command(node, data);
 	else if (node->operator == NONE)
-	{
-// printf("exec_pipe_redir A\n");
 		do_simple_command(node, data);
-        //free_node_tree_recursive(node);
-
-// printf("exec_pipe_redir A2\n");
-	}
 	else
-	{
-// printf("exec_pipe_redir B\n");
 		exec_redirection(node, data);
-		}
-
-printf("exec_pipe_redir returning\n");
 	return(1);
 }
 
