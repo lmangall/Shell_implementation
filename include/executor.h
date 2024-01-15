@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:11:07 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 10:08:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:36:13 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		exec_cmd(char**argv, t_data *data);
  * @param status The exit status of the executed command.
  * @param data   A pointer to the data structure containing relevant information.
  */
-void	update_status_and_cleanup(int status, t_data *data);
+void	update_status(int status, t_data *data);
 
 /**
  * @brief Execute a command and update the status.

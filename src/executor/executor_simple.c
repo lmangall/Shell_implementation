@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 21:38:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:01:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,13 @@ int	do_simple_command(struct s_node *root_node, t_data *data)
 		return (0);
 	else
 		data->argv = argv;
-	free_node_tree(root_node);
+	// free_node_tree(root_node);
+	free_node_tree_recursive(root_node);
 	exec_cmd(argv, data);
-	free_string_array(argv);
-	free_string_array(data->envp_arr);
+
+	
+	// free_string_array(argv);
+	// free_string_array(data->envp_arr);
 	// cleanup_and_exit(NULL, data);
-	return (0);
+	return (1);
 }

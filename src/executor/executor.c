@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 15:04:18 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:50:40 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,63 +39,70 @@ int	exec_cmd(char **argv, t_data *data)
 	{
 		path = search_path(argv[0], data);
 		if (!path)
-			return (0);
+        {
+		data->path = path;
+        printf("Looking for troubles %s: that's bullshit\n", argv[0]);
+        set_var(data, "?", "127");
+        // update_status(32512, data);
+        free_string_array(argv);
+        free_string_array(data->envp_arr);
+        free_string_array(data->tokens);
+        exit(127);
+        return(1);
+         }
 		data->path = path;
 		execve(path, argv, custom_env);
 	}
 	return (0);
 }
 
-void    update_status_and_cleanup(int status, t_data *data)
+void	update_status(int status, t_data *data)
 {
-    if (WIFEXITED(status))
-        set_var(data, "?", ft_itoa(WEXITSTATUS(status)));
-    else if (WIFSIGNALED(status))
-        set_var(data, "?", ft_itoa(WTERMSIG(status) + 128));
+	char	*status_str;
+
+	status_str = NULL;
+	if (WIFEXITED(status))
+	{
+		status_str = ft_itoa(WEXITSTATUS(status));
+		set_var(data, "?", status_str);
+	}
+	else if (WIFSIGNALED(status))
+	{
+		status_str = ft_itoa(WTERMSIG(status) + 128);
+		set_var(data, "?", status_str);
+	}
+	free(status_str);
 }
 
-void    simple_or_advanced(char **tokens, t_data *data)
+void	simple_or_advanced(char **tokens, t_data *data)
 {
-    int             status;
-    struct s_node   *cmd;
+	int				status;
+	struct s_node	*cmd;
 
-    status = 0;
-    if (get_operator(tokens) != NONE)
-    {
-        cmd = parse_advanced_command(tokens);
-        if (fork() == 0)
-        {
-
-            exec_pipe_redir(cmd, data);
-
-        }
-        waitpid(-1, &status, 0);
-        // printf("\033[1;36mTHIS IS IN THE COMPLEX COMPLEX COMPLEX COMMAND\n\033[0m");
-        // printf("\033[1;33mstatus is %d\n\033[0m", status);
-        // printf("\033[1;32mWEXITSTATUS IS %d\n\033[0m", WEXITSTATUS(status));
-        // printf("\033[1;31mWIFSIGNALED IS %d\n\033[0m", WIFSIGNALED(status));
-        // printf("\033[1;31mWTERMSIG IS %d\n\033[0m", WTERMSIG(status));
-        update_status_and_cleanup(status, data);
-
+	status = 0;
+	if (get_operator(tokens) != NONE)
+	{
+		cmd = parse_advanced_command(tokens);
+		if (fork() == 0)
+		{
+			exec_pipe_redir(cmd, data);
+		}
+		waitpid(-1, &status, 0);
+		update_status(status, data);
+		free_node_tree_recursive(cmd);
+	}
+	else
+	{
+			cmd = parse_simple_command(tokens, data);
+		if (fork() == 0)
+		{
+			exec_pipe_redir(cmd, data);
+        printf("HERE\n");
+		}
+		waitpid(-1, &status, 0);
+        update_status(status, data);
+        free_string_array(data->tokens);
         free_node_tree_recursive(cmd);
-    }
-    else
-    {
-        if (fork() == 0)
-        {
-            cmd = parse_simple_command(tokens, data);
-            exec_pipe_redir(cmd, data);
-        }
-        waitpid(-1, &status, 0);
-        // printf("\033[1;36mTHIS IS IN THE SIMPLE COMMAND\n\033[0m");
-        // printf("\033[1;33mstatus is %d\n\033[0m", status);
-        // printf("\033[1;32mWEXITSTATUS IS %d\n\033[0m", WEXITSTATUS(status));
-        // printf("\033[1;31mWIFSIGNALED IS %d\n\033[0m", WIFSIGNALED(status));
-        // printf("\033[1;31mWTERMSIG IS %d\n\033[0m", WTERMSIG(status));
-        update_status_and_cleanup(status, data);
-    }
-
-    
-    free_string_array(data->tokens);
-
+	}
+	// free_string_array(data->tokens);
 }

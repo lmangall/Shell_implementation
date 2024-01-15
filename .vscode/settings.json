@@ -29,6 +29,7 @@
 		"array": "c",
 		"string": "c",
 		"string_view": "c",
-		"redirect.h": "c"
+		"redirect.h": "c",
+		"unistd.h": "c"
 	}
 }

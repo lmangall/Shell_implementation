@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 21:59:19 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:57:55 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-void	exec_pipe_redir(struct s_node *node, t_data *data)
+int	exec_pipe_redir(struct s_node *node, t_data *data)
 {
 // printf("exec_pipe_redir\n");
 	if (node->operator == PIPE)
@@ -35,6 +35,8 @@ void	exec_pipe_redir(struct s_node *node, t_data *data)
 	{
 // printf("exec_pipe_redir A\n");
 		do_simple_command(node, data);
+        free_node_tree_recursive(node);
+
 // printf("exec_pipe_redir A2\n");
 	}
 	else
@@ -42,6 +44,9 @@ void	exec_pipe_redir(struct s_node *node, t_data *data)
 // printf("exec_pipe_redir B\n");
 		exec_redirection(node, data);
 		}
+
+printf("exec_pipe_redir returning\n");
+	return(1);
 }
 
 void	first_child(struct s_node *node, int pipe_fd[2], t_data *data)
@@ -86,7 +91,7 @@ void	run_second_child_process(struct s_node *node,
 		close(pipe_fd[1]);
 		waitpid(child_pid1, &status, 0);
 		waitpid(child_pid2, &status, 0);
-		update_status_and_cleanup(status, data);
+		update_status(status, data);
 		free_node_tree_recursive(node);
 		free_string_array(data->tokens);
 		exit(get_var(data, "?"));
