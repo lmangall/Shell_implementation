@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 20:57:10 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:23:29 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	expand_var(char **str, t_vars **var)
 		}
 		if ((*str)[j] != '\0')
 		{
-			str_xpnded = ft_strjoin(str_xpnded, (char []){(*str)[j], '\0'});
+			str_xpnded = ft_strjoin(str_xpnded, ft_substr(*str, j, 1));
 			j++;
 			i++;
 		}
