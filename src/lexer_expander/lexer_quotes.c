@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 12:29:45 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:58:38 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,18 @@ char	*check_quotes_replace_ff(char *line)
 		}
 	}
 	return (line);
+}
+
+
+void   replace_space_by_ff(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ')
+			str[i] = '\f';
+		i++;
+	}
 }

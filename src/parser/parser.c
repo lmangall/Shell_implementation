@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 18:40:36 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:01:37 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,40 @@ static void	erase_outside_quotes_on_tokens(char **tokens)
 		i++;
 	}
 }
+#include <stdbool.h>
+
+
+
+static void   replace_space_by_ff(char *str)
+{
+	int i;
+
+	i = 0;
+	if(str[i] == ' ')
+		while(str[i] == ' ')
+			i++;
+	while(str[i] != ' ')
+	{
+		i++;
+	}
+	i++;
+	while (str[i] != '\0')
+	{
+		if (str[i] == ' ')
+			str[i] = '\f';
+		i++;
+	}
+}
 
 int	parse_and_execute(char *line, t_data *data)
 {
 	char	**tokens;
 
+
+	replace_space_by_ff(line);
 	tokens = lexer(line);
+	put_space_back(tokens);
+
 	data->tokens = tokens;
 	if (data->erased_out_quotes == 0)
 		erase_outside_quotes_on_tokens(tokens);
