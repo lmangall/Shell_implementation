@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:21:24 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/15 16:56:46 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ char	*expand(char *str, t_data *data)
 	{
 		str_without_quotes = (char *)erase_outside_quotes(str);
 		free(str);
+		printf("str_without_quotes: %s\n", str_without_quotes);
 		str = str_without_quotes;
+		printf("str: %s\n", str);
 	}
 	return (str);
 }

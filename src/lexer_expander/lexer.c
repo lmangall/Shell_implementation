@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:08:47 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/15 16:56:26 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@
 char	**lexer(char *line)
 {
 	char	**tokens;
-	char	*line_without_quotes;
+	// char	*line_without_quotes;
 
 	tokens = NULL;
-	line_without_quotes = NULL;
+	// line_without_quotes = NULL;
 	if (!line)
 		return (NULL);
 	if (contains_two(line, '\"') || contains_two(line, '\''))
 	{
 		check_quotes_replace_ff(line);
-		line_without_quotes = erase_outside_quotes(line);
-		tokens = ft_split(line_without_quotes, ' ');
-		free(line_without_quotes);
+		// line_without_quotes = erase_outside_quotes(line);
+		// line_without_quotes = line;
+		tokens = ft_split(line, ' ');
+		// free(line_without_quotes);
 	}
 	else
 		tokens = ft_split(line, ' ');
