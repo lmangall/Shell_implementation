@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:02:12 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 09:57:59 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/15 14:56:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,18 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-
+int global_exit_status;
 
 void handle_ctrl_c(int sig)
 {
+	global_exit_status = 1;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 	(void)sig;
 }
+
 
 void handle_ctrl_backslash(int sig)
 {
