@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:14 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 22:46:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 09:57:48 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
-extern int global_exit_status;
 
 
 void	handle_ctrl_c(int sig);

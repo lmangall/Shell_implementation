@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 22:50:17 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 09:57:28 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
-		printf("global_exit_status %d\n", global_exit_status);
-		set_var(&data, "?", ft_itoa(global_exit_status));
 			prepare_command_execution(&line, &data);
 			builtins_to_parsing(line, &data);
 			free(line);
