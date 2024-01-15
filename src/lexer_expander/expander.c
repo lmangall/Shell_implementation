@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/12 09:21:24 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/15 17:19:45 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,15 @@ char	*expand(char *str, t_data *data)
 	if (expansion <= 2 || expansion == 5)
 	{
 		var_name = identify_var(str, data);
+		if (var_name == NULL)
+			return (str);
 		var = find_var(var_name, data);
 		expand_var(&str, &var);
 	}
 	if (contains_two(str, '\"') || contains_two(str, '\''))
 	{
 		str_without_quotes = (char *)erase_outside_quotes(str);
+		data->erased_out_quotes = 1;
 		free(str);
 		str = str_without_quotes;
 	}

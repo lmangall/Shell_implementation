@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:09:42 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 15:46:43 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:56:45 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <stddef.h>
 #include <sys/wait.h>
 #include <unistd.h>
+
 
 char	*search_path(char *cmd, t_data *data)
 {
