@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 17:55:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:21:40 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ int	exec_cmd(char **argv, t_data *data)
 		path = search_path(argv[0], data);
 		if (!path)
         {
-		data->path = path;
-        printf("Looking for troubles %s: that's bullshit\n", argv[0]);
-        set_var(data, "?", "127");
+		// data->path = path;
+        printf("Looking for trouble?\n %s: that's bullshit\n", argv[0]);
+        // set_var(data, "?", "127");
         // update_status(32512, data);
-        free_string_array(argv);
+		// free(data->path);
+        free_string_array(data->argv);
         free_string_array(data->envp_arr);
         free_string_array(data->tokens);
         exit(127);
@@ -93,16 +94,31 @@ void	simple_or_advanced(char **tokens, t_data *data)
 	}
 	else
 	{
-			cmd = parse_simple_command(tokens, data);
+		cmd = NULL;
 		if (fork() == 0)
 		{
+			cmd = parse_simple_command(tokens, data);
 			exec_pipe_redir(cmd, data);
         printf("HERE\n");
 		}
 		waitpid(-1, &status, 0);
         update_status(status, data);
+
+
+		// free(data->path);
+        // free_string_array(data->argv);
+        // free_string_array(data->envp_arr);
+
         free_string_array(data->tokens);
-        free_node_tree_recursive(cmd);
+		free_node_tree_recursive(cmd);
+	
+
+	// free_string_array(data->argv);
+	// free_string_array(data->envp_arr);
+	// free_string_array(data->tokens);
+
+
+        // free_string_array(data->tokens);
 	}
 	// free_string_array(data->tokens);
 }

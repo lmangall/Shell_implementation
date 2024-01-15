@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 17:11:30 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/15 18:23:33 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ struct s_node	*parse_simple_command(char **tokens, t_data *data)
 	return (root);
 }
 
-static void	erase_outside_quotes_on_tokens(char **tokens)
-{
-	int	i;
+// static void	erase_outside_quotes_on_tokens(char **tokens)
+// {
+// 	int	i;
 
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		tokens[i] = erase_outside_quotes(tokens[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (tokens[i] != NULL)
+// 	{
+// 		tokens[i] = erase_outside_quotes(tokens[i]);
+// 		i++;
+// 	}
+// }
 
 int	parse_and_execute(char *line, t_data *data)
 {
@@ -60,8 +60,8 @@ int	parse_and_execute(char *line, t_data *data)
 
 	tokens = lexer(line);
 	data->tokens = tokens;
-	if (data->erased_out_quotes == 0)
-		erase_outside_quotes_on_tokens(tokens);
+	// if (data->erased_out_quotes == 0)
+	// 	erase_outside_quotes_on_tokens(tokens);
 	simple_or_advanced(tokens, data);
 	return (1);
 }

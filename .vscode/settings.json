@@ -30,6 +30,8 @@
 		"string": "c",
 		"string_view": "c",
 		"redirect.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"executor.h": "c",
+		"stddef.h": "c"
 	}
 }
