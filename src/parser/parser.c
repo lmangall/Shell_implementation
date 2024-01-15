@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 21:13:45 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:33:46 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	erase_outside_quotes_on_tokens(char **tokens)
 		i++;
 	}
 }
-#include <stdbool.h>
 
 
 

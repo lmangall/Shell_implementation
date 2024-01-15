@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 20:58:21 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:24:40 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
 			if(global_exit_status == 1)
-				set_var(&data, "?", "1");
+				set_var(&data, "?", "130");
 			prepare_command_execution(&line, &data);
 			builtins_to_parsing(line, &data);
 			free(line);

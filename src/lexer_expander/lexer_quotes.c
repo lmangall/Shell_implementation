@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 21:20:30 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:52:44 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*check_quotes_replace_ff(char *line)
 			while (line[i] != quote && line[i] != '\0')
 			{
 				if (line[i] == ' ')
-					line[i] = 'X';//\f
+					line[i] = '\f';//\f
 				i++;
 			}
 			if (line[i] == quote)
