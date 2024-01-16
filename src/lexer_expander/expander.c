@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 19:23:42 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 20:34:14 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,43 @@
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
+
+int	surrounded_by_double_quotes(char *str, int current_index)
+{
+	int	double_quotes_count;
+	int	i;
+
+	double_quotes_count = 0;
+	i = 0;
+	while (i <= current_index)
+	{
+		if (str[i] == '"')
+		{
+			double_quotes_count++;
+		}
+		i++;
+	}
+
+	return (double_quotes_count % 2 != 0);
+}
+
+int	is_inside_single_quotes(char *str, int current_index)
+{
+	int	inside_single_quotes;
+	int	i;
+
+	inside_single_quotes = 0;
+	i = 0;
+	while (i < current_index)
+	{
+		if (str[i] == '\'')
+		{
+			inside_single_quotes = !inside_single_quotes;
+		}
+		i++;
+	}
+	return (inside_single_quotes);
+}
 
 char	*expand(char *str, t_data *data)
 {
@@ -34,7 +71,10 @@ char	*expand(char *str, t_data *data)
 
 	while (str[o_i] != '\0')
 	{
-		if (str[o_i] == '$' && !is_inside_single_quotes(str, o_i))
+	//	if (str[o_i] == '$' && !is_inside_single_quotes(str, o_i))
+	if ((str[o_i] == '$' && surrounded_by_double_quotes(str, o_i) && is_inside_single_quotes(str, o_i))
+			|| (str[o_i] == '$' && !is_inside_single_quotes(str, o_i)))
+
 		{
 			var_name = extract_variable_name(str, &o_i);
 			var_value = find_var_value(var_name, data);

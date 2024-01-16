@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:13:25 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/16 19:17:03 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 20:34:24 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,4 @@ char	*allocate_memory_for_expanded_string(char *str)
 		exit(EXIT_FAILURE);
 	}
 	return (expanded_str);
-}
-
-int	is_inside_single_quotes(char *str, int current_index)
-{
-	int	inside_single_quotes;
-	int	i;
-
-	inside_single_quotes = 0;
-	i = 0;
-	while (i < current_index)
-	{
-		if (str[i] == '\'')
-		{
-			inside_single_quotes = !inside_single_quotes;
-		}
-		i++;
-	}
-	return (inside_single_quotes);
 }
