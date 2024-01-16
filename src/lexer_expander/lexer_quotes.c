@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 21:52:44 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:58:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	replace_form_feed_with_spaces(char *str)
 	}
 }
 
-char	**put_space_back(char **tokens)
+void	put_space_back(char **tokens)
 {
 	int	i;
 
@@ -61,9 +61,7 @@ char	**put_space_back(char **tokens)
 		replace_form_feed_with_spaces(tokens[i]);
 		i++;
 	}
-	return (tokens);
 }
-
 /**
  * @brief Checks for single and double quotes in a string
  * and replaces spaces within quotes with form feed characters.
@@ -71,7 +69,7 @@ char	**put_space_back(char **tokens)
  * @note The input string is modified in-place,
  * and the function returns a pointer to the same string.
  */
-char	*check_quotes_replace_ff(char *line)
+void check_quotes_replace_ff(char *line)
 {
 	int		i;
 	char	quote;
@@ -97,7 +95,6 @@ char	*check_quotes_replace_ff(char *line)
 			i++;
 		}
 	}
-	return (line);
 }
 
 
