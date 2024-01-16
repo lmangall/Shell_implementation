@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:37:03 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:49:14 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,12 @@ int			inside_quote(const char *str);
  * @return 3 if there are double quotes inside single quotes			DONT_EXPAND
  * @return 4 if there are single quotes									DONT_EXPAND
  */
-int			quote_pattern(const char *str);
+
+char		*find_var_value(char *var_name, t_data *data);
+char		*extract_variable_name(char *str, int *original_index);
+void		append_variable_value(char *var_value, char *expanded_str,
+				int *expanded_index);
+char		*allocate_memory_for_expanded_string(char *str);
+
 
 #endif 
