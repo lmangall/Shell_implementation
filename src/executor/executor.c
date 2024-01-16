@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 13:33:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:13:56 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exec_cmd(char **argv, t_data *data)
 			free_string_array(data->envp_arr);
 			// free_string_array(data->tokens);
 			rl_clear_history();
-			free_node_tree(data->ast, NULL);
+			// free_node_tree(data->ast, NULL);
 			exit(127);
 			return (1);
 		}
