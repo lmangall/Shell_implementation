@@ -21,10 +21,15 @@ valgrind --suppressions=suppressions.supp --leak-check=full --show-leak-kinds=al
 Valgrind additionnal flags for children process:
 --trace-children=yes
 
-##Tester for minishell
+## Tester for Minishell
+
+To test Minishell, follow these steps:
+
+```bash
 cd minishell
 git clone https://github.com/LucasKuhn/minishell_tester.git
 cd minishell_tester
+
 
 ### Using Docker (to work on an Intel mac)
 Install and run docker
