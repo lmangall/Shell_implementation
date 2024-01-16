@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 22:24:40 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:45:17 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,17 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_vars(&data, envp);
 	set_signal_handlers();
-// printf("? before loop %d\n", get_var(&data, "?"));
 	while (1)
 	{
-// printf("? at start %d\n", get_var(&data, "?"));
 		line = readline(SHELL_PROMPT);
 		add_history(line);
 		if (!line)
-{
-// printf("line is null\n");
 			handle_ctrl_d(SIGQUIT);
-			}
 		if (line[0] != '\0')
 		{
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
-			if(global_exit_status == 1)
+			if (g_global_exit_status == 1)
 				set_var(&data, "?", "130");
 			prepare_command_execution(&line, &data);
 			builtins_to_parsing(line, &data);

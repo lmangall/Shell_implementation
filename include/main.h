@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:57 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 15:00:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:48:34 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@
 # define ERRCHAR 0
 # define INIT_SRC_POS -2
 
-extern int global_exit_status;
-
-
+extern int	g_global_exit_status;
 /**
  * @brief Set signal handlers for the shell.
  */
