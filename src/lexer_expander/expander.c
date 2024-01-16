@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 22:14:36 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:34:45 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,18 @@ char	*extract_variable_name(char *str, int *original_index)
 	return (copy_variable_name(str, original_index));
 }
 
+// this line with the alphanumeric check is causing a bug
+// while ((str[*original_index] != '\0') 
+// && (isalnum(str[*original_index]) || str[*original_index] == '?'))
+// Varibles with underscores are not being expanded
+// e.g. Desktop_SESSION=ubuntu
 char	*copy_variable_name(char *str, int *original_index)
 {
 	char	var_name[50];
 	int		var_name_index;
 
 	var_name_index = 0;
-	while ((str[*original_index] != '\0') && (isalnum(str[*original_index]) || str[*original_index] == '?'))
+	while ((str[*original_index] != '\0') || str[*original_index] == '?')
 	{
 		var_name[var_name_index++] = str[(*original_index)++];
 	}
