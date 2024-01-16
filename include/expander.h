@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:37:03 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/16 19:18:50 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 20:22:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include "../lib/libft/src/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-
-char		**erase_outside_quotes_array(char **array);
 
 // /**
 //  * @brief Replaces the variable in the given node's string with its value.
@@ -87,7 +85,7 @@ char		*find_val(char *name, t_data *data);
 t_vars		*find_var(char *name, t_data *data);
 
 int			quote_pattern(const char *str);
-char		*erase_outside_quotes(const char *str);
+void		erase_outside_quotes(char **str);
 
 /**
  * @brief Find the first occurrence of quotes in the string.

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 19:48:15 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:25:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,44 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *erase_outside_quotes(const char *str)
+
+void erase_outside_quotes(char **str)
 {
 	size_t j = 0;
 	int flag = 0;
 	char *new_str;
 
-	new_str = (char *)malloc((strlen(str) + 1) * sizeof(char));
+	new_str = (char *)malloc((strlen(*str) + 1) * sizeof(char));
 	if (new_str == NULL)
-		return NULL;
+		return;
 
-	while (*str != '\0')
+	char *original_str = *str;  // Save the original pointer
+
+	while (*original_str != '\0')
 	{
-		if (*str == '\'' && (flag == 0 || flag == 1))
+		if (*original_str == '\'' && (flag == 0 || flag == 1))
 		{
 			flag = 1;
-			str++;
+			original_str++;
 			continue;
 		}
-		else if (*str == '\"' && (flag == 0 || flag == 2))
+		else if (*original_str == '\"' && (flag == 0 || flag == 2))
 		{
 			flag = 2;
-			str++;
+			original_str++;
 			continue;
 		}
-		new_str[j] = *str;
-		str++;
+		new_str[j] = *original_str;
+		original_str++;
 		j++;
 	}
 
 	new_str[j] = '\0';
 
-	return new_str;
+	free(*str);  // Free the original pointer
+	*str = new_str;
 }
+
 
 
 

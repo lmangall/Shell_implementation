@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 19:59:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:25:54 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,19 @@ struct s_node	*parse_simple_command(char **tokens, t_data *data)
 	return (root);
 }
 
-static void	erase_outside_quotes_on_tokens(char **tokens)
+
+void erase_outside_quotes_on_tokens(char **tokens)
 {
 	int	i;
 
 	i = 0;
 	while (tokens[i] != NULL)
 	{
-		if (contains_two(tokens[i], '\"') || contains_two(tokens[i], '\''))
-			tokens[i] = erase_outside_quotes(tokens[i]);
+		if ((contains_two(tokens[i], '\"') || contains_two(tokens[i], '\'')))
+			erase_outside_quotes(&tokens[i]);
 		i++;
 	}
 }
-
-
 
 // static void   replace_space_by_ff(char *str)
 // {

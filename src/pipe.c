@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 13:40:51 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:14:16 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	run_second_child_process(struct s_node *node,
 		waitpid(child_pid1, &status, 0);
 		waitpid(child_pid2, &status, 0);
 		update_status(status, data);
+			free_string_array(data->argv);
+			free_string_array(data->envp_arr);
 		free_node_tree_recursive(data->ast);
 		exit(get_var(data, "?"));
 	}
