@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:52:32 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 18:52:36 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,32 +88,52 @@ char	*allocate_memory_for_expanded_string(char *str)
 	return (expanded_str);
 }
 
-char	*expand(char *str, t_data *data)
+int is_inside_single_quotes(char *str, int current_index)
 {
-	char	*expanded_str;
-	int		original_index;
-	int		expanded_index;
-	char	*var_name;
-	char	*var_value;
+    int inside_single_quotes = 0;
 
-	expanded_str = allocate_memory_for_expanded_string(str);
-	original_index = 0;
-	expanded_index = 0;
-	while (str[original_index] != '\0')
-	{
-		if (str[original_index] == '$')
-		{
-			var_name = extract_variable_name(str, &original_index);
-			var_value = find_var_value(var_name, data);
-			if (var_value != NULL)
-			{
-				append_variable_value(var_value, expanded_str, &expanded_index);
-			}
-		}
-		else
-			expanded_str[expanded_index++] = str[original_index++];
-	}
-	expanded_str[expanded_index] = '\0';
-	return (expanded_str);
+    for (int i = 0; i < current_index; i++)
+    {
+        if (str[i] == '\'')
+        {
+            inside_single_quotes = !inside_single_quotes;
+        }
+    }
+
+    return inside_single_quotes;
 }
 
+
+char *expand(char *str, t_data *data)
+{
+    char *expanded_str;
+    int original_index;
+    int expanded_index;
+    char *var_name;
+    char *var_value;
+
+    expanded_str = allocate_memory_for_expanded_string(str);
+    original_index = 0;
+    expanded_index = 0;
+
+    while (str[original_index] != '\0')
+    {
+        if (str[original_index] == '$' && !is_inside_single_quotes(str, original_index))
+        {
+            var_name = extract_variable_name(str, &original_index);
+            var_value = find_var_value(var_name, data);
+            if (var_value != NULL)
+            {
+                append_variable_value(var_value, expanded_str, &expanded_index);
+            }
+          //  free(var_name);
+        }
+        else
+        {
+            expanded_str[expanded_index++] = str[original_index++];
+        }
+    }
+
+    expanded_str[expanded_index] = '\0';
+    return expanded_str;
+}
