@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:30:52 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:53:20 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,33 @@ printf("exit with status %d\n", ex);
 printf(" after exit with status %d\n", get_var(data, "?"));
 }
 
-void	free_node_tree_recursive(struct s_node *node)
+void free_node_tree_recursive(struct s_node *node)
 {
 	if (!node)
-	{
-		return ;
-	}
+		return;
 	free_node_tree_recursive(node->next_sibling);
-	free_node_tree(node);
+	free_node_tree(node, NULL);
 }
 
-void	free_node_tree(struct s_node *node)
+void free_node_tree(struct s_node *node, struct s_node *parent)
 {
-	struct s_node	*child;
-	struct s_node	*next;
+	struct s_node *child;
+	struct s_node *next;
 
 	if (!node)
-	{
-		return ;
-	}
+		return;
 	child = node->first_child;
 	while (child)
 	{
 		next = child->next_sibling;
-		free_node_tree(child);
+		free_node_tree(child, node);
 		child = next;
 	}
-	if(node->str)
+	if (node->str)
 		free(node->str);
-	if (node)
-	{
-		free(node);
-	}
+	if (parent && parent->first_child == node)
+		parent->first_child = node->next_sibling;
+	free(node);
 }
 
 void	free_string_array(char **tokens)

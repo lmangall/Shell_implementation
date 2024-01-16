@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:27 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 18:18:24 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:53:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  *
  * @param node The root node of the tree to free.
  */
-void	free_node_tree(struct s_node *node);
+void free_node_tree(struct s_node *node, struct s_node *parent);
 
 void	free_string_array_index(char **arr, size_t i);
 

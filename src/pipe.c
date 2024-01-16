@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:26:30 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:03:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	second_child(struct s_node *node, int pipe_fd[2], t_data *data)
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	exec_pipe_redir(node, data);
-	free_node_tree(node);
+	// free_single_node(node);
 	// exit(get_var(data, "?"));
 }
 
@@ -82,9 +82,7 @@ void	run_second_child_process(struct s_node *node,
 		waitpid(child_pid1, &status, 0);
 		waitpid(child_pid2, &status, 0);
 		update_status(status, data);
-		free_node_tree_recursive(node);
-		// free_string_array(data->tokens);
-		rl_clear_history();
+		free_node_tree_recursive(data->ast);
 		exit(get_var(data, "?"));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:26 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:21:35 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:53:45 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ struct			s_node	*new_node(enum e_node type);
  */
 int				add_child_node(struct s_node *parent, struct s_node *child);
 
-/**
- * @brief frees the memory allocated for a node and its descendants.
- */
-void			free_node_tree(struct s_node *node);
 
 /**
  * @brief sets a node's value to the given string. It copies the string to
