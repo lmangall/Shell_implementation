@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:19:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:40:31 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@
 #include <string.h>
 #include <sys/wait.h>
 
+void	remove_leading_tabs(char *str)
+{
+	int	i;
+	int	j;
+
+	if (str == NULL)
+		return ;
+	i = 0;
+	while (str[i] == '\t')
+		i++;
+	j = 0;
+	while (str[i] != '\0')
+	{
+		str[j] = str[i];
+		i++;
+		j++;
+	}
+	str[j] = '\0';
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
@@ -43,6 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = readline(SHELL_PROMPT);
 		add_history(line);
+		remove_leading_tabs(line);
 		if (!line)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')
