@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 13:03:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:28:32 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	first_child(struct s_node *node, int pipe_fd[2], t_data *data)
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	exec_pipe_redir(node, data);
+
 	// free_node_tree(node);
 
 	// exit(get_var(data, "?"));
