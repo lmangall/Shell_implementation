@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:37:03 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/16 20:22:20 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 23:50:54 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,60 @@
 # include "../lib/libft/src/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+
+
+
+
+
+
+/**
+ * @brief Check if a string is enclosed in quotes and determine the type of quotes.
+ *
+ * This function examines the given string to check if it is enclosed in quotes.
+ * It supports both double quotes (") and single quotes ('). The function returns:
+ * - 2 if the string is enclosed in double quotes.
+ * - 3 if the string is enclosed in single quotes.
+ * - 5 if the string is not enclosed in quotes.
+ *
+ * @param str The input string to be checked.
+ * @return An integer representing the type of quotes or 5 if not enclosed in quotes.
+ */
+int inside_quote(const char *str);
+
+/**
+ * @brief Count the occurrences of a character in a string and check if it appears twice.
+ *
+ * This function counts the occurrences of a specified character in a string
+ * and returns 1 if the character appears exactly twice, and 0 otherwise.
+ *
+ * @param str The input string to be checked.
+ * @param c The character to be counted.
+ * @return 1 if the character appears twice, 0 otherwise.
+ */
+int contains_two(char *str, char c);
+
+/**
+ * @brief Determine the pattern of quotes in a string.
+ *
+ * This function analyzes the pattern of quotes in the given string and returns an integer code:
+ * - 1 if the string contains double quotes (").
+ * - 4 if the string contains single quotes (').
+ * - 2 if the string contains both double and single quotes.
+ * - 5 if the string contains neither double nor single quotes.
+ *
+ * @param str The input string to be analyzed.
+ * @return An integer representing the quote pattern.
+ */
+int quote_pattern(const char *str);
+
+
+
+
+
+
+
+
+
 
 // /**
 //  * @brief Replaces the variable in the given node's string with its value.
@@ -84,7 +138,6 @@ char		*find_val(char *name, t_data *data);
 */
 t_vars		*find_var(char *name, t_data *data);
 
-int			quote_pattern(const char *str);
 void		erase_outside_quotes(char **str);
 
 /**

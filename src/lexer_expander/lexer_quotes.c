@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 19:58:31 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 23:52:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,6 @@
 #include <errno.h>
 #include <unistd.h>
 
-int	contains_two(char *str, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-			count++;
-		i++;
-	}
-	if (count == 2)
-		return (1);
-	return (0);
-}
 
 void	replace_form_feed_with_spaces(char *str)
 {

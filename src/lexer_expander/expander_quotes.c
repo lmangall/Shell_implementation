@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 20:25:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 23:52:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,35 +92,4 @@ const char	*find_last_quotes(const char *str)
 			return (&str[i]);
 	}
 	return (NULL);
-}
-
-int	inside_quote(const char *str)
-{
-	const char	*start_quote = find_first_quotes(str);
-	const char	*end_quote = find_last_quotes(str);
-
-	if (start_quote != NULL && end_quote != NULL && *start_quote == '\"'
-		&& *end_quote == '\"')
-		return (2);
-	if (start_quote != NULL && end_quote != NULL && *start_quote == '\''
-		&& *end_quote == '\'')
-		return (3);
-	return (5);
-}
-
-int	quote_pattern(const char *str)
-{
-	int	ret;
-
-	ret = 0;
-	if (contains_two((char *)str, '\"') && contains_two((char *)str, '\''))
-		ret = inside_quote(str);
-	else
-	{
-		if (contains_two((char *)str, '\"'))
-			ret = 1;
-		if (contains_two((char *)str, '\''))
-			ret = 4;
-	}
-	return (ret);
 }
