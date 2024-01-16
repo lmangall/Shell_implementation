@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 11:34:45 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 12:38:26 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,54 +20,41 @@
 #include <errno.h>
 #include <unistd.h>
 
-// Function to allocate memory for the expanded string
-char	*allocate_memory_for_expanded_string(char *str);
-
-// Function to find the variable name following '$'
-char	*extract_variable_name(char *str, int *original_index);
-
-// Function to copy the variable name until a non-alphanumeric character is encountered
-char	*copy_variable_name(char *str, int *original_index);
-
-// Function to append the variable value to the expanded string
-void	append_variable_value(char *var_value, char *expanded_str,
-			int *expanded_index);
-
-// Function to expand variables in a string
-char	*expand(char *str, t_data *data);
-
-// Helper function to find the value of a variable by name
-char	*find_var_value(char *var_name, t_data *data);
-
-char	*allocate_memory_for_expanded_string(char *str)
+char	*find_var_value(char *var_name, t_data *data)
 {
-	char *expanded_str = (char *)malloc(strlen(str) * 2 + 1); //	+1 for the null terminator
-	if (!expanded_str)
+	int	i;
+
+	i = 0;
+	while (i < data->num_shell_vars)
 	{
-		perror("Memory allocation failed");
-		exit(EXIT_FAILURE);
+		if (strcmp(var_name, data->shell_vc[i].name) == 0)
+		{
+			return (strdup(data->shell_vc[i].value));
+		}
+		i++;
 	}
-	return (expanded_str);
+	i = 0;
+	while (i < data->num_vars)
+	{
+		if (strcmp(var_name, data->vc[i].name) == 0)
+		{
+			return (strdup(data->vc[i].value));
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 char	*extract_variable_name(char *str, int *original_index)
 {
-	(*original_index)++; // Move past the '$'
-	return (copy_variable_name(str, original_index));
-}
-
-// this line with the alphanumeric check is causing a bug
-// while ((str[*original_index] != '\0') 
-// && (isalnum(str[*original_index]) || str[*original_index] == '?'))
-// Varibles with underscores are not being expanded
-// e.g. Desktop_SESSION=ubuntu
-char	*copy_variable_name(char *str, int *original_index)
-{
 	char	var_name[50];
 	int		var_name_index;
 
+	(*original_index)++;
 	var_name_index = 0;
-	while ((str[*original_index] != '\0') || str[*original_index] == '?')
+	while ((str[*original_index] != '\0')
+		&& ((isalnum(str[*original_index]) || str[*original_index] == '_') 
+			|| str[*original_index] == '?'))
 	{
 		var_name[var_name_index++] = str[(*original_index)++];
 	}
@@ -86,6 +73,19 @@ void	append_variable_value(char *var_value, char *expanded_str,
 		expanded_str[(*expanded_index)++] = var_value[var_value_index++];
 	}
 	free(var_value);
+}
+
+char	*allocate_memory_for_expanded_string(char *str)
+{
+	char	*expanded_str;
+
+	expanded_str = (char *)malloc(strlen(str) * 2 + 1);
+	if (!expanded_str)
+	{
+		perror("Memory allocation failed");
+		exit(EXIT_FAILURE);
+	}
+	return (expanded_str);
 }
 
 char	*expand(char *str, t_data *data)
@@ -111,32 +111,12 @@ char	*expand(char *str, t_data *data)
 			}
 		}
 		else
-		{
 			expanded_str[expanded_index++] = str[original_index++];
-		}
 	}
 	expanded_str[expanded_index] = '\0';
 	return (expanded_str);
 }
 
-char	*find_var_value(char *var_name, t_data *data)
-{
-	for (int i = 0; i < data->num_shell_vars; i++)
-	{
-		if (strcmp(var_name, data->shell_vc[i].name) == 0)
-		{
-			return (strdup(data->shell_vc[i].value));
-		}
-	}
-	for (int i = 0; i < data->num_vars; i++)
-	{
-		if (strcmp(var_name, data->vc[i].name) == 0)
-		{
-			return (strdup(data->vc[i].value));
-		}
-	}
-	return (NULL);
-}
 
 // var->value
 // var->name
