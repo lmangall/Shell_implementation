@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 20:14:16 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 20:38:06 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,16 @@ void	run_second_child_process(struct s_node *node,
 	}
 	if (child_pid2 == 0) 
 		second_child(node->next_sibling, pipe_fd, data);
-	else
-	{
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		waitpid(child_pid1, &status, 0);
-		waitpid(child_pid2, &status, 0);
-		update_status(status, data);
-			free_string_array(data->argv);
-			free_string_array(data->envp_arr);
-		free_node_tree_recursive(data->ast);
-		exit(get_var(data, "?"));
-	}
+	// else
+	// {
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	waitpid(child_pid1, &status, 0);
+	waitpid(child_pid2, &status, 0);
+	update_status(status, data);
+	free_node_tree_recursive(data->ast);
+	exit(get_var(data, "?"));
+	// }
 }
 
 void	execute_pipe_command(struct s_node *node, t_data *data)

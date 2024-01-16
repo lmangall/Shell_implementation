@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 20:34:14 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 20:44:30 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*expand(char *str, t_data *data)
 
 		{
 			var_name = extract_variable_name(str, &o_i);
+			if(var_name == NULL)
+				printf("var_name is NULL\n");    //CAREFULL HERE
 			var_value = find_var_value(var_name, data);
 			if (var_value != NULL)
 				append_variable_value(var_value, expanded_str, &expanded_index);
