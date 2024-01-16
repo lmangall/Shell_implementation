@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 22:33:46 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:34:08 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ struct s_node	*parse_simple_command(char **tokens, t_data *data)
 		var = new_node(VAR);
 		if (!var)
 			return (NULL);
-		var->str = tokens[i];
+		var->str = ft_strdup(tokens[i]);
 		(void)data;
 		add_child_node(root, var);
 		i++;
 	}
+	free_string_array(tokens);
 	return (root);
 }
 
@@ -88,7 +89,8 @@ int	parse_and_execute(char *line, t_data *data)
 	tokens = lexer(line);
 	put_space_back(tokens);
 
-	data->tokens = tokens;
+
+	// data->tokens = tokens;
 	if (data->erased_out_quotes == 0)
 		erase_outside_quotes_on_tokens(tokens);
 	simple_or_advanced(tokens, data);

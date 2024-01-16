@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 11:45:17 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 12:19:23 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		set_signal_handlers();
 	}
-	cleanup_and_exit(line, &data);
+	// cleanup_and_exit(line, &data);
 	return (0);
 }
 

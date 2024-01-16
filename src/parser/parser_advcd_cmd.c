@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:19:36 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:06:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:29:49 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ struct s_node	*handle_regular_word(char **tokens, int i,
 	word = new_node(VAR);
 	if (!word)
 		return (NULL);
-	word->str = tokens[i];
+	word->str = ft_strdup(tokens[i]);
 	if (!add_child_node(current_cmd, word))
 		return (NULL);
 	return (word);
@@ -90,6 +90,7 @@ struct s_node	*parse_advanced_command(char **tokens)
 		}
 		i++;
 	}
+	free_string_array(tokens);
 	return (head);
 }
 

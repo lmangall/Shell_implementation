@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:21:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/11 16:07:34 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:30:16 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ struct s_node	*create_root_node(char *token)
 	cmd_var = new_node(VAR);
 	if (!cmd_var)
 		return (NULL);
-	cmd_var->str = token;
+	cmd_var->str = ft_strdup(token);
 	if (!add_child_node(new_cmd, cmd_var))
 		return (NULL);
 	return (new_cmd);

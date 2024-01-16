@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:47:47 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/14 21:32:23 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:30:52 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	cleanup_and_exit(char *line, t_data *data)
 		free(line);
 
 	int ex = get_var(data, "?");
-	printf("exit with status %d\n", ex);
+printf("exit with status %d\n", ex);
 	exit(ex);
 printf(" after exit with status %d\n", get_var(data, "?"));
 }
@@ -78,6 +78,8 @@ void	free_node_tree(struct s_node *node)
 		free_node_tree(child);
 		child = next;
 	}
+	if(node->str)
+		free(node->str);
 	if (node)
 	{
 		free(node);
