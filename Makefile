@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+         #
+#    By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/12 10:10:32 by lmangall         ###   ########.fr        #
+#    Updated: 2024/01/16 19:15:03 by ohoro            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS =	lexer_expander/lexer.c \
 		lexer_expander/lexer_quotes.c \
 		lexer_expander/expander.c \
 		lexer_expander/expander_quotes.c \
+		lexer_expander/expander_helper.c \
 		builtins/builtins.c \
 		builtins/cd.c \
 		builtins/echo.c  \

@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 19:00:55 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 19:23:42 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,123 +20,31 @@
 #include <errno.h>
 #include <unistd.h>
 
-char	*find_var_value(char *var_name, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->num_shell_vars)
-	{
-		if (ft_strcmp(var_name, data->shell_vc[i].name) == 0)
-		{
-			return (ft_strdup(data->shell_vc[i].value));
-		}
-		i++;
-	}
-	i = 0;
-	while (i < data->num_vars)
-	{
-		if (ft_strcmp(var_name, data->vc[i].name) == 0)
-		{
-			return (ft_strdup(data->vc[i].value));
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-char	*extract_variable_name(char *str, int *original_index)
-{
-	char	var_name[50];
-	int		var_name_index;
-
-	(*original_index)++;
-	var_name_index = 0;
-	while ((str[*original_index] != '\0')
-		&& ((ft_isalnum(str[*original_index]) || str[*original_index] == '_') 
-			|| str[*original_index] == '?'))
-	{
-		var_name[var_name_index++] = str[(*original_index)++];
-	}
-	var_name[var_name_index] = '\0';
-	return (ft_strdup(var_name));
-}
-
-void	append_variable_value(char *var_value, char *expanded_str,
-		int *expanded_index)
-{
-	int	var_value_index;
-
-	var_value_index = 0;
-	while (var_value[var_value_index] != '\0')
-	{
-		expanded_str[(*expanded_index)++] = var_value[var_value_index++];
-	}
-	free(var_value);
-}
-
-char	*allocate_memory_for_expanded_string(char *str)
+char	*expand(char *str, t_data *data)
 {
 	char	*expanded_str;
+	int		o_i;
+	int		expanded_index;
+	char	*var_name;
+	char	*var_value;
 
-	expanded_str = (char *)malloc(ft_strlen(str) * 2 + 1);
-	if (!expanded_str)
+	expanded_str = allocate_memory_for_expanded_string(str);
+	o_i = 0;
+	expanded_index = 0;
+
+	while (str[o_i] != '\0')
 	{
-		perror("Memory allocation failed");
-		exit(EXIT_FAILURE);
-	}
-	return (expanded_str);
-}
-
-int	is_inside_single_quotes(char *str, int current_index)
-{
-	int	inside_single_quotes;
-	int	i;
-
-	inside_single_quotes = 0;
-	i = 0;
-	while (i < current_index)
-	{
-		if (str[i] == '\'')
+		if (str[o_i] == '$' && !is_inside_single_quotes(str, o_i))
 		{
-			inside_single_quotes = !inside_single_quotes;
+			var_name = extract_variable_name(str, &o_i);
+			var_value = find_var_value(var_name, data);
+			if (var_value != NULL)
+				append_variable_value(var_value, expanded_str, &expanded_index);
+			free(var_name);
 		}
-		i++;
+		else
+			expanded_str[expanded_index++] = str[o_i++];
 	}
-	return (inside_single_quotes);
-}
-
-
-char *expand(char *str, t_data *data)
-{
-    char *expanded_str;
-    int original_index;
-    int expanded_index;
-    char *var_name;
-    char *var_value;
-
-    expanded_str = allocate_memory_for_expanded_string(str);
-    original_index = 0;
-    expanded_index = 0;
-
-    while (str[original_index] != '\0')
-    {
-        if (str[original_index] == '$' && !is_inside_single_quotes(str, original_index))
-        {
-            var_name = extract_variable_name(str, &original_index);
-            var_value = find_var_value(var_name, data);
-            if (var_value != NULL)
-            {
-                append_variable_value(var_value, expanded_str, &expanded_index);
-            }
-          //  free(var_name);
-        }
-        else
-        {
-            expanded_str[expanded_index++] = str[original_index++];
-        }
-    }
-
-    expanded_str[expanded_index] = '\0';
-    return expanded_str;
+	expanded_str[expanded_index] = '\0';
+	return (expanded_str);
 }

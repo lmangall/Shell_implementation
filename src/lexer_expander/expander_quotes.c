@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 18:31:50 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:26:14 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*erase_outside_quotes(const char *str)
 	flag = 0;
 	new_str = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
 	if (new_str == NULL)
-		return NULL;
+		return (NULL);
 	while (*str != '\0')
 	{
 		if (*str == '\'' && (flag == 0 || flag == 1))
@@ -56,7 +56,7 @@ char	*erase_outside_quotes(const char *str)
 		new_str = strdup(str);
 	}
 
-	return new_str;
+	return (new_str);
 }
 
 

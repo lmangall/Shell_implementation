@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:37:03 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/16 12:49:14 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/16 19:18:50 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,6 @@ char		*extract_variable_name(char *str, int *original_index);
 void		append_variable_value(char *var_value, char *expanded_str,
 				int *expanded_index);
 char		*allocate_memory_for_expanded_string(char *str);
-
+int			is_inside_single_quotes(char *str, int current_index);
 
 #endif 
