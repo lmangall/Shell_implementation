@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:13:25 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/17 19:05:17 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 20:25:10 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,14 @@ char	*allocate_memory_for_expanded_string(char *str)
 		exit(EXIT_FAILURE);
 	}
 	return (expanded_str);
+}
+
+void	handle_missing_variable(char *var_name, char *xpned_str, int *idx)
+{
+	int	var_name_len;
+
+	var_name_len = strlen(var_name);
+	xpned_str[(*idx)++] = '$';
+	memcpy(&xpned_str[*idx], var_name, var_name_len);
+	*idx += var_name_len;
 }

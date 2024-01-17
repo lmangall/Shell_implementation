@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 19:27:25 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:31:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,19 @@ int	quote_pattern(const char *str)
 	return (ret);
 }
 
-void	expand_variables(char *str, t_data *data, char *xpned_str, int *idx)
+void expand_variables(char *str, t_data *data, char *xpned_str, int *idx)
 {
-	char	*var_name;
-	char	*var_value;
-	int		o_i;
-
-	o_i = 0;
-	while (str[o_i] != '\0')
-	{
-		if (str[o_i] == '$')
-		{
-			var_name = extract_variable_name(str, &o_i);
-			if (var_name == NULL)
-				xpned_str[(*idx)++] = str[o_i++];
-			else
-			{
-				var_value = find_var_value(var_name, data);
-				if (var_value != NULL)
-					append_variable_value(var_value, 
-						xpned_str, idx);
-			}
-			free(var_name);
-		}
-		else
-			xpned_str[(*idx)++] = str[o_i++];
-	}
-	xpned_str[*idx] = '\0';
+    int o_i = 0;
+    while (str[o_i] != '\0')
+    {
+        if (str[o_i] == '$')
+        {
+            process_variable(str, data, xpned_str, idx, &o_i);
+        }
+        else
+            xpned_str[(*idx)++] = str[o_i++];
+    }
+    xpned_str[*idx] = '\0';
 }
 
 char	*expand(char *str, t_data *data)
