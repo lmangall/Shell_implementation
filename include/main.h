@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:57 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 13:26:09 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:34:03 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <string.h>
 # include <stdio.h>
 
-# define SHELL_PROMPT "\033[1;35mminishell$ \033[0m"
+# define SHELL_PROMPT "minishell$ "
 
 # define ERRCHAR 0
 # define INIT_SRC_POS -2

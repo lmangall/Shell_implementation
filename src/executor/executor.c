@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 15:43:23 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 16:35:04 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_cmd(char **argv, t_data *data)
 		path = search_path(argv[0], data);
 		if (!path)
 		{
-			printf("\n %s: invalid command\n", argv[0]);
+			printf("%s: invalid command\n", argv[0]);
 			free_string_array(data->argv);
 			free_string_array(data->envp_arr);
 			exit(127);

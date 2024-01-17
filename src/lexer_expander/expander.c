@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:17:54 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 16:35:25 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,6 @@ char *expand(char *str, t_data *data)
 
 	if (contains_two(str, '\"') || contains_two(str, '\''))
 		expansion = quote_pattern(str);
-
-	printf("expansion = %d\n", expansion);
-
 	if (expansion <= 2 || expansion == 5)
 	{
 		while (str[o_i] != '\0')
