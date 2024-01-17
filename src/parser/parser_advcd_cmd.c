@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:19:36 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:12:15 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 16:54:16 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
+
+static void	set_head_and_current_cmd(struct s_node **head,
+	struct s_node **current_cmd)
+{
+	*head = NULL;
+	*current_cmd = NULL;
+}
 
 void	handle_operator(int *i)
 {
@@ -32,8 +39,7 @@ struct s_node	*parse_advanced_command(char **tokens)
 	struct s_node	*current_cmd;
 
 	i = 0;
-	head = NULL;
-	current_cmd = NULL;
+	set_head_and_current_cmd(&head, &current_cmd);
 	while (tokens[i] != NULL)
 	{
 		if ((i == 0) || ((is_operator(tokens[i - 1])) && (i > 0)))
