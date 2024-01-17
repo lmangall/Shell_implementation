@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:37:03 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/17 20:35:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:39:31 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,7 @@ int			is_quote(char c);
 int			get_quote_type(char c);
 void		process_inside_quotes(char *new_str, size_t *j,
 				int *flag, char **original_str);
-void		handle_missing_variable(char *var_name, char *xpned_str, int *idx);
-void		process_variable(char *str, t_data *data, 
-				char *xpned_str, int *idx, int *o_i);
+void handle_variable(char *var_name, t_data *data, char *xpned_str, int *idx);
 
 
 #endif 
