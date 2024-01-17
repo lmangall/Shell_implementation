@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 20:44:42 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:52:24 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,42 +52,32 @@ int	contains_two(char *str, char c)
 	return (0);
 }
 
-void	handle_variable(char *var_name, t_data *data, char *xpned_str, int *idx)
+int	quote_pattern(const char *str)
 {
-	char	*var_value;
-	int		var_name_len;
+	int	ret;
 
-	var_name_len = ft_strlen(var_name);
-	var_value = find_var_value(var_name, data);
-	if (var_value != NULL)
-		append_variable_value(var_value, xpned_str, idx);
+	ret = 0;
+	if (contains_two((char *)str, '\"') && contains_two((char *)str, '\''))
+		ret = inside_quote(str);
 	else
 	{
-		xpned_str[(*idx)++] = '$';
-		ft_memcpy(&xpned_str[*idx], var_name, var_name_len);
-		*idx += var_name_len;
+		if (contains_two((char *)str, '\"'))
+			ret = 1;
+		if (contains_two((char *)str, '\''))
+			ret = 4;
 	}
-	free(var_name);
+	return (ret);
 }
 
 void	expand_variables(char *str, t_data *data, char *xpned_str, int *idx)
 {
-	int		o_i;
-	char	*var_name;
-
-	o_i = 0;
-	var_name = extract_variable_name(str, &o_i);
-	while (str[o_i] != '\0')
+	data->o_i = 0;
+	while (str[data->o_i] != '\0')
 	{
-		if (str[o_i] == '$')
-		{
-			if (var_name != NULL)
-				handle_variable(var_name, data, xpned_str, idx);
-			else
-				xpned_str[(*idx)++] = '$';
-		}
+		if (str[data->o_i] == '$')
+			process_variable(str, data, xpned_str, idx);
 		else
-			xpned_str[(*idx)++] = str[o_i++];
+			xpned_str[(*idx)++] = str[data->o_i++];
 	}
 	xpned_str[*idx] = '\0';
 }

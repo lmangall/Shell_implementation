@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 20:44:10 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:51:54 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,22 @@ void	erase_outside_quotes(char **str)
 	*str = new_str;
 }
 
-int	quote_pattern(const char *str)
+void	process_variable(char *str, t_data *data, char *xpned_str, int *idx)
 {
-	int	ret;
+	char	*var_name;
+	char	*var_value;
 
-	ret = 0;
-	if (contains_two((char *)str, '\"') && contains_two((char *)str, '\''))
-		ret = inside_quote(str);
-	else
+	var_value = NULL;
+	var_name = extract_variable_name(str, &data->o_i);
+	if (var_name != NULL)
 	{
-		if (contains_two((char *)str, '\"'))
-			ret = 1;
-		if (contains_two((char *)str, '\''))
-			ret = 4;
+		var_value = find_var_value(var_name, data);
+		if (var_value != NULL)
+			append_variable_value(var_value, xpned_str, idx);
+		else
+			handle_missing_variable(var_name, xpned_str, idx);
+		free(var_name);
 	}
-	return (ret);
+	else
+		xpned_str[(*idx)++] = '$';
 }

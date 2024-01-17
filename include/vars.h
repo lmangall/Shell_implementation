@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 15:32:43 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 21:38:00 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_data
 	char			*path;
 	int				erased_out_quotes;
 	struct s_node	*ast;
+	int				o_i;
 }	t_data;
 
 // vars
