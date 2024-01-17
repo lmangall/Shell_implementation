@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:14:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 16:56:58 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 15:50:42 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,109 +61,3 @@ char	*copy_token_without_quotes(const char *source)
 	new_token[j] = '\0';
 	return (new_token);
 }
-
-
-
-
-
-//commented ou on Monday
-
-// static void	print_string_array(char **tokens)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (tokens[i] != NULL)
-// 	{
-// 		printf("tokens[%d] = %s\n", i, tokens[i]);
-// 		i++;
-// 	}
-// }	
-
-// char	**erase_quotes_from_tokens(char **tokens)
-// {
-// 	int		num_tokens;
-// 	char	**new_tokens;
-// 	int		i;
-// printf("erase_quotes_from_tokens\n");
-// print_string_array(tokens);
-
-// 	num_tokens = 0;
-// 	while (tokens[num_tokens] != NULL)
-// 	{
-// 		num_tokens++;
-// 	}
-// 	new_tokens = allocate_memory_for_tokens(num_tokens);
-// 	i = 0;
-// 	while (tokens[i] != NULL)
-// 	{
-// 		new_tokens[i] = copy_token_without_quotes(tokens[i]);
-// 		i++;
-// 	}
-// 	new_tokens[num_tokens] = NULL;
-// printf("\nreturns :\n");
-// print_string_array(new_tokens);
-// 	return (new_tokens);
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-char	**erase_quotes(char **tokens)
-{
-	int		i;
-	char	**new_tokens;
-	int		num_tokens;
-	int		len;
-	int		j;
-	int		k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	num_tokens = 0;
-	while (tokens[num_tokens] != NULL)
-		num_tokens++;
-	new_tokens = ft_calloc((num_tokens + 1), sizeof(char *));
-	if (new_tokens == NULL)
-	{
-		perror("Memory allocation failed");
-		exit(EXIT_FAILURE);
-	}
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		len = ft_strlen(tokens[i]);
-		new_tokens[i] = (char *)malloc((len + 1) * sizeof(char));
-		if (new_tokens[i] == NULL)
-		{
-			perror("Memory allocation failed in erase_quote");
-			exit(EXIT_FAILURE);
-		}
-		j = 0,
-		k = 0;
-		while (tokens[i][j] != '\0')
-		{
-			if (tokens[i][j] != '\"' && tokens[i][j] != '\'')
-			{
-				new_tokens[i][k] = tokens[i][j];
-				k++;
-			}
-			j++;
-		}
-		new_tokens[i][k] = '\0';
-		i++;
-	}
-	new_tokens[num_tokens] = NULL;
-	return (new_tokens);
-}
-*/

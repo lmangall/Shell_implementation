@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 23:52:00 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:52:07 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@
 #include <errno.h>
 #include <stddef.h>
 #include <unistd.h>
-
 #include <stdlib.h>
 #include <string.h>
 
-
-void erase_outside_quotes(char **str)
+void	erase_outside_quotes(char **str)
 {
 	size_t j = 0;
 	int flag = 0;
@@ -34,9 +32,9 @@ void erase_outside_quotes(char **str)
 
 	new_str = (char *)malloc((strlen(*str) + 1) * sizeof(char));
 	if (new_str == NULL)
-		return;
+		return ;
 
-	char *original_str = *str;  // Save the original pointer
+	char *original_str = *str;
 
 	while (*original_str != '\0')
 	{
@@ -44,13 +42,13 @@ void erase_outside_quotes(char **str)
 		{
 			flag = 1;
 			original_str++;
-			continue;
+			continue ;
 		}
 		else if (*original_str == '\"' && (flag == 0 || flag == 2))
 		{
 			flag = 2;
 			original_str++;
-			continue;
+			continue ;
 		}
 		new_str[j] = *original_str;
 		original_str++;
@@ -59,7 +57,7 @@ void erase_outside_quotes(char **str)
 
 	new_str[j] = '\0';
 
-	free(*str);  // Free the original pointer
+	free(*str);
 	*str = new_str;
 }
 

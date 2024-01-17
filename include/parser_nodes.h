@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:17:26 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:53:45 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:31:41 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ struct			s_node	*new_node(enum e_node type);
  *        children's list.
  */
 int				add_child_node(struct s_node *parent, struct s_node *child);
-
 
 /**
  * @brief sets a node's value to the given string. It copies the string to

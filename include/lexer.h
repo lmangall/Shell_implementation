@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:45 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 19:58:30 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:31:19 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 char	**lexer(char *line);
 
 void	replace_form_feed_with_spaces(char *str);
-void check_quotes_replace_ff(char *line);
+void	check_quotes_replace_ff(char *line);
 // void	print_double_pointer_to_char(char **strArray);
 int		contains_two(char *str, char c);
 void	put_space_back(char **tokens);

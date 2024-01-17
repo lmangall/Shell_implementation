@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 10:09:42 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/15 17:56:45 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:45:26 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #include <stddef.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
 
 char	*search_path(char *cmd, t_data *data)
 {
@@ -48,11 +47,6 @@ char	*search_path(char *cmd, t_data *data)
 	}
 	free_string_array_index(paths_arr, i);
 	paths_arr = NULL;
-	// set_var(data, "?", "127");
-	// free_string_array(argv);
-	// free_string_array(data->envp_arr);
-	// printf("mini\033[31m(fucking)\033[0mshell: %s: command not found\n", cmd);
-	// exit(127);
 	return (NULL);
 }
 
@@ -61,7 +55,6 @@ void	handle_absolute_path(char **argv, char **custom_env)
 	if (access(argv[0], 0))
 	{
 		printf("No such file or directory\n");
-		// set_var(data, "?", "127");
 		exit(127);
 	}
 	execve(argv[0], argv, custom_env);

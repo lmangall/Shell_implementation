@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:27:44 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 20:25:54 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:47:12 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ struct s_node	*parse_simple_command(char **tokens, t_data *data)
 	return (root);
 }
 
-
-void erase_outside_quotes_on_tokens(char **tokens)
+void	erase_outside_quotes_on_tokens(char **tokens)
 {
 	int	i;
 
@@ -57,39 +56,13 @@ void erase_outside_quotes_on_tokens(char **tokens)
 	}
 }
 
-// static void   replace_space_by_ff(char *str)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	if(str[i] == ' ')
-// 		while(str[i] == ' ')
-// 			i++;
-// 	while(str[i] != ' ')
-// 	{
-// 		i++;
-// 	}
-// 	i++;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == ' ')
-// 			str[i] = '\f';
-// 		i++;
-// 	}
-// }
-
 int	parse_and_execute(char *line, t_data *data)
 {
 	char	**tokens;
 
-
-	// replace_space_by_ff(line);
 	check_quotes_replace_ff(line);
 	tokens = lexer(line);
 	put_space_back(tokens);
-
-
-	// data->tokens = tokens;
 	if (data->erased_out_quotes == 0)
 		erase_outside_quotes_on_tokens(tokens);
 	simple_or_advanced(tokens, data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:59:48 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 20:38:06 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:40:58 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exec_pipe_redir(struct s_node *node, t_data *data)
 		do_simple_command(node, data);
 	else
 		exec_redirection(node, data);
-	return(1);
+	return (1);
 }
 
 void	first_child(struct s_node *node, int pipe_fd[2], t_data *data)
@@ -44,10 +44,6 @@ void	first_child(struct s_node *node, int pipe_fd[2], t_data *data)
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	exec_pipe_redir(node, data);
-
-	// free_node_tree(node);
-
-	// exit(get_var(data, "?"));
 }
 
 void	second_child(struct s_node *node, int pipe_fd[2], t_data *data)
@@ -57,8 +53,6 @@ void	second_child(struct s_node *node, int pipe_fd[2], t_data *data)
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	exec_pipe_redir(node, data);
-	// free_single_node(node);
-	// exit(get_var(data, "?"));
 }
 
 void	run_second_child_process(struct s_node *node, 
@@ -76,8 +70,6 @@ void	run_second_child_process(struct s_node *node,
 	}
 	if (child_pid2 == 0) 
 		second_child(node->next_sibling, pipe_fd, data);
-	// else
-	// {
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	waitpid(child_pid1, &status, 0);
@@ -85,7 +77,6 @@ void	run_second_child_process(struct s_node *node,
 	update_status(status, data);
 	free_node_tree_recursive(data->ast);
 	exit(get_var(data, "?"));
-	// }
 }
 
 void	execute_pipe_command(struct s_node *node, t_data *data)

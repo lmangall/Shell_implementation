@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 15:40:31 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 15:39:41 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		set_signal_handlers();
 	}
-	// cleanup_and_exit(line, &data);
 	return (0);
 }
 

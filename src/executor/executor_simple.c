@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_simple.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:09:33 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 13:46:22 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:44:19 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,7 @@ int	do_simple_command(struct s_node *root_node, t_data *data)
 		return (0);
 	else
 		data->argv = argv;
-	// free_node_tree_recursive(root_node);
 	free_node_tree(root_node, NULL);
 	exec_cmd(argv, data);
-
-	// free_string_array(data->argv);
-	// free_string_array(data->envp_arr);
-	// free_string_array(data->tokens);
-	
-
-	// free_string_array(argv);
-	// free_string_array(data->envp_arr);
-	// cleanup_and_exit(NULL, data);
 	return (1);
 }

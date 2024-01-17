@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 20:16:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:43:23 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,9 @@ int	exec_cmd(char **argv, t_data *data)
 		path = search_path(argv[0], data);
 		if (!path)
 		{
-			// data->path = path;
 			printf("\n %s: invalid command\n", argv[0]);
-			// set_var(data, "?", "127");
-			// update_status(32512, data);
 			free_string_array(data->argv);
 			free_string_array(data->envp_arr);
-			// free_string_array(data->tokens);
-			// rl_clear_history();
-			// free_node_tree(data->ast, NULL);
 			exit(127);
 			return (1);
 		}
@@ -103,11 +97,6 @@ void	simple_or_advanced(char **tokens, t_data *data)
 			exec_pipe_redir(cmd, data);
 		waitpid(-1, &status, 0);
 		update_status(status, data);
-		// free_string_array(data->tokens);
 		free_node_tree_recursive(data->ast);
-		// rl_clear_history();
 	}
-
-	// free_string_array(data->tokens);
-	// free_node_tree_recursive(cmd);
 }

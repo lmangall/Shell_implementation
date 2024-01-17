@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:18:17 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 13:01:30 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:32:43 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ typedef struct s_vars
 
 typedef struct s_data
 {
-	char	*paths;
-	char	*envp;
-	int		num_vars;
-	int		num_shell_vars;
-	char	*last_command_exit_status;
-	t_vars	vc[MAX_VARS];
-	t_vars	shell_vc[MAX_VARS];
-	char	**tokens;
-	char	**argv;
-	char	**envp_arr;
-	char	*path;
-	int		erased_out_quotes;
+	char			*paths;
+	char			*envp;
+	int				num_vars;
+	int				num_shell_vars;
+	char			*last_command_exit_status;
+	t_vars			vc[MAX_VARS];
+	t_vars			shell_vc[MAX_VARS];
+	char			**tokens;
+	char			**argv;
+	char			**envp_arr;
+	char			*path;
+	int				erased_out_quotes;
 	struct s_node	*ast;
 }	t_data;
 

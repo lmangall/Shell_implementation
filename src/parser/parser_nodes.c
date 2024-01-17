@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_nodes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 17:21:03 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:51:33 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:47:48 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ struct s_node	*create_root_node(char *token)
 	new_cmd = new_node(ROOT);
 	if (!new_cmd)
 		return (NULL);
-
 	cmd_var = new_node(VAR);
 	if (!cmd_var)
 	{
