@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 00:12:13 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:17:54 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include "../../lib/libft/src/libft.h"
 #include <errno.h>
 #include <unistd.h>
-
-
 
 int	inside_quote(const char *str)
 {
@@ -70,110 +68,6 @@ int	quote_pattern(const char *str)
 	}
 	return (ret);
 }
-
-
-
-
-
-
-
-
-
-// char	*expand(char *str, t_data *data)
-// {
-// 	char	*var_name;
-// 	t_vars	*var;
-// 	int		expansion;
-// 	char	*str_without_quotes;
-
-// 	var_name = NULL;
-// 	var = NULL;
-// 	expansion = 5;
-// 	if (contains_two(str, '\"') || contains_two(str, '\''))
-// 		expansion = quote_pattern(str);
-// 	if (expansion <= 2 || expansion == 5)
-// 	{
-// 		var_name = identify_var(str, data);
-// 		if (var_name == NULL)
-// 			return (str);
-// 		var = find_var(var_name, data);
-// 		expand_var(&str, &var);
-// 	}
-// 	if (contains_two(str, '\"') || contains_two(str, '\''))
-// 	{
-// 		str_without_quotes = (char *)erase_outside_quotes(str);
-// 		data->erased_out_quotes = 1;
-// 		free(str);
-// 		str = str_without_quotes;
-// 	}
-// 	return (str);
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-int	surrounded_by_double_quotes(char *str, int current_index)
-{
-	int	double_quotes_count;
-	int	i;
-
-	double_quotes_count = 0;
-	i = 0;
-	while (i <= current_index)
-	{
-		if (str[i] == '"')
-		{
-			double_quotes_count++;
-		}
-		i++;
-	}
-	return (double_quotes_count % 2 != 0);
-}
-
-int	is_inside_single_quotes(char *str, int current_index)
-{
-	int	inside_single_quotes;
-	int	i;
-
-	inside_single_quotes = 0;
-	i = 0;
-	while (i < current_index)
-	{
-		if (str[i] == '\'')
-		{
-			inside_single_quotes = !inside_single_quotes;
-		}
-		i++;
-	}
-	return (inside_single_quotes);
-}
-
 
 char *expand(char *str, t_data *data)
 {

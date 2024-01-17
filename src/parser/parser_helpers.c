@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_advcd_cmd.c                                 :+:      :+:    :+:   */
+/*   parser_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/06 17:19:36 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:12:15 by ohoro            ###   ########.fr       */
+/*   Created: 2024/01/17 15:58:08 by ohoro             #+#    #+#             */
+/*   Updated: 2024/01/17 16:01:25 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,30 @@
 #include <errno.h>
 #include <unistd.h>
 
-void	handle_operator(int *i)
+struct s_node	*create_new_command(char **tokens, int i, struct s_node **head,
+		struct s_node **current_cmd)
 {
-	(*i)++;
-	(*i)--;
+	struct s_node	*new_cmd;
+
+	new_cmd = create_root_node(tokens[i]);
+	if (!new_cmd)
+		return (NULL);
+	if (!add_command_node_to_list(head, current_cmd, new_cmd))
+		return (NULL);
+	new_cmd->operator = get_operator(tokens + i);
+	return (new_cmd);
 }
 
-struct s_node	*parse_advanced_command(char **tokens)
+struct s_node	*handle_regular_word(char **tokens, int i,
+		struct s_node *current_cmd)
 {
-	int				i;
-	struct s_node	*head;
-	struct s_node	*current_cmd;
+	struct s_node	*word;
 
-	i = 0;
-	head = NULL;
-	current_cmd = NULL;
-	while (tokens[i] != NULL)
-	{
-		if ((i == 0) || ((is_operator(tokens[i - 1])) && (i > 0)))
-		{
-			current_cmd = create_new_command(tokens, i, &head, &current_cmd);
-			if (!current_cmd)
-				return (NULL);
-		}
-		else if (is_operator(tokens[i]))
-			handle_operator(&i);
-		else
-		{
-			if (!handle_regular_word(tokens, i, current_cmd))
-				return (NULL);
-		}
-		i++;
-	}
-	free_string_array(tokens);
-	return (head);
+	word = new_node(VAR);
+	if (!word)
+		return (NULL);
+	word->str = ft_strdup(tokens[i]);
+	if (!add_child_node(current_cmd, word))
+		return (NULL);
+	return (word);
 }

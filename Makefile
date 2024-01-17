@@ -6,7 +6,7 @@
 #    By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/17 15:36:51 by ohoro            ###   ########.fr        #
+#    Updated: 2024/01/17 15:58:33 by ohoro            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS =	lexer_expander/lexer.c \
 		parser/parser_operators.c \
 		parser/parser_nodes.c \
 		parser/parser_nodes_utils.c \
+		parser/parser_helpers.c \
 		executor/executor.c \
 		executor/executor_simple.c \
 		executor/path.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 18:11:09 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/16 12:08:28 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:16:08 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,14 @@
 char	**lexer(char *line)
 {
 	char	**tokens;
-	// char	*line_without_quotes;
 
 	tokens = NULL;
-	// line_without_quotes = NULL;
 	if (!line)
 		return (NULL);
 	if (contains_two(line, '\"') || contains_two(line, '\''))
 	{
 		check_quotes_replace_ff(line);
-		// line_without_quotes = erase_outside_quotes(line);
-		// line_without_quotes = line;
 		tokens = ft_split(line, ' ');
-		// free(line_without_quotes);
 	}
 	else
 		tokens = ft_split(line, ' ');

@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 15:52:07 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 16:14:55 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@
 
 void	erase_outside_quotes(char **str)
 {
-	size_t j = 0;
-	int flag = 0;
-	char *new_str;
+	size_t	j;
+	int		flag;
+	char	*new_str;
+	char	*original_str;
 
+	j = 0;
+	flag = 0;
 	new_str = (char *)malloc((strlen(*str) + 1) * sizeof(char));
 	if (new_str == NULL)
 		return ;
-
-	char *original_str = *str;
-
+	original_str = str;
 	while (*original_str != '\0')
 	{
 		if (*original_str == '\'' && (flag == 0 || flag == 1))
@@ -54,15 +55,10 @@ void	erase_outside_quotes(char **str)
 		original_str++;
 		j++;
 	}
-
 	new_str[j] = '\0';
-
 	free(*str);
 	*str = new_str;
 }
-
-
-
 
 const char	*find_first_quotes(const char *str)
 {
