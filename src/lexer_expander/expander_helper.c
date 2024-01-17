@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 19:13:25 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/17 15:52:50 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 16:55:15 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*find_var_value(char *var_name, t_data *data)
 	}
 	return (NULL);
 }
-
 char	*extract_variable_name(char *str, int *original_index)
 {
 	char	var_name[50];
@@ -59,6 +58,10 @@ char	*extract_variable_name(char *str, int *original_index)
 		var_name[var_name_index++] = str[(*original_index)++];
 	}
 	var_name[var_name_index] = '\0';
+
+	if (var_name_index == 0)
+		return NULL;
+
 	return (ft_strdup(var_name));
 }
 
