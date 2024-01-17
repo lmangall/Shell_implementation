@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 17:49:20 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:11:39 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			signal(SIGQUIT, handle_ctrl_backslash);
 			signal(SIGINT, handle_ctrl_c_in_command);
-			if (g_global_exit_status == 1)
-			{
-				set_var(&data, "?", "130");
-				g_global_exit_status = 0;
-			}
+			toggle_global_var(&data);
 			prepare_command_execution(&line, &data);
 			builtins_to_parsing(line, &data);
 			free(line);

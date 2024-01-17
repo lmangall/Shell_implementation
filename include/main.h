@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:57 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 17:06:39 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:13:02 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	cleanup_and_exit(char *line, t_data *data);
  */
 int		main(int argc, char **argv, char **envp);
 void	remove_leading_tabs(char *str);
+void	toggle_global_var(t_data *data);
 
 #endif

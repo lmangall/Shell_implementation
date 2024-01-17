@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:36:04 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/17 17:14:32 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 18:12:18 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ void	remove_leading_tabs(char *str)
 		j++;
 	}
 	str[j] = '\0';
+}
+
+// extracted from main.c
+void	toggle_global_var(t_data *data)
+{
+	if (g_global_exit_status == 1)
+	{
+		set_var(data, "?", "130");
+		g_global_exit_status = 0;
+	}
 }
