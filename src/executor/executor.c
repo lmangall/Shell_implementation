@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:44:06 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:35:04 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 16:45:23 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ void	simple_or_advanced(char **tokens, t_data *data)
 		cmd = parse_advanced_command(tokens);
 		data->ast = cmd;
 		if (fork() == 0)
-		{
 			exec_pipe_redir(cmd, data);
-		}
 		waitpid(-1, &status, 0);
 		update_status(status, data);
 		free_node_tree_recursive(data->ast);
