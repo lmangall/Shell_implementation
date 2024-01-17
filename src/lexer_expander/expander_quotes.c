@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 20:34:24 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:36:47 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,4 @@ void	erase_outside_quotes(char **str)
 	new_str[j] = '\0';
 	free(*str);
 	*str = new_str;
-}
-
-void	process_variable(char *str, t_data *data, char *xpned_str, int *idx, int *o_i)
-{
-	char *var_name = extract_variable_name(str, o_i);
-	if (var_name != NULL)
-	{
-		char *var_value = find_var_value(var_name, data);
-		if (var_value != NULL)
-			append_variable_value(var_value, xpned_str, idx);
-		else
-			handle_missing_variable(var_name, xpned_str, idx);
-		free(var_name);
-	}
-	else
-		xpned_str[(*idx)++] = '$';
 }
