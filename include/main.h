@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:16:57 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:34:03 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 17:06:39 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	cleanup_and_exit(char *line, t_data *data);
  * @return The exit status of the shell.
  */
 int		main(int argc, char **argv, char **envp);
+void	remove_leading_tabs(char *str);
 
 #endif

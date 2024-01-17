@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:22:39 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 15:39:41 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 17:12:45 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,10 @@
 #include <string.h>
 #include <sys/wait.h>
 
-void	remove_leading_tabs(char *str)
+static void	add_history_and_rmlt(char **line)
 {
-	int	i;
-	int	j;
-
-	if (str == NULL)
-		return ;
-	i = 0;
-	while (str[i] == '\t')
-		i++;
-	j = 0;
-	while (str[i] != '\0')
-	{
-		str[j] = str[i];
-		i++;
-		j++;
-	}
-	str[j] = '\0';
+	add_history(*line);
+	remove_leading_tabs(*line);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -62,8 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline(SHELL_PROMPT);
-		add_history(line);
-		remove_leading_tabs(line);
+		add_history_and_rmlt(&line);
 		if (!line)
 			handle_ctrl_d(SIGQUIT);
 		if (line[0] != '\0')

@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:36:04 by ohoro             #+#    #+#             */
-/*   Updated: 2024/01/17 15:42:17 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 17:07:33 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,25 @@ void	free_string_array_index(char **arr, size_t i)
 	}
 	free(arr);
 	arr = NULL;
+}
+
+// extracted from main.c
+void	remove_leading_tabs(char *str)
+{
+	int	i;
+	int	j;
+
+	if (str == NULL)
+		return ;
+	i = 0;
+	while (str[i] == '\t')
+		i++;
+	j = 0;
+	while (str[i] != '\0')
+	{
+		str[j] = str[i];
+		i++;
+		j++;
+	}
+	str[j] = '\0';
 }
