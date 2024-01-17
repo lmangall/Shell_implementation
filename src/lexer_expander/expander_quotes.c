@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 20:36:47 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:44:10 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,21 @@ void	erase_outside_quotes(char **str)
 	new_str[j] = '\0';
 	free(*str);
 	*str = new_str;
+}
+
+int	quote_pattern(const char *str)
+{
+	int	ret;
+
+	ret = 0;
+	if (contains_two((char *)str, '\"') && contains_two((char *)str, '\''))
+		ret = inside_quote(str);
+	else
+	{
+		if (contains_two((char *)str, '\"'))
+			ret = 1;
+		if (contains_two((char *)str, '\''))
+			ret = 4;
+	}
+	return (ret);
 }

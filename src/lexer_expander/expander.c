@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 20:36:49 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 20:44:42 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,49 +52,37 @@ int	contains_two(char *str, char c)
 	return (0);
 }
 
-int	quote_pattern(const char *str)
+void	handle_variable(char *var_name, t_data *data, char *xpned_str, int *idx)
 {
-	int	ret;
+	char	*var_value;
+	int		var_name_len;
 
-	ret = 0;
-	if (contains_two((char *)str, '\"') && contains_two((char *)str, '\''))
-		ret = inside_quote(str);
+	var_name_len = ft_strlen(var_name);
+	var_value = find_var_value(var_name, data);
+	if (var_value != NULL)
+		append_variable_value(var_value, xpned_str, idx);
 	else
 	{
-		if (contains_two((char *)str, '\"'))
-			ret = 1;
-		if (contains_two((char *)str, '\''))
-			ret = 4;
+		xpned_str[(*idx)++] = '$';
+		ft_memcpy(&xpned_str[*idx], var_name, var_name_len);
+		*idx += var_name_len;
 	}
-	return (ret);
+	free(var_name);
 }
 
 void	expand_variables(char *str, t_data *data, char *xpned_str, int *idx)
 {
-	char	*var_name;
-	char	*var_value;
 	int		o_i;
+	char	*var_name;
 
 	o_i = 0;
+	var_name = extract_variable_name(str, &o_i);
 	while (str[o_i] != '\0')
 	{
 		if (str[o_i] == '$')
 		{
-			var_name = extract_variable_name(str, &o_i);
 			if (var_name != NULL)
-			{
-				var_value = find_var_value(var_name, data);
-				if (var_value != NULL)
-					append_variable_value(var_value, xpned_str, idx);
-				else
-				{
-					xpned_str[(*idx)++] = '$';
-					int var_name_len = strlen(var_name);
-					ft_memcpy(&xpned_str[*idx], var_name, var_name_len);
-					*idx += var_name_len;
-				}
-				free(var_name);
-			}
+				handle_variable(var_name, data, xpned_str, idx);
 			else
 				xpned_str[(*idx)++] = '$';
 		}
