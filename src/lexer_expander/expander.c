@@ -6,7 +6,7 @@
 /*   By: lmangall <lmangall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:14:51 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:58:55 by lmangall         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:58:19 by lmangall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char *expand(char *str, t_data *data)
 	expansion = 5;
 	expanded_index = 0;
 
-	expanded_str = (char *)malloc(sizeof(char) * (ft_strlen(str) * 2 + 1));
+	expanded_str = (char *)malloc(sizeof(char) * (ft_strlen(str) * 15 + 1));
 	if (expanded_str == NULL)
 		return NULL;
 
