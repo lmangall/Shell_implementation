@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:26:02 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 19:39:53 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,39 @@
 #include <stdlib.h>
 #include <string.h>
 
+int	is_quote(char c)
+{
+	return (c == '\'' || c == '\"');
+}
+
+int	get_quote_type(char c)
+{
+	if (c == '\'')
+		return (1);
+	else
+		return (2);
+}
+
+void	process_inside_quotes(char *new_str, size_t *j,
+			int *flag, char **original_str)
+{
+	if (**original_str == '\'' && (*flag == 0 || *flag == 1))
+	{
+		*flag = 1;
+		(*original_str)++;
+	}
+	else if (**original_str == '\"' && (*flag == 0 || *flag == 2))
+	{
+		*flag = 2;
+		(*original_str)++;
+	}
+	else
+	{
+		new_str[(*j)++] = **original_str;
+		(*original_str)++;
+	}
+}
+
 void	erase_outside_quotes(char **str)
 {
 	size_t	j;
@@ -39,51 +72,9 @@ void	erase_outside_quotes(char **str)
 	original_str = *str;
 	while (*original_str != '\0')
 	{
-		if (*original_str == '\'' && (flag == 0 || flag == 1))
-		{
-			flag = 1;
-			original_str++;
-			continue ;
-		}
-		else if (*original_str == '\"' && (flag == 0 || flag == 2))
-		{
-			flag = 2;
-			original_str++;
-			continue ;
-		}
-		new_str[j] = *original_str;
-		original_str++;
-		j++;
+		process_inside_quotes(new_str, &j, &flag, &original_str);
 	}
 	new_str[j] = '\0';
 	free(*str);
 	*str = new_str;
-}
-
-const char	*find_first_quotes(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-			return (&str[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-const char	*find_last_quotes(const char *str)
-{
-	int	i;
-
-	i = ft_strlen(str);
-	while (i != 0)
-	{
-		i--;
-		if (str[i] == '\"' || str[i] == '\'')
-			return (&str[i]);
-	}
-	return (NULL);
 }

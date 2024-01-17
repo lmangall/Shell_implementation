@@ -6,7 +6,7 @@
 #    By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 18:29:39 by lmangall          #+#    #+#              #
-#    Updated: 2024/01/17 16:24:26 by ohoro            ###   ########.fr        #
+#    Updated: 2024/01/17 19:30:06 by ohoro            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS =	lexer_expander/lexer.c \
 		lexer_expander/expander.c \
 		lexer_expander/expander_quotes.c \
 		lexer_expander/expander_helper.c \
+		lexer_expander/expander_quotes_helper.c \
 		builtins/builtins.c \
 		builtins/cd.c \
 		builtins/echo.c  \
