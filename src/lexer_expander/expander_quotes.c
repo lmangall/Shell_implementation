@@ -6,7 +6,7 @@
 /*   By: ohoro <ohoro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 00:13:46 by lmangall          #+#    #+#             */
-/*   Updated: 2024/01/17 16:14:55 by ohoro            ###   ########.fr       */
+/*   Updated: 2024/01/17 16:26:02 by ohoro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	erase_outside_quotes(char **str)
 	new_str = (char *)malloc((strlen(*str) + 1) * sizeof(char));
 	if (new_str == NULL)
 		return ;
-	original_str = str;
+	original_str = *str;
 	while (*original_str != '\0')
 	{
 		if (*original_str == '\'' && (flag == 0 || flag == 1))
