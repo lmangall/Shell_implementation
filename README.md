@@ -1,7 +1,11 @@
 
-# minishell
+# the C Shell Project
 
-##Our AST:
+**To deepen their understanding of operating systems and C programming we implemented our version of a Unix shell, crafted entirely in C
+MiniShell stands as a milestone in our learning path, it is a hands-on approach to understanding the low-level operations in our OS.**
+
+
+##AST visual representation:
 
 For simple commands
 <img width="1129" alt="Screenshot 2024-01-14 at 13 44 04" src="https://github.com/lmangall/minishell/assets/107299611/4240c60d-920b-4385-8b6a-419cfa071e6d">
