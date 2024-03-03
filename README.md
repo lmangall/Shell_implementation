@@ -5,7 +5,7 @@
 MiniShell stands as a milestone in our learning path, it is a hands-on approach to understanding the low-level operations in our OS.**
 
 
-##AST visual representation:
+## AST visual representation:
 
 For simple commands
 <img width="1129" alt="Screenshot 2024-01-14 at 13 44 04" src="https://github.com/lmangall/minishell/assets/107299611/4240c60d-920b-4385-8b6a-419cfa071e6d">
@@ -17,7 +17,7 @@ Final approach to complex commands
 <img width="965" alt="Screenshot 2024-01-14 at 13 44 45" src="https://github.com/lmangall/minishell/assets/107299611/3f6fad9e-adab-4891-a46a-85a79b694261">
 
 
-##Valgrind
+## Valgrind
 valgrind --leak-check=full --show-leak-kinds=all ./minishell
 
 valgrind --suppressions=suppressions.supp --leak-check=full --show-leak-kinds=all ./minishell
